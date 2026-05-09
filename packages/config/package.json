@@ -1,0 +1,8 @@
+{
+  "name": "@welqo/config",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "format": "prettier --check ."
+  }
+}

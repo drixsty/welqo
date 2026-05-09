@@ -1,0 +1,20 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+# Install dependencies needed for some node modules
+RUN apk add --no-cache libc6-compat
+
+# Copy root config files
+COPY package.json package-lock.json turbo.json ./
+COPY apps/api/package.json ./apps/api/
+COPY packages/ ./packages/
+
+# Install dependencies (only api and shared packages)
+RUN npm install --include=dev --legacy-peer-deps
+
+# Expose port
+EXPOSE 3001
+
+# Command to start in dev mode
+CMD ["npm", "run", "dev", "--workspace=@welqo/api"]

@@ -1,0 +1,15 @@
+FROM node:20-alpine
+
+WORKDIR /app
+
+RUN apk add --no-cache libc6-compat
+
+COPY package.json package-lock.json turbo.json ./
+COPY apps/web-dashboard/package.json ./apps/web-dashboard/
+COPY packages/ ./packages/
+
+RUN npm install --include=dev --legacy-peer-deps
+
+EXPOSE 3002
+
+CMD ["npm", "run", "dev", "--workspace=@welqo/web-dashboard"]

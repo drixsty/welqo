@@ -1,0 +1,33 @@
+{
+  "HomePage": {
+    "badge": "Excellence en Conciergerie Airbnb",
+    "heroTitle": "L'ART DE RECEVOIR EN TOUTE SÉRÉNITÉ.",
+    "heroSubtitle": "Gestion complète pour propriétaires, expériences inoubliables pour voyageurs. Découvrez une transparence totale et une rentabilité optimisée.",
+    "bookStay": "Réserver un séjour",
+    "trustUs": "Confier mon bien",
+    "featuredTitle": "Nos Demeures D'Exception",
+    "featuredSubtitle": "Sélectionnées avec soin pour leur design, leur confort et leur emplacement privilégié.",
+    "viewCatalog": "Voir tout le catalogue"
+  },
+  "Navbar": {
+    "properties": "Propriétés",
+    "concierge": "Conciergerie",
+    "pricing": "Tarifs",
+    "contact": "Contact"
+  },
+  "PropertyPage": {
+    "bookNow": "Réserver maintenant",
+    "guests": "voyageurs",
+    "bedrooms": "chambres",
+    "beds": "lits",
+    "bathrooms": "salles de bain",
+    "night": "nuit",
+    "amenities": "Ce que propose ce logement",
+    "total": "Total (TTC)"
+  },
+  "Common": {
+    "guests": "personnes",
+    "night": "nuit",
+    "details": "Détails"
+  }
+}

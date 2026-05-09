@@ -1,0 +1,33 @@
+{
+  "HomePage": {
+    "badge": "Excellence in Airbnb Concierge",
+    "heroTitle": "THE ART OF HOSPITALITY WITH TOTAL PEACE OF MIND.",
+    "heroSubtitle": "Full management for owners, unforgettable experiences for travelers. Discover total transparency and optimized profitability.",
+    "bookStay": "Book Your Stay",
+    "trustUs": "Trust Us With Your Property",
+    "featuredTitle": "Our Exceptional Homes",
+    "featuredSubtitle": "Carefully selected for their design, comfort, and prime locations.",
+    "viewCatalog": "View Catalog"
+  },
+  "Navbar": {
+    "properties": "Properties",
+    "concierge": "Concierge",
+    "pricing": "Pricing",
+    "contact": "Contact"
+  },
+  "PropertyPage": {
+    "bookNow": "Book Now",
+    "guests": "guests",
+    "bedrooms": "bedrooms",
+    "beds": "beds",
+    "bathrooms": "bathrooms",
+    "night": "night",
+    "amenities": "What this place offers",
+    "total": "Total (incl. taxes)"
+  },
+  "Common": {
+    "guests": "guests",
+    "night": "night",
+    "details": "Details"
+  }
+}

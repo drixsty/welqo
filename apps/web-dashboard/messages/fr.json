@@ -1,0 +1,21 @@
+{
+  "LoginPage": {
+    "title": "Connexion Propriétaire",
+    "subtitle": "Accédez à votre espace Welqo pour piloter votre bien en temps réel.",
+    "emailLabel": "Adresse Email",
+    "passwordLabel": "Mot de passe",
+    "loginButton": "Se connecter",
+    "forgotPassword": "Mot de passe oublié ?",
+    "noAccount": "Vous n'avez pas encore de compte ?",
+    "contactWelqo": "Contactez Welqo pour nous confier votre bien."
+  },
+  "Dashboard": {
+    "title": "Tableau de Bord",
+    "welcome": "Bienvenue, {name}",
+    "overview": "Vue d'ensemble",
+    "totalRevenue": "Revenu Total",
+    "occupancyRate": "Taux d'Occupation",
+    "adr": "Prix Moyen (ADR)",
+    "upcomingBookings": "Prochaines arrivées"
+  }
+}

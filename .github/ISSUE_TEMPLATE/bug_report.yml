@@ -1,0 +1,51 @@
+name: "🐛 Bug Report"
+description: "Report a bug or unexpected behavior"
+title: "[bug](scope): <short description>"
+labels: ["bug", "triage"]
+body:
+  - type: dropdown
+    id: scope
+    attributes:
+      label: "Affected app/package"
+      options:
+        - api
+        - web-storefront
+        - web-dashboard
+        - mobile-dashboard
+        - mobile-tenant
+        - packages/types
+        - packages/ui
+        - packages/beds24-client
+        - packages/stripe-client
+        - infra/docker
+        - ci/cd
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Bug description"
+      placeholder: "What happened? What did you expect?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: "Steps to reproduce"
+      placeholder: |
+        1. Go to ...
+        2. Click on ...
+        3. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: "Environment"
+      placeholder: |
+        - Node version: 20.x
+        - OS: macOS / Linux / Windows
+        - Browser (if frontend): Chrome 124

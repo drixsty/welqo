@@ -1,0 +1,67 @@
+name: "✨ Feature / User Story"
+description: "New feature linked to a PRD user story"
+title: "[feat](scope): <US-XXX> <short description>"
+labels: ["feature", "needs-review"]
+body:
+  - type: dropdown
+    id: scope
+    attributes:
+      label: "Affected app/package"
+      options:
+        - api
+        - web-storefront
+        - web-dashboard
+        - mobile-dashboard
+        - mobile-tenant
+        - packages/types
+        - packages/ui
+        - packages/beds24-client
+        - packages/stripe-client
+        - infra
+    validations:
+      required: true
+
+  - type: input
+    id: prd-ref
+    attributes:
+      label: "PRD Reference"
+      placeholder: "e.g. US-B03 — Paiement Stripe + confirmation"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: moscow
+    attributes:
+      label: "Priority (MoSCoW from PRD)"
+      options:
+        - MUST HAVE
+        - SHOULD HAVE
+        - COULD HAVE
+        - WON'T HAVE
+    validations:
+      required: true
+
+  - type: textarea
+    id: user-story
+    attributes:
+      label: "User Story"
+      placeholder: "As a [persona], I want [action] so that [benefit]"
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: "Acceptance Criteria (from PRD)"
+      placeholder: |
+        GIVEN ...
+        WHEN ...
+        THEN ...
+    validations:
+      required: true
+
+  - type: input
+    id: estimate
+    attributes:
+      label: "Story points estimate"
+      placeholder: "e.g. 5"

@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Run lint-staged on modified files
+npx lint-staged
+
+# Run type-check on affected packages
+npx turbo run type-check --filter=[HEAD^1]

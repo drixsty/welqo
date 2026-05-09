@@ -1,0 +1,22 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    "target": "ES2022",
+    "lib": ["ES2022"],
+    "outDir": "./dist",
+    "baseUrl": "./",
+    "paths": {
+      "@welqo/types": ["../../packages/types/src/index.ts"],
+      "@welqo/beds24-client": ["../../packages/beds24-client/src/index.ts"],
+      "@welqo/stripe-client": ["../../packages/stripe-client/src/index.ts"]
+    },
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "strictNullChecks": true,
+    "noImplicitAny": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist", "test"]
+}

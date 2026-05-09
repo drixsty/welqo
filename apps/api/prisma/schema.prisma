@@ -1,0 +1,259 @@
+// Welqo — Prisma Schema
+// Bounded Contexts: Property | Booking | Payment | Owner | Sync
+// Database: PostgreSQL 16
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─── ENUMS ────────────────────────────────────────────────────────────────────
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+  COMPLETED
+  NO_SHOW
+}
+
+enum PaymentStatus {
+  PENDING
+  SUCCEEDED
+  FAILED
+  REFUNDED
+  PARTIALLY_REFUNDED
+}
+
+enum OwnerRole {
+  OWNER        // Property owner (Marc persona)
+  ADMIN        // Welqo admin (back-office)
+  OPS_MANAGER  // Operations manager
+  CLEANING     // Cleaning team member
+  MAINTENANCE  // Maintenance technician
+}
+
+enum SyncStatus {
+  OK
+  PENDING
+  FAILED
+  STALE
+}
+
+enum PropertyStatus {
+  ACTIVE
+  INACTIVE
+  MAINTENANCE
+}
+
+// ─── OWNER CONTEXT ────────────────────────────────────────────────────────────
+
+model Owner {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  passwordHash String
+  firstName    String
+  lastName     String
+  phone        String?
+  role         OwnerRole @default(OWNER)
+  isActive     Boolean   @default(true)
+  lastLoginAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Relations
+  properties   Property[]
+  refreshTokens RefreshToken[]
+
+  @@map("owners")
+}
+
+model RefreshToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  ownerId   String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+
+  owner Owner @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+
+  @@map("refresh_tokens")
+}
+
+// ─── PROPERTY CONTEXT ─────────────────────────────────────────────────────────
+
+model Property {
+  id           String         @id @default(cuid())
+  slug         String         @unique
+  ownerId      String
+  status       PropertyStatus @default(ACTIVE)
+
+  // Content (bilingual FR/EN)
+  titleFr      String
+  titleEn      String
+  descFr       String         @db.Text
+  descEn       String         @db.Text
+
+  // Location
+  address      String
+  city         String
+  country      String         @default("FR")
+  latitude     Float?
+  longitude    Float?
+
+  // Capacity & config
+  maxGuests    Int
+  bedrooms     Int
+  bathrooms    Int
+  surface      Float?
+
+  // Pricing
+  basePricePerNight Float
+  cleaningFee       Float
+  touristTax        Float     @default(0)
+
+  // External IDs
+  beds24PropertyId  String?  @unique
+  airbnbListingId   String?
+  bookingListingId  String?
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  // Relations
+  owner        Owner       @relation(fields: [ownerId], references: [id])
+  photos       PropertyPhoto[]
+  amenities    PropertyAmenity[]
+  bookings     Booking[]
+  syncJobs     SyncJob[]
+
+  @@map("properties")
+}
+
+model PropertyPhoto {
+  id         String   @id @default(cuid())
+  propertyId String
+  url        String
+  altFr      String?
+  altEn      String?
+  position   Int      @default(0)
+  isCover    Boolean  @default(false)
+  createdAt  DateTime @default(now())
+
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@map("property_photos")
+}
+
+model PropertyAmenity {
+  id         String   @id @default(cuid())
+  propertyId String
+  key        String   // e.g. "wifi", "parking", "pool"
+  labelFr    String
+  labelEn    String
+
+  property Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+
+  @@unique([propertyId, key])
+  @@map("property_amenities")
+}
+
+// ─── BOOKING CONTEXT ──────────────────────────────────────────────────────────
+
+model Booking {
+  id           String        @id @default(cuid())
+  propertyId   String
+  status       BookingStatus @default(PENDING)
+
+  // Guest info
+  guestFirstName String
+  guestLastName  String
+  guestEmail     String
+  guestPhone     String?
+  guestCount     Int
+
+  // Stay
+  checkIn      DateTime
+  checkOut     DateTime
+  nightsCount  Int
+
+  // Financials
+  nightlyRate       Float
+  cleaningFee       Float
+  touristTax        Float    @default(0)
+  totalAmountGross  Float    // Before Welqo commission
+  welqoCommission   Float    // 20%
+  totalAmountNet    Float    // Owner receives this
+
+  // External IDs
+  beds24BookingId   String?  @unique
+  stripeSessionId   String?
+  cancellationToken String?  @unique @default(cuid())
+
+  // Timestamps
+  confirmedAt  DateTime?
+  cancelledAt  DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  // Relations
+  property     Property   @relation(fields: [propertyId], references: [id])
+  payment      Payment?
+
+  @@index([propertyId, checkIn, checkOut])
+  @@index([guestEmail])
+  @@map("bookings")
+}
+
+// ─── PAYMENT CONTEXT ──────────────────────────────────────────────────────────
+
+model Payment {
+  id                    String        @id @default(cuid())
+  bookingId             String        @unique
+  status                PaymentStatus @default(PENDING)
+
+  // Stripe
+  stripePaymentIntentId String?       @unique
+  stripeChargeId        String?
+  stripeRefundId        String?
+
+  // Amounts
+  amountPaid            Float
+  amountRefunded        Float         @default(0)
+  currency              String        @default("EUR")
+
+  // Idempotency
+  idempotencyKey        String        @unique
+
+  // Timestamps
+  paidAt                DateTime?
+  refundedAt            DateTime?
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+
+  // Relations
+  booking Booking @relation(fields: [bookingId], references: [id])
+
+  @@map("payments")
+}
+
+// ─── SYNC CONTEXT ─────────────────────────────────────────────────────────────
+
+model SyncJob {
+  id           String     @id @default(cuid())
+  propertyId   String
+  status       SyncStatus @default(PENDING)
+  trigger      String     // "cron" | "webhook" | "manual"
+  errorMessage String?
+  syncedAt     DateTime?
+  createdAt    DateTime   @default(now())
+
+  property Property @relation(fields: [propertyId], references: [id])
+
+  @@index([propertyId, createdAt])
+  @@map("sync_jobs")
+}

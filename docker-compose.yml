@@ -1,0 +1,139 @@
+version: '3.9'
+
+# ─────────────────────────────────────────────────────────────
+#  WELQO — Local Development Stack
+#  Services: api, web-storefront, web-dashboard, postgres, redis
+#  Start: docker-compose up -d
+#  Logs:  docker-compose logs -f api
+# ─────────────────────────────────────────────────────────────
+
+networks:
+  welqo-net:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  redis_data:
+
+services:
+
+  # ── PostgreSQL ──────────────────────────────────────────────
+  postgres:
+    image: postgres:16-alpine
+    container_name: welqo-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-welqo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-welqo_secret}
+      POSTGRES_DB: ${POSTGRES_DB:-welqo_dev}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - welqo-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-welqo}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── Redis ───────────────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: welqo-redis
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD:-redis_secret}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - welqo-net
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ── NestJS API ──────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: apps/api/Dockerfile.dev
+    container_name: welqo-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      NODE_ENV: development
+      PORT: 3001
+      DATABASE_URL: postgresql://${POSTGRES_USER:-welqo}:${POSTGRES_PASSWORD:-welqo_secret}@postgres:5432/${POSTGRES_DB:-welqo_dev}
+      REDIS_URL: redis://:${REDIS_PASSWORD:-redis_secret}@redis:6379
+      JWT_SECRET: ${JWT_SECRET:-dev_jwt_secret_change_in_prod}
+      JWT_EXPIRES_IN: 24h
+      REFRESH_TOKEN_EXPIRES_IN: 7d
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+      BEDS24_API_KEY: ${BEDS24_API_KEY}
+      BEDS24_BASE_URL: https://api.beds24.com/v2
+      SYNC_INTERVAL_MS: 600000
+      CORS_ORIGINS: http://localhost:3000,http://localhost:3002
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./apps/api/src:/app/apps/api/src
+      - ./packages:/app/packages
+    networks:
+      - welqo-net
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3001/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # ── Next.js Storefront ──────────────────────────────────────
+  web-storefront:
+    build:
+      context: .
+      dockerfile: apps/web-storefront/Dockerfile.dev
+    container_name: welqo-storefront
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY}
+      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./apps/web-storefront/src:/app/apps/web-storefront/src
+      - ./packages:/app/packages
+    networks:
+      - welqo-net
+
+  # ── Next.js Dashboard ───────────────────────────────────────
+  web-dashboard:
+    build:
+      context: .
+      dockerfile: apps/web-dashboard/Dockerfile.dev
+    container_name: welqo-dashboard
+    restart: unless-stopped
+    depends_on:
+      - api
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: http://localhost:3001
+      NEXT_PUBLIC_DASHBOARD_URL: http://localhost:3002
+    ports:
+      - "3002:3002"
+    volumes:
+      - ./apps/web-dashboard/src:/app/apps/web-dashboard/src
+      - ./packages:/app/packages
+    networks:
+      - welqo-net

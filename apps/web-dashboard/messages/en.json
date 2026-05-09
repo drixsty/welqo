@@ -1,0 +1,21 @@
+{
+  "LoginPage": {
+    "title": "Owner Login",
+    "subtitle": "Access your Welqo space to manage your property in real time.",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "loginButton": "Login",
+    "forgotPassword": "Forgot password?",
+    "noAccount": "Don't have an account yet?",
+    "contactWelqo": "Contact Welqo to entrust us with your property."
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome, {name}",
+    "overview": "Overview",
+    "totalRevenue": "Total Revenue",
+    "occupancyRate": "Occupancy Rate",
+    "adr": "Average Daily Rate (ADR)",
+    "upcomingBookings": "Upcoming Bookings"
+  }
+}

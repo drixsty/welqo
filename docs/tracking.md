@@ -5,20 +5,20 @@
 | ID             | User Story / Task                                | Module      | MoSCoW | Points | Statut         |
 | :------------- | :----------------------------------------------- | :---------- | :----- | :----- | :------------- |
 | **SOCLE**      | **Socle Technique (V0.1 - Bordeaux Pilot)**      | -           | -      | -      | **[COMPLÉTÉ]** |
-| **US-DSGN-01** | Identité Visuelle (Anthracite/Terracotta/Crème)  | Design      | MUST   | 3      | [ ]            |
-| **US-DSGN-02** | UI Kit & Composants Dashboard (Tailwind)         | Design      | MUST   | 5      | [ ]            |
+| **US-DSGN-01** | Identité Visuelle (Anthracite/Terracotta/Crème)  | Design      | MUST   | 3      | [x]            |
+| **US-DSGN-02** | UI Kit & Composants Dashboard (Tailwind)         | Design      | MUST   | 5      | [x]            |
 | **US-MKT-01**  | Scraping/Import Calendrier Événements Lens/Arras | Recherche   | SHOULD | 5      | [ ]            |
 | **US-MKT-02**  | Audit Réglementaire détaillé par ville cible     | Recherche   | MUST   | 3      | [ ]            |
-| **US-ACQ-01**  | Landing Page "Propriétaire Lens/Arras"           | Acquisition | MUST   | 5      | [ ]            |
-| **US-ACQ-02**  | Formulaire d'Estimation de Revenus               | Acquisition | MUST   | 3      | [ ]            |
-| **US-ACQ-03**  | Workflow Signature Mandat Digital                | Acquisition | MUST   | 8      | [ ]            |
+| **US-ACQ-01**  | Landing Page "Propriétaire Lens/Arras"           | Acquisition | MUST   | 5      | [x]            |
+| **US-ACQ-02**  | Formulaire d'Estimation de Revenus               | Acquisition | MUST   | 3      | [x]            |
+| **US-ACQ-03**  | Workflow Signature Mandat Digital                | Acquisition | MUST   | 8      | [x]            |
 | **US-DASH-01** | Pricing Dynamique (Calendrier Overrides)         | Dashboard   | MUST   | 8      | [ ]            |
 | **US-DASH-02** | Messagerie Locataires (Chat Temps Réel)          | Dashboard   | SHOULD | 13     | [ ]            |
 | **US-DASH-03** | Configuration Messages Automatiques              | Dashboard   | SHOULD | 5      | [ ]            |
 | **US-SRCH-01** | Recherche Localisée (Bassin Minier)              | Recherche   | MUST   | 5      | [ ]            |
 | **US-SRCH-02** | Filtre de Prix sur Carte Interactive             | Recherche   | SHOULD | 8      | [ ]            |
-| **TECH-MINIO** | Setup MinIO (Storage Photos & Contrats)          | Infra       | MUST   | 5      | [ ]            |
-| **TECH-SIGN**  | Intégration API Signature Électronique           | Infra       | MUST   | 5      | [ ]            |
+| **TECH-MINIO** | Setup MinIO (Storage Photos & Contrats)          | Infra       | MUST   | 5      | [x]            |
+| **TECH-SIGN**  | Intégration API Signature Électronique           | Infra       | MUST   | 5      | [x]            |
 
 ---
 
@@ -38,9 +38,9 @@
 
 | #   | Critère                                                | Priorité | Statut |
 | :-- | :----------------------------------------------------- | :------- | :----- |
-| 1   | Landing Page conversion proprio en ligne               | P0       | [ ]    |
-| 2   | Bucket MinIO "private-docs" sécurisé                   | P0       | [ ]    |
-| 3   | Signature numérique fonctionnelle en sandbox           | P0       | [ ]    |
+| 1   | Landing Page conversion proprio en ligne               | P0       | [x]    |
+| 2   | Bucket MinIO "private-docs" sécurisé                   | P0       | [x]    |
+| 3   | Signature numérique fonctionnelle en sandbox           | P0       | [x]    |
 | 4   | Calendrier Bollaert/Louvre-Lens intégré au pricing     | P1       | [ ]    |
 | 5   | Sélectionneur de région fonctionnel (Arras/Lens/Lille) | P1       | [ ]    |
 

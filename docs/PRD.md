@@ -3,8 +3,8 @@
 ## MVP V1 — Focus Acquisition & Gestion Bassin Minier
 
 **Version:** 1.2  
-**Date:** Mai 2025  
-**Statut:** DRAFT — Vision Approfondie
+**Date:** Mai 2026  
+**Statut:** IN PROGRESS — Pivot Bassin Minier
 
 ---
 
@@ -69,10 +69,10 @@ Le design doit évoquer la chaleur du Nord et le luxe d'une conciergerie privée
 
 ## 5. ARCHITECTURE TECHNIQUE
 
-- **Backend :** FastAPI (Python) pour sa rapidité et son support du typage.
-- **Frontend :** Next.js (Tailwind CSS) pour le SEO et la performance mobile.
+- **Backend :** NestJS (TypeScript) pour sa modularité et sa robustesse.
+- **Frontend :** Next.js 14 (Tailwind CSS) pour le SEO et la performance mobile.
 - **Storage :** MinIO pour la souveraineté des données (Contrats & Photos HD).
-- **Signature :** API de signature électronique (type Lex Persona).
+- **Signature :** API Yousign (Standard eIDAS).
 
 ---
 

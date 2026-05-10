@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { BrandLogo } from "./BrandLogo";
+import { Globe } from "lucide-react";
 
 interface NavLink {
   label: string;
@@ -22,13 +23,13 @@ function defaultLinks(locale: string): NavLink[] {
   const base = `/${locale}`;
   return isFr
     ? [
-        { label: "Logements", href: base },
-        { label: "Conciergerie", href: `${base}/proprietaires` },
+        { label: "Hébergements", href: base },
+        { label: "Propriétaires", href: `${base}/proprietaires` },
         { label: "Blog", href: `${base}/blog` },
       ]
     : [
         { label: "Accommodations", href: base },
-        { label: "Concierge", href: `${base}/proprietaires` },
+        { label: "Owners", href: `${base}/proprietaires` },
         { label: "Blog", href: `${base}/blog` },
       ];
 }
@@ -50,126 +51,118 @@ export const Navbar = ({
     ? pathname.replace(new RegExp(`^/${locale}`), `/${altLocale}`)
     : `/${altLocale}`;
   const navLinks = links ?? defaultLinks(locale);
-  const cta = ctaLabel ?? (isFr ? "Devenir Propriétaire" : "Partner with us");
+  const cta = ctaLabel ?? (isFr ? "Devenir partenaire" : "Become a partner");
   const ctaLink = ctaHref ?? `/${locale}/proprietaires#simulator`;
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const handler = () => setScrolled(window.scrollY > 20);
+    const handler = () => setScrolled(window.scrollY > 5);
     window.addEventListener("scroll", handler, { passive: true });
     return () => window.removeEventListener("scroll", handler);
   }, []);
 
-  // Close mobile menu on resize
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const handler = () => {
-      if (window.innerWidth >= 768) setOpen(false);
-    };
-    window.addEventListener("resize", handler);
-    return () => window.removeEventListener("resize", handler);
-  }, []);
-
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-200 border-b ${
+      className={`fixed top-0 w-full z-50 transition-all duration-200 border-b h-16 flex items-center bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl ${
         scrolled || open
-          ? "bg-white/90 dark:bg-slate-950/90 backdrop-blur-md border-slate-200/50 dark:border-slate-800/50 shadow-sm"
-          : "bg-white/50 dark:bg-slate-950/50 backdrop-blur-sm border-slate-100 dark:border-slate-900"
+          ? "border-slate-200/60 dark:border-white/10 shadow-sm"
+          : "border-slate-200/20 dark:border-white/5 shadow-none"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-6">
-        <div className="flex justify-between h-16 items-center">
-          {/* Logo */}
-          <a href={`/${locale}`} className="flex items-center gap-2 group">
-            <BrandLogo
-              variant="cursive"
-              size="sm"
-              className="text-slate-900 dark:text-white"
-            />
-          </a>
-
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link: NavLink) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-welqo-terracotta transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+      <div className="max-w-7xl mx-auto px-6 w-full">
+        <div className="flex justify-between items-center h-full">
+          {/* Logo Section */}
+          <div className="flex items-center">
+            <a href={`/${locale}`} className="transition-transform hover:scale-105 active:scale-95">
+              <BrandLogo
+                variant="cursive"
+                size="sm"
+                className="text-slate-900 dark:text-white scale-90 origin-left"
+              />
+            </a>
           </div>
 
-          {/* Desktop CTA */}
-          <div className="hidden md:flex items-center gap-4">
-            {/* Locale toggle */}
+          {/* Desktop Links - Center */}
+          <div className="hidden md:flex items-center gap-1">
+            {navLinks.map((link: NavLink) => {
+              const isActive = pathname === link.href || (link.href !== `/${locale}` && pathname?.startsWith(link.href));
+              return (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className={`px-3 py-1.5 rounded-md text-[12px] font-bold transition-all duration-200 ${
+                    isActive 
+                      ? "text-welqo-terracotta bg-welqo-terracotta/5" 
+                      : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100/50 dark:hover:bg-white/5"
+                  }`}
+                >
+                  {link.label}
+                </a>
+              );
+            })}
+          </div>
+
+          {/* Right Section - CTA & Locale */}
+          <div className="hidden md:flex items-center gap-3">
             <a
               href={localeSwitchHref}
-              className="text-[10px] font-bold uppercase tracking-widest text-slate-400 border border-slate-200 hover:border-slate-300 dark:border-slate-800 dark:hover:border-slate-700 transition-colors px-2 py-1 rounded"
+              className="flex items-center gap-1.5 px-2 py-1.5 rounded-md text-[11px] font-bold text-slate-400 hover:text-slate-900 transition-colors"
             >
-              {locale === "fr" ? "EN" : "FR"}
+              <Globe className="w-3.5 h-3.5" />
+              <span>{locale === "fr" ? "EN" : "FR"}</span>
             </a>
             <a
               href={ctaLink}
-              className="px-4 py-2 rounded-lg text-xs font-bold bg-slate-900 text-white hover:bg-welqo-terracotta transition-all"
+              className="h-9 px-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[11px] font-bold rounded-lg hover:bg-welqo-terracotta dark:hover:bg-welqo-terracotta dark:hover:text-white transition-all flex items-center justify-center tracking-tight shadow-sm active:scale-95 border border-transparent"
             >
               {cta}
             </a>
           </div>
 
-          {/* Mobile hamburger */}
+          {/* Mobile Toggle */}
           <button
-            onClick={() => setOpen((v) => !v)}
-            className="md:hidden p-2 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-            aria-label="Menu"
-            aria-expanded={open}
+            onClick={() => setOpen(!open)}
+            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
           >
             <div className="w-5 h-4 flex flex-col justify-between">
-              <span
-                className={`w-full h-0.5 rounded-full transition-all duration-300 bg-slate-900 dark:bg-white ${open ? "rotate-45 translate-y-1.5" : ""}`}
-              />
-              <span
-                className={`w-full h-0.5 rounded-full transition-all duration-300 bg-slate-900 dark:bg-white ${open ? "opacity-0" : ""}`}
-              />
-              <span
-                className={`w-full h-0.5 rounded-full transition-all duration-300 bg-slate-900 dark:bg-white ${open ? "-rotate-45 -translate-y-2" : ""}`}
-              />
+              <span className={`w-full h-[1.5px] rounded-full bg-slate-900 dark:bg-white transition-all duration-300 ${open ? "rotate-45 translate-y-[5.5px]" : ""}`} />
+              <span className={`w-3/4 h-[1.5px] rounded-full bg-slate-900 dark:bg-white transition-all duration-300 ${open ? "opacity-0" : ""}`} />
+              <span className={`w-full h-[1.5px] rounded-full bg-slate-900 dark:bg-white transition-all duration-300 ${open ? "-rotate-45 -translate-y-[6.5px]" : ""}`} />
             </div>
           </button>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Mobile Menu Overlay */}
       <div
-        className={`md:hidden overflow-hidden transition-all duration-300 border-t border-slate-200 dark:border-slate-800 ${
-          open ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+        className={`fixed inset-x-0 top-16 z-50 md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
+          open ? "max-h-screen opacity-100 border-t border-slate-100 dark:border-white/5" : "max-h-0 opacity-0"
         }`}
       >
-        <div className="px-6 py-10 space-y-4 bg-white dark:bg-slate-950">
+        <div className="px-6 py-10 space-y-4 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl">
           {navLinks.map((link: NavLink) => (
             <a
               key={link.label}
               href={link.href}
               onClick={() => setOpen(false)}
-              className="block text-2xl font-bold text-slate-900 dark:text-white hover:text-welqo-terracotta transition-colors"
+              className="block text-2xl font-bold text-slate-900 dark:text-white hover:text-welqo-terracotta transition-all"
             >
               {link.label}
             </a>
           ))}
-          <div className="pt-10 flex flex-col gap-3">
+          <div className="pt-8 flex flex-col gap-3">
             <a
               href={ctaLink}
               onClick={() => setOpen(false)}
-              className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-bold text-center hover:bg-welqo-terracotta hover:text-white transition-colors"
+              className="w-full py-4 bg-welqo-terracotta text-white rounded-lg font-bold text-center active:scale-95 transition-transform"
             >
               {cta}
             </a>
             <a
               href={localeSwitchHref}
-              className="w-full py-4 bg-slate-50 dark:bg-slate-900 text-slate-500 dark:text-slate-400 rounded-lg text-sm font-bold text-center uppercase tracking-widest"
+              className="w-full py-4 bg-slate-50 dark:bg-slate-900 text-slate-400 rounded-lg text-xs font-bold text-center flex items-center justify-center gap-2"
             >
+              <Globe className="w-3.5 h-3.5" />
               {locale === "fr" ? "Switch to English" : "Version Française"}
             </a>
           </div>

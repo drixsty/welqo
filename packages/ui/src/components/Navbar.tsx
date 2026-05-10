@@ -19,16 +19,17 @@ interface NavbarProps {
 
 function defaultLinks(locale: string): NavLink[] {
   const isFr = locale !== "en";
+  const base = `/${locale}`;
   return isFr
     ? [
-        { label: "Demeures", href: "#logements" },
-        { label: "Conciergerie", href: `/${locale}#services` },
-        { label: "Propriétaires", href: `/${locale}/proprietaires` },
+        { label: "Logements", href: base },
+        { label: "Conciergerie", href: `${base}/proprietaires` },
+        { label: "Blog", href: `${base}/blog` },
       ]
     : [
-        { label: "Properties", href: "#logements" },
-        { label: "Concierge", href: `/${locale}#services` },
-        { label: "For Owners", href: `/${locale}/proprietaires` },
+        { label: "Accommodations", href: base },
+        { label: "Concierge", href: `${base}/proprietaires` },
+        { label: "Blog", href: `${base}/blog` },
       ];
 }
 
@@ -50,7 +51,7 @@ export const Navbar = ({
     : `/${altLocale}`;
   const navLinks = links ?? defaultLinks(locale);
   const cta = ctaLabel ?? (isFr ? "Devenir Propriétaire" : "Partner with us");
-  const ctaLink = ctaHref ?? `/${locale}#contact`;
+  const ctaLink = ctaHref ?? `/${locale}/proprietaires#simulator`;
 
   useEffect(() => {
     if (typeof window === "undefined") return;

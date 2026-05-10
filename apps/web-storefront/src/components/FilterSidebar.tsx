@@ -104,172 +104,226 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
     setMaxPrice(value);
   };
 
-  return (
-    <div className="w-full lg:w-64 shrink-0">
-      <div className="sticky top-24 bg-white dark:bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/5 p-4 space-y-6">
-        {/* Header */}
-        <div className="flex items-center justify-between pb-2 border-b border-slate-50 dark:border-white/[0.03]">
-          <div className="flex items-center gap-1.5">
-            <SlidersHorizontal className="w-3.5 h-3.5 text-primary" />
-            <span className="text-[11px] font-bold text-slate-900 dark:text-white">
-              {isFr ? "Filtres" : "Filters"}
-            </span>
-          </div>
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
+  const sidebarContent = (
+    <div className="bg-white dark:bg-slate-900/50 backdrop-blur-sm rounded-xl border border-slate-100 dark:border-white/5 p-4 space-y-6 h-full lg:h-auto overflow-y-auto">
+      {/* Header */}
+      <div className="flex items-center justify-between pb-2 border-b border-slate-50 dark:border-white/[0.03]">
+        <div className="flex items-center gap-1.5">
+          <SlidersHorizontal className="w-3.5 h-3.5 text-welqo-terracotta" />
+          <span className="text-[11px] font-black text-slate-900 dark:text-white tracking-widest">
+            {isFr ? "Filtres" : "Filters"}
+          </span>
+        </div>
+        <div className="flex items-center gap-3">
           {(searchParams.toString() !== "") && (
             <button 
               onClick={handleClear}
-              className="text-[10px] font-medium text-slate-400 hover:text-primary transition-colors"
+              className="text-[10px] font-bold text-slate-400 hover:text-welqo-terracotta transition-colors tracking-tighter"
             >
-              {isFr ? "Réinitialiser" : "Reset"}
+              {isFr ? "Reset" : "Reset"}
             </button>
           )}
+          <button onClick={() => setIsMobileOpen(false)} className="lg:hidden p-1">
+            <X className="w-4 h-4 text-slate-400" />
+          </button>
         </div>
+      </div>
 
-        {/* City Filter */}
-        <div className="space-y-2" ref={cityRef}>
-          <label className="text-[10px] font-medium text-slate-400 flex items-center gap-1.5">
-            <MapPin className="w-3 h-3" />
-            {isFr ? "Localisation" : "Location"}
-          </label>
-          <div className="relative">
-            <button
-              onClick={() => setIsCityOpen(!isCityOpen)}
-              className="w-full flex items-center justify-between bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 rounded-lg px-3 py-2 text-[11px] font-semibold text-slate-700 dark:text-slate-200"
-            >
-              <span className="truncate">{city || (isFr ? "Partout" : "Anywhere")}</span>
-              <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform ${isCityOpen ? "rotate-180" : ""}`} />
-            </button>
+      {/* City Filter */}
+      <div className="space-y-2" ref={cityRef}>
+        <label className="text-[10px] font-black text-slate-400 tracking-widest flex items-center gap-2">
+          <MapPin className="w-3 h-3 text-welqo-terracotta" />
+          {isFr ? "Localisation" : "Location"}
+        </label>
+        <div className="relative">
+          <button
+            onClick={() => setIsCityOpen(!isCityOpen)}
+            className="w-full flex items-center justify-between bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-[11px] font-bold text-slate-700 dark:text-slate-200 transition-all hover:border-welqo-terracotta/30"
+          >
+            <span className="truncate">{city || (isFr ? "Partout" : "Anywhere")}</span>
+            <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform ${isCityOpen ? "rotate-180" : ""}`} />
+          </button>
 
-            <AnimatePresence>
-              {isCityOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 4 }}
-                  className="absolute top-full left-0 mt-1.5 w-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/10 rounded-lg shadow-xl z-50 overflow-hidden p-1"
+          <AnimatePresence>
+            {isCityOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                className="absolute top-full left-0 mt-1.5 w-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden p-1.5"
+              >
+                <button
+                  onClick={() => { setCity(""); setIsCityOpen(false); }}
+                  className="w-full flex items-center justify-between px-3 py-2 text-[11px] font-bold rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 text-slate-500"
                 >
+                  {isFr ? "Partout" : "Anywhere"}
+                  {!city && <Check className="w-3.5 h-3.5 text-welqo-terracotta" />}
+                </button>
+                {CITIES.map(c => (
                   <button
-                    onClick={() => { setCity(""); setIsCityOpen(false); }}
-                    className="w-full flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md hover:bg-slate-50 dark:hover:bg-white/5 text-slate-500"
+                    key={c}
+                    onClick={() => { setCity(c); setIsCityOpen(false); }}
+                    className={`w-full flex items-center justify-between px-3 py-2 text-[11px] font-bold rounded-lg ${
+                      city === c ? "bg-welqo-terracotta/5 text-welqo-terracotta" : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
+                    }`}
                   >
-                    {isFr ? "Partout" : "Anywhere"}
-                    {!city && <Check className="w-3 h-3 text-primary" />}
+                    {c}
+                    {city === c && <Check className="w-3.5 h-3.5" />}
                   </button>
-                  {CITIES.map(c => (
-                    <button
-                      key={c}
-                      onClick={() => { setCity(c); setIsCityOpen(false); }}
-                      className={`w-full flex items-center justify-between px-2.5 py-1.5 text-[11px] font-medium rounded-md ${
-                        city === c ? "bg-primary/5 text-primary" : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
-                      }`}
-                    >
-                      {c}
-                      {city === c && <Check className="w-3 h-3" />}
-                    </button>
-                  ))}
-                </motion.div>
-              )}
-            </AnimatePresence>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </div>
+
+      {/* Price Slider */}
+      <div className="space-y-4">
+        <label className="text-[10px] font-black text-slate-400 tracking-widest flex items-center gap-2">
+          <Euro className="w-3 h-3 text-welqo-terracotta" />
+          {isFr ? "Prix par nuit" : "Price per night"}
+        </label>
+        
+        <div className="flex items-center gap-2 mb-6">
+          <div className="flex-1 bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 rounded-xl px-3 py-2.5 text-center">
+            <p className="text-[9px] font-black text-slate-400 leading-none mb-1">Min</p>
+            <p className="text-xs font-black text-slate-900 dark:text-white leading-none">{minPrice}€</p>
+          </div>
+          <div className="w-2 h-[2px] bg-slate-200 dark:bg-slate-700" />
+          <div className="flex-1 bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 rounded-xl px-3 py-2.5 text-center">
+            <p className="text-[9px] font-black text-slate-400 leading-none mb-1">Max</p>
+            <p className="text-xs font-black text-slate-900 dark:text-white leading-none">{maxPrice}€</p>
           </div>
         </div>
-
-        {/* Price Slider */}
-        <div className="space-y-4">
-          <label className="text-[10px] font-medium text-slate-400 flex items-center gap-1.5">
-            <Euro className="w-3 h-3" />
-            {isFr ? "Prix par nuit" : "Price per night"}
-          </label>
-          
-          <div className="flex items-center gap-2 mb-6">
-            <div className="flex-1 bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 rounded-md px-2 py-1.5 text-center">
-              <p className="text-[8px] font-bold text-slate-400 leading-none mb-0.5">Min</p>
-              <p className="text-[10px] font-bold text-slate-900 dark:text-white leading-none">{minPrice}€</p>
-            </div>
-            <div className="w-2 h-[1px] bg-slate-200 dark:bg-slate-700" />
-            <div className="flex-1 bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 rounded-md px-2 py-1.5 text-center">
-              <p className="text-[8px] font-bold text-slate-400 leading-none mb-0.5">Max</p>
-              <p className="text-[10px] font-bold text-slate-900 dark:text-white leading-none">{maxPrice}€</p>
-            </div>
-          </div>
-          
-          <div className="relative h-1 bg-slate-100 dark:bg-slate-800 rounded-full mx-1">
-            <div 
-              className="absolute h-1 bg-primary rounded-full"
-              style={{ 
-                left: `${(minPrice / MAX_LIMIT) * 100}%`, 
-                right: `${100 - (maxPrice / MAX_LIMIT) * 100}%` 
-              }}
-            />
-            <input
-              type="range" min={MIN_LIMIT} max={MAX_LIMIT} value={minPrice} onChange={handleMinChange}
-              className="absolute w-full appearance-none bg-transparent pointer-events-none top-1/2 -translate-y-1/2 z-20 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:hover:ring-4 [&::-webkit-slider-thumb]:hover:ring-primary/10"
-            />
-            <input
-              type="range" min={MIN_LIMIT} max={MAX_LIMIT} value={maxPrice} onChange={handleMaxChange}
-              className="absolute w-full appearance-none bg-transparent pointer-events-none top-1/2 -translate-y-1/2 z-20 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-4 [&::-webkit-slider-thumb]:h-4 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-2 [&::-webkit-slider-thumb]:border-primary [&::-webkit-slider-thumb]:shadow-md [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:hover:ring-4 [&::-webkit-slider-thumb]:hover:ring-primary/10"
-            />
-          </div>
+        
+        <div className="relative h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mx-1">
+          <div 
+            className="absolute h-1.5 bg-welqo-terracotta rounded-full"
+            style={{ 
+              left: `${(minPrice / MAX_LIMIT) * 100}%`, 
+              right: `${100 - (maxPrice / MAX_LIMIT) * 100}%` 
+            }}
+          />
+          <input
+            type="range" min={MIN_LIMIT} max={MAX_LIMIT} value={minPrice} onChange={handleMinChange}
+            className="absolute w-full appearance-none bg-transparent pointer-events-none top-1/2 -translate-y-1/2 z-20 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-welqo-terracotta [&::-webkit-slider-thumb]:shadow-xl [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:active:scale-125"
+          />
+          <input
+            type="range" min={MIN_LIMIT} max={MAX_LIMIT} value={maxPrice} onChange={handleMaxChange}
+            className="absolute w-full appearance-none bg-transparent pointer-events-none top-1/2 -translate-y-1/2 z-20 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-welqo-terracotta [&::-webkit-slider-thumb]:shadow-xl [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:active:scale-125"
+          />
         </div>
+      </div>
 
-        {/* Guests */}
+      {/* Guests */}
+      <div className="space-y-3">
+        <label className="text-[10px] font-black text-slate-400 tracking-widest flex items-center gap-2">
+          <Users className="w-3 h-3 text-welqo-terracotta" />
+          {isFr ? "Voyageurs" : "Guests"}
+        </label>
+        <div className="grid grid-cols-5 gap-2">
+          {[1, 2, 3, 4, "5+"].map(n => (
+            <button
+              key={n}
+              onClick={() => setGuests(n.toString())}
+              className={`py-2 rounded-lg text-[11px] font-black transition-all ${
+                guests === n.toString()
+                  ? "bg-welqo-terracotta text-white shadow-lg shadow-welqo-terracotta/20"
+                  : "bg-slate-50 dark:bg-white/[0.03] text-slate-500 hover:bg-slate-100 dark:hover:bg-white/5"
+              }`}
+            >
+              {n}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Amenities */}
+      <div className="space-y-3">
+        <label className="text-[10px] font-black text-slate-400 tracking-widest">
+          {isFr ? "Équipements" : "Amenities"}
+        </label>
         <div className="space-y-2">
-          <label className="text-[10px] font-medium text-slate-400 flex items-center gap-1.5">
-            <Users className="w-3 h-3" />
-            {isFr ? "Voyageurs" : "Guests"}
-          </label>
-          <div className="grid grid-cols-5 gap-1">
-            {[1, 2, 3, 4, "5+"].map(n => (
-              <button
-                key={n}
-                onClick={() => setGuests(n.toString())}
-                className={`py-1.5 rounded-md text-[10px] font-bold transition-all ${
-                  guests === n.toString()
-                    ? "bg-primary text-white shadow-sm"
-                    : "bg-slate-50 dark:bg-white/[0.03] text-slate-500 hover:bg-slate-100 dark:hover:bg-white/5"
-                }`}
-              >
-                {n}
-              </button>
-            ))}
-          </div>
+          {AMENITIES.map(a => (
+            <button
+              key={a.id}
+              onClick={() => toggleAmenity(a.id)}
+              className="w-full flex items-center gap-3 group text-left"
+            >
+              <div className={`w-5 h-5 rounded-lg border-2 transition-all flex items-center justify-center ${
+                selectedAmenities.includes(a.id)
+                  ? "bg-welqo-terracotta border-welqo-terracotta"
+                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-white/10 group-hover:border-welqo-terracotta/30"
+              }`}>
+                {selectedAmenities.includes(a.id) && <Check className="w-3.5 h-3.5 text-white stroke-[3px]" />}
+              </div>
+              <span className={`text-xs font-bold transition-colors ${
+                selectedAmenities.includes(a.id) ? "text-slate-900 dark:text-white" : "text-slate-500 dark:text-slate-400"
+              }`}>
+                {a.label}
+              </span>
+            </button>
+          ))}
         </div>
+      </div>
 
-        {/* Amenities */}
-        <div className="space-y-2.5">
-          <label className="text-[10px] font-medium text-slate-400">
-            {isFr ? "Équipements" : "Amenities"}
-          </label>
-          <div className="space-y-1.5">
-            {AMENITIES.map(a => (
-              <button
-                key={a.id}
-                onClick={() => toggleAmenity(a.id)}
-                className="w-full flex items-center gap-2 group text-left"
-              >
-                <div className={`w-4 h-4 rounded-md border transition-all flex items-center justify-center ${
-                  selectedAmenities.includes(a.id)
-                    ? "bg-primary border-primary"
-                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-white/10 group-hover:border-primary/30"
-                }`}>
-                  {selectedAmenities.includes(a.id) && <Check className="w-3 h-3 text-white" />}
-                </div>
-                <span className={`text-[11px] font-medium transition-colors ${
-                  selectedAmenities.includes(a.id) ? "text-slate-900 dark:text-white" : "text-slate-500 dark:text-slate-400"
-                }`}>
-                  {a.label}
-                </span>
-              </button>
-            ))}
-          </div>
+      <button
+        onClick={() => { handleApply(); setIsMobileOpen(false); }}
+        className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl text-xs font-black tracking-[0.1em] shadow-2xl transition-all active:scale-95"
+      >
+        {isFr ? "Appliquer les filtres" : "Apply Filters"}
+      </button>
+    </div>
+  );
+
+  return (
+    <>
+      {/* 💻 DESKTOP VIEW */}
+      <div className="hidden lg:block w-64 shrink-0">
+        <div className="sticky top-24">
+          {sidebarContent}
         </div>
+      </div>
 
-        <button
-          onClick={handleApply}
-          className="w-full py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-[11px] font-bold hover:bg-primary hover:text-white transition-all active:scale-[0.98]"
+      {/* 📱 MOBILE FLOATING TRIGGER */}
+      <div className="lg:hidden fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]">
+        <button 
+          onClick={() => setIsMobileOpen(true)}
+          className="flex items-center gap-3 px-6 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-[2rem] shadow-2xl font-black text-xs tracking-widest active:scale-95 transition-all"
         >
-          {isFr ? "Appliquer" : "Apply"}
+          <SlidersHorizontal className="w-4 h-4 text-welqo-terracotta" />
+          {isFr ? "Filtres" : "Filters"}
+          {searchParams.toString() !== "" && (
+            <span className="w-5 h-5 rounded-full bg-welqo-terracotta text-white flex items-center justify-center text-[10px]">
+              !
+            </span>
+          )}
         </button>
       </div>
-    </div>
+
+      {/* 🎬 MOBILE DRAWER */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[1000] bg-slate-950/60 backdrop-blur-md lg:hidden p-4 flex flex-col justify-end"
+          >
+            <motion.div
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 200 }}
+              className="w-full max-h-[85vh] overflow-hidden"
+            >
+              {sidebarContent}
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
   );
 };

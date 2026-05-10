@@ -43,6 +43,7 @@ module.exports = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        "welqo-terracotta": "#D45537",
       },
       borderRadius: {
         lg: "var(--radius-lg)",

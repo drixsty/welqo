@@ -68,101 +68,71 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
   const base = `/${locale}`;
 
   return (
-    <article className="space-y-0">
+    <article className="relative">
       {/* Section 1 */}
       <h2
         id="classement"
-        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-4 mb-4 scroll-mt-28"
+        className="text-3xl font-bold text-slate-900 dark:text-white tracking-tighter mt-16 mb-8 scroll-mt-28"
       >
-        Notre classement des quartiers les plus rentables pour Airbnb à Lille
+        Classement des quartiers les plus rentables
       </h2>
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-        Classement basé sur les données du marché AirDNA, croisées avec nos
-        performances internes sur les biens Welqo — taux d'occupation, revenu
-        brut moyen T1 2025.
+      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-10 text-[15px]">
+        Analyse basée sur les données AirDNA et les performances réelles des biens gérés par Welqo à Lille (T1 2025).
       </p>
 
-      <div className="space-y-5 mb-12">
+      <div className="space-y-6 mb-16">
         {QUARTIERS.map((q) => (
           <div
             key={q.name}
-            className="rounded-2xl border border-slate-100 dark:border-slate-800 overflow-hidden shadow-sm hover:shadow-card transition-shadow"
+            className="rounded-xl border border-slate-100 dark:border-white/5 overflow-hidden bg-white dark:bg-slate-900 shadow-sm"
           >
             {/* Top bar */}
-            <div
-              className={`${q.accentBg} px-5 py-3 flex items-center justify-between`}
-            >
-              <div className="flex items-center gap-3">
-                <span className="text-white/50 text-xs font-black">
-                  {q.rank}
+            <div className="px-3 py-1.5 bg-slate-900 dark:bg-slate-800 flex items-center justify-between">
+              <div className="flex items-baseline gap-2">
+                <span className="text-welqo-terracotta text-[11px] font-bold">
+                  #{q.rank}
                 </span>
-                <h3 className="font-black text-white text-base tracking-tight">
+                <h3 className="font-bold text-white text-sm tracking-tight">
                   {q.name}
                 </h3>
               </div>
-              {/* Score bar */}
               <div className="flex items-center gap-2">
-                <div className="hidden sm:flex items-center gap-1">
-                  {[...Array(5)].map((_, i) => (
-                    <div
-                      key={i}
-                      className={`w-5 h-1.5 rounded-full ${
-                        i < Math.round(q.score / 20)
-                          ? "bg-white"
-                          : "bg-white/20"
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="text-white text-xs font-black">
-                  {q.score}/100
+                <span className="text-white/60 text-[10px] font-bold">
+                  Score : {q.score}/100
                 </span>
               </div>
             </div>
 
             {/* Stats row */}
-            <div className="grid grid-cols-3 divide-x divide-slate-100 dark:divide-slate-800 bg-slate-50 dark:bg-slate-900">
+            <div className="grid grid-cols-3 divide-x divide-slate-100 dark:divide-white/5 border-b border-slate-100 dark:border-white/5">
               {[
-                { label: "Prix / nuit", val: q.prixMoyen },
-                { label: "Occupation", val: q.tauxOcc },
-                { label: "Rev. / mois", val: q.revenuMois },
+                { label: "Prix moyen / nuit", val: q.prixMoyen },
+                { label: "Taux d'occupation", val: q.tauxOcc },
+                { label: "Revenu brut / mois", val: q.revenuMois },
               ].map(({ label, val }) => (
-                <div key={label} className="px-4 py-3 text-center">
-                  <p className="text-sm font-black text-slate-900 dark:text-white">
+                <div key={label} className="px-2 py-1 text-center bg-slate-50/50 dark:bg-white/5">
+                  <p className="text-[12px] font-bold text-welqo-terracotta">
                     {val}
                   </p>
-                  <p className="text-[10px] text-slate-400 font-medium mt-0.5">
+                  <p className="text-[8px] text-slate-400 font-medium mt-0">
                     {label}
                   </p>
                 </div>
               ))}
             </div>
 
-            {/* Details */}
-            <div className="p-5 bg-white dark:bg-slate-900 grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div className="flex items-start gap-2.5 text-sm">
-                <span className="mt-0.5 w-4 h-4 rounded-full bg-emerald-100 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 flex items-center justify-center shrink-0">
-                  <span className="text-emerald-600 text-[9px] font-black">
-                    ✓
-                  </span>
-                </span>
-                <span className="text-slate-600 dark:text-slate-400">
-                  {q.atout}
-                </span>
+            <div className="p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
+              <div className="text-[12px] leading-relaxed flex items-start gap-2">
+                <span className="text-emerald-500 font-bold shrink-0">✓</span>
+                <span className="text-slate-600 dark:text-slate-400">{q.atout}</span>
               </div>
-              <div className="flex items-start gap-2.5 text-sm">
-                <span className="mt-0.5 w-4 h-4 rounded-full bg-red-100 dark:bg-red-900/30 border border-red-200 dark:border-red-800 flex items-center justify-center shrink-0">
-                  <span className="text-red-500 text-[9px] font-black">✕</span>
-                </span>
-                <span className="text-slate-600 dark:text-slate-400">
-                  {q.limite}
-                </span>
+              <div className="text-[12px] leading-relaxed flex items-start gap-2">
+                <span className="text-red-500 font-bold shrink-0">✕</span>
+                <span className="text-slate-500 dark:text-slate-400">{q.limite}</span>
               </div>
-            </div>
-            <div className="px-5 pb-4 bg-white dark:bg-slate-900">
-              <p className="text-xs text-slate-400 italic">
-                Profil voyageur : {q.profil}
-              </p>
+              <div className="sm:col-span-2 text-[10px] text-slate-400 italic pt-1 border-t border-slate-50 dark:border-white/5">
+                Profil cible : {q.profil}
+              </div>
             </div>
           </div>
         ))}
@@ -171,41 +141,35 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
       {/* Section 2 */}
       <h2
         id="choisir"
-        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-6 scroll-mt-28"
+        className="text-xl font-bold text-slate-900 dark:text-white tracking-tighter mt-12 mb-6 scroll-mt-28"
       >
-        Comment choisir son quartier selon son profil d'investisseur ?
+        Choisir selon votre profil d'investisseur
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-12">
         {[
           {
-            title: "Vous visez le rendement maximum",
+            title: "Rendement maximum",
             icon: "🏆",
-            rec: "Vieux-Lille ou Euralille",
-            detail:
-              "Prix d'acquisition élevé, mais le revenu locatif compense largement. Vieux-Lille excelle sur les week-ends touristiques ; Euralille sur les déplacements d'affaires en semaine.",
-            color:
-              "border-blue-200 dark:border-blue-800 bg-blue-50 dark:bg-blue-950/20",
+            rec: "Vieux-Lille / Euralille",
+            detail: "Prix élevé, mais revenus records.",
           },
           {
-            title: "Vous avez un budget d'acquisition limité",
+            title: "Budget limité",
             icon: "💡",
-            rec: "Wazemmes ou Vauban",
-            detail:
-              "Meilleurs rapports prix d'achat / revenu locatif. Avec un appartement à 3 500 €/m², vous pouvez atteindre une rentabilité brute de 8 à 10 %.",
-            color:
-              "border-emerald-200 dark:border-emerald-800 bg-emerald-50 dark:bg-emerald-950/20",
+            rec: "Wazemmes / Vauban",
+            detail: "Meilleurs rapports prix d'achat / revenus.",
           },
-        ].map(({ title, icon, rec, detail, color }) => (
-          <div key={title} className={`p-5 rounded-2xl border ${color}`}>
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-2xl">{icon}</span>
-              <p className="font-black text-slate-900 dark:text-white text-sm">
+        ].map(({ title, icon, rec, detail }) => (
+          <div key={title} className="p-4 rounded-lg border border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-lg">{icon}</span>
+              <p className="font-bold text-slate-900 dark:text-white text-sm tracking-tight">
                 {title}
               </p>
             </div>
-            <p className="text-blue-600 font-black text-sm mb-2">→ {rec}</p>
-            <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+            <p className="text-welqo-terracotta font-bold text-[12px] mb-1">→ {rec}</p>
+            <p className="text-slate-500 dark:text-slate-400 text-[11px] leading-snug">
               {detail}
             </p>
           </div>
@@ -215,61 +179,35 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
       {/* Section 3 */}
       <h2
         id="gestion-pro"
-        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28"
+        className="text-2xl font-bold text-slate-900 dark:text-white tracking-tighter mt-20 mb-8 scroll-mt-28"
       >
-        L'impact de la gestion professionnelle sur ces chiffres
+        L'impact de la gestion professionnelle
       </h2>
 
-      <div className="my-6 p-6 bg-slate-950 dark:bg-slate-900 rounded-2xl relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(37,99,235,0.15),transparent_60%)] pointer-events-none" />
-        <div className="relative z-10">
-          <div className="grid grid-cols-2 gap-4 mb-4">
-            {[
-              {
-                label: "Gestion amateur",
-                val: "-20 à -30 %",
-                sub: "de performances",
-                color: "text-red-400",
-              },
-              {
-                label: "Gestion Welqo",
-                val: "+38 %",
-                sub: "de revenus",
-                color: "text-emerald-400",
-              },
-            ].map(({ label, val, sub, color }) => (
-              <div
-                key={label}
-                className="text-center p-4 bg-white/5 rounded-xl"
-              >
-                <p className={`text-2xl font-black tracking-tight ${color}`}>
-                  {val}
-                </p>
-                <p className="text-slate-400 text-xs mt-1">{sub}</p>
-                <p className="text-slate-500 text-[10px] mt-0.5 font-black uppercase tracking-wide">
-                  {label}
-                </p>
-              </div>
-            ))}
-          </div>
-          <p className="text-slate-400 text-sm leading-relaxed">
-            Ces données correspondent à des biens gérés de manière optimale. En
-            gestion amateur, attendez-vous à des performances 20 à 30 %
-            inférieures : annonces sous-optimisées, tarification statique,
-            communication lente.
-          </p>
+      <div className="my-10 p-5 bg-slate-900 dark:bg-slate-950/50 rounded-lg border border-white/5">
+        <div className="grid grid-cols-2 gap-3 mb-4">
+          {[
+            { label: "Amateur", val: "-25 %", color: "text-slate-400" },
+            { label: "Welqo", val: "+38 %", color: "text-welqo-terracotta" },
+          ].map(({ label, val, color }) => (
+            <div key={label} className="text-center p-3 bg-white/5 border border-white/5 rounded-md">
+              <p className={`text-2xl font-bold tracking-tighter ${color}`}>{val}</p>
+              <p className="text-slate-400 text-[9px] mt-0.5 font-bold">{label}</p>
+            </div>
+          ))}
         </div>
+        <p className="text-slate-500 text-[11px] leading-relaxed text-center italic">
+          Gain moyen constaté lors d'une reprise de gestion.
+        </p>
       </div>
 
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mt-6">
-        Quel que soit le quartier que vous choisissez, une gestion
-        professionnelle peut faire la différence entre un bien rentable et un
-        bien qui performe véritablement.{" "}
+      <p className="text-slate-600 dark:text-slate-400 text-[14px] leading-relaxed mt-10">
+        Quel que soit le quartier choisi, Welqo optimise chaque détail pour transformer votre investissement en succès.{" "}
         <a
           href={`${base}/proprietaires`}
-          className="text-blue-600 font-bold hover:underline"
+          className="text-welqo-terracotta font-bold hover:underline"
         >
-          Découvrez comment Welqo optimise votre bien dans ces quartiers →
+          Optimisez vos revenus à Lille dès maintenant →
         </a>
       </p>
     </article>

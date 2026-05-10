@@ -38,9 +38,22 @@ export async function getProperties(filters: PropertySearchFilters = {}): Promis
     }
   });
 
-  return fetchApi(`/properties?${query.toString()}`, {
+  const data = await fetchApi(`/properties?${query.toString()}`, {
     next: { revalidate: 60 }, // Cache for 1 min
   });
+
+  // 🪄 UI Enhancement: Inject mock images for the hover gallery
+  const properties = data.properties.map((p: PropertySummary) => ({
+    ...p,
+    images: [
+      p.coverPhoto,
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=2000&auto=format&fit=crop",
+    ]
+  }));
+
+  return { ...data, properties };
 }
 
 export async function getProperty(slug: string): Promise<Property | null> {

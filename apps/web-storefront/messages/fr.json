@@ -1,13 +1,22 @@
 {
   "HomePage": {
-    "badge": "Conciergerie Boutique — Bassin Minier",
-    "heroTitle": "L'Héritage rencontre le Luxe Moderne.",
-    "heroSubtitle": "Gestion locative d'exception à Lens, Arras et leurs environs. Optimisez vos revenus lors des grands événements et matches du RC Lens.",
-    "bookStay": "Réserver une demeure",
-    "trustUs": "Devenir Propriétaire Welqo",
-    "featuredTitle": "Nos Perles du Bassin Minier",
-    "featuredSubtitle": "De l'effervescence de Lens au prestige d'Arras, découvrez des logements d'exception sélectionnés par nos City Managers.",
-    "viewCatalog": "Parcourir la collection"
+    "badge": "Conciergerie de Prestige — Hauts-de-France",
+    "heroTitle": "Vivez l'exception au cœur des Hauts-de-France.",
+    "heroSubtitle": "Séjours de charme et gestion locative 5★ à Lille, Lens, Arras et dans toute la région. Profitez d'une expertise locale pour des revenus optimisés et une sérénité totale.",
+    "bookStay": "Réserver votre séjour",
+    "trustUs": "Confier mon bien à Welqo",
+    "featuredBadge": "Sélection City Manager",
+    "featuredTitle": "Les Perles des Hauts-de-France",
+    "featuredSubtitle": "Découvrez notre catalogue exclusif de propriétés gérées avec excellence à Lille, Lens, Arras et leurs environs.",
+    "viewCatalog": "Voir tout le catalogue",
+    "ownersBadge": "Espace Propriétaires",
+    "ownersTitle": "La gestion locative, réinventée par la donnée.",
+    "ownersSubtitle": "Une infrastructure robuste conçue pour maximiser vos revenus. Transparence totale, performance locale et pilotage simplifié.",
+    "simulatorBadge": "Maximisation de CA",
+    "simulatorTitle": "Estimez vos revenus en région",
+    "ctaTitle": "Prêt à redéfinir votre expérience locative ?",
+    "ctaProperties": "Explorer nos demeures",
+    "ctaOwners": "Devenir propriétaire Welqo"
   },
   "Navbar": {
     "properties": "Propriétés",
@@ -29,5 +38,13 @@
     "guests": "personnes",
     "night": "nuit",
     "details": "Détails"
+  },
+  "NotFound": {
+    "title": "Page égarée",
+    "subtitle": "Il semble que cette demeure soit introuvable ou n'existe plus.",
+    "goHome": "Retour à l'accueil",
+    "browseProperties": "Explorer nos demeures",
+    "popularLinks": "Liens utiles",
+    "owners": "Espace Propriétaires"
   }
 }

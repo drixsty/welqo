@@ -18,7 +18,7 @@ export function ReadingProgress() {
   return (
     <div className="fixed top-0 left-0 right-0 z-[60] h-[3px] pointer-events-none">
       <div
-        className="h-full bg-gradient-to-r from-blue-600 to-blue-400 transition-[width] duration-75 ease-out"
+        className="h-full bg-welqo-terracotta transition-[width] duration-75 ease-out shadow-[0_0_8px_rgba(212,85,55,0.4)]"
         style={{ width: `${pct}%` }}
       />
     </div>

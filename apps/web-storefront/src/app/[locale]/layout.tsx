@@ -6,6 +6,9 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Navbar, Footer } from "@welqo/ui";
 import { CookieBanner } from "../../components/CookieBanner";
+import { JsonLd } from "../../components/JsonLd";
+import GoogleAnalytics from "../../components/GoogleAnalytics";
+import { Suspense } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -23,28 +26,27 @@ export async function generateMetadata({
 
   return {
     title: isFr
-      ? "Welqo — Conciergerie Airbnb Lens & Arras | Gestion Locative Bassin Minier"
-      : "Welqo — Airbnb Concierge Lens & Arras | Bassin Minier Rental Management",
+      ? "Welqo — Conciergerie Airbnb & Gestion Locative Hauts-de-France"
+      : "Welqo — Airbnb Concierge & Rental Management Northern France",
     description: isFr
-      ? "Confiez la gestion de votre bien à Welqo, l'expert conciergerie Airbnb du Bassin Minier (Lens, Arras). Transparence totale, revenus optimisés, zéro contrainte."
-      : "Entrust your property to Welqo, the Airbnb concierge expert in Bassin Minier (Lens, Arras). Full transparency, optimised revenue, zero hassle.",
+      ? "Gestion locative d'exception et conciergerie Airbnb dans les Hauts-de-France (Lille, Lens, Arras). Maximisez vos revenus sereinement avec l'expert local."
+      : "Exceptional rental management and Airbnb concierge in Northern France (Lille, Lens, Arras). Maximize your income with the local expert.",
     keywords: isFr
       ? [
+          "conciergerie airbnb hauts-de-france",
+          "conciergerie airbnb lille",
           "conciergerie airbnb lens",
           "conciergerie airbnb arras",
-          "gestion airbnb arras",
-          "gestion locative courte durée lens",
-          "gestionnaire airbnb arras",
-          "déléguer gestion airbnb lens",
-          "agence location courte durée arras",
-          "conciergerie location saisonnière bassin minier",
+          "gestion airbnb hauts-de-france",
+          "gestion locative courte durée lille",
+          "gestionnaire airbnb lens",
+          "déléguer gestion airbnb arras",
         ]
       : [
+          "airbnb concierge northern france",
+          "airbnb concierge lille",
           "airbnb concierge lens",
-          "airbnb concierge arras",
-          "short-term rental management arras",
-          "property management lens france",
-          "airbnb property manager arras",
+          "property management arras",
         ],
     authors: [{ name: "Welqo" }],
     creator: "Welqo",
@@ -59,11 +61,11 @@ export async function generateMetadata({
     },
     openGraph: {
       title: isFr
-        ? "Welqo — Conciergerie Airbnb Lens & Arras"
-        : "Welqo — Airbnb Concierge Lens & Arras",
+        ? "Welqo — Conciergerie Airbnb Hauts-de-France"
+        : "Welqo — Airbnb Concierge Northern France",
       description: isFr
-        ? "Gestion complète de vos locations courtes durée en Bassin Minier. Transparence totale, revenus optimisés."
-        : "Complete short-term rental management in Bassin Minier. Full transparency, optimised revenue.",
+        ? "Gestion locative d'exception dans les Hauts-de-France. Expertise locale à Lille, Lens et Arras."
+        : "Exceptional rental management in Northern France. Local expertise in Lille, Lens and Arras.",
       url: `${BASE_URL}/${locale}`,
       siteName: "Welqo",
       locale: isFr ? "fr_FR" : "en_GB",
@@ -116,10 +118,44 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
 
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Welqo",
+    "url": BASE_URL,
+    "logo": `${BASE_URL}/logo.png`,
+    "sameAs": [
+      "https://www.facebook.com/welqo",
+      "https://www.instagram.com/welqo.conciergerie"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "telephone": "+33-3-XX-XX-XX-XX",
+      "contactType": "customer service"
+    }
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Welqo",
+    "url": BASE_URL,
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": `${BASE_URL}/${locale}/logements?q={search_term_string}`,
+      "query-input": "required name=search_term_string"
+    }
+  };
+
   return (
     <html lang={locale} className={inter.variable}>
       <body className="font-sans antialiased bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50">
         <NextIntlClientProvider messages={messages}>
+          <Suspense fallback={null}>
+            <GoogleAnalytics />
+          </Suspense>
+          <JsonLd data={organizationSchema} />
+          <JsonLd data={websiteSchema} />
           <Navbar title="WELQO" locale={locale} />
           <div className="pt-16">{children}</div>
           <Footer locale={locale} />

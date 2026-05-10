@@ -1,8 +1,10 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { getProperty } from "@/lib/api";
-import { ImageGallery } from "@/components/ImageGallery";
-import { BookingWidget } from "@/components/BookingWidget";
+import { getProperty, getProperties } from "@/lib/api";
+import { Gallery } from "@/components/Gallery";
+import { PropertyBookingSystem } from "@/components/PropertyBookingSystem";
+import { JsonLd } from "@/components/JsonLd";
+import { Metadata } from "next";
 import dynamic from "next/dynamic";
 import { 
   Star, 
@@ -37,6 +39,62 @@ const AMENITY_ICONS: Record<string, any> = {
   pool: Waves,
   default: CheckCircle2
 };
+
+export async function generateStaticParams() {
+  try {
+    const { properties } = await getProperties();
+    const locales = ["en", "fr"];
+
+    return locales.flatMap((locale) =>
+      properties.map((property) => ({
+        slug: property.slug,
+        locale: locale,
+      })),
+    );
+  } catch (error) {
+    console.error("Failed to generate static params for properties", error);
+    return [];
+  }
+}
+
+export async function generateMetadata({
+  params: { slug, locale },
+}: {
+  params: { slug: string; locale: string };
+}): Promise<Metadata> {
+  const property = await getProperty(slug);
+  if (!property) return {};
+
+  const isFr = locale === "fr";
+  const title = property.content 
+    ? (isFr ? property.content.fr.title : property.content.en.title) 
+    : (isFr ? (property as any).titleFr : (property as any).titleEn);
+  
+  const description = property.content 
+    ? (isFr ? property.content.fr.description : property.content.en.description) 
+    : (isFr ? (property as any).descFr : (property as any).descEn);
+
+  const city = (property as any).location?.city || (property as any).city;
+  const BASE_URL = "https://welqo.fr";
+
+  return {
+    title: `${title} | Conciergerie Welqo ${city}`,
+    description: description?.substring(0, 160),
+    alternates: {
+      canonical: `${BASE_URL}/${locale}/logements/${slug}`,
+      languages: {
+        fr: `${BASE_URL}/fr/logements/${slug}`,
+        en: `${BASE_URL}/en/logements/${slug}`,
+        "x-default": `${BASE_URL}/fr/logements/${slug}`,
+      },
+    },
+    openGraph: {
+      title,
+      description,
+      images: property.photos?.filter(p => p.isCover).map(p => p.url) || [],
+    },
+  };
+}
 
 export default async function PropertyDetailsPage({
   params: { slug, locale },
@@ -87,8 +145,37 @@ export default async function PropertyDetailsPage({
     reviewsCount: 32
   };
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "LodgingBusiness",
+    "name": normalized.title,
+    "description": normalized.description,
+    "image": property.photos?.map((p: any) => p.url),
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": normalized.location.city,
+      "streetAddress": normalized.location.address,
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": normalized.location.latitude,
+      "longitude": normalized.location.longitude
+    },
+    "starRating": {
+      "@type": "Rating",
+      "ratingValue": "4.9"
+    },
+    "numberOfRooms": normalized.capacity.bedrooms,
+    "occupancy": {
+      "@type": "QuantitativeValue",
+      "maxValue": normalized.capacity.maxGuests
+    }
+  };
+
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 pb-20">
+      <JsonLd data={jsonLd} />
       {/* Header Info */}
       <section className="pt-10 pb-6 px-6">
         <div className="max-w-7xl mx-auto">
@@ -124,9 +211,8 @@ export default async function PropertyDetailsPage({
           </div>
 
           <div className="mt-8">
-            <ImageGallery 
-              images={property.photos} 
-              title={normalized.title} 
+            <Gallery 
+              images={property.photos?.map((p: any) => p.url) || []} 
             />
           </div>
         </div>
@@ -211,13 +297,16 @@ export default async function PropertyDetailsPage({
           </div>
 
           {/* Sidebar */}
-          <aside>
-            <BookingWidget 
-              propertyId={property.id}
+          <aside className="relative">
+            <PropertyBookingSystem 
+              property={property}
               basePrice={normalized.pricing.basePricePerNight}
               cleaningFee={normalized.pricing.cleaningFee}
               touristTax={normalized.pricing.touristTax}
               maxGuests={normalized.capacity.maxGuests}
+              rating={4.9}
+              reviewsCount={32}
+              locale={locale}
             />
           </aside>
         </div>

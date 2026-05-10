@@ -16,27 +16,27 @@ export const Hero = async ({ locale = "fr" }: HeroProps) => {
 
   return (
     <section className="relative h-[calc(100vh-64px)] w-full flex items-center justify-center bg-slate-950">
-      {/* Background with Dark Overlay */}
-      <div className="absolute inset-0 bg-slate-900/40 z-10" />
+      {/* Background with Optimized Overlay for Visibility */}
+      <div className="absolute inset-0 bg-slate-950/60 z-10" />
       <img
         src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop"
         alt="Welqo Professional Management"
-        className="absolute inset-0 w-full h-full object-cover grayscale-[0.2]"
+        className="absolute inset-0 w-full h-full object-cover grayscale-[0.1]"
       />
 
       <div className="relative z-20 text-center px-6 w-full max-w-5xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 text-[10px] font-black tracking-widest uppercase bg-slate-900/60 backdrop-blur-md border border-white/10 text-white rounded-md">
+        <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-[9px] font-black tracking-[0.2em] uppercase bg-slate-950/40 backdrop-blur-md border border-white/10 text-white rounded-md shadow-2xl">
           <Sparkles className="w-3 h-3 text-primary" />
           {t("badge")}
         </div>
         
-        <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter mb-8 leading-[0.95]">
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white tracking-tighter mb-5 leading-[0.95] drop-shadow-[0_4px_12px_rgba(0,0,0,0.5)]">
           {t.rich("heroTitle", {
             span: (chunks) => <span className="text-primary">{chunks}</span>
           })}
         </h1>
 
-        <p className="text-base md:text-lg text-white/70 max-w-xl mx-auto mb-12 font-medium leading-relaxed">
+        <p className="text-[14px] md:text-base text-white/90 max-w-2xl mx-auto mb-10 font-medium leading-relaxed drop-shadow-sm">
           {t("heroSubtitle")}
         </p>
 
@@ -45,9 +45,9 @@ export const Hero = async ({ locale = "fr" }: HeroProps) => {
         <div className="mt-10 flex items-center justify-center">
           <a 
             href={`${base}/proprietaires`}
-            className="text-[10px] font-black uppercase tracking-[0.2em] text-white/50 hover:text-primary transition-colors flex items-center gap-2"
+            className="text-[10px] font-black tracking-[0.2em] text-white/50 hover:text-primary transition-colors flex items-center gap-2"
           >
-            {isFr ? "Devenir Propriétaire" : "Partner with us"}
+            {isFr ? "Devenir propriétaire" : "Partner with us"}
             <ArrowRight className="w-3 h-3" />
           </a>
         </div>

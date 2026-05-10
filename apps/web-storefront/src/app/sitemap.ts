@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { BLOG_POSTS } from "../lib/blog";
+import { getProperties } from "../lib/api";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -8,15 +9,15 @@ const STATIC_PAGES = [
   { path: "/proprietaires", priority: 0.9, freq: "monthly" },
   { path: "/blog", priority: 0.8, freq: "weekly" },
   { path: "/logements", priority: 0.8, freq: "weekly" },
-  { path: "/logements/appartement-bordelais", priority: 0.7, freq: "monthly" },
   { path: "/mentions-legales", priority: 0.1, freq: "yearly" },
   { path: "/politique-de-confidentialite", priority: 0.1, freq: "yearly" },
 ] as const;
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
   const locales = ["fr", "en"] as const;
 
+  // Static pages
   const staticEntries = locales.flatMap((locale) =>
     STATIC_PAGES.map(({ path, priority, freq }) => ({
       url: `${BASE_URL}/${locale}${path}`,
@@ -26,6 +27,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  // Blog posts
   const blogEntries = locales.flatMap((locale) =>
     BLOG_POSTS.map((post) => ({
       url: `${BASE_URL}/${locale}/blog/${post.slug}`,
@@ -35,5 +37,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
-  return [...staticEntries, ...blogEntries];
+  // Properties (Dynamic)
+  let propertyEntries: MetadataRoute.Sitemap = [];
+  try {
+    const { properties } = await getProperties();
+    propertyEntries = locales.flatMap((locale) =>
+      properties.map((property) => ({
+        url: `${BASE_URL}/${locale}/logements/${property.slug}`,
+        lastModified: now,
+        changeFrequency: "weekly" as const,
+        priority: 0.8,
+      })),
+    );
+  } catch (error) {
+    console.error("Failed to fetch properties for sitemap", error);
+  }
+
+  return [...staticEntries, ...blogEntries, ...propertyEntries];
 }

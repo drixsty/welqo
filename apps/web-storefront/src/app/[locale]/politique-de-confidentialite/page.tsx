@@ -41,7 +41,7 @@ export default function PolitiqueConfidentialitePage({
         <div className="relative z-10 max-w-4xl mx-auto">
           <Link
             href={base}
-            className="group inline-flex items-center gap-2 text-slate-400 font-bold text-[10px] uppercase tracking-[0.2em] hover:text-white transition-colors mb-12"
+            className="group inline-flex items-center gap-2 text-slate-400 font-bold text-[10px] tracking-[0.2em] hover:text-white transition-colors mb-12"
           >
             <svg
               className="w-4 h-4 transition-transform group-hover:-translate-x-1"
@@ -66,11 +66,11 @@ export default function PolitiqueConfidentialitePage({
           </h1>
 
           <div className="flex flex-wrap items-center gap-4 text-slate-500">
-            <span className="flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold uppercase tracking-wider">
+            <span className="flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
               Conforme RGPD
             </span>
-            <span className="text-[10px] font-bold uppercase tracking-widest">
+            <span className="text-[10px] font-bold">
               Dernière mise à jour : {new Date().getFullYear()}
             </span>
           </div>
@@ -227,7 +227,7 @@ export default function PolitiqueConfidentialitePage({
                     key={d.type}
                     className="p-6 bg-slate-950 rounded-lg border border-white/5 group hover:border-welqo-terracotta/30 transition-all"
                   >
-                    <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest mb-1">
+                    <p className="text-slate-500 text-[10px] font-bold tracking-widest mb-1">
                       {d.type}
                     </p>
                     <p className="text-white font-bold text-xl">{d.durée}</p>

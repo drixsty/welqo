@@ -15,6 +15,7 @@ interface BookingWidgetProps {
   cleaningFee: number;
   touristTax: number;
   maxGuests: number;
+  onBook?: (data: { range: DateRange | undefined; guests: number }) => void;
 }
 
 // Mocked blocked dates for demonstration
@@ -26,7 +27,7 @@ const BLOCKED_DATES = [
   addDays(new Date(), 14),
 ];
 
-export const BookingWidget = ({ basePrice, cleaningFee, touristTax, maxGuests }: BookingWidgetProps) => {
+export const BookingWidget = ({ propertyId, basePrice, cleaningFee, touristTax, maxGuests, onBook }: BookingWidgetProps) => {
   const [range, setRange] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 3),
@@ -79,7 +80,7 @@ export const BookingWidget = ({ basePrice, cleaningFee, touristTax, maxGuests }:
               onClick={() => setIsCalendarOpen(!isCalendarOpen)}
               className="p-2.5 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group"
             >
-              <span className="text-[8px] font-bold text-slate-400 uppercase block mb-0.5">Arrivée</span>
+              <span className="text-[8px] font-bold text-slate-400 block mb-0.5">Arrivée</span>
               <span className="text-[11px] font-bold text-slate-900 dark:text-white truncate">
                 {range?.from ? format(range.from, "dd MMM yyyy", { locale: fr }) : "Choisir"}
               </span>
@@ -88,7 +89,7 @@ export const BookingWidget = ({ basePrice, cleaningFee, touristTax, maxGuests }:
               onClick={() => setIsCalendarOpen(!isCalendarOpen)}
               className="p-2.5 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group"
             >
-              <span className="text-[8px] font-bold text-slate-400 uppercase block mb-0.5">Départ</span>
+              <span className="text-[8px] font-bold text-slate-400 block mb-0.5">Départ</span>
               <span className="text-[11px] font-bold text-slate-900 dark:text-white truncate">
                 {range?.to ? format(range.to, "dd MMM yyyy", { locale: fr }) : "Choisir"}
               </span>
@@ -123,7 +124,7 @@ export const BookingWidget = ({ basePrice, cleaningFee, touristTax, maxGuests }:
                     button_next: "h-5 w-5 bg-transparent p-0 opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-white/5",
                     month_grid: "w-full border-collapse",
                     weeks: "flex flex-col",
-                    weekday: "text-slate-400 rounded-md w-7 font-bold text-[9px] uppercase",
+                    weekday: "text-slate-400 rounded-md w-7 font-bold text-[9px]",
                     week: "flex w-full mt-0.5",
                     day: "h-7 w-7 p-0 text-[10px] font-medium flex items-center justify-center aria-selected:opacity-100 hover:bg-slate-100 dark:hover:bg-white/5 rounded-md transition-all relative",
                     selected: "bg-primary text-white hover:bg-primary focus:bg-primary",
@@ -160,7 +161,7 @@ export const BookingWidget = ({ basePrice, cleaningFee, touristTax, maxGuests }:
             className="w-full p-2.5 bg-slate-50 dark:bg-white/[0.03] rounded-lg border border-slate-100 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group"
           >
             <div className="text-left">
-              <span className="text-[8px] font-bold text-slate-400 uppercase block mb-0.5">Voyageurs</span>
+              <span className="text-[8px] font-bold text-slate-400 block mb-0.5">Voyageurs</span>
               <span className="text-[11px] font-bold text-slate-900 dark:text-white">{guests} {guests > 1 ? "voyageurs" : "voyageur"}</span>
             </div>
             <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform ${isGuestOpen ? "rotate-180" : ""}`} />
@@ -223,7 +224,10 @@ export const BookingWidget = ({ basePrice, cleaningFee, touristTax, maxGuests }:
         </div>
       </div>
 
-      <button className="group w-full py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-bold text-xs hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2">
+      <button 
+        onClick={() => onBook?.({ range, guests })}
+        className="group w-full py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-bold text-xs hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2"
+      >
         Réserver maintenant
         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
       </button>

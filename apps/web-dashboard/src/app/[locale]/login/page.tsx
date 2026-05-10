@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import { useTranslations } from "next-intl";
 import { useParams, useRouter } from "next/navigation";
 import { login } from "../../../lib/auth";
-import { BrandLogo, Button } from "@welqo/ui";
+import { BrandLogo } from "@welqo/ui";
+import { Eye, EyeOff } from "lucide-react";
 
 export default function LoginPage() {
   const t = useTranslations("LoginPage");
@@ -14,6 +15,7 @@ export default function LoginPage() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -32,93 +34,109 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="flex min-h-[calc(100vh-64px)] items-center justify-center p-4 bg-slate-50 dark:bg-black relative overflow-hidden">
-      {/* Decorative Blur Elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -mr-64 -mt-64" />
-      <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-3xl -ml-64 -mb-64" />
+    <div className="flex min-h-screen items-center justify-center p-4 bg-white dark:bg-slate-950 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.02)_1px,transparent_0)] dark:bg-[radial-gradient(circle_at_1px_1px,rgba(255,255,255,0.02)_1px,transparent_0)] [background-size:20px_20px]" />
 
-      <div className="w-full max-w-md z-10">
-        <div className="bg-white dark:bg-slate-900 rounded-xl p-8 md:p-12 shadow-2xl shadow-primary/5 border border-slate-100 dark:border-slate-800">
-          <div className="text-center mb-10 flex flex-col items-center">
-            <BrandLogo variant="cursive" size="lg" className="mb-8" />
-            <h1 className="text-3xl font-luxury tracking-tight mb-2">
-              {t("title")}
+      <div className="w-full max-w-[360px] z-10 animate-fade-up">
+        <div className="bg-white dark:bg-slate-900/50 rounded-lg p-7 border border-slate-100 dark:border-white/5">
+          <div className="text-center mb-7 flex flex-col items-center">
+            <BrandLogo size="sm" className="mb-4 scale-95" />
+            <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+              Accès partenaire
             </h1>
-            <p className="text-slate-500 text-sm font-medium">
-              {t("subtitle")}
+            <p className="text-slate-500 text-sm mt-2 font-medium">
+              Veuillez vous identifier pour accéder à votre espace
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div>
-              <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 ml-1 tracking-widest">
-                {t("emailLabel")}
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="relative group">
+              <label className="block text-[11px] font-bold text-slate-500 mb-1.5 ml-0.5 tracking-tight">
+                Adresse e-mail
               </label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.currentTarget.value)}
-                placeholder="marc@exemple.fr"
-                required
-                autoComplete="email"
-                className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-medium"
-              />
+              <div className="relative">
+                <div className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-welqo-terracotta transition-all duration-200 peer-focus:h-1/2 rounded-full" />
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.currentTarget.value)}
+                  placeholder="Votre e-mail"
+                  required
+                  autoComplete="email"
+                  className="peer w-full px-4 py-2.5 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/10 rounded-md outline-none ring-0 focus:ring-0 focus:border-welqo-terracotta transition-all font-medium text-sm text-slate-900 dark:text-white"
+                />
+              </div>
             </div>
 
-            <div>
-              <label className="block text-[10px] font-black uppercase text-slate-500 mb-2 ml-1 tracking-widest">
-                {t("passwordLabel")}
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.currentTarget.value)}
-                placeholder="••••••••"
-                required
-                autoComplete="current-password"
-                className="w-full px-6 py-4 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-md focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all font-medium"
-              />
-            </div>
-
-            <div className="flex justify-end">
-              <button
-                type="button"
-                className="text-xs font-bold text-primary hover:underline"
-              >
-                {t("forgotPassword")}
-              </button>
+            <div className="relative group">
+              <div className="flex items-center justify-between mb-1.5 ml-0.5">
+                <label className="block text-[11px] font-bold text-slate-500 tracking-tight">
+                  Mot de passe
+                </label>
+                <button
+                  type="button"
+                  onClick={() => router.push(`/${locale}/forgot-password`)}
+                  className="text-[11px] font-bold text-slate-400 hover:text-welqo-terracotta transition-colors"
+                >
+                  Oublié ?
+                </button>
+              </div>
+              <div className="relative">
+                <div className="absolute -left-2.5 top-1/2 -translate-y-1/2 w-0.5 h-0 bg-welqo-terracotta transition-all duration-200 peer-focus:h-1/2 rounded-full" />
+                <input
+                  type={showPassword ? "text" : "password"}
+                  value={password}
+                  onChange={(e) => setPassword(e.currentTarget.value)}
+                  placeholder="••••••••"
+                  required
+                  autoComplete="current-password"
+                  className="peer w-full px-4 py-2.5 pr-10 bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/10 rounded-md outline-none ring-0 focus:ring-0 focus:border-welqo-terracotta transition-all font-medium text-sm text-slate-900 dark:text-white"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-welqo-terracotta transition-colors"
+                >
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
+                </button>
+              </div>
             </div>
 
             {error && (
-              <div className="p-4 bg-red-50 dark:bg-red-950/30 text-red-600 text-sm font-bold rounded-md border border-red-100 dark:border-red-900">
+              <div className="p-2.5 bg-red-50 dark:bg-red-950/20 text-red-600 text-[12px] font-medium rounded border border-red-100 dark:border-red-900/30">
                 {error}
               </div>
             )}
 
-            <Button
+            <button
               type="submit"
               disabled={loading}
-              variant="primary"
-              size="lg"
-              className="w-full"
-              isLoading={loading}
+              className="w-full h-11 bg-welqo-terracotta hover:bg-[#b84429] disabled:opacity-50 text-white text-sm font-bold rounded flex items-center justify-center gap-2 mt-2 transition-colors"
             >
-              {t("loginButton")}
-            </Button>
+              {loading ? (
+                <div className="w-4 h-4 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+              ) : (
+                "Se connecter"
+              )}
+            </button>
           </form>
 
-          <div className="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
-            <p className="text-sm text-slate-500 font-medium mb-2">
-              {t("noAccount")}
-            </p>
-            <button className="text-primary font-bold hover:underline">
-              {t("contactWelqo")}
+          <div className="mt-7 pt-6 border-t border-slate-50 dark:border-white/5 text-center">
+            <button 
+              onClick={() => router.push(`/${locale}/contact-support`)}
+              className="text-slate-900 dark:text-white text-[13px] font-bold hover:text-welqo-terracotta transition-colors"
+            >
+              Contacter mon conseiller
             </button>
           </div>
         </div>
 
-        <p className="text-center mt-8 text-[10px] text-slate-400 font-medium tracking-[0.2em] uppercase">
-          Welqo — Excellence en Conciergerie
+        <p className="text-center mt-5 text-[10px] text-slate-400 font-medium tracking-tight">
+          Welqo Professional — Partenaire de votre succès
         </p>
       </div>
     </div>

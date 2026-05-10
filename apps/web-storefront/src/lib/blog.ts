@@ -80,6 +80,28 @@ export const BLOG_POSTS: BlogPost[] = [
       "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
     coverImageAlt: "Vue sur Lille — meilleurs quartiers Airbnb",
   },
+  {
+    slug: "conciergerie-airbnb-lens-arras-bassin-minier",
+    titleFr: "Conciergerie Airbnb à Lens & Arras : Pourquoi le Bassin Minier explose en 2025 ?",
+    titleEn: "Airbnb Concierge in Lens & Arras: Why the Mining Basin is Booming in 2025?",
+    descriptionFr:
+      "L'effet Louvre-Lens, les matches du RC Lens et le patrimoine de l'UNESCO transforment le Bassin Minier en eldorado pour la location courte durée. Guide complet.",
+    descriptionEn:
+      "The Louvre-Lens effect, RC Lens matches and UNESCO heritage are turning the Mining Basin into an eldorado for short-term rentals. Complete guide.",
+    publishedAt: "2025-05-10",
+    readingMinutes: 7,
+    category: "Stratégie",
+    keywordsFr: [
+      "conciergerie airbnb lens",
+      "conciergerie airbnb arras",
+      "gestion locative lens",
+      "investir bassin minier airbnb",
+    ],
+    keywordsEn: ["airbnb concierge lens", "airbnb management arras"],
+    coverImage:
+      "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop",
+    coverImageAlt: "Lens et Arras — opportunités Airbnb Bassin Minier",
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {

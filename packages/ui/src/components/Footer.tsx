@@ -21,12 +21,16 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
         href: process.env.NEXT_PUBLIC_DASHBOARD_URL ?? "#",
       },
       {
-        label: isFr ? "Collection de Demeures" : "Property Collection",
-        href: `${base}/logements`,
+        label: isFr ? "Nos Logements" : "Our Properties",
+        href: base,
       },
       {
         label: isFr ? "Estimation de revenus" : "Revenue Estimation",
-        href: `${base}/contact`,
+        href: `${base}/proprietaires#simulator`,
+      },
+      {
+        label: "Blog",
+        href: `${base}/blog`,
       },
     ],
   };
@@ -111,7 +115,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
       <div className="border-t border-slate-100 dark:border-slate-900">
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-400 font-medium">
-            © {year} Welqo. {isFr ? "Hauts-de-France." : "Lille, Lens & Arras."}
+            © {year} Welqo. {isFr ? "Conciergerie à Lille, Lens & Arras." : "Concierge in Lille, Lens & Arras."}
           </p>
           <div className="flex items-center gap-6 text-xs text-slate-400">
             <a

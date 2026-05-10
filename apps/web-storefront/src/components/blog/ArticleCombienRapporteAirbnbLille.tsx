@@ -22,10 +22,10 @@ const LEAD_STATS = [
   {
     val: "1 200 – 2 200 €",
     label: "Revenus bruts / mois",
-    color: "text-blue-600",
+    color: "text-welqo-terracotta",
   },
   {
-    val: "+50–80 %",
+    val: "+50 – 80 %",
     label: "vs location longue durée",
     color: "text-emerald-600",
   },
@@ -40,20 +40,20 @@ export function ArticleCombienRapporteAirbnbLille({
   const base = `/${locale}`;
 
   return (
-    <article className="space-y-0">
+    <article className="relative">
       {/* Lead stat cards */}
-      <div className="grid grid-cols-3 gap-3 mb-10">
+      <div className="grid grid-cols-3 gap-2 mb-10 max-w-xl mx-auto">
         {LEAD_STATS.map(({ val, label, color }) => (
           <div
             key={label}
-            className="p-4 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-slate-800 text-center"
+            className="py-2.5 px-3 bg-slate-50 dark:bg-slate-900 rounded-md border border-slate-100 dark:border-slate-800 text-center flex flex-col justify-center gap-0"
           >
             <p
-              className={`text-lg md:text-2xl font-black tracking-tight ${color}`}
+              className={`text-base md:text-lg font-bold tracking-tight ${color}`}
             >
               {val}
             </p>
-            <p className="text-[11px] text-slate-500 font-medium mt-1 leading-snug">
+            <p className="text-[10px] text-slate-500 font-medium leading-tight">
               {label}
             </p>
           </div>
@@ -63,11 +63,11 @@ export function ArticleCombienRapporteAirbnbLille({
       {/* Section 1 */}
       <h2
         id="revenus-moyens"
-        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-10 mb-4 scroll-mt-28"
+        className="text-3xl font-bold text-slate-900 dark:text-white tracking-tighter mt-16 mb-10 scroll-mt-28"
       >
         Les revenus moyens d'un Airbnb à Lille
       </h2>
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8 text-lg">
         Un appartement bien situé et correctement optimisé à Lille génère en
         moyenne entre{" "}
         <strong className="text-slate-900 dark:text-white font-bold">
@@ -81,7 +81,7 @@ export function ArticleCombienRapporteAirbnbLille({
         </strong>{" "}
         en faveur de la courte durée.
       </p>
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-16 text-lg">
         Ces chiffres s'entendent hors charges de gestion. Avec une conciergerie
         comme Welqo (commission de 15 à 20 %), le revenu net propriétaire reste
         significativement supérieur à celui d'une location meublée classique.
@@ -90,31 +90,31 @@ export function ArticleCombienRapporteAirbnbLille({
       {/* Section 2 */}
       <h2
         id="par-quartier"
-        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28"
+        className="text-3xl font-bold text-slate-900 dark:text-white tracking-tighter mt-24 mb-10 scroll-mt-28"
       >
         Revenus par quartier à Lille (données 2025)
       </h2>
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
+      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
         Les performances varient fortement selon la localisation. Le Vieux-Lille
         reste le quartier le plus rentable grâce à son attractivité touristique,
         tandis que des quartiers comme Wazemmes ou Vauban offrent un excellent
         rapport qualité/prix d'acquisition.
       </p>
 
-      <div className="overflow-x-auto my-6 rounded-2xl border border-slate-100 dark:border-slate-800 shadow-sm">
+      <div className="overflow-x-auto my-6 rounded-xl border border-slate-100 dark:border-slate-800">
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr className="bg-slate-900 dark:bg-slate-800 text-white">
-              <th className="text-left px-5 py-3.5 font-black rounded-tl-2xl">
+              <th className="text-left px-3 py-1.5 font-bold rounded-tl-lg text-[10px] uppercase tracking-wider">
                 Quartier
               </th>
-              <th className="text-right px-5 py-3.5 font-black">
+              <th className="text-right px-3 py-1.5 font-bold text-[10px] uppercase tracking-wider">
                 Revenu brut / mois
               </th>
-              <th className="text-right px-5 py-3.5 font-black hidden sm:table-cell">
+              <th className="text-right px-3 py-1.5 font-bold hidden sm:table-cell text-[10px] uppercase tracking-wider">
                 Taux d'occupation
               </th>
-              <th className="text-right px-5 py-3.5 font-black rounded-tr-2xl">
+              <th className="text-right px-3 py-1.5 font-bold rounded-tr-lg text-[10px] uppercase tracking-wider">
                 Prix / nuit
               </th>
             </tr>
@@ -123,22 +123,21 @@ export function ArticleCombienRapporteAirbnbLille({
             {DATA_QUARTIERS.map((row, i) => (
               <tr
                 key={row.name}
-                className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${
-                  i % 2 === 0
+                className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${i % 2 === 0
                     ? "bg-white dark:bg-slate-900"
                     : "bg-slate-50/50 dark:bg-slate-800/50"
-                }`}
+                  }`}
               >
-                <td className="px-5 py-3.5 font-bold text-slate-900 dark:text-white">
+                <td className="px-3 py-1.5 font-bold text-slate-900 dark:text-white text-[13px]">
                   {row.name}
                 </td>
-                <td className="px-5 py-3.5 text-right font-black text-blue-600">
+                <td className="px-3 py-1.5 text-right font-bold text-welqo-terracotta text-[13px]">
                   {row.revenuMensuel.toLocaleString("fr-FR")} €
                 </td>
-                <td className="px-5 py-3.5 text-right text-slate-500 hidden sm:table-cell">
+                <td className="px-3 py-1.5 text-right text-slate-500 hidden sm:table-cell text-[12px]">
                   {row.tauxOccupation} %
                 </td>
-                <td className="px-5 py-3.5 text-right text-slate-500">
+                <td className="px-3 py-1.5 text-right text-slate-500 text-[12px]">
                   {row.prixNuit} €
                 </td>
               </tr>
@@ -154,15 +153,15 @@ export function ArticleCombienRapporteAirbnbLille({
       {/* Section 3 */}
       <h2
         id="facteurs"
-        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28"
+        className="text-3xl font-bold text-slate-900 dark:text-white tracking-tighter mt-24 mb-12 scroll-mt-28 border-t border-slate-100 dark:border-white/5 pt-16"
       >
         Les facteurs qui influencent la rentabilité
       </h2>
 
-      <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-8 mb-3">
+      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mt-16 mb-8 tracking-tight">
         1. La saisonnalité lilloise
       </h3>
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
+      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-10 text-lg">
         Contrairement à des villes balnéaires, Lille bénéficie d'un{" "}
         <strong className="text-slate-900 dark:text-white font-bold">
           flux de voyageurs d'affaires constant
@@ -171,7 +170,7 @@ export function ArticleCombienRapporteAirbnbLille({
         nordistes. Les pics de demande sont concentrés sur :
       </p>
 
-      <ul className="space-y-3 mb-6">
+      <ul className="space-y-6 mb-12">
         {[
           {
             event: "La Braderie de Lille",
@@ -193,23 +192,20 @@ export function ArticleCombienRapporteAirbnbLille({
         ].map(({ event, detail }) => (
           <li
             key={event}
-            className="flex items-start gap-3 text-slate-600 dark:text-slate-400"
+            className="text-slate-600 dark:text-slate-400 text-lg leading-loose"
           >
-            <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-blue-600 shrink-0" />
-            <span>
-              <strong className="text-slate-900 dark:text-white font-bold">
-                {event}
-              </strong>{" "}
-              — {detail}
-            </span>
+            <strong className="text-slate-900 dark:text-white font-bold">
+              {event}
+            </strong>{" "}
+            — {detail}
           </li>
         ))}
       </ul>
 
-      <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-8 mb-3">
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white mt-16 mb-6">
         2. La qualité de l'annonce
       </h3>
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-5">
+      <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-10">
         Les annonces Airbnb avec des photos professionnelles et un titre
         optimisé obtiennent en moyenne{" "}
         <strong className="text-slate-900 dark:text-white font-bold">
@@ -220,7 +216,7 @@ export function ArticleCombienRapporteAirbnbLille({
         la prise en charge d'un nouveau bien.
       </p>
 
-      <h3 className="text-lg font-bold text-slate-900 dark:text-white mt-8 mb-3">
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white mt-16 mb-6">
         3. La réactivité et la note voyageurs
       </h3>
       <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
@@ -234,17 +230,16 @@ export function ArticleCombienRapporteAirbnbLille({
       </p>
 
       {/* Callout */}
-      <div className="my-8 p-6 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 rounded-2xl">
-        <div className="flex items-start gap-3">
+      <div className="my-10 p-4 bg-emerald-50 dark:bg-emerald-950/20 border border-emerald-200 dark:border-emerald-900/40 rounded-lg">
+        <div className="flex items-start gap-4">
           <span className="text-2xl shrink-0">💡</span>
-          <div>
-            <p className="font-black text-emerald-800 dark:text-emerald-400 mb-1">
+          <div className="space-y-3">
+            <p className="font-bold text-base text-emerald-800 dark:text-emerald-400 tracking-tight">
               Bon à savoir
             </p>
-            <p className="text-emerald-700 dark:text-emerald-500 text-sm leading-relaxed">
+            <p className="text-emerald-700 dark:text-emerald-500 text-base leading-relaxed">
               Les propriétaires qui confient leur bien à Welqo gagnent en
-              moyenne <strong>38 % de revenus supplémentaires</strong> grâce à
-              l'optimisation des annonces et la tarification dynamique.
+              moyenne <strong className="text-emerald-900 dark:text-emerald-300">38 % de revenus supplémentaires</strong>.
             </p>
           </div>
         </div>
@@ -253,7 +248,7 @@ export function ArticleCombienRapporteAirbnbLille({
       {/* Section 4 */}
       <h2
         id="conciergerie"
-        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28"
+        className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mt-20 mb-8 scroll-mt-28"
       >
         Faut-il confier son bien à une conciergerie ?
       </h2>
@@ -280,7 +275,7 @@ export function ArticleCombienRapporteAirbnbLille({
       {/* Section 5 */}
       <h2
         id="reglementation"
-        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28"
+        className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mt-20 mb-8 scroll-mt-28"
       >
         La réglementation Airbnb à Lille en 2025
       </h2>
@@ -293,33 +288,32 @@ export function ArticleCombienRapporteAirbnbLille({
         {[
           {
             title: "Déclaration en mairie obligatoire",
-            desc: "Tout meublé de tourisme doit être déclaré auprès de la Ville de Lille (formulaire CERFA n°14004). Welqo prend en charge cette démarche pour vous.",
+            desc: "Tout meublé de tourisme doit être déclaré auprès de la Ville de Lille (CERFA n°14004).",
           },
           {
             title: "Taxe de séjour",
-            desc: "Collectée et reversée automatiquement par Airbnb pour Lille. Aucune démarche supplémentaire pour le propriétaire.",
+            desc: "Collectée et reversée automatiquement par Airbnb pour Lille. Aucune démarche propriétaire.",
           },
           {
             title: "Changement d'usage",
-            desc: "Si votre résidence principale représente moins de 120 jours de location annuelle, aucune autorisation n'est requise. Au-delà, une demande de changement d'usage est nécessaire.",
+            desc: "Au-delà de 120 jours/an, une demande de changement d'usage est nécessaire à Lille.",
           },
           {
             title: "Copropriété",
-            desc: "Vérifiez votre règlement de copropriété — certains immeubles lillois interdisent explicitement la location meublée touristique.",
+            desc: "Vérifiez votre règlement de copropriété — certains immeubles lillois l'interdisent.",
           },
         ].map(({ title, desc }) => (
           <li
             key={title}
-            className="flex gap-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800"
+            className="p-3 bg-slate-50/50 dark:bg-white/5 rounded-lg border border-slate-100 dark:border-white/5 transition-colors hover:bg-white dark:hover:bg-white/10 group"
           >
-            <div className="w-5 h-5 mt-0.5 rounded-full bg-blue-600/10 border border-blue-600/20 flex items-center justify-center shrink-0">
-              <div className="w-1.5 h-1.5 rounded-full bg-blue-600" />
-            </div>
             <div>
-              <p className="font-bold text-slate-900 dark:text-white text-sm mb-0.5">
+              <p className="font-bold text-slate-900 dark:text-white text-[13px] mb-0.5 tracking-tight">
                 {title}
               </p>
-              <p className="text-slate-500 text-sm leading-relaxed">{desc}</p>
+              <p className="text-slate-500 dark:text-slate-400 text-[12px] leading-relaxed">
+                {desc}
+              </p>
             </div>
           </li>
         ))}
@@ -328,7 +322,7 @@ export function ArticleCombienRapporteAirbnbLille({
       {/* Conclusion */}
       <h2
         id="conclusion"
-        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28"
+        className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight mt-20 mb-8 scroll-mt-28"
       >
         Conclusion : est-ce rentable de louer sur Airbnb à Lille ?
       </h2>
@@ -347,7 +341,7 @@ export function ArticleCombienRapporteAirbnbLille({
         lillois.{" "}
         <a
           href={`${base}/proprietaires`}
-          className="text-blue-600 font-bold hover:underline"
+          className="text-welqo-terracotta font-bold hover:underline"
         >
           Découvrez comment Welqo gère votre bien à Lille →
         </a>

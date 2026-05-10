@@ -321,7 +321,7 @@ export default function ProprietairesPage({
       {/* ══════════════════════════════════════════════════════
           HERO — Cinématique split layout
       ══════════════════════════════════════════════════════ */}
-      <section className="relative min-h-[85vh] lg:h-screen lg:max-h-[800px] flex flex-col bg-slate-950 overflow-hidden">
+      <section className="relative h-[calc(100dvh-4rem)] flex flex-col bg-slate-950 overflow-hidden">
         {/* Background layers */}
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(212,85,55,0.2),transparent)]" />
@@ -337,7 +337,7 @@ export default function ProprietairesPage({
           />
         </div>
 
-        <div className="relative z-10 flex-grow flex items-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="relative z-10 flex-grow flex items-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
             {/* Left column — Copy */}
             <div className="animate-fade-up">
@@ -349,15 +349,15 @@ export default function ProprietairesPage({
                 </span>
               </div>
 
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tighter leading-[0.95] mb-4">
-                Confiez votre bien.
+              <h1 className="text-3xl md:text-5xl lg:text-5xl font-bold text-white tracking-tighter leading-[0.95] mb-3">
+                Libérez-vous de la gestion.
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-welqo-terracotta to-orange-400">
-                  On gère tout.
+                  Maximisez vos revenus.
                 </span>
               </h1>
 
-              <p className="text-[15px] text-slate-400 max-w-md mb-6 leading-relaxed font-medium">
+              <p className="text-[14px] text-slate-400 max-w-md mb-5 leading-relaxed font-medium">
                 Welqo est la conciergerie Airbnb de référence à Lille. Gestion{" "}
                 <strong className="text-slate-200">100 % déléguée</strong> —
                 annonces, accueil, ménage, maintenance — avec dashboard temps
@@ -507,8 +507,8 @@ export default function ProprietairesPage({
           </div>
         </div>
 
-        {/* Platforms Bar — Integrated at bottom */}
-        <div className="relative z-10 w-full border-t border-white/5 bg-slate-900/50 backdrop-blur-sm py-4 md:py-6 px-4 mt-auto">
+        {/* Platforms Bar — Compact at bottom */}
+        <div className="relative z-10 w-full border-t border-white/5 bg-slate-900/50 backdrop-blur-sm py-3 md:py-4 px-4 mt-auto">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta" />
@@ -516,7 +516,7 @@ export default function ProprietairesPage({
                 Diffusé sur les leaders mondiaux
               </p>
             </div>
-            <div className="flex items-center gap-6 md:gap-10 flex-wrap justify-center grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-500">
+            <div className="flex items-center gap-6 md:gap-10 flex-wrap justify-center opacity-40 transition-all duration-500">
               {["Airbnb", "Booking.com", "Vrbo", "Expedia", "Abritel"].map(
                 (p) => (
                   <span
@@ -542,7 +542,7 @@ export default function ProprietairesPage({
               Le problème
             </span>
             <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white mb-3">
-              Gérer seul est <span className="text-red-500">épuisant.</span>
+              Gérer un Airbnb est un <span className="text-red-500">métier à plein temps.</span>
             </h2>
             <p className="text-slate-500 max-w-lg mx-auto font-medium text-[13px] leading-relaxed">
               Déléguez la charge mentale. Gagnez 10h par semaine.
@@ -578,13 +578,11 @@ export default function ProprietairesPage({
               Processus
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
-              Actif en <span className="text-welqo-terracotta">7 jours.</span>
+              Votre bien rentable en <span className="text-welqo-terracotta">7 jours.</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-            {/* Connecting line */}
-            <div className="hidden md:block absolute top-8 left-[15%] right-[15%] h-[2px] bg-slate-200 dark:bg-slate-800" />
 
             {STEPS.map((step, i) => (
               <div
@@ -593,8 +591,16 @@ export default function ProprietairesPage({
               >
                 {/* Node */}
                 <div className="relative mb-6">
+                  {/* Connecting Line Segments */}
+                  {i !== 0 && (
+                    <div className="hidden md:block absolute top-8 right-1/2 w-full h-[2px] bg-slate-200 dark:bg-slate-800 z-0" />
+                  )}
+                  {i !== STEPS.length - 1 && (
+                    <div className="hidden md:block absolute top-8 left-1/2 w-full h-[2px] bg-slate-200 dark:bg-slate-800 z-0" />
+                  )}
+
                   <div
-                    className={`w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-sm relative z-10 transition-transform group-hover:scale-110 duration-300 ${i === 1 ? "bg-welqo-terracotta" : "bg-slate-900 dark:bg-slate-800"}`}
+                    className={`w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-sm relative z-10 duration-300 ${i === 1 ? "bg-welqo-terracotta" : "bg-slate-900 dark:bg-slate-800"}`}
                   >
                     {step.num}
                   </div>
@@ -623,17 +629,17 @@ export default function ProprietairesPage({
       {/* ══════════════════════════════════════════════════════
           BENTO GRID — Services
       ══════════════════════════════════════════════════════ */}
-      <section id="services" className="py-16 px-4 bg-white dark:bg-black">
+      <section id="services" className="pt-16 pb-32 px-4 bg-white dark:bg-black">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] uppercase bg-welqo-terracotta/10 text-welqo-terracotta rounded-full">
               Expertise
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
-              Plus qu'un service,
+              L'excellence hôtelière
               <br />
               <span className="text-welqo-terracotta">
-                un partenaire de croissance.
+                au service de votre patrimoine.
               </span>
             </h2>
           </div>
@@ -654,7 +660,7 @@ export default function ProprietairesPage({
               return (
                 <div
                   key={svc.title}
-                  className={`group relative rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6 transition-all duration-300 hover:border-welqo-terracotta/20 overflow-hidden ${isLg ? "lg:col-span-2" : ""}`}
+                  className={`group relative rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6 overflow-hidden ${isLg ? "lg:col-span-2" : ""}`}
                 >
                   <div className="relative z-10">
                     <div className="flex items-start justify-between mb-6">
@@ -709,7 +715,7 @@ export default function ProprietairesPage({
       ══════════════════════════════════════════════════════ */}
       <section className="py-16 px-4 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-4xl mx-auto">
-          <RevenueSimulator />
+          <RevenueSimulator locale={locale} />
         </div>
       </section>
 
@@ -870,9 +876,9 @@ export default function ProprietairesPage({
         </div>
       </section>
 
-      <section className="py-20 px-4 bg-white dark:bg-black overflow-hidden">
+      <section className="py-12 px-4 bg-white dark:bg-black overflow-hidden">
         <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800 bg-slate-950 p-8 md:p-16 group/card">
+          <div className="relative rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800 bg-slate-950 p-6 md:p-12 group/card">
             {/* Ambient Background Effects */}
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-welqo-terracotta/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none transition-transform duration-1000 group-hover/card:scale-110" />
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
@@ -889,7 +895,7 @@ export default function ProprietairesPage({
                   </span>
                 </div>
 
-                <h2 className="text-white text-3xl md:text-5xl font-bold tracking-tighter mb-6 leading-[1.1]">
+                <h2 className="text-white text-3xl md:text-5xl font-bold tracking-tighter mb-4 leading-[1.1]">
                   Tarification simple,
                   <br />
                   <span className="text-welqo-terracotta">
@@ -939,7 +945,7 @@ export default function ProprietairesPage({
               </div>
 
               {/* Pricing Badge Monumental */}
-              <div className="shrink-0 w-full md:w-80 bg-slate-900/40 border border-white/5 rounded-lg p-10 md:p-12 text-center relative overflow-hidden backdrop-blur-xl group/price transition-all duration-700 hover:border-welqo-terracotta/40 hover:shadow-[0_0_50px_rgba(212,85,55,0.15)]">
+              <div className="shrink-0 w-full md:w-72 bg-slate-900/40 border border-white/5 rounded-lg p-8 md:p-10 text-center relative overflow-hidden backdrop-blur-xl group/price transition-all duration-700 hover:border-welqo-terracotta/40 hover:shadow-[0_0_50px_rgba(212,85,55,0.15)]">
                 {/* Decorative elements */}
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-welqo-terracotta/40 to-transparent" />
 
@@ -954,19 +960,10 @@ export default function ProprietairesPage({
                 {/* Price Display */}
                 <div className="relative z-10 mb-8">
                   <div className="flex items-center justify-center">
-                    <div className="flex items-start">
-                      <span className="text-white text-7xl md:text-8xl font-bold tracking-tighter leading-none">
-                        15
-                      </span>
-                      <div className="flex flex-col items-center mx-2 md:mx-3 mt-3 md:mt-4">
-                        <div className="w-5 md:w-6 h-[2px] bg-welqo-terracotta rotate-[-45deg] mb-1" />
-                        <div className="w-5 md:w-6 h-[2px] bg-welqo-terracotta rotate-[-45deg]" />
-                      </div>
-                      <span className="text-white text-7xl md:text-8xl font-bold tracking-tighter leading-none">
-                        20
-                      </span>
-                    </div>
-                    <span className="text-welqo-terracotta text-2xl md:text-3xl font-bold ml-1 mt-[-15px] md:mt-[-20px]">
+                    <span className="text-white text-8xl font-bold tracking-tighter leading-none">
+                      20
+                    </span>
+                    <span className="text-welqo-terracotta text-3xl font-bold ml-1 mt-[-20px]">
                       %
                     </span>
                   </div>
@@ -1148,6 +1145,75 @@ export default function ProprietairesPage({
                 </svg>
                 {g}
               </span>
+            ))}
+          </div>
+        </div>
+      </section>
+      {/* ── RESOURCES & GUIDES ────────────────────────────────────── */}
+      <section className="pt-24 pb-48 px-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
+        <div className="max-w-6xl mx-auto">
+          <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
+            <div className="max-w-xl">
+              <span className="text-welqo-terracotta text-[10px] font-bold uppercase tracking-[0.2em] mb-3 block">
+                Expertise & Conseils
+              </span>
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white leading-none">
+                Guides pour les <span className="text-welqo-terracotta">propriétaires.</span>
+              </h2>
+            </div>
+            <a 
+              href={`${base}/blog`}
+              className="text-sm font-bold text-slate-500 hover:text-welqo-terracotta transition-colors flex items-center gap-2"
+            >
+              Voir tout le blog
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
+            </a>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            {[
+              {
+                slug: "combien-rapporte-airbnb-lille-2025",
+                title: "Rentabilité Lille 2025",
+                desc: "Étude complète des revenus par quartier.",
+                category: "Étude"
+              },
+              {
+                slug: "checklist-lancer-airbnb-lille",
+                title: "Lancer son Airbnb",
+                desc: "La checklist juridique et pratique.",
+                category: "Guide"
+              },
+              {
+                slug: "meilleurs-quartiers-airbnb-lille",
+                title: "Meilleurs Quartiers",
+                desc: "Où investir pour maximiser son ROI.",
+                category: "Stratégie"
+              },
+              {
+                slug: "conciergerie-airbnb-lens-arras-bassin-minier",
+                title: "Opportunité Bassin Minier",
+                desc: "Lens & Arras : le nouvel eldorado.",
+                category: "Marché"
+              }
+            ].map((resource) => (
+              <a 
+                key={resource.slug}
+                href={`${base}/blog/${resource.slug}`}
+                className="group p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 transition-all"
+              >
+                <span className="text-[9px] font-bold uppercase tracking-widest text-slate-400 group-hover:text-welqo-terracotta transition-colors">
+                  {resource.category}
+                </span>
+                <h3 className="text-sm font-bold text-slate-900 dark:text-white mt-2 mb-1 group-hover:text-welqo-terracotta transition-colors">
+                  {resource.title}
+                </h3>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {resource.desc}
+                </p>
+              </a>
             ))}
           </div>
         </div>

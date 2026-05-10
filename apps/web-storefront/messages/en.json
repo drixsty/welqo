@@ -1,13 +1,22 @@
 {
   "HomePage": {
-    "badge": "Excellence in Airbnb Concierge",
-    "heroTitle": "THE ART OF HOSPITALITY WITH TOTAL PEACE OF MIND.",
-    "heroSubtitle": "Full management for owners, unforgettable experiences for travelers. Discover total transparency and optimized profitability.",
-    "bookStay": "Book Your Stay",
-    "trustUs": "Trust Us With Your Property",
-    "featuredTitle": "Our Exceptional Homes",
-    "featuredSubtitle": "Carefully selected for their design, comfort, and prime locations.",
-    "viewCatalog": "View Catalog"
+    "badge": "Luxury Concierge — Northern France",
+    "heroTitle": "Experience excellence in the Heart of Northern France.",
+    "heroSubtitle": "Charming stays and 5★ rental management in Lille, Lens, Arras and across the region. Benefit from local expertise for optimized income and total peace of mind.",
+    "bookStay": "Book your stay",
+    "trustUs": "Partner with Welqo",
+    "featuredBadge": "City Manager's Selection",
+    "featuredTitle": "Gems of Northern France",
+    "featuredSubtitle": "Discover our exclusive catalog of properties managed with excellence in Lille, Lens, Arras and their surroundings.",
+    "viewCatalog": "View all properties",
+    "ownersBadge": "Owner Portal",
+    "ownersTitle": "Rental management, reinvented by data.",
+    "ownersSubtitle": "A robust infrastructure designed to maximize your income. Full transparency, local performance and simplified management.",
+    "simulatorBadge": "Revenue Maximization",
+    "simulatorTitle": "Estimate your income in the region",
+    "ctaTitle": "Ready to redefine your rental experience?",
+    "ctaProperties": "Explore our homes",
+    "ctaOwners": "Become a Welqo owner"
   },
   "Navbar": {
     "properties": "Properties",
@@ -29,5 +38,13 @@
     "guests": "guests",
     "night": "night",
     "details": "Details"
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "subtitle": "It seems this property is nowhere to be found or no longer exists.",
+    "goHome": "Go back home",
+    "browseProperties": "Browse our properties",
+    "popularLinks": "Useful links",
+    "owners": "For Owners"
   }
 }

@@ -53,7 +53,7 @@ jobs:
           cache: "npm"
       - run: npm ci --ignore-scripts
       - name: Run ESLint (affected only)
-        run: npx turbo run lint --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '[HEAD^1]' }}
+        run: npx turbo run lint --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '' }}
       - name: Check Prettier formatting
         run: npm run format:check
 
@@ -70,8 +70,14 @@ jobs:
           node-version: ${{ env.NODE_VERSION }}
           cache: "npm"
       - run: npm ci --ignore-scripts
+      - name: Generate Prisma client
+        run: npx turbo run db:generate --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '' }}
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/welqo
       - name: Run tsc on affected packages
-        run: npx turbo run type-check --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '[HEAD^1]' }}
+        run: npx turbo run type-check --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '' }}
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@localhost:5432/welqo
 
   # ── 4. Unit & Integration Tests ──────────────────────────────
   test:
@@ -119,7 +125,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://welqo_test:welqo_test@localhost:5432/welqo_test
       - name: Run tests (affected)
-        run: npx turbo run test --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '[HEAD^1]' }}
+        run: npx turbo run test --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '' }}
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         if: always()
@@ -141,7 +147,7 @@ jobs:
           cache: "npm"
       - run: npm ci --ignore-scripts
       - name: Build affected apps
-        run: npx turbo run build --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '[HEAD^1]' }}
+        run: npx turbo run build --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '' }}
         env:
           NEXT_PUBLIC_API_URL: http://localhost:3001
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY_TEST }}

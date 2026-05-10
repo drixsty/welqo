@@ -14,6 +14,7 @@ import { SyncModule } from "./modules/sync/sync.module";
 import { AuthModule } from "./modules/auth/auth.module";
 import { StorageModule } from "./modules/storage/storage.module";
 import { SignatureModule } from "./modules/signature/signature.module";
+import { PricingModule } from "./modules/pricing/pricing.module";
 import { validate } from "./config/env.validation";
 
 @Module({
@@ -44,6 +45,7 @@ import { validate } from "./config/env.validation";
     AuthModule,
     StorageModule,
     SignatureModule,
+    PricingModule,
   ],
 })
 export class AppModule {}

@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-import { CalendarDays, ArrowRight, User, AlertCircle } from "lucide-react";
+import { CalendarDays, ArrowRight, User, AlertCircle, TrendingUp } from "lucide-react";
 import { KPIStats } from "../../../components/KPIStats";
 import { fetchApi } from "../../../lib/api";
 import { getStoredOwner } from "../../../lib/auth";
@@ -23,6 +23,14 @@ interface OverviewData {
     checkOut: string;
     totalAmountGross: number;
     property: { titleFr: string };
+  }[];
+  upcomingEvents: {
+    id: string;
+    name: string;
+    city: string;
+    startDate: string;
+    endDate: string;
+    multiplier: number;
   }[];
 }
 
@@ -186,6 +194,39 @@ export default function DashboardPage() {
               <ArrowRight className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
+
+          {/* Smart Pricing Events */}
+          {stats.upcomingEvents.length > 0 && (
+            <div className="space-y-4 pt-4">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-welqo-terracotta" />
+                Smart Pricing
+              </h2>
+              <div className="space-y-3">
+                {stats.upcomingEvents.map(event => (
+                  <LuxuryCard key={event.id} className="p-4 border-welqo-terracotta/20 bg-welqo-terracotta/5">
+                    <div className="flex justify-between items-start mb-2">
+                      <span className="text-[10px] font-bold uppercase tracking-widest text-welqo-terracotta">
+                        {event.city}
+                      </span>
+                      <span className="text-xs font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
+                        +{Math.round((event.multiplier - 1) * 100)}%
+                      </span>
+                    </div>
+                    <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">
+                      {event.name}
+                    </h4>
+                    <p className="text-slate-500 text-[10px]">
+                      Du {new Date(event.startDate).toLocaleDateString('fr-FR')} au {new Date(event.endDate).toLocaleDateString('fr-FR')}
+                    </p>
+                  </LuxuryCard>
+                ))}
+              </div>
+              <p className="text-[10px] text-slate-400 italic">
+                * Les prix de vos nuitées sont automatiquement ajustés pour ces périodes de forte demande.
+              </p>
+            </div>
+          )}
 
           <LuxuryCard className="bg-welqo-terracotta/5 border-welqo-terracotta/10 p-6">
             <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">

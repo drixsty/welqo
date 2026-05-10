@@ -69,11 +69,28 @@ export class StatsService {
       include: { property: { select: { titleFr: true, titleEn: true } } },
     });
 
+    // 4. Local Events (Bassin Minier Smart Pricing)
+    const cities = await this.prisma.property.findMany({
+      where: { id: { in: propertyIds } },
+      select: { city: true },
+      distinct: ['city'],
+    }).then(res => res.map(r => r.city));
+
+    const upcomingEvents = await this.prisma.localEvent.findMany({
+      where: {
+        city: { in: cities },
+        endDate: { gte: new Date() },
+      },
+      take: 2,
+      orderBy: { startDate: 'asc' },
+    });
+
     return {
       totalRevenue: totalRevenueResult._sum.totalAmountGross || 0,
       occupancyRate: Math.round(occupancyRate * 10) / 10,
       adr: Math.round(adr),
       upcomingBookings,
+      upcomingEvents,
     };
   }
 

@@ -286,3 +286,19 @@ model SyncJob {
   @@index([propertyId, createdAt])
   @@map("sync_jobs")
 }
+
+model LocalEvent {
+  id          String   @id @default(cuid())
+  name        String
+  city        String   // "Lens" | "Arras" | "Béthune" | "Douai"
+  startDate   DateTime
+  endDate     DateTime
+  multiplier  Float    @default(1.3) // e.g., +30%
+  description String?
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([city, startDate, endDate])
+  @@map("local_events")
+}

@@ -3,8 +3,10 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { ArrowRight } from "lucide-react";
 import { Hero } from "../../components/Hero";
 import { PropertyCard } from "../../components/PropertyCard";
-import { BentoGrid, BentoGridItem, LuxuryCard } from "@welqo/ui";
+import { BentoGrid, BentoGridItem, LuxuryCard, Button } from "@welqo/ui";
 import { JsonLd } from "../../components/JsonLd";
+import { RevenueSimulator } from "../../components/proprietaires/RevenueSimulator";
+import { MapPin, ShieldCheck, Zap } from "lucide-react";
 
 export default async function StorefrontPage() {
   const t = await getTranslations("HomePage");
@@ -390,6 +392,79 @@ export default async function StorefrontPage() {
         </div>
       </section>
 
+      {/* Revenue Simulator Section */}
+      <section id="estimation" className="py-24 px-6 bg-welqo-cream/30 dark:bg-welqo-anthracite/5">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 mb-6 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-md">
+                <span className="text-welqo-terracotta text-[10px] font-bold tracking-[0.2em] uppercase">
+                  Maximisation de CA
+                </span>
+              </div>
+              <h2 className="text-4xl md:text-6xl font-serif text-welqo-anthracite dark:text-white mb-8 leading-tight">
+                Estimez vos revenus en <span className="text-welqo-terracotta italic">Bassin Minier.</span>
+              </h2>
+              <div className="space-y-6 mb-10">
+                {[
+                  { icon: Zap, title: "Pricing Événementiel", desc: "Optimisation automatique pour les soirs de matches à Bollaert." },
+                  { icon: ShieldCheck, title: "Gestion 360°", desc: "De la photo pro à la maintenance, on s'occupe de tout." },
+                  { icon: MapPin, title: "Ancrage Local", desc: "City Managers dédiés à Arras, Lens et Béthune." }
+                ].map((item, i) => (
+                  <div key={i} className="flex gap-4">
+                    <div className="shrink-0 w-10 h-10 rounded-full bg-white dark:bg-welqo-anthracite flex items-center justify-center border border-welqo-anthracite/5 shadow-sm">
+                      <item.icon className="w-5 h-5 text-welqo-terracotta" />
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-welqo-anthracite dark:text-white">{item.title}</h4>
+                      <p className="text-sm text-slate-500 dark:text-slate-400">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <RevenueSimulator />
+          </div>
+        </div>
+      </section>
+
+      {/* Local Expertise / City Managers */}
+      <section className="py-24 px-6">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center max-w-3xl mx-auto mb-16">
+            <h2 className="text-3xl md:text-5xl font-serif text-welqo-anthracite dark:text-white mb-6">
+              Vos experts de proximité.
+            </h2>
+            <p className="text-slate-500 dark:text-slate-400">
+              Pas de centre d'appels lointain. Nos City Managers vivent et respirent le Bassin Minier.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              { name: "Marc-Antoine", city: "Lens & environs", role: "City Manager", bio: "Expert en gestion événementielle liée au RC Lens." },
+              { name: "Sophie", city: "Arras & Béthune", role: "City Manager", bio: "Spécialiste du patrimoine et du tourisme culturel." }
+            ].map((cm, i) => (
+              <LuxuryCard key={i} className="flex flex-col md:flex-row gap-6 items-center md:items-start text-center md:text-left">
+                <div className="w-24 h-24 rounded-full bg-welqo-cream dark:bg-welqo-anthracite border border-welqo-terracotta/20 shrink-0 flex items-center justify-center text-2xl font-serif text-welqo-anthracite">
+                  {cm.name[0]}
+                </div>
+                <div>
+                  <div className="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                    <h4 className="text-xl font-bold text-welqo-anthracite dark:text-white">{cm.name}</h4>
+                    <span className="px-2 py-0.5 bg-welqo-terracotta/10 text-welqo-terracotta rounded text-[10px] font-bold uppercase w-fit mx-auto md:mx-0">
+                      {cm.city}
+                    </span>
+                  </div>
+                  <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                    {cm.bio}
+                  </p>
+                </div>
+              </LuxuryCard>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Trust Section */}
       <section className="py-24 px-6">
         <div className="max-w-4xl mx-auto">
@@ -397,22 +472,16 @@ export default async function StorefrontPage() {
             variant="outline"
             className="p-10 md:p-16 border-slate-200 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50"
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tight mb-8 text-center leading-tight">
-              Prêt à redéfinir votre expérience locative ?
+            <h2 className="text-3xl md:text-5xl font-serif text-welqo-anthracite dark:text-white tracking-tight mb-10 text-center leading-tight">
+              Prêt à redéfinir votre <span className="text-welqo-terracotta italic">expérience locative ?</span>
             </h2>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href={`${base}/#logements`}
-                className="w-full sm:w-auto px-10 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-bold text-sm hover:bg-slate-800 dark:hover:bg-slate-100 transition-colors text-center"
-              >
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+              <Button size="lg" variant="secondary" className="w-full sm:w-auto">
                 Explorer nos demeures
-              </a>
-              <a
-                href={`${base}/#contact`}
-                className="w-full sm:w-auto px-10 py-4 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white rounded-lg font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors text-center"
-              >
+              </Button>
+              <Button size="lg" variant="primary" className="w-full sm:w-auto">
                 Devenir propriétaire
-              </a>
+              </Button>
             </div>
           </LuxuryCard>
         </div>

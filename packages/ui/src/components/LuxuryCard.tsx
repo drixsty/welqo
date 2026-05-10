@@ -20,13 +20,13 @@ export const LuxuryCard = ({
   return (
     <div
       className={cn(
-        "rounded-lg p-6 transition-all duration-200 border",
+        "rounded-2xl p-8 transition-all duration-500",
         variant === "default" &&
-          "bg-white dark:bg-welqo-anthracite-dark border-slate-200 dark:border-slate-800 shadow-sm hover:border-slate-300 dark:hover:border-slate-700",
+          "bg-white dark:bg-welqo-anthracite-dark border border-welqo-cream-dark/50 shadow-card hover:shadow-card-hover",
         variant === "glass" &&
-          "bg-white/70 dark:bg-slate-900/70 backdrop-blur-md border-slate-200/50 dark:border-slate-800/50 shadow-sm",
+          "bg-white/80 dark:bg-welqo-anthracite/80 backdrop-blur-xl border border-white/20 shadow-xl",
         variant === "outline" &&
-          "border-slate-200 dark:border-slate-800 bg-transparent hover:bg-slate-50 dark:hover:bg-slate-900/50",
+          "border border-welqo-anthracite/10 bg-transparent hover:border-welqo-anthracite/20 hover:bg-welqo-cream/30",
         className,
       )}
     >

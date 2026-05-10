@@ -2,19 +2,18 @@
 
 import React, { useState, useMemo } from "react";
 
-const QUARTIERS = [
-  { label: "Vieux-Lille", base: 2100 },
-  { label: "Euralille / Centre", base: 1900 },
-  { label: "Wazemmes", base: 1650 },
-  { label: "Vauban", base: 1480 },
-  { label: "Moulins", base: 1350 },
+const VILLES = [
+  { label: "Arras (Centre / Grand-Place)", base: 1650 },
+  { label: "Lens (Stade Bollaert / Louvre)", base: 1480 },
+  { label: "Béthune (Centre-Ville)", base: 1350 },
+  { label: "Douai (Beffroi)", base: 1250 },
 ];
 
 const PIECES_OPTIONS = [
-  { label: "Studio", value: 0, mult: 0.7 },
+  { label: "Studio", value: 0, mult: 0.75 },
   { label: "T2", value: 1, mult: 1.0 },
-  { label: "T3", value: 2, mult: 1.35 },
-  { label: "T4+", value: 3, mult: 1.65 },
+  { label: "T3", value: 2, mult: 1.4 },
+  { label: "T4+", value: 3, mult: 1.75 },
 ];
 
 function fmt(n: number) {
@@ -22,12 +21,12 @@ function fmt(n: number) {
 }
 
 export function RevenueSimulator() {
-  const [quartierIdx, setQuartierIdx] = useState(0);
+  const [villeIdx, setVilleIdx] = useState(0);
   const [piecesIdx, setPiecesIdx] = useState(1);
   const [surface, setSurface] = useState(45);
 
   const { revenuSolo, revenuWelqo, gain, annual } = useMemo(() => {
-    const base = QUARTIERS[quartierIdx].base;
+    const base = VILLES[villeIdx].base;
     const piecesMult = PIECES_OPTIONS[piecesIdx].mult;
     const surfMult =
       surface < 30 ? 0.75 : surface < 55 ? 1 : surface < 80 ? 1.22 : 1.5;
@@ -40,7 +39,7 @@ export function RevenueSimulator() {
       gain: welqo - solo,
       annual: welqo * 12,
     };
-  }, [quartierIdx, piecesIdx, surface]);
+  }, [villeIdx, piecesIdx, surface]);
 
   const gainPct = Math.round(((revenuWelqo - revenuSolo) / revenuSolo) * 100);
   const welqoBarPct = 100;
@@ -57,7 +56,7 @@ export function RevenueSimulator() {
           </p>
           <h3 className="text-white text-xl md:text-2xl font-bold tracking-tighter">
             Simulateur de revenus{" "}
-            <span className="text-welqo-terracotta">Lille.</span>
+            <span className="text-welqo-terracotta">Bassin Minier.</span>
           </h3>
         </div>
       </div>
@@ -68,17 +67,17 @@ export function RevenueSimulator() {
           {/* Quartier */}
           <div className="space-y-3">
             <label className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
-              Quartier
+              Ville
             </label>
             <div className="relative group">
               <select
-                value={quartierIdx}
-                onChange={(e) => setQuartierIdx(Number(e.currentTarget.value))}
+                value={villeIdx}
+                onChange={(e) => setVilleIdx(Number(e.currentTarget.value))}
                 className="w-full appearance-none bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-800 rounded-lg px-4 py-3 text-sm font-bold text-slate-900 dark:text-white focus:outline-none focus:border-welqo-terracotta/50 transition-all cursor-pointer"
               >
-                {QUARTIERS.map((q, i) => (
-                  <option key={q.label} value={i}>
-                    {q.label}
+                {VILLES.map((v, i) => (
+                  <option key={v.label} value={i}>
+                    {v.label}
                   </option>
                 ))}
               </select>

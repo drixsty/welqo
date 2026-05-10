@@ -28,12 +28,12 @@ export const BrandLogo = ({
     return (
       <span
         className={cn(
-          "font-bold tracking-tight text-slate-900 dark:text-white",
+          "font-serif tracking-tight text-welqo-anthracite dark:text-white transition-colors duration-300",
           sizes[size],
           className,
         )}
       >
-        welqo
+        wel<span className="text-welqo-terracotta">qo</span>
       </span>
     );
   }
@@ -42,7 +42,7 @@ export const BrandLogo = ({
     return (
       <div
         className={cn(
-          "flex items-center justify-center rounded-lg bg-slate-900 text-white font-bold",
+          "flex items-center justify-center rounded-xl bg-welqo-anthracite text-white font-serif border border-white/10 shadow-lg",
           size === "sm"
             ? "w-8 h-8 text-sm"
             : size === "md"
@@ -53,40 +53,40 @@ export const BrandLogo = ({
           className,
         )}
       >
-        wq
+        w<span className="text-welqo-terracotta">q</span>
       </div>
     );
   }
 
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className={cn("flex items-center gap-3", className)}>
       <div
         className={cn(
-          "flex items-center justify-center rounded-lg bg-slate-900 text-white font-bold",
+          "flex items-center justify-center rounded-xl bg-welqo-anthracite text-white font-serif border border-white/10 shadow-md",
           size === "sm"
             ? "w-6 h-6 text-xs"
             : size === "md"
-              ? "w-8 h-8 text-sm"
+              ? "w-9 h-9 text-base"
               : size === "lg"
-                ? "w-12 h-12 text-lg"
+                ? "w-14 h-14 text-xl"
                 : "w-20 h-20 text-3xl",
         )}
       >
-        wq
+        w<span className="text-welqo-terracotta">q</span>
       </div>
       <span
         className={cn(
-          "font-bold tracking-tight text-slate-900 dark:text-white",
+          "font-serif tracking-tight text-welqo-anthracite dark:text-white",
           size === "sm"
             ? "text-lg"
             : size === "md"
-              ? "text-xl"
+              ? "text-2xl"
               : size === "lg"
-                ? "text-3xl"
-                : "text-5xl",
+                ? "text-4xl"
+                : "text-6xl",
         )}
       >
-        welqo
+        wel<span className="text-welqo-terracotta">qo</span>
       </span>
     </div>
   );

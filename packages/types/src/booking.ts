@@ -5,7 +5,8 @@ export type BookingStatus =
   | "CONFIRMED"
   | "CANCELLED"
   | "COMPLETED"
-  | "NO_SHOW";
+  | "NO_SHOW"
+  | "EXTERNAL";
 
 export interface BookingGuest {
   firstName: string;
@@ -52,7 +53,11 @@ export interface CreateBookingDto {
   propertyId: string;
   checkIn: string;
   checkOut: string;
-  guest: Omit<BookingGuest, "count"> & { count: number };
+  guestCount: number;
+  guestFirstName: string;
+  guestLastName: string;
+  guestEmail: string;
+  guestPhone?: string;
 }
 
 export interface BookingAvailabilityQuery {
@@ -66,6 +71,10 @@ export interface BookingAvailabilityResult {
   totalPrice?: number;
   breakdown?: BookingFinancials;
   reason?: string;
+}
+
+export interface CancelBookingDto {
+  cancellationToken: string;
 }
 
 // Owner dashboard KPIs

@@ -60,6 +60,12 @@ module.exports = {
         "300%": "300%",
       },
       colors: {
+        primary: {
+          DEFAULT: "#E67E22",
+          dark: "#d35400",
+          light: "#f39c12",
+          foreground: "#ffffff",
+        },
         welqo: {
           anthracite: {
             DEFAULT: "#2C3E50",

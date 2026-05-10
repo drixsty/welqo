@@ -23,6 +23,9 @@ export class SignatureController {
     @Headers('x-yousign-signature') signature: string,
   ) {
     this.logger.log(`Received Yousign Webhook: ${body.event_name}`);
+    if (signature) {
+      this.logger.debug(`Webhook signature: ${signature.substring(0, 10)}...`);
+    }
 
     // TODO: Verify signature using YOUSIGN_WEBHOOK_SECRET
 
@@ -56,7 +59,9 @@ export class SignatureController {
         });
 
         // 2. Upload signed version to MinIO
-        const signedPath = mandate.pdfPath.replace('.txt', '_signed.pdf'); // Adapt extension if needed
+        const originalPath = mandate.pdfPath || `mandates/${mandate.id}.pdf`;
+        const signedPath = originalPath.replace('.pdf', '_signed.pdf');
+        
         await this.storage.uploadFile('private-docs', signedPath, Buffer.from(downloadRes.data), {
           'Content-Type': 'application/pdf',
           'Status': 'SIGNED',
@@ -73,8 +78,9 @@ export class SignatureController {
         });
 
         this.logger.log(`Mandate ${mandate.id} successfully marked as SIGNED`);
-      } catch (err) {
-        this.logger.error(`Error processing signed document for request ${requestId}:`, err.message);
+      } catch (err: any) {
+        const errorMessage = err instanceof Error ? err.message : String(err);
+        this.logger.error(`Error processing signed document for request ${requestId}:`, errorMessage);
         throw new BadRequestException('Error processing signed document');
       }
     }

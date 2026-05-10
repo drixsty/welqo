@@ -8,12 +8,13 @@ function cn(...inputs: ClassValue[]) {
 }
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: "primary" | "secondary" | "outline" | "ghost" | "cream";
-  size?: "sm" | "md" | "lg";
+  variant?: "primary" | "secondary" | "outline" | "ghost";
+  size?: "xs" | "sm" | "md" | "lg";
   icon?: LucideIcon;
   iconPosition?: "left" | "right";
   isLoading?: boolean;
   href?: string;
+  target?: string;
 }
 
 export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
@@ -33,25 +34,21 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     ref,
   ) => {
     const variants = {
-      primary:
-        "bg-welqo-terracotta text-white hover:bg-welqo-terracotta-dark shadow-sm hover:shadow-md",
-      secondary:
-        "bg-welqo-anthracite text-white hover:bg-welqo-anthracite-dark shadow-sm",
-      outline:
-        "border-2 border-welqo-anthracite text-welqo-anthracite hover:bg-welqo-anthracite hover:text-white",
-      ghost: "text-welqo-anthracite hover:bg-welqo-anthracite/5",
-      cream:
-        "bg-welqo-cream text-welqo-anthracite hover:bg-welqo-cream-dark border border-welqo-anthracite/10",
+      primary: "bg-primary text-white hover:bg-primary-dark/95 border border-primary/10 shadow-sm shadow-primary/5",
+      secondary: "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 border border-slate-800 dark:border-slate-200 shadow-sm",
+      outline: "border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:text-slate-900 dark:hover:text-white bg-white/50 dark:bg-white/5 shadow-sm shadow-black/[0.02]",
+      ghost: "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white",
     };
 
     const sizes = {
-      sm: "px-3 py-1.5 text-sm",
-      md: "px-5 py-2.5 text-base",
-      lg: "px-8 py-3.5 text-lg font-serif",
+      xs: "px-2 py-1 text-[10px] font-semibold tracking-wide min-h-[28px]",
+      sm: "px-3 py-1 text-xs font-semibold tracking-tight min-h-[32px]",
+      md: "px-4 py-1.5 text-sm font-semibold tracking-tight min-h-[36px]",
+      lg: "px-5 py-2.5 text-base font-semibold tracking-tight min-h-[44px]",
     };
 
     const commonClasses = cn(
-      "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-all duration-300 active:scale-95 disabled:opacity-50 disabled:pointer-events-none cursor-pointer",
+      "inline-flex items-center justify-center gap-1.5 rounded-lg transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none cursor-pointer select-none",
       variants[variant],
       sizes[size],
       className,
@@ -60,15 +57,15 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     const content = (
       <>
         {isLoading ? (
-          <div className="h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent" />
+          <div className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-current border-t-transparent" />
         ) : (
           <>
             {Icon && iconPosition === "left" && (
-              <Icon className={cn("shrink-0", size === "sm" ? "w-4 h-4" : "w-5 h-5")} />
+              <Icon className={cn("shrink-0", size === "xs" || size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4")} />
             )}
-            {children}
+            <span className="truncate">{children}</span>
             {Icon && iconPosition === "right" && (
-              <Icon className={cn("shrink-0", size === "sm" ? "w-4 h-4" : "w-5 h-5")} />
+              <Icon className={cn("shrink-0", size === "xs" || size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4")} />
             )}
           </>
         )}

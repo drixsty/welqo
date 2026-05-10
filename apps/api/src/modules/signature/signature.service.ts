@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import axios, { AxiosInstance } from 'axios';
-import * as FormData from 'form-data';
+import FormData from 'form-data';
 import { StorageService } from '../storage/storage.service';
 
 export interface SignatureRequest {
@@ -76,8 +76,8 @@ export class SignatureService {
         url: signerRes.data.signature_link,
         status: 'PENDING',
       };
-    } catch (error) {
-      this.logger.error('Error creating Yousign request:', error.response?.data || error.message);
+    } catch (error: any) {
+      this.logger.error('Error creating Yousign request:', error.response?.data || error.message || error);
       
       // Fallback to mock for development if API key is invalid
       if (this.configService.get('NODE_ENV') === 'development') {
@@ -103,8 +103,8 @@ export class SignatureService {
       if (status === 'done') return 'SIGNED';
       if (status === 'declined' || status === 'expired') return 'CANCELLED';
       return 'PENDING';
-    } catch (error) {
-      this.logger.error('Error getting Yousign status:', error.response?.data || error.message);
+    } catch (error: any) {
+      this.logger.error('Error getting Yousign status:', error.response?.data || error.message || error);
       return 'PENDING';
     }
   }

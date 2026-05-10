@@ -8,7 +8,7 @@ import {
   ConnectedSocket,
 } from '@nestjs/websockets';
 import { Server, Socket } from 'socket.io';
-import { Logger, UseGuards } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
 import { ChatService } from './chat.service';
 import { JwtService } from '@nestjs/jwt';
 
@@ -20,7 +20,7 @@ import { JwtService } from '@nestjs/jwt';
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
-  server: Server;
+  server!: Server;
 
   private readonly logger = new Logger(ChatGateway.name);
 
@@ -40,7 +40,7 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
       const payload = this.jwtService.verify(token);
       client.data.user = payload;
       this.logger.log(`Client connected: ${client.id} (User: ${payload.sub})`);
-    } catch (e) {
+    } catch (e: any) {
       this.logger.error(`Connection rejected: ${e.message}`);
       client.disconnect();
     }

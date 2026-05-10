@@ -43,3 +43,6 @@ export function getStoredOwner(): Owner | null {
 export function isAuthenticated(): boolean {
   return !!getToken();
 }
+export function getStoredToken(): string | null {
+  return getToken();
+}

@@ -9,7 +9,8 @@ import { PrismaService } from "../../../common/prisma/prisma.service";
 import { EmailService } from "../../email/email.service";
 import { StripeClient } from "@welqo/stripe-client";
 import { Beds24Client } from "@welqo/beds24-client";
-import { CreateCheckoutDto } from "../application/dto/create-checkout.dto";
+import { ChatAutomationService } from "../../chat-automation/chat-automation.service";
+import { CreateBookingDto } from "@welqo/types";
 
 @Injectable()
 export class BookingService {
@@ -21,6 +22,7 @@ export class BookingService {
     private prisma: PrismaService,
     private configService: ConfigService,
     private emailService: EmailService,
+    private automationService: ChatAutomationService,
   ) {
     this.stripeClient = new StripeClient(
       this.configService.get<string>("STRIPE_SECRET_KEY") || "",
@@ -30,14 +32,90 @@ export class BookingService {
     );
   }
 
-  async createCheckoutSession(dto: CreateCheckoutDto) {
+  async isAvailable(propertyId: string, checkIn: Date, checkOut: Date): Promise<boolean> {
+    const overlappingBookings = await this.prisma.booking.count({
+      where: {
+        propertyId,
+        status: { in: ["CONFIRMED", "PENDING", "EXTERNAL" as any] },
+        AND: [
+          { checkIn: { lt: checkOut } },
+          { checkOut: { gt: checkIn } },
+        ],
+      },
+    });
+
+    return overlappingBookings === 0;
+  }
+
+  async calculateQuote(propertyId: string, checkIn: string, checkOut: string, guests: number) {
+    const start = new Date(checkIn);
+    const end = new Date(checkOut);
+
+    // Availability check
+    const available = await this.isAvailable(propertyId, start, end);
+    if (!available) {
+      throw new BadRequestException("Ces dates ne sont plus disponibles");
+    }
+
+    const property = await this.prisma.property.findUnique({
+      where: { id: propertyId },
+    });
+
+    if (!property) throw new BadRequestException("Propriété introuvable");
+
+    const nightsCount = Math.ceil(
+      (end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24),
+    );
+
+    if (nightsCount <= 0) throw new BadRequestException("Dates invalides");
+
+    const nightlyRate = property.basePricePerNight;
+    const totalNights = nightlyRate * nightsCount;
+    const cleaningFee = property.cleaningFee;
+    const touristTax = property.touristTax * nightsCount * guests;
+    const totalGross = totalNights + cleaningFee + touristTax;
+
+    return {
+      propertyId,
+      checkIn,
+      checkOut,
+      guests,
+      nightsCount,
+      priceBreakdown: {
+        nightlyRate,
+        totalNights,
+        cleaningFee,
+        touristTax,
+        totalGross,
+      },
+      securityDeposit: (property as any).securityDeposit || 500, // Default 500€
+    };
+  }
+
+  async createCheckoutSession(dto: CreateBookingDto & { nightsCount: number }) {
     const property = await this.prisma.property.findUnique({
       where: { id: dto.propertyId },
     });
 
-    if (!property) {
-      throw new BadRequestException("Logement introuvable");
+    if (!property) throw new BadRequestException("Logement introuvable");
+
+    // Double security: check availability again before creating the booking
+    const isAvailable = await this.isAvailable(
+      dto.propertyId,
+      new Date(dto.checkIn),
+      new Date(dto.checkOut),
+    );
+    if (!isAvailable) {
+      throw new BadRequestException("Désolé, ce logement a été réservé entre temps.");
     }
+
+    // Re-calculate prices server-side to prevent tampering
+    const quote = await this.calculateQuote(
+      dto.propertyId,
+      dto.checkIn,
+      dto.checkOut,
+      dto.guestCount,
+    );
 
     const booking = await this.prisma.booking.create({
       data: {
@@ -49,19 +127,16 @@ export class BookingService {
         guestCount: dto.guestCount,
         checkIn: new Date(dto.checkIn),
         checkOut: new Date(dto.checkOut),
-        nightsCount: dto.nightsCount,
-        nightlyRate: property.basePricePerNight,
-        cleaningFee: property.cleaningFee,
-        touristTax: property.touristTax,
-        totalAmountGross:
-          property.basePricePerNight * dto.nightsCount +
-          property.cleaningFee +
-          property.touristTax * dto.nightsCount,
-        welqoCommission: property.basePricePerNight * dto.nightsCount * 0.2,
+        nightsCount: quote.nightsCount,
+        nightlyRate: quote.priceBreakdown.nightlyRate,
+        cleaningFee: quote.priceBreakdown.cleaningFee,
+        touristTax: quote.priceBreakdown.touristTax,
+        totalAmountGross: quote.priceBreakdown.totalGross,
+        welqoCommission: quote.priceBreakdown.totalNights * 0.2, // 20% commission
         totalAmountNet:
-          property.basePricePerNight * dto.nightsCount * 0.8 +
-          property.cleaningFee +
-          property.touristTax * dto.nightsCount,
+          quote.priceBreakdown.totalNights * 0.8 +
+          quote.priceBreakdown.cleaningFee +
+          quote.priceBreakdown.touristTax,
         status: "PENDING",
       },
     });
@@ -74,7 +149,7 @@ export class BookingService {
             currency: "eur",
             product_data: {
               name: `Séjour à ${property.titleFr}`,
-              description: `Du ${dto.checkIn} au ${dto.checkOut} (${dto.nightsCount} nuits)`,
+              description: `Du ${dto.checkIn} au ${dto.checkOut} (${quote.nightsCount} nuits). Inclut l'empreinte de caution de ${quote.securityDeposit}€.`,
             },
             unit_amount: Math.round(booking.totalAmountGross * 100),
           },
@@ -88,6 +163,7 @@ export class BookingService {
       metadata: {
         bookingId: booking.id,
         propertyId: property.id,
+        securityDeposit: quote.securityDeposit.toString(),
       },
       expires_at: Math.floor(Date.now() / 1000) + 30 * 60, // 30 min
     });
@@ -124,6 +200,34 @@ export class BookingService {
 
     this.logger.log(`Booking ${booking.id} cancelled via token`);
     return { success: true };
+  }
+
+  async getCalendarBookings(startDate: string, endDate: string) {
+    return this.prisma.booking.findMany({
+      where: {
+        status: { in: ["CONFIRMED", "PENDING"] },
+        OR: [
+          { checkIn: { gte: new Date(startDate), lte: new Date(endDate) } },
+          { checkOut: { gte: new Date(startDate), lte: new Date(endDate) } },
+          {
+            AND: [
+              { checkIn: { lte: new Date(startDate) } },
+              { checkOut: { gte: new Date(endDate) } },
+            ],
+          },
+        ],
+      },
+      include: {
+        property: {
+          select: {
+            id: true,
+            titleFr: true,
+            city: true,
+          },
+        },
+      },
+      orderBy: { checkIn: "asc" },
+    });
   }
 
   async handleStripeWebhook(payload: any, signature: string) {
@@ -189,6 +293,15 @@ export class BookingService {
           paidAt: new Date(),
         },
       }),
+      this.prisma.conversation.upsert({
+        where: { bookingId: booking.id },
+        update: {},
+        create: {
+          bookingId: booking.id,
+          propertyId: booking.propertyId,
+          guestEmail: booking.guestEmail,
+        },
+      }),
     ]);
 
     // Send confirmation email (non-blocking)
@@ -208,6 +321,15 @@ export class BookingService {
       .catch((err) =>
         this.logger.error(
           `Email confirmation failed for booking ${bookingId}: ${err.message}`,
+        ),
+      );
+
+    // Schedule messaging automation
+    this.automationService
+      .scheduleAutomationForBooking(bookingId)
+      .catch((err) =>
+        this.logger.error(
+          `Automation scheduling failed for booking ${bookingId}: ${err.message}`,
         ),
       );
 

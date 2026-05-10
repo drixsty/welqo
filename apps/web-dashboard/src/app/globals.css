@@ -5,34 +5,81 @@
 :root {
   --background: 210 40% 98%; /* Slate 50 */
   --foreground: 222 47% 11%; /* Slate 950 */
+
+  --card: 0 0% 100%;
+  --card-foreground: 222 47% 11%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 222 47% 11%;
+
   --primary: 28 80% 52%; /* Terracotta */
   --primary-foreground: 0 0% 100%;
 
-  --welqo-anthracite: 222 47% 11%;
-  --welqo-terracotta: 28 80% 52%;
-  --welqo-cream: 210 40% 98%;
+  --secondary: 210 40% 96.1%;
+  --secondary-foreground: 222 47% 11.2%;
+
+  --muted: 210 40% 96.1%;
+  --muted-foreground: 215.4 16.3% 46.9%;
+
+  --accent: 210 40% 96.1%;
+  --accent-foreground: 222 47% 11.2%;
+
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 214.3 31.8% 91.4%;
+  --input: 214.3 31.8% 91.4%;
+  --ring: 28 80% 52%;
+
+  --radius: 0.5rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.5rem;
 }
 
 .dark {
   --background: 222 47% 4%; /* Slate 950 deep */
   --foreground: 210 40% 98%;
+
+  --card: 222 47% 6%;
+  --card-foreground: 210 40% 98%;
+
+  --popover: 222 47% 6%;
+  --popover-foreground: 210 40% 98%;
+
+  --primary: 28 80% 52%;
+  --primary-foreground: 0 0% 100%;
+
+  --secondary: 222 47% 11.2%;
+  --secondary-foreground: 210 40% 98%;
+
+  --muted: 222 47% 11.2%;
+  --muted-foreground: 215 20.2% 65.1%;
+
+  --accent: 222 47% 11.2%;
+  --accent-foreground: 210 40% 98%;
+
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 210 40% 98%;
+
+  --border: 222 47% 11.2%;
+  --input: 222 47% 11.2%;
+  --ring: 28 80% 52%;
 }
 
 body {
   color: hsl(var(--foreground));
   background: hsl(var(--background));
-  font-feature-settings:
-    "rlig" 1,
-    "calt" 1;
+  font-feature-settings: "rlig" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, .font-luxury {
+  font-family: var(--font-inter), sans-serif;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+h3, h4, h5, h6 {
   font-family: var(--font-inter), sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -40,11 +87,52 @@ h6 {
 
 .glass-card {
   background: rgba(255, 255, 255, 0.4);
-  backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
 }
 
 .dark .glass-card {
-  background: rgba(15, 23, 42, 0.4);
+  background: rgba(15, 23, 42, 0.6);
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
+
+/* Custom Scrollbar */
+@layer base {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #cbd5e1; /* Slate 300 */
+    border-radius: 10px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+    transition: background 0.2s ease;
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: #334155; /* Slate 700 */
+    background-clip: padding-box;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #E67E22; /* Primary */
+    background-clip: padding-box;
+  }
+
+  /* Firefox support */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+  }
+
+  .dark * {
+    scrollbar-color: #334155 transparent;
+  }
+}
+

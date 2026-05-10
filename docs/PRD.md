@@ -62,8 +62,12 @@ Le design doit évoquer la chaleur du Nord et le luxe d'une conciergerie privée
 
 ### 4.2 Management (Dashboard)
 
-- **Calendrier de Prix Dynamique :** Interface permettant d'ajuster les prix en fonction des soirs de matches (Bollaert) ou événements locaux.
-- **Automatisation & Messagerie :** Système de templates intelligents pour automatiser 80% de la relation voyageur.
+- **Pricing Overrides :** Interface permettant d'ajuster les prix en fonction des événements (Bollaert, Louvre-Lens).
+- **Automation Engine :** Système de "Templates" intelligents.
+    - **Triggers :** Réservation confirmée, J-2 avant arrivée, J+1 après départ.
+    - **Variables :** `{{guest_name}}`, `{{property_name}}`, `{{check_in_time}}`.
+    - **Workflow :** Envoi automatique par Email et/ou Chat interne.
+- **Messagerie Centralisée :** Chat en temps réel pour la relation voyageur directe.
 
 ---
 

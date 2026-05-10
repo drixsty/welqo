@@ -14,9 +14,9 @@
 | **US-ACQ-03**  | Workflow Signature Mandat Digital                | Acquisition | MUST   | 8      | [x]            |
 | **US-DASH-01** | Pricing Dynamique (Calendrier Overrides)         | Dashboard   | MUST   | 8      | [x]            |
 | **US-DASH-02** | Messagerie Locataires (Chat Temps Réel)          | Dashboard   | SHOULD | 13     | [x]            |
-| **US-DASH-03** | Configuration Messages Automatiques              | Dashboard   | SHOULD | 5      | [ ]            |
-| **US-SRCH-01** | Recherche Localisée (Bassin Minier)              | Recherche   | MUST   | 5      | [ ]            |
-| **US-SRCH-02** | Filtre de Prix sur Carte Interactive             | Recherche   | SHOULD | 8      | [ ]            |
+| **US-DASH-03** | Configuration Messages Automatiques              | Dashboard   | SHOULD | 5      | [/]            |
+| **US-SRCH-01** | Recherche Localisée (Bassin Minier)              | Recherche   | MUST   | 5      | [x]            |
+| **US-SRCH-02** | Filtre de Prix sur Carte Interactive             | Recherche   | SHOULD | 8      | [x]            |
 | **TECH-MINIO** | Setup MinIO (Storage Photos & Contrats)          | Infra       | MUST   | 5      | [x]            |
 | **TECH-SIGN**  | Intégration API Signature Électronique           | Infra       | MUST   | 5      | [x]            |
 

@@ -10,9 +10,10 @@ import {
   CreditCard,
   Settings,
   LogOut,
-  TrendingUp,
+  BarChart3,
   FileText,
   MessageCircle,
+  Zap,
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -23,23 +24,75 @@ function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-const NAV_ITEMS = [
-  { icon: LayoutDashboard, label: "Tableau de Bord", path: "" },
-  { icon: FileText, label: "Mandats", path: "/mandats" },
-  { icon: MessageCircle, label: "Messages", path: "/messages" },
-  { icon: Calendar, label: "Planning", path: "/calendrier" },
-  { icon: Home, label: "Demeures", path: "/logements" },
-  { icon: TrendingUp, label: "Analyses", path: "/stats" },
-  { icon: CreditCard, label: "Finances", path: "/paiements" },
-  { icon: Settings, label: "Préférences", path: "/parametres" },
+const NAV_GROUPS = [
+  {
+    label: null,
+    items: [
+      { icon: LayoutDashboard, label: "Tableau de bord", path: "", exact: true },
+    ],
+  },
+  {
+    label: "Communication",
+    items: [
+      { icon: MessageCircle, label: "Messages", path: "/messages", exact: true },
+      { icon: Zap, label: "Automatisations", path: "/messages/automatisations" },
+    ],
+  },
+  {
+    label: "Gestion",
+    items: [
+      { icon: Calendar, label: "Planning", path: "/calendrier", exact: true },
+      { icon: FileText, label: "Mandats", path: "/mandats", exact: true },
+      { icon: Home, label: "Logements", path: "/logements", exact: true },
+    ],
+  },
+  {
+    label: "Analyse",
+    items: [
+      { icon: BarChart3, label: "Analyses", path: "/stats", exact: true },
+      { icon: CreditCard, label: "Finances", path: "/paiements", exact: true },
+    ],
+  },
 ];
+
+type NavLinkProps = {
+  href: string;
+  icon: React.ElementType;
+  label: string;
+  active: boolean;
+};
+
+
+function NavLink({ href, icon: Icon, label, active }: NavLinkProps) {
+  return (
+    <Link
+      href={href}
+      className={cn(
+        "relative flex items-center gap-2.5 px-2.5 py-[7px] rounded-md text-xs transition-colors duration-100",
+        active
+          ? "text-primary bg-primary/[0.08] dark:bg-primary/[0.12] font-semibold"
+          : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-800 font-medium",
+      )}
+    >
+      {active && (
+        <span className="absolute left-0 inset-y-1.5 w-0.5 bg-primary rounded-r-full" />
+      )}
+      <Icon
+        className={cn(
+          "w-3.5 h-3.5 shrink-0",
+          active ? "text-primary" : "text-slate-400 dark:text-slate-500",
+        )}
+      />
+      <span>{label}</span>
+    </Link>
+  );
+}
 
 export const Sidebar = () => {
   const pathname = usePathname();
   const router = useRouter();
   const [owner, setOwner] = useState<Owner | null>(null);
 
-  // Extract locale from pathname: "/fr/calendrier" → "fr"
   const locale = pathname.split("/")[1] ?? "fr";
   const localeBase = `/${locale}`;
 
@@ -52,82 +105,84 @@ export const Sidebar = () => {
     router.push(`${localeBase}/login`);
   }
 
+  function isActive(path: string, exact?: boolean) {
+    const href = `${localeBase}${path}`;
+    if (path === "") return pathname === localeBase || pathname === `${localeBase}/`;
+    if (exact) return pathname === href;
+    return pathname.startsWith(href);
+  }
+
   return (
-    <aside className="w-64 bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 flex flex-col h-screen sticky top-0 z-40 overflow-y-auto">
+    <aside className="w-56 bg-white dark:bg-slate-950 border-r border-slate-100 dark:border-slate-800/60 flex flex-col h-screen sticky top-0 z-40 overflow-y-auto">
       {/* Logo */}
-      <div className="px-6 py-8 shrink-0">
-        <Link href={localeBase} className="flex items-center gap-2 group">
+      <div className="px-5 pt-6 pb-5 shrink-0">
+        <Link href={localeBase} className="flex items-center gap-2.5">
           <BrandLogo
             variant="cursive"
             size="sm"
             className="text-slate-900 dark:text-white"
           />
-          <span className="text-[10px] font-bold uppercase tracking-widest text-welqo-terracotta bg-welqo-terracotta/10 px-1.5 py-0.5 rounded">
+          <span className="text-[9px] font-bold tracking-wide text-primary bg-primary/10 px-1.5 py-0.5 rounded-sm border border-primary/20">
             Pro
           </span>
         </Link>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-grow px-3 space-y-1">
-        {NAV_ITEMS.map((item) => {
-          const href = `${localeBase}${item.path}`;
-          const isActive =
-            item.path === ""
-              ? pathname === localeBase || pathname === `${localeBase}/`
-              : pathname.startsWith(href);
-
-          return (
-            <Link
-              key={item.path}
-              href={href}
-              className={cn(
-                "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-sm font-medium",
-                isActive
-                  ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
-                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50",
-              )}
-            >
-              <item.icon
-                className={cn(
-                  "w-4 h-4",
-                  isActive
-                    ? "text-welqo-terracotta"
-                    : "text-slate-400 dark:text-slate-500",
-                )}
-              />
-              {item.label}
-              {isActive && (
-                <div className="ml-auto w-1 h-4 bg-welqo-terracotta rounded-full" />
-              )}
-            </Link>
-          );
-        })}
+      <nav className="flex-grow px-2.5 pb-4 space-y-4">
+        {NAV_GROUPS.map((group, gi) => (
+          <div key={gi}>
+            {group.label && (
+              <p className="px-2 mb-1.5 text-[9px] font-semibold tracking-[0.08em] text-slate-400 dark:text-slate-600">
+                {group.label}
+              </p>
+            )}
+            <div className="space-y-0.5">
+              {group.items.map((item) => (
+                <NavLink
+                  key={item.path}
+                  href={`${localeBase}${item.path}`}
+                  icon={item.icon}
+                  label={item.label}
+                  active={isActive(item.path, item.exact)}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </nav>
 
-      {/* Owner info & logout */}
-      <div className="p-4 border-t border-slate-200 dark:border-slate-800">
-        <div className="flex items-center gap-3 p-2 mb-2">
-          <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 font-bold text-xs shrink-0">
-            {owner ? owner.firstName.charAt(0).toUpperCase() : "?"}
-          </div>
-          <div className="overflow-hidden">
-            <p className="text-slate-900 dark:text-white font-bold text-xs truncate">
-              {owner ? `${owner.firstName} ${owner.lastName}` : "Propriétaire"}
-            </p>
-            <p className="text-slate-500 text-[10px] truncate">
-              {owner?.email ?? "welqo.io"}
-            </p>
-          </div>
+      {/* Footer */}
+      <div className="shrink-0 border-t border-slate-100 dark:border-slate-800/60">
+        <div className="px-2.5 pt-2.5 pb-1">
+          <NavLink
+            href={`${localeBase}/parametres`}
+            icon={Settings}
+            label="Préférences"
+            active={pathname.startsWith(`${localeBase}/parametres`)}
+          />
         </div>
 
-        <button
-          onClick={handleLogout}
-          className="w-full flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-colors font-medium text-xs"
-        >
-          <LogOut className="w-4 h-4" />
-          Déconnexion
-        </button>
+        <div className="px-3 py-3 flex items-center gap-2.5">
+          <div className="w-7 h-7 rounded-md bg-primary/10 border border-primary/20 text-primary flex items-center justify-center font-bold text-[11px] shrink-0">
+            {owner ? owner.firstName.charAt(0).toUpperCase() : "?"}
+          </div>
+          <div className="flex-1 min-w-0">
+            <p className="text-xs font-semibold text-slate-800 dark:text-slate-100 truncate leading-none mb-0.5">
+              {owner ? `${owner.firstName} ${owner.lastName}` : "Propriétaire"}
+            </p>
+            <p className="text-[10px] text-slate-400 dark:text-slate-500 leading-none">
+              Welqo Pro
+            </p>
+          </div>
+          <button
+            onClick={handleLogout}
+            title="Déconnexion"
+            className="p-1.5 rounded-md text-slate-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
+          >
+            <LogOut className="w-3.5 h-3.5" />
+          </button>
+        </div>
       </div>
     </aside>
   );

@@ -30,8 +30,8 @@ export class StorageService implements OnModuleInit {
           await this.minioClient.makeBucket(bucket);
           this.logger.log(`Bucket "${bucket}" created successfully.`);
         }
-      } catch (error) {
-        this.logger.error(`Error checking/creating bucket "${bucket}":`, error.message);
+      } catch (error: any) {
+        this.logger.error(`Error checking/creating bucket "${bucket}":`, error.message || error);
       }
     }
   }
@@ -40,13 +40,14 @@ export class StorageService implements OnModuleInit {
     bucketName: string,
     fileName: string,
     fileContent: Buffer | string,
-    metaData: Minio.ItemMetaData = {},
+    metaData: Minio.ItemBucketMetadata = {},
   ): Promise<string> {
     try {
-      await this.minioClient.putObject(bucketName, fileName, fileContent, metaData);
+      const size = typeof fileContent === 'string' ? Buffer.byteLength(fileContent) : fileContent.length;
+      await this.minioClient.putObject(bucketName, fileName, fileContent, size, metaData);
       return fileName;
-    } catch (error) {
-      this.logger.error(`Error uploading file to "${bucketName}":`, error.message);
+    } catch (error: any) {
+      this.logger.error(`Error uploading file to "${bucketName}":`, error.message || error);
       throw error;
     }
   }
@@ -54,8 +55,8 @@ export class StorageService implements OnModuleInit {
   async getFileUrl(bucketName: string, fileName: string, expiry = 3600): Promise<string> {
     try {
       return await this.minioClient.presignedGetObject(bucketName, fileName, expiry);
-    } catch (error) {
-      this.logger.error(`Error getting file URL from "${bucketName}":`, error.message);
+    } catch (error: any) {
+      this.logger.error(`Error getting file URL from "${bucketName}":`, error.message || error);
       throw error;
     }
   }
@@ -69,8 +70,8 @@ export class StorageService implements OnModuleInit {
         dataStream.on('error', (err) => reject(err));
         dataStream.on('end', () => resolve(Buffer.concat(chunks)));
       });
-    } catch (error) {
-      this.logger.error(`Error getting file buffer from "${bucketName}":`, error.message);
+    } catch (error: any) {
+      this.logger.error(`Error getting file buffer from "${bucketName}":`, error.message || error);
       throw error;
     }
   }
@@ -78,8 +79,8 @@ export class StorageService implements OnModuleInit {
   async deleteFile(bucketName: string, fileName: string): Promise<void> {
     try {
       await this.minioClient.removeObject(bucketName, fileName);
-    } catch (error) {
-      this.logger.error(`Error deleting file from "${bucketName}":`, error.message);
+    } catch (error: any) {
+      this.logger.error(`Error deleting file from "${bucketName}":`, error.message || error);
       throw error;
     }
   }

@@ -19,6 +19,7 @@ enum BookingStatus {
   CANCELLED
   COMPLETED
   NO_SHOW
+  EXTERNAL
 }
 
 enum PaymentStatus {
@@ -144,6 +145,7 @@ model Property {
   basePricePerNight Float
   cleaningFee       Float
   touristTax        Float     @default(0)
+  securityDeposit   Float?    @default(500)
 
   // External IDs
   beds24PropertyId  String?  @unique
@@ -234,6 +236,7 @@ model Booking {
   property     Property   @relation(fields: [propertyId], references: [id])
   payment      Payment?
   conversation Conversation?
+  automationJobs AutomationJob[]
 
   @@index([propertyId, checkIn, checkOut])
   @@index([guestEmail])
@@ -301,7 +304,7 @@ model LocalEvent {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  @@index([propertyId, startDate, endDate])
+  @@index([city, startDate, endDate])
   @@map("local_events")
 }
 
@@ -333,4 +336,46 @@ model Message {
 
   @@index([conversationId, createdAt])
   @@map("messages")
+}
+enum MessageTrigger {
+  BOOKING_CONFIRMED
+  BEFORE_CHECKIN      // e.g., 2 days before
+  AFTER_CHECKOUT      // e.g., 1 day after
+  MANUAL
+}
+
+model MessageTemplate {
+  id          String         @id @default(cuid())
+  name        String
+  subject     String?        // For email
+  content     String         @db.Text
+  trigger     MessageTrigger
+  daysOffset  Int            @default(0) // Days relative to trigger event
+  isEnabled   Boolean        @default(true)
+  
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  automationJobs AutomationJob[]
+
+  @@map("message_templates")
+}
+
+model AutomationJob {
+  id                String   @id @default(cuid())
+  templateId        String
+  bookingId         String
+  scheduledFor      DateTime
+  processedAt       DateTime?
+  status            SyncStatus @default(PENDING) // Reuse SyncStatus (OK, PENDING, FAILED)
+  errorMessage      String?
+  
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  template          MessageTemplate @relation(fields: [templateId], references: [id])
+  booking           Booking         @relation(fields: [bookingId], references: [id], onDelete: Cascade)
+
+  @@index([scheduledFor, status])
+  @@map("automation_jobs")
 }

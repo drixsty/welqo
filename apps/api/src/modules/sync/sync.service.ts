@@ -1,5 +1,6 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { Cron } from "@nestjs/schedule";
+import { format } from "date-fns";
 import { ConfigService } from "@nestjs/config";
 import { PrismaService } from "../../common/prisma/prisma.service";
 import { Beds24Client } from "@welqo/beds24-client";
@@ -38,6 +39,60 @@ export class SyncService {
 
     for (const booking of bookings) {
       await this.syncBookingToBeds24(booking);
+    }
+  }
+
+  // Pull external bookings from Beds24 every 15 minutes
+  @Cron("0 */15 * * * *")
+  async pullBookingsFromBeds24(): Promise<void> {
+    this.logger.log("Pulling bookings from Beds24...");
+    
+    // For the pilot, we'll iterate over properties that have a Beds24 ID
+    const properties = await this.prisma.property.findMany({
+      where: { beds24PropertyId: { not: null } }
+    });
+
+    for (const prop of properties) {
+      try {
+        const bedsBookings = await this.beds24Client.getBookings({
+          propId: prop.beds24PropertyId,
+          includeData: "none", // Lightweight
+          arrivalGte: format(new Date(), "yyyy-MM-dd") // Only future bookings
+        });
+
+        for (const b24b of bedsBookings) {
+          // Check if booking already exists (either Welqo-born or already pulled)
+          const exists = await this.prisma.booking.findFirst({
+            where: { beds24BookingId: String(b24b.bookId || b24b.id) }
+          });
+
+          if (!exists) {
+            await this.prisma.booking.create({
+              data: {
+                propertyId: prop.id,
+                beds24BookingId: String(b24b.bookId || b24b.id),
+                checkIn: new Date(b24b.arrival),
+                checkOut: new Date(b24b.departure),
+                status: "EXTERNAL" as any,
+                guestFirstName: b24b.firstName || "External",
+                guestLastName: b24b.lastName || "Guest",
+                guestEmail: b24b.email || "external@welqo.com",
+                guestCount: b24b.numAdult || 1,
+                totalAmountGross: 0, // Not needed for external
+                totalAmountNet: 0,
+                welqoCommission: 0,
+                nightlyRate: 0,
+                cleaningFee: 0,
+                touristTax: 0,
+                nightsCount: 1, // Default
+              }
+            });
+            this.logger.log(`Synced external booking ${b24b.bookId} for property ${prop.id}`);
+          }
+        }
+      } catch (err: any) {
+        this.logger.error(`Failed to pull bookings for property ${prop.id}: ${err.message}`);
+      }
     }
   }
 

@@ -1,18 +1,24 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
   Download,
-  AlertCircle,
-  TrendingUp,
   Euro,
+  TrendingUp,
   CalendarCheck,
-  ArrowLeft,
+  User,
+  MapPin,
+  CalendarDays,
+  ChevronRight,
 } from "lucide-react";
+import { format, parseISO, differenceInDays } from "date-fns";
+import { fr } from "date-fns/locale";
 import { fetchApi } from "../../../../lib/api";
 import { useAuthGuard } from "../../../../lib/useAuthGuard";
+import { PageWrapper } from "../../../../components/PageWrapper";
+import { DetailPanel } from "../../../../components/DetailPanel";
+import { Button } from "@welqo/ui";
 
 interface BookingRow {
   id: string;
@@ -26,60 +32,47 @@ interface BookingRow {
   totalAmountGross: number;
   totalAmountNet: number;
   welqoCommission: number;
-  confirmedAt: string | null;
   property: { titleFr: string };
-  payment: {
-    status: string;
-    paidAt: string | null;
-    stripePaymentIntentId: string | null;
-  } | null;
 }
 
 const STATUS_LABELS: Record<string, { label: string; cls: string }> = {
   CONFIRMED: {
     label: "Confirmé",
-    cls: "bg-emerald-50 text-emerald-700 dark:bg-emerald-500/10 dark:text-emerald-400 border-emerald-100 dark:border-emerald-500/20",
+    cls: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
   },
   COMPLETED: {
     label: "Terminé",
-    cls: "bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400 border-slate-200 dark:border-slate-700",
+    cls: "bg-slate-100 text-slate-500 border-slate-200 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-700",
   },
   CANCELLED: {
     label: "Annulé",
-    cls: "bg-rose-50 text-rose-700 dark:bg-rose-950/30 dark:text-rose-400 border-rose-100 dark:border-rose-900/50",
+    cls: "bg-rose-500/10 text-rose-600 border-rose-500/20",
   },
 };
 
 function exportCsv(rows: BookingRow[]) {
   const headers = [
-    "ID",
     "Logement",
     "Voyageur",
-    "Email",
     "Arrivée",
     "Départ",
-    "Nuits",
     "Total TTC (€)",
-    "Commission Welqo (€)",
-    "Net Propriétaire (€)",
+    "Commission (€)",
+    "Net (€)",
     "Statut",
   ];
   const lines = rows.map((r) =>
     [
-      r.id,
       `"${r.property.titleFr}"`,
       `"${r.guestFirstName} ${r.guestLastName}"`,
-      r.guestEmail,
       r.checkIn.slice(0, 10),
       r.checkOut.slice(0, 10),
-      r.nightsCount,
       r.totalAmountGross.toFixed(2),
       r.welqoCommission.toFixed(2),
       r.totalAmountNet.toFixed(2),
       r.status,
     ].join(","),
   );
-
   const csv = [headers.join(","), ...lines].join("\n");
   const blob = new Blob(["﻿" + csv], { type: "text/csv;charset=utf-8;" });
   const url = URL.createObjectURL(blob);
@@ -87,210 +80,185 @@ function exportCsv(rows: BookingRow[]) {
   a.href = url;
   a.download = `welqo_paiements_${new Date().toISOString().slice(0, 10)}.csv`;
   a.click();
-  URL.revokeObjectURL(url);
 }
 
 export default function PaiementsPage() {
-  const router = useRouter();
   useAuthGuard();
   const [rows, setRows] = useState<BookingRow[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [selected, setSelected] = useState<BookingRow | null>(null);
 
   useEffect(() => {
     fetchApi<BookingRow[]>("/stats/bookings")
       .then(setRows)
-      .catch((e) => setError(e.message))
       .finally(() => setLoading(false));
-  }, [router]);
+  }, []);
 
-  const totalNet = rows
-    .filter((r) => r.status !== "CANCELLED")
-    .reduce((s, r) => s + r.totalAmountNet, 0);
-  const totalGross = rows
-    .filter((r) => r.status !== "CANCELLED")
-    .reduce((s, r) => s + r.totalAmountGross, 0);
-  const confirmed = rows.filter(
-    (r) => r.status === "CONFIRMED" || r.status === "COMPLETED",
-  ).length;
+  const active = rows.filter((r) => r.status !== "CANCELLED");
+  const totalNet = active.reduce((s, r) => s + r.totalAmountNet, 0);
+  const totalGross = active.reduce((s, r) => s + r.totalAmountGross, 0);
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="w-10 h-10 border-4 border-welqo-terracotta border-t-transparent rounded-full animate-spin" />
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
-  if (error) {
-    return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6">
-        <div className="p-6 bg-red-50 dark:bg-red-950/30 rounded-3xl border border-red-100 dark:border-red-900 flex items-center gap-4 text-red-600 max-w-md">
-          <AlertCircle className="w-8 h-8 shrink-0" />
-          <p className="font-bold">{error}</p>
-        </div>
-      </div>
-    );
-  }
+  const kpis = [
+    { label: "Volume d'affaires", value: `${totalGross.toLocaleString("fr-FR")}€`, icon: Euro },
+    {
+      label: "Net propriétaire",
+      value: `${totalNet.toLocaleString("fr-FR")}€`,
+      icon: TrendingUp,
+      primary: true,
+    },
+    { label: "Transactions actives", value: active.length, icon: CalendarCheck },
+  ];
+
+  const sc = selected ? (STATUS_LABELS[selected.status] ?? STATUS_LABELS.CONFIRMED) : null;
+  const nights = selected
+    ? differenceInDays(parseISO(selected.checkOut), parseISO(selected.checkIn))
+    : 0;
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10 space-y-10">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
-        <div>
-          <button
-            onClick={() => router.back()}
-            className="flex items-center gap-2 text-slate-500 hover:text-slate-900 dark:hover:text-white text-[10px] font-bold uppercase tracking-widest mb-4 transition-colors"
+    <PageWrapper>
+      <div className="max-w-6xl mx-auto space-y-5">
+        {/* Header */}
+        <div className="flex items-start justify-between">
+          <div>
+            <h1 className="text-xl font-semibold text-slate-900 dark:text-white tracking-tight">
+              Mes transactions
+            </h1>
+            <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Suivi financier de vos revenus propriétaires
+            </p>
+          </div>
+          <Button
+            onClick={() => exportCsv(rows)}
+            disabled={rows.length === 0}
+            variant="outline"
+            size="md"
+            icon={Download}
+            iconPosition="right"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Retour
-          </button>
-          <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
-            Historique financier
-          </h1>
-          <p className="text-slate-500 text-sm mt-1">
-            {rows.length} réservation{rows.length !== 1 ? "s" : ""} au total
-          </p>
+            Exporter CSV
+          </Button>
         </div>
-        <button
-          onClick={() => exportCsv(rows)}
-          disabled={rows.length === 0}
-          className="flex items-center gap-3 px-6 py-3 bg-slate-900 dark:bg-slate-50 text-white dark:text-slate-900 rounded-lg font-bold text-sm transition-all hover:bg-slate-800 dark:hover:bg-white disabled:opacity-40 shadow-sm"
-        >
-          <Download className="w-4 h-4" />
-          Exporter CSV
-        </button>
-      </div>
+        <div className="h-px bg-slate-100 dark:bg-slate-800/60" />
 
-      {/* KPI Summary */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {[
-          {
-            label: "Volume d'affaires",
-            value: `${totalGross.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €`,
-            icon: Euro,
-            color: "text-slate-900 dark:text-white",
-            bg: "bg-slate-100 dark:bg-slate-800",
-          },
-          {
-            label: "Net propriétaire",
-            value: `${totalNet.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €`,
-            icon: TrendingUp,
-            color: "text-welqo-terracotta",
-            bg: "bg-welqo-terracotta/10",
-          },
-          {
-            label: "Réservations actives",
-            value: confirmed,
-            icon: CalendarCheck,
-            color: "text-slate-600 dark:text-slate-400",
-            bg: "bg-slate-50 dark:bg-slate-800/50",
-          },
-        ].map((kpi) => (
-          <motion.div
-            key={kpi.label}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="p-6 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800"
-          >
-            <div
-              className={`w-10 h-10 ${kpi.bg} ${kpi.color} rounded-lg flex items-center justify-center mb-4`}
+        {/* KPI strip */}
+        <div className="grid grid-cols-3 gap-3">
+          {kpis.map((k, i) => (
+            <motion.div
+              key={k.label}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.04 }}
+              className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg p-4"
             >
-              <kpi.icon className="w-5 h-5" />
-            </div>
-            <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1">
-              {kpi.label}
-            </p>
-            <p className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
-              {kpi.value}
-            </p>
-          </motion.div>
-        ))}
-      </div>
-
-      {/* Table */}
-      {rows.length === 0 ? (
-        <div className="p-16 bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 text-center">
-          <p className="text-slate-400 font-medium">
-            Aucune réservation enregistrée
-          </p>
+              <div className="flex items-center justify-between mb-3">
+                <div className="p-1.5 rounded-md bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                  <k.icon
+                    className={`w-3.5 h-3.5 ${"primary" in k && k.primary ? "text-primary" : "text-slate-400"}`}
+                  />
+                </div>
+              </div>
+              <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-0.5">
+                {k.label}
+              </p>
+              <p className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
+                {k.value}
+              </p>
+            </motion.div>
+          ))}
         </div>
-      ) : (
-        <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-          {/* Desktop table */}
-          <div className="hidden md:block overflow-x-auto">
-            <table className="w-full text-sm">
+
+        {/* Table */}
+        {rows.length === 0 ? (
+          <div className="flex items-center justify-center py-14 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-xs text-slate-400 font-medium">
+            Aucune transaction enregistrée pour le moment
+          </div>
+        ) : (
+          <div className="rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden">
+            <table className="w-full text-xs">
               <thead>
-                <tr className="border-b border-slate-100 dark:border-slate-800">
-                  {[
-                    "Voyageur",
-                    "Logement",
-                    "Séjour",
-                    "Total TTC",
-                    "Commission",
-                    "Net",
-                    "Statut",
-                  ].map((h) => (
-                    <th
-                      key={h}
-                      className="px-6 py-5 text-left text-[11px] font-black uppercase tracking-widest text-slate-400"
-                    >
-                      {h}
-                    </th>
-                  ))}
+                <tr className="bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
+                  {["Voyageur", "Logement", "Séjour", "Total TTC", "Net", "Statut", ""].map(
+                    (h) => (
+                      <th
+                        key={h}
+                        className="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400"
+                      >
+                        {h}
+                      </th>
+                    ),
+                  )}
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
+              <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 {rows.map((row, i) => {
-                  const s =
-                    STATUS_LABELS[row.status] ?? STATUS_LABELS.CONFIRMED;
+                  const s = STATUS_LABELS[row.status] ?? STATUS_LABELS.CONFIRMED;
+                  const isActive = selected?.id === row.id;
                   return (
                     <motion.tr
                       key={row.id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      transition={{ delay: i * 0.03 }}
-                      className="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors"
+                      transition={{ delay: i * 0.015 }}
+                      onClick={() => setSelected(isActive ? null : row)}
+                      className={[
+                        "group cursor-pointer transition-colors",
+                        isActive
+                          ? "bg-primary/[0.04] dark:bg-primary/[0.08]"
+                          : "bg-white dark:bg-slate-900 hover:bg-primary/[0.025] dark:hover:bg-primary/[0.05]",
+                      ].join(" ")}
                     >
-                      <td className="px-6 py-5">
-                        <p className="font-bold text-slate-900 dark:text-white">
+                      <td className="px-4 py-3 relative">
+                        {/* Left accent bar */}
+                        <span
+                          className={[
+                            "absolute left-0 inset-y-[8px] w-[2.5px] rounded-r-full transition-all duration-200",
+                            isActive
+                              ? "bg-primary scale-y-100"
+                              : "bg-primary/50 scale-y-0 group-hover:scale-y-100 origin-center",
+                          ].join(" ")}
+                        />
+                        <p className="font-semibold text-slate-900 dark:text-white">
                           {row.guestFirstName} {row.guestLastName}
                         </p>
-                        <p className="text-slate-400 text-xs mt-0.5">
-                          {row.guestEmail}
-                        </p>
+                        <p className="text-[10px] text-slate-400 mt-0.5">{row.guestEmail}</p>
                       </td>
-                      <td className="px-6 py-5 font-medium text-slate-700 dark:text-slate-300">
+                      <td className="px-4 py-3 text-slate-600 dark:text-slate-400 font-medium max-w-[160px] truncate">
                         {row.property.titleFr}
                       </td>
-                      <td className="px-6 py-5 text-slate-600 dark:text-slate-400 whitespace-nowrap">
+                      <td className="px-4 py-3 text-slate-500 dark:text-slate-400 whitespace-nowrap">
                         {new Date(row.checkIn).toLocaleDateString("fr-FR", {
                           day: "2-digit",
                           month: "short",
-                        })}
-                        {" — "}
+                        })}{" "}
+                        →{" "}
                         {new Date(row.checkOut).toLocaleDateString("fr-FR", {
                           day: "2-digit",
                           month: "short",
                         })}
-                        <span className="text-slate-400 text-xs ml-1">
-                          ({row.nightsCount}n)
-                        </span>
                       </td>
-                      <td className="px-6 py-5 font-black text-slate-900 dark:text-white">
-                        {row.totalAmountGross.toFixed(2)} €
+                      <td className="px-4 py-3 font-semibold text-slate-900 dark:text-white">
+                        {row.totalAmountGross.toFixed(2)}€
                       </td>
-                      <td className="px-6 py-5 text-slate-500">
-                        {row.welqoCommission.toFixed(2)} €
+                      <td className="px-4 py-3 font-bold text-primary">
+                        {row.totalAmountNet.toFixed(2)}€
                       </td>
-                      <td className="px-6 py-5 font-black text-emerald-600">
-                        {row.totalAmountNet.toFixed(2)} €
-                      </td>
-                      <td className="px-6 py-5">
-                        <span
-                          className={`px-3 py-1 rounded-full text-[10px] font-bold border ${s.cls}`}
-                        >
+                      <td className="px-4 py-3">
+                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${s.cls}`}>
                           {s.label}
                         </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        <ChevronRight
+                          className={`w-3.5 h-3.5 transition-colors ${isActive ? "text-primary" : "text-slate-300 group-hover:text-primary/50"}`}
+                        />
                       </td>
                     </motion.tr>
                   );
@@ -298,55 +266,129 @@ export default function PaiementsPage() {
               </tbody>
             </table>
           </div>
+        )}
+      </div>
 
-          {/* Mobile cards */}
-          <div className="md:hidden divide-y divide-slate-100 dark:divide-slate-800">
-            {rows.map((row) => {
-              const s = STATUS_LABELS[row.status] ?? STATUS_LABELS.CONFIRMED;
-              return (
-                <div key={row.id} className="p-5 space-y-3">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="font-black text-slate-900 dark:text-white">
-                        {row.guestFirstName} {row.guestLastName}
-                      </p>
-                      <p className="text-slate-500 text-sm">
-                        {row.property.titleFr}
-                      </p>
-                    </div>
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-black ${s.cls}`}
-                    >
-                      {s.label}
+      {/* Detail panel */}
+      <DetailPanel
+        isOpen={!!selected}
+        onClose={() => setSelected(null)}
+        title={selected ? `${selected.guestFirstName} ${selected.guestLastName}` : ""}
+        subtitle={selected?.property.titleFr}
+        footer={
+          selected && (
+            <Button variant="outline" size="md" className="w-full" icon={Download} iconPosition="right"
+              onClick={() => exportCsv([selected])}>
+              Exporter cette transaction
+            </Button>
+          )
+        }
+      >
+        {selected && sc && (
+          <div className="p-5 space-y-5">
+            {/* Status */}
+            <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${sc.cls}`}>
+              {sc.label}
+            </span>
+
+            {/* Guest card */}
+            <div className="flex items-center gap-3 p-3.5 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800">
+              <div className="w-9 h-9 bg-primary/10 border border-primary/20 text-primary rounded-md flex items-center justify-center font-bold text-sm shrink-0">
+                {selected.guestFirstName[0]}
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">
+                  {selected.guestFirstName} {selected.guestLastName}
+                </p>
+                <p className="text-[11px] text-slate-400 truncate">{selected.guestEmail}</p>
+              </div>
+            </div>
+
+            {/* Details */}
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-[10px] font-medium text-slate-400 mb-0.5">Logement</p>
+                  <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                    {selected.property.titleFr}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <CalendarDays className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-[10px] font-medium text-slate-400 mb-1">Séjour</p>
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200">
+                    <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
+                      {format(parseISO(selected.checkIn), "dd MMM", { locale: fr })}
+                    </span>
+                    <span className="text-slate-300">→</span>
+                    <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
+                      {format(parseISO(selected.checkOut), "dd MMM", { locale: fr })}
                     </span>
                   </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-slate-400">
-                      {new Date(row.checkIn).toLocaleDateString("fr-FR", {
-                        day: "2-digit",
-                        month: "short",
-                      })}
-                      {" — "}
-                      {new Date(row.checkOut).toLocaleDateString("fr-FR", {
-                        day: "2-digit",
-                        month: "short",
-                      })}
-                    </span>
-                    <div className="text-right">
-                      <p className="font-black text-slate-900 dark:text-white">
-                        {row.totalAmountGross.toFixed(2)} €
-                      </p>
-                      <p className="text-emerald-600 text-xs font-bold">
-                        Net : {row.totalAmountNet.toFixed(2)} €
-                      </p>
+                  <p className="text-[10px] text-slate-400 mt-1">
+                    {nights} nuit{nights > 1 ? "s" : ""}
+                  </p>
+                </div>
+              </div>
+
+              {/* Financial breakdown */}
+              <div className="flex items-start gap-3">
+                <Euro className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+                <div className="flex-1">
+                  <p className="text-[10px] font-medium text-slate-400 mb-2">Détail financier</p>
+                  <div className="space-y-1.5 p-3 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800">
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-slate-500">Total TTC</span>
+                      <span className="font-semibold text-slate-800 dark:text-slate-200">
+                        {selected.totalAmountGross.toFixed(2)} €
+                      </span>
+                    </div>
+                    <div className="flex justify-between text-[11px]">
+                      <span className="text-slate-500">Commission Welqo</span>
+                      <span className="font-semibold text-slate-500">
+                        − {selected.welqoCommission.toFixed(2)} €
+                      </span>
+                    </div>
+                    <div className="h-px bg-slate-200 dark:bg-slate-700 my-1" />
+                    <div className="flex justify-between text-xs">
+                      <span className="font-semibold text-slate-700 dark:text-slate-300">
+                        Net propriétaire
+                      </span>
+                      <span className="font-bold text-primary">
+                        {selected.totalAmountNet.toFixed(2)} €
+                      </span>
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+
+              <div className="flex items-start gap-3">
+                <User className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-[10px] font-medium text-slate-400 mb-0.5">Durée</p>
+                  <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                    {selected.nightsCount} nuit{selected.nightsCount > 1 ? "s" : ""}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Reference */}
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
+              <p className="text-[10px] text-slate-400">
+                Référence :{" "}
+                <span className="font-mono font-semibold text-slate-600 dark:text-slate-400">
+                  #{selected.id.slice(-8).toUpperCase()}
+                </span>
+              </p>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </DetailPanel>
+    </PageWrapper>
   );
 }

@@ -1,3 +1,4 @@
+import { Module, Global } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { StorageModule } from '../storage/storage.module';
 import { PrismaModule } from '../../common/prisma/prisma.module';

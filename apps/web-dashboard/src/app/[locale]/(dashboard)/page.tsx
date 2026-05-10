@@ -2,28 +2,44 @@
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-
-import { CalendarDays, ArrowRight, User, AlertCircle, TrendingUp } from "lucide-react";
+import {
+  CalendarDays,
+  ArrowRight,
+  AlertCircle,
+  TrendingUp,
+  ChevronRight,
+  MapPin,
+  Moon,
+  MessageCircle,
+} from "lucide-react";
+import { format, parseISO, differenceInDays } from "date-fns";
+import { fr } from "date-fns/locale";
 import { KPIStats } from "../../../components/KPIStats";
+import { DetailPanel } from "../../../components/DetailPanel";
 import { fetchApi } from "../../../lib/api";
 import { getStoredOwner } from "../../../lib/auth";
 import { useAuthGuard } from "../../../lib/useAuthGuard";
+import { Button } from "@welqo/ui";
+import { PageWrapper } from "../../../components/PageWrapper";
 
-import { LuxuryCard } from "@welqo/ui";
+interface UpcomingBooking {
+  id: string;
+  guestFirstName: string;
+  guestLastName: string;
+  guestEmail?: string;
+  checkIn: string;
+  checkOut: string;
+  totalAmountGross: number;
+  totalAmountNet?: number;
+  status?: string;
+  property: { titleFr: string };
+}
 
 interface OverviewData {
   totalRevenue: number;
   occupancyRate: number;
   adr: number;
-  upcomingBookings: {
-    id: string;
-    guestFirstName: string;
-    guestLastName: string;
-    checkIn: string;
-    checkOut: string;
-    totalAmountGross: number;
-    property: { titleFr: string };
-  }[];
+  upcomingBookings: UpcomingBooking[];
   upcomingEvents: {
     id: string;
     name: string;
@@ -34,215 +50,349 @@ interface OverviewData {
   }[];
 }
 
+function fmtDate(d: string) {
+  return new Date(d).toLocaleDateString("fr-FR", { day: "numeric", month: "short" });
+}
+
 export default function DashboardPage() {
   const router = useRouter();
   const { locale } = useAuthGuard();
-  const [data, setData] = useState<OverviewData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [data, setData]         = useState<OverviewData | null>(null);
+  const [loading, setLoading]   = useState(true);
+  const [error, setError]       = useState<string | null>(null);
+  const [selected, setSelected] = useState<UpcomingBooking | null>(null);
   const owner = getStoredOwner();
 
   useEffect(() => {
     fetchApi<OverviewData>("/stats/overview")
-      .then((res) => setData(res))
+      .then(setData)
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, [router]);
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-[60vh]">
-        <div className="w-12 h-12 border-4 border-welqo-terracotta border-t-transparent rounded-full animate-spin" />
+      <div className="flex items-center justify-center min-h-[50vh]">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="flex flex-col items-center justify-center min-h-[60vh] gap-6 px-4">
-        <LuxuryCard className="border-red-100 dark:border-red-900 flex items-center gap-4 text-red-600 max-w-md bg-red-50/50">
-          <AlertCircle className="w-8 h-8 shrink-0" />
-          <div>
-            <p className="font-bold font-serif">
-              Impossible de charger le tableau de bord
-            </p>
-            <p className="text-sm font-medium mt-1">{error}</p>
-          </div>
-        </LuxuryCard>
-        <button
-          onClick={() => {
-            setError(null);
-            setLoading(true);
-            fetchApi<OverviewData>("/stats/overview")
-              .then(setData)
-              .catch((e) => setError(e.message))
-              .finally(() => setLoading(false));
-          }}
-          className="px-8 py-4 bg-welqo-anthracite text-white rounded-full font-bold hover:bg-welqo-terracotta transition-all"
-        >
+      <div className="flex flex-col items-center justify-center min-h-[50vh] gap-4">
+        <div className="flex items-center gap-3 text-red-600 bg-red-50 dark:bg-red-950/20 border border-red-100 dark:border-red-900 rounded-lg px-4 py-3 text-sm font-medium max-w-sm">
+          <AlertCircle className="w-4 h-4 shrink-0" />
+          {error}
+        </div>
+        <Button onClick={() => window.location.reload()} variant="primary" size="sm">
           Réessayer
-        </button>
+        </Button>
       </div>
     );
   }
 
-  const stats = data!;
-  const ownerName = owner?.firstName ?? "Propriétaire";
+  const stats       = data!;
+  const ownerName   = owner?.firstName ?? "Propriétaire";
+  const currentDate = new Date().toLocaleDateString("fr-FR", {
+    weekday: "long", day: "numeric", month: "long", year: "numeric",
+  });
+
+  const nights = selected
+    ? differenceInDays(parseISO(selected.checkOut), parseISO(selected.checkIn))
+    : 0;
 
   return (
-    <div className="max-w-6xl mx-auto px-6 py-10">
-      <header className="mb-12">
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
-          Bonjour, {ownerName}
-        </h1>
-        <p className="text-slate-500 dark:text-slate-400 text-sm">
-          Voici le résumé de vos performances pour le mois en cours.
-        </p>
-      </header>
+    <PageWrapper>
+      <div className="max-w-6xl mx-auto space-y-5">
+        {/* Header */}
+        <div>
+          <h1 className="text-xl font-semibold text-slate-900 dark:text-white tracking-tight">
+            Bonjour, {ownerName}
+          </h1>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5 capitalize">
+            {currentDate}
+          </p>
+        </div>
 
-      <div className="mb-12">
+        {/* KPIs */}
         <KPIStats stats={stats} />
-      </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-        {/* Left: Upcoming Bookings */}
-        <div className="lg:col-span-2 space-y-8">
-          <div className="flex justify-between items-center">
-            <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-              Arrivées prévues
-            </h2>
-            <button
-              onClick={() => router.push(`/${locale}/calendrier`)}
-              className="text-welqo-terracotta font-bold text-xs flex items-center gap-1.5 hover:underline"
-            >
-              Calendrier complet <ArrowRight className="w-3 h-3" />
-            </button>
+        {/* Content grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+
+          {/* ── Upcoming bookings ── */}
+          <div className="lg:col-span-2">
+            <div className="flex items-center justify-between mb-3">
+              <div>
+                <h2 className="text-sm font-semibold text-slate-800 dark:text-slate-200">
+                  Prochaines arrivées
+                </h2>
+                <p className="text-[11px] text-slate-400 mt-0.5">7 prochains jours</p>
+              </div>
+              <button
+                onClick={() => router.push(`/${locale}/calendrier`)}
+                className="flex items-center gap-1 text-xs text-slate-500 hover:text-primary transition-colors font-medium"
+              >
+                Calendrier <ChevronRight className="w-3.5 h-3.5" />
+              </button>
+            </div>
+
+            {stats.upcomingBookings.length === 0 ? (
+              <div className="flex flex-col items-center justify-center py-14 rounded-lg border border-dashed border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 text-slate-400 text-xs font-medium">
+                Aucune arrivée prévue cette semaine
+              </div>
+            ) : (
+              <div className="rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden bg-white dark:bg-slate-900 divide-y divide-slate-100 dark:divide-slate-800/60">
+                {stats.upcomingBookings.map((booking) => {
+                  const isActive = selected?.id === booking.id;
+                  return (
+                    <button
+                      key={booking.id}
+                      onClick={() => setSelected(isActive ? null : booking)}
+                      className={[
+                        "group relative w-full flex items-center gap-3 px-4 py-3.5 text-left transition-all",
+                        isActive
+                          ? "bg-primary/[0.04] dark:bg-primary/[0.07]"
+                          : "hover:bg-primary/[0.025] dark:hover:bg-primary/[0.05]",
+                      ].join(" ")}
+                    >
+                      {/* Left accent bar */}
+                      <span
+                        className={[
+                          "absolute left-0 inset-y-[8px] w-[2.5px] rounded-r-full transition-all duration-200",
+                          isActive
+                            ? "bg-primary scale-y-100"
+                            : "bg-primary/50 scale-y-0 group-hover:scale-y-100 origin-center",
+                        ].join(" ")}
+                      />
+
+                      {/* Avatar */}
+                      <div
+                        className={[
+                          "w-8 h-8 rounded-md flex items-center justify-center font-bold text-sm shrink-0 transition-all duration-150",
+                          isActive
+                            ? "bg-primary text-white"
+                            : "bg-primary/10 border border-primary/20 text-primary group-hover:bg-primary group-hover:text-white",
+                        ].join(" ")}
+                      >
+                        {booking.guestFirstName[0]}
+                      </div>
+
+                      {/* Info */}
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-semibold text-slate-900 dark:text-white truncate">
+                          {booking.guestFirstName} {booking.guestLastName}
+                        </p>
+                        <p className="text-[10px] text-slate-500 dark:text-slate-400 truncate">
+                          {booking.property.titleFr}
+                        </p>
+                      </div>
+
+                      {/* Dates */}
+                      <div className="text-right shrink-0">
+                        <div className="flex items-center gap-1.5 text-xs font-medium text-slate-600 dark:text-slate-400">
+                          <CalendarDays className="w-3 h-3 text-primary shrink-0" />
+                          {fmtDate(booking.checkIn)} → {fmtDate(booking.checkOut)}
+                        </div>
+                        <span className="text-[10px] font-bold text-emerald-600">Confirmé</span>
+                      </div>
+
+                      {/* Chevron */}
+                      <ChevronRight
+                        className={[
+                          "w-3.5 h-3.5 shrink-0 transition-colors",
+                          isActive ? "text-primary" : "text-slate-300 group-hover:text-primary/50",
+                        ].join(" ")}
+                      />
+                    </button>
+                  );
+                })}
+              </div>
+            )}
           </div>
 
-          {stats.upcomingBookings.length === 0 ? (
-            <LuxuryCard
-              variant="outline"
-              className="py-16 text-center border-dashed"
-            >
-              <p className="text-slate-400 text-sm italic">
-                Aucune réservation pour les 7 prochains jours.
+          {/* ── Right panel ── */}
+          <div className="space-y-4">
+            {/* Quick actions */}
+            <div>
+              <p className="text-[10px] font-semibold tracking-wide text-slate-400 dark:text-slate-600 mb-2">
+                Accès rapide
               </p>
-            </LuxuryCard>
-          ) : (
-            <div className="space-y-3">
-              {stats.upcomingBookings.map((booking) => (
-                <LuxuryCard
-                  key={booking.id}
-                  className="flex flex-col sm:flex-row items-center justify-between p-4"
+              <div className="space-y-1.5">
+                <button
+                  onClick={() => router.push(`/${locale}/calendrier`)}
+                  className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:border-primary/30 hover:text-primary transition-all"
                 >
-                  <div className="flex items-center gap-4 w-full sm:w-auto">
-                    <div className="w-10 h-10 bg-slate-50 dark:bg-slate-800 rounded-lg flex items-center justify-center text-slate-400">
-                      <User className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold text-slate-900 dark:text-white text-sm">
-                        {booking.guestFirstName} {booking.guestLastName}
-                      </h3>
-                      <p className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">
-                        {booking.property.titleFr}
+                  Bloquer des dates
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+                <button
+                  onClick={() => router.push(`/${locale}/paiements`)}
+                  className="w-full flex items-center justify-between px-3.5 py-2.5 rounded-lg bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:border-primary/30 hover:text-primary transition-all"
+                >
+                  Revenus & factures
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Smart Pricing */}
+            {stats.upcomingEvents.length > 0 && (
+              <div>
+                <div className="flex items-center gap-1.5 mb-2">
+                  <TrendingUp className="w-3.5 h-3.5 text-primary" />
+                  <p className="text-[10px] font-semibold tracking-wide text-slate-400 dark:text-slate-600">
+                    Smart pricing
+                  </p>
+                </div>
+                <div className="space-y-1.5">
+                  {stats.upcomingEvents.map((event) => (
+                    <div
+                      key={event.id}
+                      className="px-3.5 py-2.5 rounded-lg border border-primary/10 bg-primary/[0.04] dark:bg-primary/[0.08]"
+                    >
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="text-[10px] font-semibold text-primary/60">{event.city}</span>
+                        <span className="text-[10px] font-bold text-white bg-primary px-1.5 py-0.5 rounded">
+                          +{Math.round((event.multiplier - 1) * 100)}%
+                        </span>
+                      </div>
+                      <p className="text-xs font-semibold text-slate-800 dark:text-slate-200 mb-0.5">
+                        {event.name}
+                      </p>
+                      <p className="text-[10px] text-slate-500">
+                        {new Date(event.startDate).toLocaleDateString("fr-FR")} —{" "}
+                        {new Date(event.endDate).toLocaleDateString("fr-FR")}
                       </p>
                     </div>
-                  </div>
-                  <div className="flex items-center gap-6 w-full sm:w-auto pt-4 sm:pt-0 border-t sm:border-t-0 border-slate-100 dark:border-slate-800 mt-4 sm:mt-0">
-                    <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400 text-xs font-medium">
-                      <CalendarDays className="w-4 h-4 text-slate-400" />
-                      <span>
-                        {new Date(booking.checkIn).toLocaleDateString("fr-FR", {
-                          day: "numeric",
-                          month: "short",
-                        })}
-                        {" - "}
-                        {new Date(booking.checkOut).toLocaleDateString(
-                          "fr-FR",
-                          { day: "numeric", month: "short" },
-                        )}
-                      </span>
-                    </div>
-                    <span className="text-[9px] font-bold px-2 py-0.5 bg-emerald-50 dark:bg-emerald-500/10 text-emerald-600 rounded border border-emerald-100 dark:border-emerald-500/20 uppercase tracking-tight">
-                      Confirmé
-                    </span>
-                  </div>
-                </LuxuryCard>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* Right: Quick Actions */}
-        <div className="space-y-8">
-          <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-            Actions rapides
-          </h2>
-          <div className="space-y-3">
-            <button
-              onClick={() => router.push(`/${locale}/calendrier`)}
-              className="w-full p-4 bg-slate-900 dark:bg-slate-50 text-white dark:text-slate-900 rounded-lg font-bold text-sm text-left hover:bg-slate-800 dark:hover:bg-white transition-colors flex justify-between items-center group"
-            >
-              Bloquer des dates
-              <ArrowRight className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button
-              onClick={() => router.push(`/${locale}/paiements`)}
-              className="w-full p-4 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white rounded-lg font-bold text-sm text-left hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors flex justify-between items-center group"
-            >
-              Historique financier
-              <ArrowRight className="w-4 h-4 opacity-50 group-hover:translate-x-1 transition-transform" />
-            </button>
-          </div>
-
-          {/* Smart Pricing Events */}
-          {stats.upcomingEvents.length > 0 && (
-            <div className="space-y-4 pt-4">
-              <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <TrendingUp className="w-5 h-5 text-welqo-terracotta" />
-                Smart Pricing
-              </h2>
-              <div className="space-y-3">
-                {stats.upcomingEvents.map(event => (
-                  <LuxuryCard key={event.id} className="p-4 border-welqo-terracotta/20 bg-welqo-terracotta/5">
-                    <div className="flex justify-between items-start mb-2">
-                      <span className="text-[10px] font-bold uppercase tracking-widest text-welqo-terracotta">
-                        {event.city}
-                      </span>
-                      <span className="text-xs font-black text-emerald-600 bg-emerald-50 px-1.5 py-0.5 rounded">
-                        +{Math.round((event.multiplier - 1) * 100)}%
-                      </span>
-                    </div>
-                    <h4 className="font-bold text-slate-900 dark:text-white text-sm mb-1">
-                      {event.name}
-                    </h4>
-                    <p className="text-slate-500 text-[10px]">
-                      Du {new Date(event.startDate).toLocaleDateString('fr-FR')} au {new Date(event.endDate).toLocaleDateString('fr-FR')}
-                    </p>
-                  </LuxuryCard>
-                ))}
+                  ))}
+                </div>
               </div>
-              <p className="text-[10px] text-slate-400 italic">
-                * Les prix de vos nuitées sont automatiquement ajustés pour ces périodes de forte demande.
-              </p>
-            </div>
-          )}
+            )}
 
-          <LuxuryCard className="bg-welqo-terracotta/5 border-welqo-terracotta/10 p-6">
-            <h3 className="text-sm font-bold text-slate-900 dark:text-white mb-2 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-welqo-terracotta" />
-              Besoin d'assistance ?
-            </h3>
-            <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mb-6">
-              Votre gestionnaire dédié est à votre disposition pour toute
-              question.
-            </p>
-            <button className="w-full py-2.5 bg-welqo-terracotta text-white rounded-lg font-bold text-xs hover:bg-welqo-terracotta-dark transition-colors">
-              Contacter le support
-            </button>
-          </LuxuryCard>
+            {/* Support */}
+            <div className="px-4 py-4 rounded-lg bg-slate-900 dark:bg-slate-800 text-white">
+              <h3 className="text-xs font-semibold mb-1">Support dédié</h3>
+              <p className="text-[11px] text-slate-400 leading-relaxed mb-3">
+                Votre city manager est disponible 7j/7 pour vous accompagner.
+              </p>
+              <Button variant="primary" size="md" className="w-full">
+                Contacter Welqo
+              </Button>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
+
+      {/* ── Detail panel ── */}
+      <DetailPanel
+        isOpen={!!selected}
+        onClose={() => setSelected(null)}
+        title={selected ? `${selected.guestFirstName} ${selected.guestLastName}` : ""}
+        subtitle={selected?.property.titleFr}
+        footer={
+          selected && (
+            <Button
+              href={`/${locale}/messages`}
+              variant="secondary"
+              size="md"
+              className="w-full"
+              icon={MessageCircle}
+            >
+              Ouvrir la messagerie
+            </Button>
+          )
+        }
+      >
+        {selected && (
+          <div className="p-5 space-y-5">
+            {/* Status */}
+            <span className="inline-flex px-2 py-0.5 rounded text-[10px] font-bold border bg-emerald-500/10 text-emerald-600 border-emerald-500/20">
+              Confirmé
+            </span>
+
+            {/* Guest card */}
+            <div className="flex items-center gap-3 p-3.5 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800">
+              <div className="w-9 h-9 bg-primary/10 border border-primary/20 text-primary rounded-md flex items-center justify-center font-bold text-sm shrink-0">
+                {selected.guestFirstName[0]}
+              </div>
+              <div className="min-w-0">
+                <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">
+                  {selected.guestFirstName} {selected.guestLastName}
+                </p>
+                {selected.guestEmail && (
+                  <p className="text-[11px] text-slate-400 truncate">{selected.guestEmail}</p>
+                )}
+              </div>
+            </div>
+
+            {/* Details */}
+            <div className="space-y-4">
+              <div className="flex items-start gap-3">
+                <MapPin className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-[10px] font-medium text-slate-400 mb-0.5">Logement</p>
+                  <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
+                    {selected.property.titleFr}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3">
+                <CalendarDays className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
+                <div>
+                  <p className="text-[10px] font-medium text-slate-400 mb-1">Séjour</p>
+                  <div className="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200">
+                    <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
+                      {format(parseISO(selected.checkIn), "dd MMM", { locale: fr })}
+                    </span>
+                    <span className="text-slate-300">→</span>
+                    <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
+                      {format(parseISO(selected.checkOut), "dd MMM", { locale: fr })}
+                    </span>
+                  </div>
+                  <p className="text-[10px] text-slate-400 mt-1 flex items-center gap-1">
+                    <Moon className="w-3 h-3" />
+                    {nights} nuit{nights > 1 ? "s" : ""}
+                  </p>
+                </div>
+              </div>
+
+              {selected.totalAmountGross > 0 && (
+                <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800 space-y-1.5">
+                  <div className="flex justify-between text-[11px]">
+                    <span className="text-slate-500">Total TTC</span>
+                    <span className="font-semibold text-slate-800 dark:text-slate-200">
+                      {selected.totalAmountGross.toFixed(2)} €
+                    </span>
+                  </div>
+                  {selected.totalAmountNet != null && (
+                    <>
+                      <div className="h-px bg-slate-200 dark:bg-slate-700" />
+                      <div className="flex justify-between text-xs">
+                        <span className="font-semibold text-slate-700 dark:text-slate-300">Net propriétaire</span>
+                        <span className="font-bold text-primary">
+                          {selected.totalAmountNet.toFixed(2)} €
+                        </span>
+                      </div>
+                    </>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <div className="pt-3 border-t border-slate-100 dark:border-slate-800">
+              <p className="text-[10px] text-slate-400">
+                Référence :{" "}
+                <span className="font-mono font-semibold text-slate-600 dark:text-slate-400">
+                  #{selected.id.slice(-8).toUpperCase()}
+                </span>
+              </p>
+            </div>
+          </div>
+        )}
+      </DetailPanel>
+    </PageWrapper>
   );
 }

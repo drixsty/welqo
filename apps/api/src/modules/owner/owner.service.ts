@@ -1,4 +1,4 @@
-import { Injectable, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../../common/prisma/prisma.service';
 import { StorageService } from '../storage/storage.service';
 import { SignatureService } from '../signature/signature.service';
@@ -6,7 +6,6 @@ import { MandateStatus } from '@prisma/client';
 
 @Injectable()
 export class OwnerService {
-  private readonly logger = new Logger(OwnerService.name);
 
   constructor(
     private prisma: PrismaService,

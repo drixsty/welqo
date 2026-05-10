@@ -10,23 +10,25 @@ interface LuxuryCardProps {
   children: React.ReactNode;
   className?: string;
   variant?: "default" | "glass" | "outline";
+  isClickable?: boolean;
 }
 
 export const LuxuryCard = ({
   children,
   className,
   variant = "default",
+  isClickable = false,
 }: LuxuryCardProps) => {
   return (
     <div
       className={cn(
-        "rounded-2xl p-8 transition-all duration-500",
+        "rounded-lg transition-all duration-300",
         variant === "default" &&
-          "bg-white dark:bg-welqo-anthracite-dark border border-welqo-cream-dark/50 shadow-card hover:shadow-card-hover",
-        variant === "glass" &&
-          "bg-white/80 dark:bg-welqo-anthracite/80 backdrop-blur-xl border border-white/20 shadow-xl",
+          "bg-white dark:bg-card border border-slate-100 dark:border-slate-800 shadow-sm",
+        variant === "glass" && "glass-card",
         variant === "outline" &&
-          "border border-welqo-anthracite/10 bg-transparent hover:border-welqo-anthracite/20 hover:bg-welqo-cream/30",
+          "border border-slate-200 dark:border-slate-800 bg-transparent",
+        isClickable && "cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-primary/20",
         className,
       )}
     >

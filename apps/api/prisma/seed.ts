@@ -54,12 +54,12 @@ async function main() {
   const prop1 = await prisma.property.create({
     data: {
       ownerId: ownerMarc.id,
-      slug: "appartement-bordelais",
+      slug: "cocon-lillois",
       status: PropertyStatus.ACTIVE,
-      titleFr: "L'Appartement Bordelais",
-      titleEn: "The Bordeaux Apartment",
-      descFr: "Un superbe appartement en plein centre-ville.",
-      descEn: "A superb apartment in the heart of the city.",
+      titleFr: "Le Cocon Lillois",
+      titleEn: "The Lille Cocoon",
+      descFr: "Un superbe appartement en plein centre-ville de Lille.",
+      descEn: "A superb apartment in the heart of Lille.",
       address: "10 Rue de la Paix",
       city: "Lille",
       maxGuests: 4,
@@ -69,6 +69,8 @@ async function main() {
       cleaningFee: 40,
       touristTax: 1.5,
       beds24PropertyId: "123456",
+      latitude: 50.63297,
+      longitude: 3.05858,
     },
   });
 
@@ -79,8 +81,8 @@ async function main() {
       status: PropertyStatus.ACTIVE,
       titleFr: "Le Loft Industriel",
       titleEn: "The Industrial Loft",
-      descFr: "Design moderne et espace ouvert.",
-      descEn: "Modern design and open space.",
+      descFr: "Design moderne et espace ouvert à Lille.",
+      descEn: "Modern design and open space in Lille.",
       address: "25 Avenue Foch",
       city: "Lille",
       maxGuests: 2,
@@ -90,6 +92,31 @@ async function main() {
       cleaningFee: 30,
       touristTax: 1.2,
       beds24PropertyId: "789012",
+      latitude: 50.63717,
+      longitude: 3.06348,
+    },
+  });
+
+  const prop3 = await prisma.property.create({
+    data: {
+      ownerId: ownerMarc.id,
+      slug: "suite-art-deco-lens",
+      status: PropertyStatus.ACTIVE,
+      titleFr: "Suite Art Déco - Lens",
+      titleEn: "Art Deco Suite - Lens",
+      descFr: "Proche du Louvre-Lens, une suite élégante.",
+      descEn: "Near Louvre-Lens, an elegant suite.",
+      address: "5 Rue de la Gare",
+      city: "Lens",
+      maxGuests: 2,
+      bedrooms: 1,
+      bathrooms: 1,
+      basePricePerNight: 110,
+      cleaningFee: 35,
+      touristTax: 1.1,
+      beds24PropertyId: "345678",
+      latitude: 50.4333,
+      longitude: 2.8333,
     },
   });
 

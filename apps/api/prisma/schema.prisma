@@ -159,6 +159,7 @@ model Property {
   amenities    PropertyAmenity[]
   bookings     Booking[]
   syncJobs     SyncJob[]
+  conversations Conversation[]
 
   @@map("properties")
 }
@@ -232,6 +233,7 @@ model Booking {
   // Relations
   property     Property   @relation(fields: [propertyId], references: [id])
   payment      Payment?
+  conversation Conversation?
 
   @@index([propertyId, checkIn, checkOut])
   @@index([guestEmail])
@@ -299,6 +301,36 @@ model LocalEvent {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  @@index([city, startDate, endDate])
+  @@index([propertyId, startDate, endDate])
   @@map("local_events")
+}
+
+model Conversation {
+  id            String    @id @default(cuid())
+  propertyId    String
+  bookingId     String?   @unique
+  guestEmail    String
+  lastMessageAt DateTime  @default(now())
+
+  property  Property @relation(fields: [propertyId], references: [id])
+  booking   Booking?  @relation(fields: [bookingId], references: [id])
+  messages  Message[]
+
+  @@index([propertyId, guestEmail])
+  @@map("conversations")
+}
+
+model Message {
+  id             String   @id @default(cuid())
+  conversationId String
+  senderId       String?  // If null, it's the guest
+  senderType     String   // "OWNER" | "GUEST" | "SYSTEM"
+  content        String   @db.Text
+  isRead         Boolean  @default(false)
+  createdAt      DateTime @default(now())
+
+  conversation Conversation @relation(fields: [conversationId], references: [id])
+
+  @@index([conversationId, createdAt])
+  @@map("messages")
 }

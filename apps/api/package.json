@@ -23,10 +23,12 @@
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/passport": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/platform-socket.io": "^11.1.19",
     "@nestjs/schedule": "^5.0.0",
     "@nestjs/swagger": "^11.0.1",
     "@nestjs/terminus": "^11.0.0",
     "@nestjs/throttler": "^6.3.0",
+    "@nestjs/websockets": "^11.1.19",
     "@prisma/client": "^6.1.0",
     "@welqo/beds24-client": "*",
     "@welqo/stripe-client": "*",
@@ -45,6 +47,7 @@
     "reflect-metadata": "^0.2.2",
     "resend": "^6.12.3",
     "rxjs": "^7.8.1",
+    "socket.io": "^4.8.3",
     "stripe": "^15.5.0"
   },
   "devDependencies": {

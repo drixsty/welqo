@@ -12,6 +12,7 @@ import {
   LogOut,
   TrendingUp,
   FileText,
+  MessageCircle,
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -25,6 +26,7 @@ function cn(...inputs: ClassValue[]) {
 const NAV_ITEMS = [
   { icon: LayoutDashboard, label: "Tableau de Bord", path: "" },
   { icon: FileText, label: "Mandats", path: "/mandats" },
+  { icon: MessageCircle, label: "Messages", path: "/messages" },
   { icon: Calendar, label: "Planning", path: "/calendrier" },
   { icon: Home, label: "Demeures", path: "/logements" },
   { icon: TrendingUp, label: "Analyses", path: "/stats" },

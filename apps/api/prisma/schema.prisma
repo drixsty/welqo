@@ -44,6 +44,14 @@ enum SyncStatus {
   STALE
 }
 
+enum MandateStatus {
+  DRAFT
+  PENDING_SIGNATURE
+  SIGNED
+  EXPIRED
+  CANCELLED
+}
+
 enum PropertyStatus {
   ACTIVE
   INACTIVE
@@ -67,9 +75,30 @@ model Owner {
 
   // Relations
   properties   Property[]
+  mandates     Mandate[]
   refreshTokens RefreshToken[]
 
   @@map("owners")
+}
+
+model Mandate {
+  id           String    @id @default(cuid())
+  ownerId      String
+  status       MandateStatus @default(DRAFT)
+  
+  // File Storage (MinIO)
+  pdfPath      String?   // Path in MinIO bucket
+  
+  // Signature info (Lex Persona)
+  signatureId  String?   @unique // External ID from Lex Persona
+  signedAt     DateTime?
+  
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  owner        Owner     @relation(fields: [ownerId], references: [id])
+
+  @@map("mandates")
 }
 
 model RefreshToken {

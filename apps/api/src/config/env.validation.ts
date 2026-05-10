@@ -42,6 +42,39 @@ class EnvironmentVariables {
   @IsOptional()
   @IsString()
   RESEND_FROM_EMAIL?: string;
+
+  @IsString()
+  MINIO_ENDPOINT!: string;
+
+  @IsNumber()
+  @IsOptional()
+  MINIO_PORT?: number;
+
+  @IsString()
+  MINIO_ROOT_USER!: string;
+
+  @IsString()
+  MINIO_ROOT_PASSWORD!: string;
+
+  @IsString()
+  @IsOptional()
+  MINIO_BUCKET_DOCS?: string;
+
+  @IsString()
+  @IsOptional()
+  MINIO_BUCKET_PUBLIC?: string;
+
+  @IsString()
+  @IsOptional()
+  YOUSIGN_API_KEY?: string;
+
+  @IsString()
+  @IsOptional()
+  YOUSIGN_BASE_URL?: string;
+
+  @IsString()
+  @IsOptional()
+  YOUSIGN_WEBHOOK_SECRET?: string;
 }
 
 export function validate(config: Record<string, any>) {

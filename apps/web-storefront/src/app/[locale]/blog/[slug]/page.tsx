@@ -12,38 +12,41 @@ import { ArticleMeilleursQuartiers } from "../../../../components/blog/ArticleMe
 const BASE_URL = "https://welqo.fr";
 
 const CATEGORY_STYLE: Record<string, string> = {
-  "Rentabilité": "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
-  "Guide":       "bg-blue-500/10 text-blue-600 border-blue-500/20",
-  "Stratégie":   "bg-purple-500/10 text-purple-600 border-purple-500/20",
+  Rentabilité: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+  Guide: "bg-blue-500/10 text-blue-600 border-blue-500/20",
+  Stratégie: "bg-purple-500/10 text-purple-600 border-purple-500/20",
 };
 
-interface TocItem { id: string; title: string; }
+interface TocItem {
+  id: string;
+  title: string;
+}
 
 const TOC_MAP: Record<string, TocItem[]> = {
   "combien-rapporte-airbnb-lille-2025": [
-    { id: "revenus-moyens",  title: "Revenus moyens à Lille" },
-    { id: "par-quartier",    title: "Données par quartier" },
-    { id: "facteurs",        title: "Facteurs de rentabilité" },
-    { id: "conciergerie",    title: "Faut-il une conciergerie ?" },
-    { id: "reglementation",  title: "Réglementation 2025" },
-    { id: "conclusion",      title: "Conclusion" },
+    { id: "revenus-moyens", title: "Revenus moyens à Lille" },
+    { id: "par-quartier", title: "Données par quartier" },
+    { id: "facteurs", title: "Facteurs de rentabilité" },
+    { id: "conciergerie", title: "Faut-il une conciergerie ?" },
+    { id: "reglementation", title: "Réglementation 2025" },
+    { id: "conclusion", title: "Conclusion" },
   ],
   "checklist-lancer-airbnb-lille": [
-    { id: "etapes",               title: "Les 6 étapes essentielles" },
-    { id: "erreurs",              title: "Erreurs fréquentes" },
+    { id: "etapes", title: "Les 6 étapes essentielles" },
+    { id: "erreurs", title: "Erreurs fréquentes" },
     { id: "solo-vs-conciergerie", title: "Solo vs conciergerie" },
   ],
   "meilleurs-quartiers-airbnb-lille": [
     { id: "classement", title: "Classement des quartiers" },
-    { id: "choisir",    title: "Choisir selon son profil" },
+    { id: "choisir", title: "Choisir selon son profil" },
     { id: "gestion-pro", title: "Impact de la gestion pro" },
   ],
 };
 
 const ARTICLE_MAP: Record<string, React.ComponentType<{ locale: string }>> = {
   "combien-rapporte-airbnb-lille-2025": ArticleCombienRapporteAirbnbLille,
-  "checklist-lancer-airbnb-lille":      ArticleChecklistLancerAirbnb,
-  "meilleurs-quartiers-airbnb-lille":   ArticleMeilleursQuartiers,
+  "checklist-lancer-airbnb-lille": ArticleChecklistLancerAirbnb,
+  "meilleurs-quartiers-airbnb-lille": ArticleMeilleursQuartiers,
 };
 
 export function generateStaticParams() {
@@ -60,10 +63,10 @@ export async function generateMetadata({
   const isFr = locale !== "en";
 
   return {
-    title:       isFr ? post.titleFr       : post.titleEn,
+    title: isFr ? post.titleFr : post.titleEn,
     description: isFr ? post.descriptionFr : post.descriptionEn,
-    keywords:    isFr ? post.keywordsFr    : post.keywordsEn,
-    authors:     [{ name: "Welqo" }],
+    keywords: isFr ? post.keywordsFr : post.keywordsEn,
+    authors: [{ name: "Welqo" }],
     alternates: {
       canonical: `${BASE_URL}/${locale}/blog/${slug}`,
       languages: {
@@ -73,17 +76,19 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title:         isFr ? post.titleFr       : post.titleEn,
-      description:   isFr ? post.descriptionFr : post.descriptionEn,
-      type:          "article",
+      title: isFr ? post.titleFr : post.titleEn,
+      description: isFr ? post.descriptionFr : post.descriptionEn,
+      type: "article",
       publishedTime: post.publishedAt,
-      modifiedTime:  post.updatedAt ?? post.publishedAt,
+      modifiedTime: post.updatedAt ?? post.publishedAt,
       images: [
         {
-          url:    post.coverImage.startsWith("http") ? post.coverImage : `${BASE_URL}${post.coverImage}`,
-          width:  1200,
+          url: post.coverImage.startsWith("http")
+            ? post.coverImage
+            : `${BASE_URL}${post.coverImage}`,
+          width: 1200,
           height: 630,
-          alt:    post.coverImageAlt,
+          alt: post.coverImageAlt,
         },
       ],
     },
@@ -95,39 +100,58 @@ export default function BlogPostPage({
 }: {
   params: { slug: string; locale: string };
 }) {
-  const post    = getPostBySlug(slug);
+  const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const isFr   = locale !== "en";
-  const base   = `/${locale}`;
+  const isFr = locale !== "en";
+  const base = `/${locale}`;
   const Article = ARTICLE_MAP[slug];
-  const toc     = TOC_MAP[slug] ?? [];
+  const toc = TOC_MAP[slug] ?? [];
 
   const articleSchema = {
-    "@context":  "https://schema.org",
-    "@type":     "BlogPosting",
-    headline:    isFr ? post.titleFr      : post.titleEn,
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: isFr ? post.titleFr : post.titleEn,
     description: isFr ? post.descriptionFr : post.descriptionEn,
-    image:       post.coverImage.startsWith("http") ? post.coverImage : `${BASE_URL}${post.coverImage}`,
+    image: post.coverImage.startsWith("http")
+      ? post.coverImage
+      : `${BASE_URL}${post.coverImage}`,
     datePublished: post.publishedAt,
-    dateModified:  post.updatedAt ?? post.publishedAt,
-    author:    { "@type": "Organization", name: "Welqo", url: BASE_URL },
+    dateModified: post.updatedAt ?? post.publishedAt,
+    author: { "@type": "Organization", name: "Welqo", url: BASE_URL },
     publisher: {
       "@type": "Organization",
       name: "Welqo",
       logo: { "@type": "ImageObject", url: `${BASE_URL}/logo.png` },
     },
-    mainEntityOfPage: { "@type": "WebPage", "@id": `${BASE_URL}/${locale}/blog/${slug}` },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${BASE_URL}/${locale}/blog/${slug}`,
+    },
     keywords: (isFr ? post.keywordsFr : post.keywordsEn).join(", "),
   };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
-    "@type":    "BreadcrumbList",
+    "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: `${BASE_URL}/${locale}` },
-      { "@type": "ListItem", position: 2, name: "Blog",    item: `${BASE_URL}/${locale}/blog` },
-      { "@type": "ListItem", position: 3, name: isFr ? post.titleFr : post.titleEn },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Accueil",
+        item: `${BASE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${BASE_URL}/${locale}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: isFr ? post.titleFr : post.titleEn,
+      },
     ],
   };
 
@@ -153,12 +177,37 @@ export default function BlogPostPage({
               <a href={base} className="hover:text-white transition-colors">
                 {isFr ? "Accueil" : "Home"}
               </a>
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" />
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 18l6-6-6-6"
+                />
               </svg>
-              <a href={`${base}/blog`} className="hover:text-white transition-colors">Blog</a>
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" />
+              <a
+                href={`${base}/blog`}
+                className="hover:text-white transition-colors"
+              >
+                Blog
+              </a>
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 18l6-6-6-6"
+                />
               </svg>
               <span className="text-slate-300 truncate max-w-[200px] font-medium">
                 {isFr ? post.titleFr : post.titleEn}
@@ -173,7 +222,8 @@ export default function BlogPostPage({
             <div className="flex items-center gap-2 mb-4">
               <span
                 className={`px-3 py-1 rounded-full text-xs font-black uppercase tracking-wide border backdrop-blur-sm ${
-                  CATEGORY_STYLE[post.category] ?? "bg-white/10 text-white border-white/20"
+                  CATEGORY_STYLE[post.category] ??
+                  "bg-white/10 text-white border-white/20"
                 }`}
               >
                 {post.category}
@@ -197,19 +247,34 @@ export default function BlogPostPage({
               W
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-black text-slate-900 dark:text-white leading-none">Welqo</p>
+              <p className="text-xs font-black text-slate-900 dark:text-white leading-none">
+                Welqo
+              </p>
               <p className="text-[11px] text-slate-400 leading-none mt-0.5">
-                {new Date(post.updatedAt ?? post.publishedAt).toLocaleDateString(
-                  isFr ? "fr-FR" : "en-GB",
-                  { day: "numeric", month: "long", year: "numeric" }
-                )}
+                {new Date(
+                  post.updatedAt ?? post.publishedAt,
+                ).toLocaleDateString(isFr ? "fr-FR" : "en-GB", {
+                  day: "numeric",
+                  month: "long",
+                  year: "numeric",
+                })}
               </p>
             </div>
           </div>
           <div className="flex items-center gap-3 shrink-0">
             <span className="hidden sm:flex items-center gap-1.5 text-xs text-slate-400 font-medium">
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"
+                />
               </svg>
               {post.readingMinutes} min
             </span>

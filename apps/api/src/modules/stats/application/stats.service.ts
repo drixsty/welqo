@@ -105,7 +105,9 @@ export class StatsService {
         welqoCommission: true,
         confirmedAt: true,
         property: { select: { titleFr: true } },
-        payment: { select: { status: true, paidAt: true, stripePaymentIntentId: true } },
+        payment: {
+          select: { status: true, paidAt: true, stripePaymentIntentId: true },
+        },
       },
       orderBy: { confirmedAt: "desc" },
     });

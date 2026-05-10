@@ -7,7 +7,10 @@ import { notFound } from "next/navigation";
 import { Navbar, Footer } from "@welqo/ui";
 import { CookieBanner } from "../../components/CookieBanner";
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
 
 const BASE_URL = "https://welqo.fr";
 
@@ -20,27 +23,28 @@ export async function generateMetadata({
 
   return {
     title: isFr
-      ? "Welqo — Conciergerie Airbnb Lille | Gestion Locative Courte Durée"
-      : "Welqo — Airbnb Concierge Lille | Short-Term Rental Management",
+      ? "Welqo — Conciergerie Airbnb Lens & Arras | Gestion Locative Bassin Minier"
+      : "Welqo — Airbnb Concierge Lens & Arras | Bassin Minier Rental Management",
     description: isFr
-      ? "Confiez la gestion de votre bien à Welqo, la conciergerie Airbnb de référence à Lille. Transparence totale, revenus optimisés, zéro contrainte. Devis gratuit en 24h."
-      : "Entrust your Lille property to Welqo, the leading Airbnb concierge service. Full transparency, optimised revenue, zero hassle. Free quote within 24h.",
+      ? "Confiez la gestion de votre bien à Welqo, l'expert conciergerie Airbnb du Bassin Minier (Lens, Arras). Transparence totale, revenus optimisés, zéro contrainte."
+      : "Entrust your property to Welqo, the Airbnb concierge expert in Bassin Minier (Lens, Arras). Full transparency, optimised revenue, zero hassle.",
     keywords: isFr
       ? [
-          "conciergerie airbnb lille",
-          "gestion airbnb lille",
-          "gestion locative courte durée lille",
-          "gestionnaire airbnb lille",
-          "déléguer gestion airbnb lille",
-          "agence location courte durée lille",
-          "conciergerie location saisonnière nord",
-          "rentabiliser appartement lille airbnb",
+          "conciergerie airbnb lens",
+          "conciergerie airbnb arras",
+          "gestion airbnb arras",
+          "gestion locative courte durée lens",
+          "gestionnaire airbnb arras",
+          "déléguer gestion airbnb lens",
+          "agence location courte durée arras",
+          "conciergerie location saisonnière bassin minier",
         ]
       : [
-          "airbnb concierge lille",
-          "short-term rental management lille",
-          "property management lille france",
-          "airbnb property manager lille",
+          "airbnb concierge lens",
+          "airbnb concierge arras",
+          "short-term rental management arras",
+          "property management lens france",
+          "airbnb property manager arras",
         ],
     authors: [{ name: "Welqo" }],
     creator: "Welqo",
@@ -55,11 +59,11 @@ export async function generateMetadata({
     },
     openGraph: {
       title: isFr
-        ? "Welqo — Conciergerie Airbnb Lille"
-        : "Welqo — Airbnb Concierge Lille",
+        ? "Welqo — Conciergerie Airbnb Lens & Arras"
+        : "Welqo — Airbnb Concierge Lens & Arras",
       description: isFr
-        ? "Gestion complète de vos locations courtes durée à Lille. Transparence totale, revenus optimisés."
-        : "Complete short-term rental management in Lille. Full transparency, optimised revenue.",
+        ? "Gestion complète de vos locations courtes durée en Bassin Minier. Transparence totale, revenus optimisés."
+        : "Complete short-term rental management in Bassin Minier. Full transparency, optimised revenue.",
       url: `${BASE_URL}/${locale}`,
       siteName: "Welqo",
       locale: isFr ? "fr_FR" : "en_GB",
@@ -69,16 +73,20 @@ export async function generateMetadata({
           url: `${BASE_URL}/og-image.jpg`,
           width: 1200,
           height: 630,
-          alt: isFr ? "Welqo Conciergerie Airbnb Lille" : "Welqo Airbnb Concierge Lille",
+          alt: isFr
+            ? "Welqo Conciergerie Airbnb Bassin Minier"
+            : "Welqo Airbnb Concierge Bassin Minier",
         },
       ],
     },
     twitter: {
       card: "summary_large_image",
-      title: isFr ? "Welqo — Conciergerie Airbnb Lille" : "Welqo — Airbnb Concierge Lille",
+      title: isFr
+        ? "Welqo — Conciergerie Airbnb Lens & Arras"
+        : "Welqo — Airbnb Concierge Lens & Arras",
       description: isFr
-        ? "Gestion complète de vos locations courtes durée à Lille."
-        : "Complete short-term rental management in Lille.",
+        ? "Gestion complète de vos locations courtes durée en Bassin Minier."
+        : "Complete short-term rental management in Bassin Minier.",
       images: [`${BASE_URL}/og-image.jpg`],
     },
     robots: {
@@ -102,7 +110,6 @@ export default async function LocaleLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  console.log('DEBUG: layout locale param:', locale);
   if (!["en", "fr"].includes(locale)) {
     notFound();
   }
@@ -110,8 +117,8 @@ export default async function LocaleLayout({
   const messages = await getMessages();
 
   return (
-    <html lang={locale}>
-      <body className={inter.className}>
+    <html lang={locale} className={inter.variable}>
+      <body className="font-sans antialiased bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50">
         <NextIntlClientProvider messages={messages}>
           <Navbar title="WELQO" locale={locale} />
           <div className="pt-16">{children}</div>

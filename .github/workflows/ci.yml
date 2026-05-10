@@ -8,7 +8,7 @@ name: CI
 
 on:
   push:
-    branches: [main, develop, 'release/**']
+    branches: [main, develop, "release/**"]
   pull_request:
     branches: [main, develop]
 
@@ -17,7 +17,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
   TURBO_TEAM: ${{ secrets.TURBO_TEAM }}
 
@@ -34,7 +34,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci --ignore-scripts
       - name: Validate commits
         run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
@@ -45,13 +45,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci --ignore-scripts
       - name: Run ESLint (affected only)
-        run: npx turbo run lint --filter=[HEAD^1]
+        run: npx turbo run lint --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '[HEAD^1]' }}
       - name: Check Prettier formatting
         run: npm run format:check
 
@@ -61,13 +63,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci --ignore-scripts
       - name: Run tsc on affected packages
-        run: npx turbo run type-check --filter=[HEAD^1]
+        run: npx turbo run type-check --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '[HEAD^1]' }}
 
   # ── 4. Unit & Integration Tests ──────────────────────────────
   test:
@@ -103,17 +107,19 @@ jobs:
       NODE_ENV: test
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci --ignore-scripts
       - name: Run Prisma migrations (test DB)
         run: npx turbo run db:migrate:prod --filter=api
         env:
           DATABASE_URL: postgresql://welqo_test:welqo_test@localhost:5432/welqo_test
       - name: Run tests (affected)
-        run: npx turbo run test --filter=[HEAD^1]
+        run: npx turbo run test --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '[HEAD^1]' }}
       - name: Upload coverage
         uses: codecov/codecov-action@v4
         if: always()
@@ -127,13 +133,15 @@ jobs:
     needs: [lint, type-check, test]
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci --ignore-scripts
       - name: Build affected apps
-        run: npx turbo run build --filter=[HEAD^1]
+        run: npx turbo run build --filter=${{ github.event_name == 'pull_request' && '...[origin/main]' || '[HEAD^1]' }}
         env:
           NEXT_PUBLIC_API_URL: http://localhost:3001
           NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: ${{ secrets.STRIPE_PUBLISHABLE_KEY_TEST }}

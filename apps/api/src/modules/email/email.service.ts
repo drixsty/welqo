@@ -46,14 +46,21 @@ export class EmailService {
       return;
     }
     try {
-      await this.resend.emails.send({ from: this.fromEmail, to, subject, html });
+      await this.resend.emails.send({
+        from: this.fromEmail,
+        to,
+        subject,
+        html,
+      });
       this.logger.log(`Email sent → ${to}`);
     } catch (err: any) {
       this.logger.error(`Failed to send email to ${to}: ${err.message}`);
     }
   }
 
-  async sendBookingConfirmation(ctx: BookingConfirmationContext): Promise<void> {
+  async sendBookingConfirmation(
+    ctx: BookingConfirmationContext,
+  ): Promise<void> {
     const fmt = (d: Date) =>
       new Date(d).toLocaleDateString("fr-FR", {
         day: "2-digit",

@@ -11,28 +11,28 @@ import {
   Settings,
   LogOut,
   TrendingUp,
-  ShieldCheck,
 } from "lucide-react";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { getStoredOwner, logout, type Owner } from "../lib/auth";
+import { BrandLogo } from "@welqo/ui";
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
 const NAV_ITEMS = [
-  { icon: LayoutDashboard, label: "Vue d'ensemble", path: "" },
-  { icon: Calendar,        label: "Calendrier",     path: "/calendrier" },
-  { icon: Home,            label: "Mes Logements",  path: "/logements" },
-  { icon: TrendingUp,      label: "Performances",   path: "/stats" },
-  { icon: CreditCard,      label: "Paiements",      path: "/paiements" },
-  { icon: Settings,        label: "Paramètres",     path: "/parametres" },
+  { icon: LayoutDashboard, label: "Tableau de Bord", path: "" },
+  { icon: Calendar, label: "Planning", path: "/calendrier" },
+  { icon: Home, label: "Demeures", path: "/logements" },
+  { icon: TrendingUp, label: "Analyses", path: "/stats" },
+  { icon: CreditCard, label: "Finances", path: "/paiements" },
+  { icon: Settings, label: "Préférences", path: "/parametres" },
 ];
 
 export const Sidebar = () => {
-  const pathname  = usePathname();
-  const router    = useRouter();
+  const pathname = usePathname();
+  const router = useRouter();
   const [owner, setOwner] = useState<Owner | null>(null);
 
   // Extract locale from pathname: "/fr/calendrier" → "fr"
@@ -49,22 +49,23 @@ export const Sidebar = () => {
   }
 
   return (
-    <aside className="w-72 bg-slate-950 border-r border-slate-800 flex flex-col h-screen sticky top-0">
+    <aside className="w-64 bg-white dark:bg-slate-950 border-r border-slate-200 dark:border-slate-800 flex flex-col h-screen sticky top-0 z-40 overflow-y-auto">
       {/* Logo */}
-      <div className="p-8">
-        <Link href={localeBase} className="flex items-center gap-3 group">
-          <div className="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg shadow-blue-600/20 transition-transform group-hover:scale-110">
-            <ShieldCheck className="text-white w-6 h-6" />
-          </div>
-          <div>
-            <h1 className="text-white font-black text-xl tracking-tighter">WELQO</h1>
-            <p className="text-blue-500 text-[10px] font-bold uppercase tracking-widest">Partner</p>
-          </div>
+      <div className="px-6 py-8 shrink-0">
+        <Link href={localeBase} className="flex items-center gap-2 group">
+          <BrandLogo
+            variant="cursive"
+            size="sm"
+            className="text-slate-900 dark:text-white"
+          />
+          <span className="text-[10px] font-bold uppercase tracking-widest text-welqo-terracotta bg-welqo-terracotta/10 px-1.5 py-0.5 rounded">
+            Pro
+          </span>
         </Link>
       </div>
 
       {/* Navigation */}
-      <nav className="flex-grow px-4 py-4 space-y-2">
+      <nav className="flex-grow px-3 space-y-1">
         {NAV_ITEMS.map((item) => {
           const href = `${localeBase}${item.path}`;
           const isActive =
@@ -77,21 +78,23 @@ export const Sidebar = () => {
               key={item.path}
               href={href}
               className={cn(
-                "flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 group",
+                "flex items-center gap-3 px-3 py-2 rounded-lg transition-colors text-sm font-medium",
                 isActive
-                  ? "bg-blue-600/10 text-blue-500 border border-blue-600/20 shadow-inner"
-                  : "text-slate-400 hover:text-white hover:bg-slate-900",
+                  ? "bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800/50",
               )}
             >
               <item.icon
                 className={cn(
-                  "w-5 h-5 transition-transform duration-300 group-hover:scale-110",
-                  isActive ? "text-blue-500" : "text-slate-500",
+                  "w-4 h-4",
+                  isActive
+                    ? "text-welqo-terracotta"
+                    : "text-slate-400 dark:text-slate-500",
                 )}
               />
-              <span className="font-bold text-sm">{item.label}</span>
+              {item.label}
               {isActive && (
-                <div className="ml-auto w-1.5 h-1.5 bg-blue-500 rounded-full shadow-lg shadow-blue-500/50" />
+                <div className="ml-auto w-1 h-4 bg-welqo-terracotta rounded-full" />
               )}
             </Link>
           );
@@ -99,26 +102,26 @@ export const Sidebar = () => {
       </nav>
 
       {/* Owner info & logout */}
-      <div className="p-4 border-t border-slate-900 bg-slate-950/50">
-        <div className="flex items-center gap-4 p-4 mb-4 rounded-2xl bg-slate-900/50 border border-slate-800">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 border-2 border-slate-800 flex items-center justify-center text-white font-black text-sm shrink-0">
+      <div className="p-4 border-t border-slate-200 dark:border-slate-800">
+        <div className="flex items-center gap-3 p-2 mb-2">
+          <div className="w-8 h-8 rounded-lg bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-slate-700 dark:text-slate-300 font-bold text-xs shrink-0">
             {owner ? owner.firstName.charAt(0).toUpperCase() : "?"}
           </div>
           <div className="overflow-hidden">
-            <p className="text-white font-bold text-sm truncate">
-              {owner ? `${owner.firstName} ${owner.lastName}` : "—"}
+            <p className="text-slate-900 dark:text-white font-bold text-xs truncate">
+              {owner ? `${owner.firstName} ${owner.lastName}` : "Propriétaire"}
             </p>
-            <p className="text-slate-500 text-xs truncate">
-              {owner?.email ?? "—"}
+            <p className="text-slate-500 text-[10px] truncate">
+              {owner?.email ?? "welqo.io"}
             </p>
           </div>
         </div>
 
         <button
           onClick={handleLogout}
-          className="w-full flex items-center gap-4 px-4 py-3 text-red-400 hover:bg-red-500/10 rounded-xl transition-all font-bold text-sm"
+          className="w-full flex items-center gap-3 px-3 py-2 text-slate-500 dark:text-slate-400 hover:text-red-500 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-500/10 rounded-lg transition-colors font-medium text-xs"
         >
-          <LogOut className="w-5 h-5" />
+          <LogOut className="w-4 h-4" />
           Déconnexion
         </button>
       </div>

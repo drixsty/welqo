@@ -34,7 +34,8 @@ export const BLOG_POSTS: BlogPost[] = [
       "taux occupation airbnb lille 2025",
     ],
     keywordsEn: ["airbnb income lille", "airbnb revenue lille 2025"],
-    coverImage: "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2070&auto=format&fit=crop",
+    coverImage:
+      "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2070&auto=format&fit=crop",
     coverImageAlt: "Appartement Airbnb à Lille — Welqo Conciergerie",
   },
   {
@@ -54,7 +55,8 @@ export const BLOG_POSTS: BlogPost[] = [
       "réglementation airbnb lille",
     ],
     keywordsEn: ["start airbnb lille", "airbnb regulations lille"],
-    coverImage: "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?q=80&w=2070&auto=format&fit=crop",
+    coverImage:
+      "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?q=80&w=2070&auto=format&fit=crop",
     coverImageAlt: "Checklist pour lancer un Airbnb à Lille",
   },
   {
@@ -74,7 +76,8 @@ export const BLOG_POSTS: BlogPost[] = [
       "vieux-lille airbnb rentabilité",
     ],
     keywordsEn: ["best neighbourhood airbnb lille", "where to airbnb in lille"],
-    coverImage: "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
+    coverImage:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop",
     coverImageAlt: "Vue sur Lille — meilleurs quartiers Airbnb",
   },
 ];

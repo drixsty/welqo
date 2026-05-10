@@ -54,7 +54,7 @@ const CHECKLIST = [
 const ERRORS = [
   {
     title: "Sous-évaluer le prix",
-    desc: "Par peur des avis négatifs, beaucoup de nouveaux hôtes fixent des prix trop bas. Résultat : le bien est perçu comme \"bas de gamme\" par l'algorithme Airbnb.",
+    desc: 'Par peur des avis négatifs, beaucoup de nouveaux hôtes fixent des prix trop bas. Résultat : le bien est perçu comme "bas de gamme" par l\'algorithme Airbnb.',
   },
   {
     title: "Négliger les avis",
@@ -71,14 +71,17 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
 
   return (
     <article className="space-y-0">
-
       {/* Section 1 */}
-      <h2 id="etapes" className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-4 mb-4 scroll-mt-28">
+      <h2
+        id="etapes"
+        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-4 mb-4 scroll-mt-28"
+      >
         Les 6 étapes incontournables avant de publier votre annonce
       </h2>
       <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
-        Chaque étape est indispensable. En sauter une, c'est s'exposer à des avis négatifs,
-        des sanctions Airbnb ou simplement des revenus sous-optimisés.
+        Chaque étape est indispensable. En sauter une, c'est s'exposer à des
+        avis négatifs, des sanctions Airbnb ou simplement des revenus
+        sous-optimisés.
       </p>
 
       <div className="space-y-4 mb-12">
@@ -92,17 +95,25 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
               <div className="w-11 h-11 bg-slate-950 dark:bg-slate-800 rounded-xl flex items-center justify-center">
                 <span className="text-xl">{item.icon}</span>
               </div>
-              <span className="text-[10px] font-black text-slate-400">{item.step}</span>
+              <span className="text-[10px] font-black text-slate-400">
+                {item.step}
+              </span>
             </div>
 
             <div className="flex-1 min-w-0">
               <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                <h3 className="font-black text-slate-900 dark:text-white text-base">{item.title}</h3>
-                <span className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${item.tagColor}`}>
+                <h3 className="font-black text-slate-900 dark:text-white text-base">
+                  {item.title}
+                </h3>
+                <span
+                  className={`px-2 py-0.5 rounded-full text-[10px] font-black border ${item.tagColor}`}
+                >
                   {item.tag}
                 </span>
               </div>
-              <p className="text-slate-500 text-sm leading-relaxed">{item.desc}</p>
+              <p className="text-slate-500 text-sm leading-relaxed">
+                {item.desc}
+              </p>
             </div>
           </div>
         ))}
@@ -113,17 +124,24 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
         <div className="flex items-start gap-3">
           <span className="text-2xl shrink-0">⏱️</span>
           <div>
-            <p className="font-black text-blue-800 dark:text-blue-400 mb-1">Temps estimé pour lancer votre Airbnb à Lille</p>
+            <p className="font-black text-blue-800 dark:text-blue-400 mb-1">
+              Temps estimé pour lancer votre Airbnb à Lille
+            </p>
             <p className="text-blue-700 dark:text-blue-500 text-sm leading-relaxed">
-              En gérant tout vous-même : <strong>2 à 4 semaines</strong>.
-              Avec Welqo : <strong>72h après votre premier contact</strong> — nous nous occupons de tout, de la déclaration en mairie à la mise en ligne.
+              En gérant tout vous-même : <strong>2 à 4 semaines</strong>. Avec
+              Welqo : <strong>72h après votre premier contact</strong> — nous
+              nous occupons de tout, de la déclaration en mairie à la mise en
+              ligne.
             </p>
           </div>
         </div>
       </div>
 
       {/* Section 2 */}
-      <h2 id="erreurs" className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28">
+      <h2
+        id="erreurs"
+        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28"
+      >
         Les erreurs les plus fréquentes des nouveaux hôtes lillois
       </h2>
 
@@ -137,15 +155,22 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
               <span className="text-red-500 text-xs font-black">✕</span>
             </div>
             <div>
-              <p className="font-bold text-red-800 dark:text-red-400 text-sm mb-0.5">{title}</p>
-              <p className="text-red-700 dark:text-red-500/80 text-sm leading-relaxed">{desc}</p>
+              <p className="font-bold text-red-800 dark:text-red-400 text-sm mb-0.5">
+                {title}
+              </p>
+              <p className="text-red-700 dark:text-red-500/80 text-sm leading-relaxed">
+                {desc}
+              </p>
             </div>
           </div>
         ))}
       </div>
 
       {/* Section 3 */}
-      <h2 id="solo-vs-conciergerie" className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28">
+      <h2
+        id="solo-vs-conciergerie"
+        className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mt-12 mb-4 scroll-mt-28"
+      >
         Gérer soi-même ou confier à une conciergerie ?
       </h2>
 
@@ -153,29 +178,68 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr className="bg-slate-900 dark:bg-slate-800 text-white">
-              <th className="text-left px-5 py-3.5 font-black rounded-tl-2xl">Critère</th>
-              <th className="text-center px-5 py-3.5 font-black">Gestion solo</th>
-              <th className="text-center px-5 py-3.5 font-black rounded-tr-2xl text-blue-400">Avec Welqo</th>
+              <th className="text-left px-5 py-3.5 font-black rounded-tl-2xl">
+                Critère
+              </th>
+              <th className="text-center px-5 py-3.5 font-black">
+                Gestion solo
+              </th>
+              <th className="text-center px-5 py-3.5 font-black rounded-tr-2xl text-blue-400">
+                Avec Welqo
+              </th>
             </tr>
           </thead>
           <tbody>
             {[
-              { label: "Temps / semaine",       solo: "8–12h",    welqo: "0h",       ok: true },
-              { label: "Revenus optimisés",      solo: "Moyens",   welqo: "+38 %",    ok: true },
-              { label: "Gestion des urgences",   solo: "À vous",   welqo: "7j/7",     ok: true },
-              { label: "Photos professionnelles",solo: "En option",welqo: "Incluses", ok: true },
-              { label: "Tarification dynamique", solo: "Manuelle", welqo: "Auto",     ok: true },
-              { label: "Commission",             solo: "0 %",      welqo: "15–20 %",  ok: false },
+              {
+                label: "Temps / semaine",
+                solo: "8–12h",
+                welqo: "0h",
+                ok: true,
+              },
+              {
+                label: "Revenus optimisés",
+                solo: "Moyens",
+                welqo: "+38 %",
+                ok: true,
+              },
+              {
+                label: "Gestion des urgences",
+                solo: "À vous",
+                welqo: "7j/7",
+                ok: true,
+              },
+              {
+                label: "Photos professionnelles",
+                solo: "En option",
+                welqo: "Incluses",
+                ok: true,
+              },
+              {
+                label: "Tarification dynamique",
+                solo: "Manuelle",
+                welqo: "Auto",
+                ok: true,
+              },
+              { label: "Commission", solo: "0 %", welqo: "15–20 %", ok: false },
             ].map(({ label, solo, welqo, ok }, i) => (
               <tr
                 key={label}
                 className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${
-                  i % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50/50 dark:bg-slate-800/50"
+                  i % 2 === 0
+                    ? "bg-white dark:bg-slate-900"
+                    : "bg-slate-50/50 dark:bg-slate-800/50"
                 }`}
               >
-                <td className="px-5 py-3 font-medium text-slate-700 dark:text-slate-300">{label}</td>
+                <td className="px-5 py-3 font-medium text-slate-700 dark:text-slate-300">
+                  {label}
+                </td>
                 <td className="px-5 py-3 text-center text-slate-500">{solo}</td>
-                <td className={`px-5 py-3 text-center font-bold ${ok ? "text-blue-600" : "text-slate-500"}`}>{welqo}</td>
+                <td
+                  className={`px-5 py-3 text-center font-bold ${ok ? "text-blue-600" : "text-slate-500"}`}
+                >
+                  {welqo}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -183,10 +247,14 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
       </div>
 
       <p className="text-slate-600 dark:text-slate-400 leading-relaxed mt-6">
-        Si vous avez le temps et l'envie de vous impliquer, la gestion en solo est tout à fait possible.
-        Mais si vous souhaitez maximiser vos revenus sans y consacrer vos soirées et week-ends,
-        une conciergerie comme Welqo s'avère rapidement rentable.{" "}
-        <a href={`${base}/proprietaires`} className="text-blue-600 font-bold hover:underline">
+        Si vous avez le temps et l'envie de vous impliquer, la gestion en solo
+        est tout à fait possible. Mais si vous souhaitez maximiser vos revenus
+        sans y consacrer vos soirées et week-ends, une conciergerie comme Welqo
+        s'avère rapidement rentable.{" "}
+        <a
+          href={`${base}/proprietaires`}
+          className="text-blue-600 font-bold hover:underline"
+        >
           En savoir plus sur nos services de gestion Airbnb à Lille →
         </a>
       </p>

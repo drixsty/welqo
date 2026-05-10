@@ -1,13 +1,13 @@
 {
   "HomePage": {
-    "badge": "Excellence en Conciergerie Airbnb",
-    "heroTitle": "L'ART DE RECEVOIR EN TOUTE SÉRÉNITÉ.",
-    "heroSubtitle": "Gestion complète pour propriétaires, expériences inoubliables pour voyageurs. Découvrez une transparence totale et une rentabilité optimisée.",
-    "bookStay": "Réserver un séjour",
-    "trustUs": "Confier mon bien",
-    "featuredTitle": "Nos Demeures D'Exception",
-    "featuredSubtitle": "Sélectionnées avec soin pour leur design, leur confort et leur emplacement privilégié.",
-    "viewCatalog": "Voir tout le catalogue"
+    "badge": "Conciergerie Boutique — Bassin Minier",
+    "heroTitle": "L'Héritage rencontre le Luxe Moderne.",
+    "heroSubtitle": "Gestion locative d'exception à Lens, Arras et leurs environs. Optimisez vos revenus lors des grands événements et matches du RC Lens.",
+    "bookStay": "Réserver une demeure",
+    "trustUs": "Devenir Propriétaire Welqo",
+    "featuredTitle": "Nos Perles du Bassin Minier",
+    "featuredSubtitle": "De l'effervescence de Lens au prestige d'Arras, découvrez des logements d'exception sélectionnés par nos City Managers.",
+    "viewCatalog": "Parcourir la collection"
   },
   "Navbar": {
     "properties": "Propriétés",

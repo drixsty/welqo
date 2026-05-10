@@ -3,6 +3,13 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Euro, CalendarCheck, TrendingUp, BarChart3 } from "lucide-react";
+import { clsx, type ClassValue } from "clsx";
+import { twMerge } from "tailwind-merge";
+import { LuxuryCard } from "@welqo/ui";
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
 
 interface StatCardProps {
   label: string;
@@ -10,7 +17,7 @@ interface StatCardProps {
   icon: React.ElementType;
   trend?: string;
   trendType?: "positive" | "negative";
-  color: string;
+  colorClass: string;
 }
 
 const StatCard = ({
@@ -19,50 +26,56 @@ const StatCard = ({
   icon: Icon,
   trend,
   trendType,
-  color,
+  colorClass,
 }: StatCardProps) => (
-  <motion.div
-    initial={{ opacity: 0, y: 20 }}
-    animate={{ opacity: 1, y: 0 }}
-    className="p-8 rounded-[2rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-all group"
-  >
-    <div className="flex justify-between items-start mb-6">
-      <div
-        className={`p-4 rounded-2xl ${color} bg-opacity-10 text-${color.split("-")[1]}-600 group-hover:scale-110 transition-transform`}
-      >
-        <Icon className="w-6 h-6" />
-      </div>
-      {trend && (
-        <span
-          className={`text-xs font-black px-3 py-1 rounded-full ${
-            trendType === "positive"
-              ? "bg-green-100 text-green-600"
-              : "bg-red-100 text-red-600"
-          }`}
+  <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}>
+    <LuxuryCard className="p-5">
+      <div className="flex items-start justify-between mb-4">
+        <div
+          className={cn(
+            "p-2 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700",
+            colorClass.includes("terracotta")
+              ? "text-welqo-terracotta"
+              : "text-slate-600 dark:text-slate-400",
+          )}
         >
-          {trend}
-        </span>
-      )}
-    </div>
-    <h3 className="text-slate-500 font-bold text-sm uppercase tracking-widest mb-1">
-      {label}
-    </h3>
-    <p className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">
-      {value}
-    </p>
+          <Icon className="w-4 h-4" />
+        </div>
+        {trend && (
+          <div
+            className={cn(
+              "text-[10px] font-bold px-2 py-0.5 rounded flex items-center gap-1",
+              trendType === "positive"
+                ? "text-emerald-600 bg-emerald-50 dark:bg-emerald-500/10"
+                : "text-welqo-terracotta bg-welqo-terracotta/5 dark:bg-welqo-terracotta/10",
+            )}
+          >
+            {trendType === "positive" ? "↑" : "↓"} {trend}
+          </div>
+        )}
+      </div>
+      <div>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">
+          {label}
+        </p>
+        <p className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+          {value}
+        </p>
+      </div>
+    </LuxuryCard>
   </motion.div>
 );
 
 export const KPIStats = ({ stats }: { stats: any }) => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
       <StatCard
         label="Revenu Total"
         value={`${stats.totalRevenue.toLocaleString()}€`}
         icon={Euro}
         trend="+12.4%"
         trendType="positive"
-        color="bg-blue-500"
+        colorClass="bg-welqo-terracotta text-welqo-terracotta"
       />
       <StatCard
         label="Taux d'Occupation"
@@ -70,7 +83,7 @@ export const KPIStats = ({ stats }: { stats: any }) => {
         icon={CalendarCheck}
         trend="+5.2%"
         trendType="positive"
-        color="bg-purple-500"
+        colorClass="bg-welqo-anthracite text-welqo-anthracite dark:text-welqo-cream"
       />
       <StatCard
         label="Prix Moyen (ADR)"
@@ -78,13 +91,13 @@ export const KPIStats = ({ stats }: { stats: any }) => {
         icon={TrendingUp}
         trend="-2.1%"
         trendType="negative"
-        color="bg-emerald-500"
+        colorClass="bg-welqo-terracotta text-welqo-terracotta"
       />
       <StatCard
-        label="Performance"
+        label="Performance Marché"
         value="Top 5%"
         icon={BarChart3}
-        color="bg-orange-500"
+        colorClass="bg-emerald-500 text-emerald-500"
       />
     </div>
   );

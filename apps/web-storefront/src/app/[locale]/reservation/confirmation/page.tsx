@@ -23,13 +23,16 @@ export default function ConfirmationPage({
             strokeWidth="2.5"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 13l4 4L19 7"
+            />
           </svg>
         </div>
 
         <h1 className="text-4xl md:text-5xl font-black tracking-tighter mb-4 uppercase">
-          Réservation{" "}
-          <span className="text-green-600">confirmée</span>
+          Réservation <span className="text-green-600">confirmée</span>
         </h1>
 
         <p className="text-slate-500 font-medium text-lg mb-10 leading-relaxed">
@@ -41,27 +44,53 @@ export default function ConfirmationPage({
         <div className="bg-slate-50 dark:bg-slate-900 rounded-[2rem] p-8 border border-slate-100 dark:border-slate-800 mb-10 text-left space-y-4">
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 bg-blue-600/10 text-blue-600 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                />
               </svg>
             </div>
             <div>
-              <p className="font-black text-slate-900 dark:text-white">Email de confirmation</p>
+              <p className="font-black text-slate-900 dark:text-white">
+                Email de confirmation
+              </p>
               <p className="text-slate-500 text-sm mt-1">
-                Vérifiez votre boîte mail (et vos spams) pour retrouver votre récapitulatif de séjour.
+                Vérifiez votre boîte mail (et vos spams) pour retrouver votre
+                récapitulatif de séjour.
               </p>
             </div>
           </div>
           <div className="flex items-start gap-4">
             <div className="w-10 h-10 bg-purple-600/10 text-purple-600 rounded-xl flex items-center justify-center shrink-0 mt-0.5">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                />
               </svg>
             </div>
             <div>
-              <p className="font-black text-slate-900 dark:text-white">Coordonnées d'accès</p>
+              <p className="font-black text-slate-900 dark:text-white">
+                Coordonnées d'accès
+              </p>
               <p className="text-slate-500 text-sm mt-1">
-                Votre conciergerie vous contactera 48h avant votre arrivée pour les modalités d'accès.
+                Votre conciergerie vous contactera 48h avant votre arrivée pour
+                les modalités d'accès.
               </p>
             </div>
           </div>

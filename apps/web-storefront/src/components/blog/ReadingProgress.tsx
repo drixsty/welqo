@@ -6,9 +6,9 @@ export function ReadingProgress() {
 
   useEffect(() => {
     const update = () => {
-      const el  = document.documentElement;
+      const el = document.documentElement;
       const top = el.scrollTop || document.body.scrollTop;
-      const h   = el.scrollHeight - el.clientHeight;
+      const h = el.scrollHeight - el.clientHeight;
       setPct(h > 0 ? Math.min(100, Math.round((top / h) * 100)) : 0);
     };
     window.addEventListener("scroll", update, { passive: true });

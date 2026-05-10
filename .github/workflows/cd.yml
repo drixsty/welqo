@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────
 #  Welqo CD — Continuous Deployment
 #  Triggers: push to main (after CI passes)
-#  Strategy: 
+#  Strategy:
 #    - api        → Docker build + push to registry + deploy
 #    - web-*      → Vercel deployment via CLI
 # ─────────────────────────────────────────────────────────────
@@ -14,10 +14,10 @@ on:
 
 concurrency:
   group: cd-production
-  cancel-in-progress: false   # Never cancel a running deploy
+  cancel-in-progress: false # Never cancel a running deploy
 
 env:
-  NODE_VERSION: '20'
+  NODE_VERSION: "20"
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
@@ -109,7 +109,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci --ignore-scripts
       - name: Deploy web-storefront to Vercel
         run: |
@@ -134,7 +134,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          cache: 'npm'
+          cache: "npm"
       - run: npm ci --ignore-scripts
       - name: Deploy web-dashboard to Vercel
         run: |

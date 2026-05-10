@@ -51,19 +51,19 @@ export async function fetchApi<T = any>(
     let errorMessage = `Erreur ${response.status}`;
     try {
       const err = await response.json();
-      if (err && typeof err === 'object') {
+      if (err && typeof err === "object") {
         const msg = err.message;
-        if (typeof msg === 'string') {
+        if (typeof msg === "string") {
           errorMessage = msg;
         } else if (Array.isArray(msg)) {
           errorMessage = msg.join(", ");
-        } else if (msg && typeof msg === 'object') {
+        } else if (msg && typeof msg === "object") {
           errorMessage = msg.message || JSON.stringify(msg);
         } else {
           errorMessage = JSON.stringify(err);
         }
       }
-    } catch (e) {
+    } catch {
       // Fallback if not JSON
     }
     throw new Error(errorMessage);

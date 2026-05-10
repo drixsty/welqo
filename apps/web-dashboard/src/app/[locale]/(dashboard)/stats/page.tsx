@@ -2,7 +2,13 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { TrendingUp, Euro, CalendarCheck, BarChart3, AlertCircle } from "lucide-react";
+import {
+  TrendingUp,
+  Euro,
+  CalendarCheck,
+  BarChart3,
+  AlertCircle,
+} from "lucide-react";
 import { fetchApi } from "../../../../lib/api";
 import { useAuthGuard } from "../../../../lib/useAuthGuard";
 
@@ -13,13 +19,27 @@ interface OverviewData {
   upcomingBookings: { id: string }[];
 }
 
-function StatBar({ label, value, max, color }: { label: string; value: number; max: number; color: string }) {
+function StatBar({
+  label,
+  value,
+  max,
+  color,
+}: {
+  label: string;
+  value: number;
+  max: number;
+  color: string;
+}) {
   const pct = Math.min(100, (value / max) * 100);
   return (
     <div>
       <div className="flex justify-between items-center mb-2">
-        <span className="text-sm font-bold text-slate-700 dark:text-slate-300">{label}</span>
-        <span className={`text-sm font-black ${color}`}>{value.toFixed(1)}%</span>
+        <span className="text-sm font-bold text-slate-700 dark:text-slate-300">
+          {label}
+        </span>
+        <span className={`text-sm font-black ${color}`}>
+          {value.toFixed(1)}%
+        </span>
       </div>
       <div className="h-2.5 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
         <motion.div
@@ -35,9 +55,9 @@ function StatBar({ label, value, max, color }: { label: string; value: number; m
 
 export default function StatsPage() {
   useAuthGuard();
-  const [data, setData]       = useState<OverviewData | null>(null);
+  const [data, setData] = useState<OverviewData | null>(null);
   const [loading, setLoading] = useState(true);
-  const [error, setError]     = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     fetchApi<OverviewData>("/stats/overview")
@@ -70,44 +90,44 @@ export default function StatsPage() {
       label: "Revenu total",
       value: `${data.totalRevenue.toLocaleString("fr-FR", { maximumFractionDigits: 0 })} €`,
       icon: Euro,
-      color: "text-blue-600",
-      bg: "bg-blue-600/10",
+      color: "text-slate-900 dark:text-white",
+      bg: "bg-slate-100 dark:bg-slate-800",
       desc: "Depuis le début",
     },
     {
       label: "Taux d'occupation",
       value: `${data.occupancyRate}%`,
       icon: CalendarCheck,
-      color: "text-purple-600",
-      bg: "bg-purple-600/10",
+      color: "text-welqo-terracotta",
+      bg: "bg-welqo-terracotta/10",
       desc: "30 derniers jours",
     },
     {
       label: "Prix moyen / nuit",
       value: `${data.adr} €`,
       icon: TrendingUp,
-      color: "text-emerald-600",
-      bg: "bg-emerald-600/10",
+      color: "text-slate-600 dark:text-slate-400",
+      bg: "bg-slate-50 dark:bg-slate-800/50",
       desc: "ADR — 30 derniers jours",
     },
     {
       label: "Prochaines arrivées",
       value: data.upcomingBookings.length,
       icon: BarChart3,
-      color: "text-orange-600",
-      bg: "bg-orange-600/10",
+      color: "text-slate-900 dark:text-white",
+      bg: "bg-slate-200 dark:bg-slate-700",
       desc: "Réservations confirmées",
     },
   ];
 
   return (
-    <div className="max-w-7xl mx-auto space-y-12">
+    <div className="max-w-6xl mx-auto px-6 py-10 space-y-10">
       <header>
-        <h1 className="text-4xl font-black text-slate-900 dark:text-white tracking-tight mb-2">
+        <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight mb-2">
           Performances
         </h1>
-        <p className="text-slate-500 font-medium">
-          Indicateurs clés de performance de votre bien.
+        <p className="text-slate-500 text-sm font-medium">
+          Indicateurs clés de performance de vos biens immobiliers.
         </p>
       </header>
 
@@ -119,27 +139,50 @@ export default function StatsPage() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.07 }}
-            className="p-6 bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-sm"
+            className="p-6 bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-sm"
           >
-            <div className={`w-12 h-12 ${k.bg} ${k.color} rounded-2xl flex items-center justify-center mb-4`}>
-              <k.icon className="w-6 h-6" />
+            <div
+              className={`w-10 h-10 ${k.bg} ${k.color} rounded-lg flex items-center justify-center mb-4`}
+            >
+              <k.icon className="w-5 h-5" />
             </div>
-            <p className="text-slate-400 text-xs font-black uppercase tracking-widest mb-1">{k.label}</p>
-            <p className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter">{k.value}</p>
-            <p className="text-slate-400 text-xs font-medium mt-2">{k.desc}</p>
+            <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest mb-1">
+              {k.label}
+            </p>
+            <p className="text-2xl font-bold text-slate-900 dark:text-white tracking-tight">
+              {k.value}
+            </p>
+            <p className="text-slate-400 text-[10px] font-medium mt-2">
+              {k.desc}
+            </p>
           </motion.div>
         ))}
       </div>
 
       {/* Occupancy breakdown */}
-      <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 p-8">
-        <h2 className="text-xl font-black text-slate-900 dark:text-white mb-8">
-          Taux d'occupation — benchmark
+      <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 p-8">
+        <h2 className="text-xl font-bold text-slate-900 dark:text-white mb-8">
+          Benchmark d'occupation
         </h2>
-        <div className="space-y-5 max-w-lg">
-          <StatBar label="Votre bien"     value={data.occupancyRate} max={100} color="text-blue-600" />
-          <StatBar label="Moyenne marché" value={72}                 max={100} color="text-slate-400" />
-          <StatBar label="Top performers" value={91}                 max={100} color="text-emerald-600" />
+        <div className="space-y-6 max-w-lg">
+          <StatBar
+            label="Votre bien"
+            value={data.occupancyRate}
+            max={100}
+            color="text-welqo-terracotta"
+          />
+          <StatBar
+            label="Moyenne marché"
+            value={72}
+            max={100}
+            color="text-slate-400"
+          />
+          <StatBar
+            label="Top performers"
+            value={91}
+            max={100}
+            color="text-slate-900 dark:text-white"
+          />
         </div>
         <p className="text-slate-400 text-xs font-medium mt-6">
           Données marché à titre indicatif. Mis à jour mensuellement.

@@ -1,17 +1,28 @@
 "use client";
 import { useEffect, useState } from "react";
 
-interface TocItem { id: string; title: string; }
+interface TocItem {
+  id: string;
+  title: string;
+}
 
-export function ArticleToc({ items, locale = "fr" }: { items: TocItem[]; locale?: string }) {
+export function ArticleToc({
+  items,
+  locale = "fr",
+}: {
+  items: TocItem[];
+  locale?: string;
+}) {
   const [active, setActive] = useState<string>("");
 
   useEffect(() => {
     const obs = new IntersectionObserver(
       (entries: IntersectionObserverEntry[]) => {
-        entries.forEach((e: IntersectionObserverEntry) => { if (e.isIntersecting) setActive(e.target.id); });
+        entries.forEach((e: IntersectionObserverEntry) => {
+          if (e.isIntersecting) setActive(e.target.id);
+        });
       },
-      { rootMargin: "-15% 0% -65% 0%" }
+      { rootMargin: "-15% 0% -65% 0%" },
     );
     items.forEach(({ id }) => {
       const el = document.getElementById(id);

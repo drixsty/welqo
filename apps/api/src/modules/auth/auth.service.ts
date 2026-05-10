@@ -17,7 +17,8 @@ export class AuthService {
     });
 
     if (owner && (await bcrypt.compare(pass, owner.passwordHash))) {
-      const { passwordHash, ...result } = owner;
+      const result = { ...owner };
+      delete (result as any).passwordHash;
       return result;
     }
     return null;

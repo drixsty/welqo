@@ -13,7 +13,7 @@ interface CookieBannerProps {
 
 export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
   const [consent, setConsent] = useState<Consent>(null);
-  const [visible, setVisible]  = useState(false);
+  const [visible, setVisible] = useState(false);
   const base = `/${locale}`;
 
   useEffect(() => {
@@ -47,56 +47,45 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
   return (
     <div
       role="dialog"
-      aria-label="Bandeau de consentement aux cookies"
-      className="fixed bottom-0 left-0 right-0 z-50 p-4 md:p-6 md:max-w-xl md:left-6 md:bottom-6 md:right-auto animate-fade-up"
+      aria-label="Consentement aux cookies"
+      className="fixed bottom-0 left-0 right-0 z-50 p-6 md:max-w-md md:left-6 md:bottom-6 md:right-auto animate-fade-up"
     >
-      <div className="bg-white dark:bg-slate-900 rounded-[2rem] border border-slate-200 dark:border-slate-800 shadow-2xl shadow-slate-900/10 p-6 md:p-8">
+      <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-xl p-6">
         <div className="flex items-center gap-3 mb-4">
-          <div className="w-10 h-10 bg-blue-600/10 text-blue-600 rounded-xl flex items-center justify-center text-lg">
+          <div className="w-8 h-8 bg-slate-100 dark:bg-slate-800 text-slate-900 dark:text-white rounded flex items-center justify-center text-sm">
             🍪
           </div>
-          <h2 className="font-black text-slate-900 dark:text-white text-lg tracking-tight">
-            Cookies & Confidentialité
+          <h2 className="font-bold text-slate-900 dark:text-white text-base tracking-tight">
+            Cookies
           </h2>
         </div>
 
-        <p className="text-slate-500 text-sm leading-relaxed mb-6">
-          Nous utilisons des cookies pour améliorer votre expérience de navigation et analyser
-          notre trafic. En cliquant sur «&nbsp;Accepter&nbsp;», vous consentez à leur utilisation
-          conformément à notre{" "}
+        <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mb-6">
+          Nous utilisons des cookies pour optimiser votre expérience. En
+          continuant, vous acceptez notre{" "}
           <Link
             href={`${base}/politique-de-confidentialite`}
-            className="text-blue-600 hover:underline font-semibold"
+            className="text-welqo-terracotta hover:underline font-bold"
           >
             politique de confidentialité
           </Link>
           .
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-3">
+        <div className="flex flex-col sm:flex-row gap-2">
           <button
             onClick={accept}
-            className="flex-1 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-2xl font-black text-sm transition-all shadow-lg shadow-blue-600/20 active:scale-95"
+            className="flex-1 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-bold text-xs transition-all hover:bg-slate-800 dark:hover:bg-slate-100"
           >
-            Tout accepter
+            Accepter
           </button>
           <button
             onClick={decline}
-            className="flex-1 py-3 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-2xl font-black text-sm transition-all active:scale-95"
+            className="flex-1 py-2.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg font-bold text-xs transition-all hover:bg-slate-100 dark:hover:bg-slate-700"
           >
             Refuser
           </button>
         </div>
-
-        <p className="text-center text-xs text-slate-400 mt-4">
-          <Link href={`${base}/mentions-legales`} className="hover:text-blue-600 transition-colors">
-            Mentions légales
-          </Link>
-          {" · "}
-          <Link href={`${base}/politique-de-confidentialite`} className="hover:text-blue-600 transition-colors">
-            Politique de confidentialité
-          </Link>
-        </p>
       </div>
     </div>
   );

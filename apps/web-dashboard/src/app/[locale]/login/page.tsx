@@ -11,10 +11,10 @@ export default function LoginPage() {
   const params = useParams<{ locale: string }>();
   const locale = params?.locale ?? "fr";
 
-  const [email, setEmail]       = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading]   = useState(false);
-  const [error, setError]       = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +41,9 @@ export default function LoginPage() {
             <h1 className="text-3xl font-black tracking-tighter mb-4 uppercase italic">
               {t("title")}
             </h1>
-            <p className="text-slate-500 text-sm font-medium">{t("subtitle")}</p>
+            <p className="text-slate-500 text-sm font-medium">
+              {t("subtitle")}
+            </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
@@ -76,7 +78,10 @@ export default function LoginPage() {
             </div>
 
             <div className="flex justify-end">
-              <button type="button" className="text-xs font-bold text-blue-600 hover:underline">
+              <button
+                type="button"
+                className="text-xs font-bold text-blue-600 hover:underline"
+              >
                 {t("forgotPassword")}
               </button>
             </div>
@@ -104,8 +109,12 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-12 pt-8 border-t border-slate-100 dark:border-slate-800 text-center">
-            <p className="text-sm text-slate-500 font-medium mb-2">{t("noAccount")}</p>
-            <button className="text-blue-600 font-bold hover:underline">{t("contactWelqo")}</button>
+            <p className="text-sm text-slate-500 font-medium mb-2">
+              {t("noAccount")}
+            </p>
+            <button className="text-blue-600 font-bold hover:underline">
+              {t("contactWelqo")}
+            </button>
           </div>
         </div>
 

@@ -1,4 +1,9 @@
-import { Injectable, Logger, BadRequestException, NotFoundException } from "@nestjs/common";
+import {
+  Injectable,
+  Logger,
+  BadRequestException,
+  NotFoundException,
+} from "@nestjs/common";
 import { ConfigService } from "@nestjs/config";
 import { PrismaService } from "../../../common/prisma/prisma.service";
 import { EmailService } from "../../email/email.service";
@@ -107,7 +112,9 @@ export class BookingService {
       throw new BadRequestException("Cette réservation est déjà annulée");
     }
     if (booking.status !== "CONFIRMED") {
-      throw new BadRequestException("Cette réservation ne peut pas être annulée");
+      throw new BadRequestException(
+        "Cette réservation ne peut pas être annulée",
+      );
     }
 
     await this.prisma.booking.update({
@@ -199,7 +206,9 @@ export class BookingService {
         cancellationToken: booking.cancellationToken ?? null,
       })
       .catch((err) =>
-        this.logger.error(`Email confirmation failed for booking ${bookingId}: ${err.message}`),
+        this.logger.error(
+          `Email confirmation failed for booking ${bookingId}: ${err.message}`,
+        ),
       );
 
     // Sync to Beds24 (reconciliation job handles retries on failure)

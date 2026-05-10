@@ -16,7 +16,10 @@ export class OwnerController {
     return this.prisma.property.findMany({
       where: { ownerId: req.user.id },
       include: {
-        photos: { select: { url: true, isCover: true }, orderBy: { position: "asc" } },
+        photos: {
+          select: { url: true, isCover: true },
+          orderBy: { position: "asc" },
+        },
       },
       orderBy: { createdAt: "desc" },
     });

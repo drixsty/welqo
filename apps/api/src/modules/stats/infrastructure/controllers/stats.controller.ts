@@ -19,7 +19,9 @@ export class StatsController {
 
   @Get("bookings")
   @Version("1")
-  @ApiOperation({ summary: "Get full bookings history with payments for the logged-in owner" })
+  @ApiOperation({
+    summary: "Get full bookings history with payments for the logged-in owner",
+  })
   async getBookingsHistory(@Req() req: any) {
     return this.statsService.getBookingsHistory(req.user.id);
   }

@@ -6,9 +6,9 @@ import { JsonLd } from "../../../components/JsonLd";
 const BASE_URL = "https://welqo.fr";
 
 const CATEGORY_STYLE: Record<string, string> = {
-  "Rentabilité": "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
-  "Guide":       "bg-blue-500/10 text-blue-600 border-blue-500/20",
-  "Stratégie":   "bg-purple-500/10 text-purple-600 border-purple-500/20",
+  Rentabilité: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+  Guide: "bg-blue-500/10 text-blue-600 border-blue-500/20",
+  Stratégie: "bg-purple-500/10 text-purple-600 border-purple-500/20",
 };
 
 export async function generateMetadata({
@@ -40,24 +40,36 @@ export default function BlogPage({
 }: {
   params: { locale: string };
 }) {
-  const isFr     = locale !== "en";
-  const base     = `/${locale}`;
+  const isFr = locale !== "en";
+  const base = `/${locale}`;
   const featured = BLOG_POSTS[0];
-  const rest     = BLOG_POSTS.slice(1);
+  const rest = BLOG_POSTS.slice(1);
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Accueil", item: `${BASE_URL}/${locale}` },
-      { "@type": "ListItem", position: 2, name: "Blog",    item: `${BASE_URL}/${locale}/blog` },
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Accueil",
+        item: `${BASE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Blog",
+        item: `${BASE_URL}/${locale}/blog`,
+      },
     ],
   };
 
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: isFr ? "Blog Welqo — Conseils Airbnb Lille" : "Welqo Blog — Airbnb Lille Tips",
+    name: isFr
+      ? "Blog Welqo — Conseils Airbnb Lille"
+      : "Welqo Blog — Airbnb Lille Tips",
     url: `${BASE_URL}/${locale}/blog`,
     publisher: { "@type": "Organization", name: "Welqo", url: BASE_URL },
     blogPost: BLOG_POSTS.map((p) => ({
@@ -95,8 +107,18 @@ export default function BlogPage({
             <a href={base} className="hover:text-slate-300 transition-colors">
               {isFr ? "Accueil" : "Home"}
             </a>
-            <svg className="w-3.5 h-3.5 text-slate-600" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M9 18l6-6-6-6" />
+            <svg
+              className="w-3.5 h-3.5 text-slate-600"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M9 18l6-6-6-6"
+              />
             </svg>
             <span className="text-slate-300 font-semibold">Blog</span>
           </nav>
@@ -124,7 +146,8 @@ export default function BlogPage({
                       Airbnb
                     </span>{" "}
                     Tips
-                    <br />in Lille
+                    <br />
+                    in Lille
                   </>
                 )}
               </h1>
@@ -169,7 +192,9 @@ export default function BlogPage({
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/50 to-transparent" />
 
                   <div className="absolute top-4 left-4 flex items-center gap-2">
-                    <span className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wide border backdrop-blur-sm ${CATEGORY_STYLE[featured.category] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}>
+                    <span
+                      className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wide border backdrop-blur-sm ${CATEGORY_STYLE[featured.category] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}
+                    >
                       {featured.category}
                     </span>
                     <span className="px-3 py-1 bg-white/10 backdrop-blur-sm text-white rounded-full text-[10px] font-black border border-white/10">
@@ -196,7 +221,7 @@ export default function BlogPage({
                       <span>
                         {new Date(featured.publishedAt).toLocaleDateString(
                           isFr ? "fr-FR" : "en-GB",
-                          { day: "numeric", month: "long", year: "numeric" }
+                          { day: "numeric", month: "long", year: "numeric" },
                         )}
                       </span>
                       <span>·</span>
@@ -204,8 +229,18 @@ export default function BlogPage({
                     </div>
                     <span className="text-blue-400 text-sm font-black group-hover:translate-x-1 transition-transform inline-flex items-center gap-1">
                       {isFr ? "Lire" : "Read"}
-                      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M17 8l4 4m0 0l-4 4m4-4H3"
+                        />
                       </svg>
                     </span>
                   </div>
@@ -254,7 +289,8 @@ export default function BlogPage({
                   <div>
                     <span
                       className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wide mb-2 border ${
-                        CATEGORY_STYLE[post.category] ?? "bg-slate-100 text-slate-600 border-slate-200"
+                        CATEGORY_STYLE[post.category] ??
+                        "bg-slate-100 text-slate-600 border-slate-200"
                       }`}
                     >
                       {post.category}
@@ -267,11 +303,13 @@ export default function BlogPage({
                     <span>
                       {new Date(post.publishedAt).toLocaleDateString(
                         isFr ? "fr-FR" : "en-GB",
-                        { month: "short", year: "numeric" }
+                        { month: "short", year: "numeric" },
                       )}
                     </span>
                     <span>·</span>
-                    <span>{post.readingMinutes} min {isFr ? "de lecture" : "read"}</span>
+                    <span>
+                      {post.readingMinutes} min {isFr ? "de lecture" : "read"}
+                    </span>
                   </div>
                 </div>
               </a>
@@ -285,14 +323,38 @@ export default function BlogPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {[
-              { val: "1 200 €",  label: isFr ? "Revenu brut moyen / mois" : "Avg. monthly revenue" },
-              { val: "82 %",     label: isFr ? "Taux d'occupation Vieux-Lille" : "Vieux-Lille occupancy" },
-              { val: "+38 %",    label: isFr ? "Revenus avec Welqo vs solo" : "Revenue vs self-managing" },
-              { val: "4,9 / 5", label: isFr ? "Note moyenne nos logements" : "Avg. rating our listings" },
+              {
+                val: "1 200 €",
+                label: isFr
+                  ? "Revenu brut moyen / mois"
+                  : "Avg. monthly revenue",
+              },
+              {
+                val: "82 %",
+                label: isFr
+                  ? "Taux d'occupation Vieux-Lille"
+                  : "Vieux-Lille occupancy",
+              },
+              {
+                val: "+38 %",
+                label: isFr
+                  ? "Revenus avec Welqo vs solo"
+                  : "Revenue vs self-managing",
+              },
+              {
+                val: "4,9 / 5",
+                label: isFr
+                  ? "Note moyenne nos logements"
+                  : "Avg. rating our listings",
+              },
             ].map(({ val, label }) => (
               <div key={val}>
-                <p className="text-2xl md:text-3xl font-black text-blue-600 tracking-tighter">{val}</p>
-                <p className="text-xs text-slate-500 font-medium mt-1 leading-snug">{label}</p>
+                <p className="text-2xl md:text-3xl font-black text-blue-600 tracking-tighter">
+                  {val}
+                </p>
+                <p className="text-xs text-slate-500 font-medium mt-1 leading-snug">
+                  {label}
+                </p>
               </div>
             ))}
           </div>
@@ -317,9 +379,19 @@ export default function BlogPage({
                 {isFr ? "Passez à l'action" : "Take action"}
               </p>
               <h2 className="text-3xl md:text-5xl font-black text-white tracking-tighter mb-4 leading-tight">
-                {isFr
-                  ? <>Prêt à déléguer votre<br />Airbnb à Lille ?</>
-                  : <>Ready to hand over your<br />Lille Airbnb?</>}
+                {isFr ? (
+                  <>
+                    Prêt à déléguer votre
+                    <br />
+                    Airbnb à Lille ?
+                  </>
+                ) : (
+                  <>
+                    Ready to hand over your
+                    <br />
+                    Lille Airbnb?
+                  </>
+                )}
               </h2>
               <p className="text-slate-400 font-medium mb-8 max-w-lg mx-auto">
                 {isFr
@@ -343,7 +415,11 @@ export default function BlogPage({
 
               <div className="flex flex-wrap items-center justify-center gap-6 mt-10 text-slate-500 text-sm">
                 {(isFr
-                  ? ["✓ Sans engagement", "✓ Devis sous 24h", "✓ Commission 15–20 %"]
+                  ? [
+                      "✓ Sans engagement",
+                      "✓ Devis sous 24h",
+                      "✓ Commission 15–20 %",
+                    ]
                   : ["✓ No commitment", "✓ Quote in 24h", "✓ 15–20% commission"]
                 ).map((t) => (
                   <span key={t}>{t}</span>

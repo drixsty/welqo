@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 # ─────────────────────────────────────────────────────────────
 #  WELQO — Local Development Stack
@@ -16,7 +16,6 @@ volumes:
   redis_data:
 
 services:
-
   # ── PostgreSQL ──────────────────────────────────────────────
   postgres:
     image: postgres:16-alpine

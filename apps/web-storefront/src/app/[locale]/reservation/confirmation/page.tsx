@@ -37,7 +37,7 @@ export default async function ConfirmationPage({
 
         {/* Info Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 text-left">
-          <div className="p-6 bg-slate-50 dark:bg-white/[0.03] rounded-xl border border-slate-100 dark:border-white/5">
+          <div className="p-6 bg-slate-50 dark:bg-white/[0.03] rounded-2xl border border-slate-100 dark:border-white/5">
             <Mail className="w-5 h-5 text-welqo-terracotta mb-3" />
             <h3 className="font-bold text-sm mb-1">{isFr ? "Confirmation par email" : "Email confirmation"}</h3>
             <p className="text-xs text-slate-500">
@@ -46,7 +46,7 @@ export default async function ConfirmationPage({
                 : "You will receive your summary and invoice in a few moments."}
             </p>
           </div>
-          <div className="p-6 bg-slate-50 dark:bg-white/[0.03] rounded-xl border border-slate-100 dark:border-white/5">
+          <div className="p-6 bg-slate-50 dark:bg-white/[0.03] rounded-2xl border border-slate-100 dark:border-white/5">
             <Calendar className="w-5 h-5 text-welqo-terracotta mb-3" />
             <h3 className="font-bold text-sm mb-1">{isFr ? "Instructions d'arrivée" : "Check-in instructions"}</h3>
             <p className="text-xs text-slate-500">
@@ -72,7 +72,7 @@ export default async function ConfirmationPage({
         </div>
 
         <p className="mt-12 text-[10px] font-bold text-slate-400 tracking-[0.2em]">
-          Welqo Conciergerie · {isFr ? "Gestion professionnelle" : "Professional management"}
+          Welqo conciergerie · {isFr ? "Gestion professionnelle" : "Professional management"}
         </p>
       </div>
     </main>

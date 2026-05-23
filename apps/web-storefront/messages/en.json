@@ -1,5 +1,6 @@
 {
   "HomePage": {
+    "scrollDiscover": "Explore",
     "badge": "Airbnb Concierge — Northern France",
     "heroTitle": "Maximize your rental income. <span>Effortlessly.</span>",
     "heroSubtitle": "Welqo handles the complete management of your property in Lille, Lens, Arras, and across the region. You collect, we manage.",
@@ -226,6 +227,7 @@
     "viewDetail": "View details"
   },
   "CookieBanner": {
+    "ariaLabel": "Cookie consent",
     "title": "Cookies",
     "message": "We use cookies to optimise your experience. By continuing, you accept our",
     "policy": "privacy policy",
@@ -479,6 +481,44 @@
     "auditFootnote": "On-site visit + market study included"
   },
   "RevenueSimulator": {
-    "secureRevenue": "Secure my {amount}€"
+    "secureRevenue": "Secure my {amount}€",
+    "year1": "Year 1",
+    "year2": "Year 2",
+    "year3": "Year 3",
+    "soloManagement": "Solo management",
+    "welqoManagement": "Welqo management",
+    "welqoNetGain": "Welqo net gain",
+    "monthlyNetGain": "Monthly net gain",
+    "annualPotential": "Annual potential",
+    "disclaimer": "* Estimate based on local market data 2024-2025.",
+    "location": "Location:",
+    "configuration": "Configuration:",
+    "estimatedRevenue": "Estimated Revenue:",
+    "estimationSecured": "Estimation Secured!",
+    "successMessage": "Your personalised yield report is being modelled. A Welqo expert will contact you within 24h.",
+    "close": "Close",
+    "fillAllFields": "Please fill in all required fields.",
+    "secureEstimationTitle": "Secure my estimate",
+    "secureEstimationSubtitle": "Complete your request to receive the full free market study for your property.",
+    "namePlaceholder": "Your first/last name *",
+    "phonePlaceholder": "Phone *",
+    "emailPlaceholder": "Email *",
+    "submitError": "An error occurred. Please try again."
+  },
+  "ScrollToTop": {
+    "backToTop": "Back to top"
+  },
+  "InteractiveFAQ": {
+    "searchPlaceholder": "Search a question...",
+    "clear": "Clear",
+    "noAnswerFound": "No answer found",
+    "noAnswerDesc": "We don't have an exact matching article. Ask us your question directly!",
+    "askQuestion": "Ask my question"
+  },
+  "PrivacyPolicy": {
+    "backHome": "Back to home",
+    "title1": "Your privacy,",
+    "title2": "our priority.",
+    "gdprCompliant": "GDPR compliant"
   }
 }

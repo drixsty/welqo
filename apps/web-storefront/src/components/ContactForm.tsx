@@ -7,15 +7,6 @@ import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 
-const schema = z.object({
-  name: z.string().min(2, "Prénom requis (2 caractères min.)"),
-  phone: z.string().min(10, "Numéro de téléphone requis"),
-  city: z.string().min(1, "Ville requise"),
-  message: z.string().optional(),
-});
-
-type FormData = z.infer<typeof schema>;
-
 const CITIES_FR = [
   "Lille",
   "Roubaix",
@@ -39,6 +30,14 @@ const CITIES_EN = [
 
 export function ContactForm({ locale }: { locale: string }) {
   const t = useTranslations("ContactForm");
+
+  const schema = z.object({
+    name: z.string().min(2, t("errorName")),
+    phone: z.string().min(10, t("errorPhone")),
+    city: z.string().min(1, t("errorCity")),
+    message: z.string().optional(),
+  });
+
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
@@ -52,7 +51,7 @@ export function ContactForm({ locale }: { locale: string }) {
     watch,
     formState: { errors },
     reset,
-  } = useForm<FormData>({ resolver: zodResolver(schema) });
+  } = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
 
   const selectedCity = watch("city");
 
@@ -69,7 +68,7 @@ export function ContactForm({ locale }: { locale: string }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const onSubmit = async (data: FormData) => {
+  const onSubmit = async (data: z.infer<typeof schema>) => {
     setStatus("loading");
     try {
       const res = await fetch("/api/contact", {

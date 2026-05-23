@@ -49,7 +49,7 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
   return (
     <div
       role="dialog"
-      aria-label="Consentement aux cookies"
+      aria-label={t("ariaLabel")}
       className="fixed bottom-0 left-0 right-0 z-50 p-6 md:max-w-md md:left-6 md:bottom-6 md:right-auto animate-fade-up"
     >
       <div className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-800 shadow-xl p-6">

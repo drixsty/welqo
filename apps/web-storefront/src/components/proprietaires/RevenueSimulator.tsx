@@ -65,6 +65,14 @@ export function RevenueSimulator({
   const [isCityOpen, setIsCityOpen] = useState(false);
   const [openUp, setOpenUp] = useState(false);
   const [hoveredYear, setHoveredYear] = useState<1 | 2 | 3>(3);
+  const [isLeadModalOpen, setIsLeadModalOpen] = useState(false);
+  const [leadName, setLeadName] = useState("");
+  const [leadPhone, setLeadPhone] = useState("");
+  const [leadEmail, setLeadEmail] = useState("");
+  const [leadStatus, setLeadStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+  const [leadError, setLeadError] = useState("");
   const cityRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -543,9 +551,9 @@ export function RevenueSimulator({
 
                   {/* X Axis Labels */}
                   <div className="absolute bottom-[-10px] left-0 right-0 flex justify-between px-6 text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
-                    <span>Année 1</span>
-                    <span>Année 2</span>
-                    <span>Année 3</span>
+                    <span>{t("year1")}</span>
+                    <span>{t("year2")}</span>
+                    <span>{t("year3")}</span>
                   </div>
                 </div>
 
@@ -553,7 +561,7 @@ export function RevenueSimulator({
                 <div className="grid grid-cols-3 gap-2 mt-4 pt-2 border-t border-slate-100 dark:border-slate-800">
                   <div className="text-center">
                     <p className="text-[7.5px] font-bold text-slate-400 uppercase tracking-wider">
-                      Gestion en Solo
+                      {t("soloManagement")}
                     </p>
                     <p className="text-xs font-bold text-slate-500 mt-0.5">
                       <AnimatedNumber value={revenuSolo * 12 * hoveredYear} /> €
@@ -561,7 +569,7 @@ export function RevenueSimulator({
                   </div>
                   <div className="text-center border-x border-slate-100 dark:border-slate-800">
                     <p className="text-[7.5px] font-black text-primary uppercase tracking-wider">
-                      Gestion Welqo
+                      {t("welqoManagement")}
                     </p>
                     <p className="text-xs font-extrabold text-slate-900 dark:text-white mt-0.5">
                       <AnimatedNumber value={revenuWelqo * 12 * hoveredYear} />{" "}
@@ -570,7 +578,7 @@ export function RevenueSimulator({
                   </div>
                   <div className="text-center">
                     <p className="text-[7.5px] font-bold text-emerald-500 uppercase tracking-wider">
-                      Gain Net Welqo
+                      {t("welqoNetGain")}
                     </p>
                     <p className="text-xs font-extrabold text-emerald-500 mt-0.5">
                       +
@@ -590,7 +598,7 @@ export function RevenueSimulator({
                     +<AnimatedNumber value={gain} />€
                   </p>
                   <p className="text-[8px] text-slate-500 font-bold tracking-tighter">
-                    Gain mensuel net
+                    {t("monthlyNetGain")}
                   </p>
                 </div>
                 <div className="p-3 bg-primary/5 border border-primary/10 rounded-lg text-center">
@@ -598,7 +606,7 @@ export function RevenueSimulator({
                     <AnimatedNumber value={annual} />€
                   </p>
                   <p className="text-[8px] text-slate-500 font-bold tracking-tighter">
-                    Potentiel annuel
+                    {t("annualPotential")}
                   </p>
                 </div>
               </div>
@@ -612,7 +620,7 @@ export function RevenueSimulator({
                     revenue: revenuWelqo,
                     property_type: PIECES_OPTIONS[piecesIdx].label,
                   });
-                  window.location.href = `mailto:contact@welqo.fr?subject=Estimation Welqo: ${revenuWelqo}€&body=Bonjour, j'ai simulé un revenu de ${revenuWelqo}€ pour mon bien à ${VILLES[villeIdx].label}.`;
+                  setIsLeadModalOpen(true);
                 }}
                 className="w-full py-3.5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-xl font-bold text-sm hover:bg-welqo-terracotta hover:text-white transition-all shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
               >
@@ -620,12 +628,183 @@ export function RevenueSimulator({
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               <p className="mt-2.5 text-[8px] text-slate-400 text-center italic opacity-70 leading-tight">
-                * Estimation basée sur les données du marché local 2024-2025.
+                {t("disclaimer")}
               </p>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Interactive Lead Modal */}
+      <AnimatePresence>
+        {isLeadModalOpen && (
+          <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-md z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20 }}
+              className="relative w-full max-w-md bg-slate-900 border border-white/10 rounded-2xl p-6 md:p-8 shadow-2xl text-white overflow-hidden"
+            >
+              {/* Blur halo */}
+              <div className="absolute top-0 right-0 w-32 h-32 bg-welqo-terracotta/20 rounded-full blur-3xl pointer-events-none" />
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={() => setIsLeadModalOpen(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors cursor-pointer w-8 h-8 rounded-full bg-white/5 flex items-center justify-center"
+              >
+                ✕
+              </button>
+
+              {leadStatus === "success" ? (
+                <div className="text-center py-8">
+                  <div className="w-14 h-14 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg
+                      className="w-7 h-7 text-emerald-500"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
+                  </div>
+                  <h4 className="text-xl font-bold text-white mb-2">
+                    {t("estimationSecured")}
+                  </h4>
+                  <p className="text-slate-400 text-[11px] font-medium leading-relaxed max-w-xs mx-auto">
+                    {t("successMessage")}
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setIsLeadModalOpen(false);
+                      setLeadStatus("idle");
+                    }}
+                    className="mt-6 px-6 py-2.5 bg-white text-slate-950 rounded-lg font-bold text-xs cursor-pointer hover:bg-slate-100 transition-all"
+                  >
+                    {t("close")}
+                  </button>
+                </div>
+              ) : (
+                <form
+                  onSubmit={async (e) => {
+                    e.preventDefault();
+                    if (!leadName || !leadPhone || !leadEmail) {
+                      setLeadError(t("fillAllFields"));
+                      return;
+                    }
+                    setLeadStatus("loading");
+                    setLeadError("");
+                    try {
+                      const res = await fetch("/api/contact", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          name: leadName,
+                          phone: leadPhone,
+                          city: VILLES[villeIdx].label,
+                          message: `Simulation Simulator: ${PIECES_OPTIONS[piecesIdx].label}, ${surface}m², Estimé: ${revenuWelqo}€/mois (Email: ${leadEmail})`,
+                        }),
+                      });
+                      if (!res.ok) throw new Error();
+                      setLeadStatus("success");
+                      setLeadName("");
+                      setLeadPhone("");
+                      setLeadEmail("");
+                    } catch {
+                      setLeadStatus("error");
+                      setLeadError(t("submitError"));
+                    }
+                  }}
+                  className="space-y-4 text-left"
+                >
+                  <div>
+                    <h4 className="text-base font-bold text-white tracking-tight">
+                      {t("secureEstimationTitle")}
+                    </h4>
+                    <p className="text-[10px] text-slate-400 font-medium leading-relaxed mt-1">
+                      {t("secureEstimationSubtitle")}
+                    </p>
+                  </div>
+
+                  {/* Pre-filled Simulation Details */}
+                  <div className="bg-white/5 border border-white/5 p-3.5 rounded-xl text-xs space-y-1.5 font-medium text-slate-300">
+                    <div className="flex justify-between">
+                      <span className="opacity-60">{t("location")}</span>
+                      <span className="text-white font-bold">
+                        {VILLES[villeIdx].label.split(" (")[0]}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span className="opacity-60">{t("configuration")}</span>
+                      <span className="text-white font-bold">
+                        {PIECES_OPTIONS[piecesIdx].label} · {surface} m²
+                      </span>
+                    </div>
+                    <div className="flex justify-between border-t border-white/5 pt-1.5 mt-1.5 text-welqo-terracotta">
+                      <span className="font-bold">{t("estimatedRevenue")}</span>
+                      <span className="font-extrabold text-sm">
+                        {fmt(revenuWelqo)} € / mois
+                      </span>
+                    </div>
+                  </div>
+
+                  {leadError && (
+                    <p className="text-[10px] text-red-400 font-bold bg-red-500/10 border border-red-500/20 p-2.5 rounded-lg text-center">
+                      {leadError}
+                    </p>
+                  )}
+
+                  <div className="space-y-3">
+                    <div>
+                      <input
+                        type="text"
+                        placeholder={t("namePlaceholder")}
+                        value={leadName}
+                        onChange={(e) => setLeadName(e.target.value)}
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-xs font-semibold placeholder:text-slate-500 focus:outline-none focus:border-welqo-terracotta/50 focus:bg-white/8 transition-colors"
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3">
+                      <input
+                        type="tel"
+                        placeholder={t("phonePlaceholder")}
+                        value={leadPhone}
+                        onChange={(e) => setLeadPhone(e.target.value)}
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-xs font-semibold placeholder:text-slate-500 focus:outline-none focus:border-welqo-terracotta/50 focus:bg-white/8 transition-colors"
+                      />
+                      <input
+                        type="email"
+                        placeholder={t("emailPlaceholder")}
+                        value={leadEmail}
+                        onChange={(e) => setLeadEmail(e.target.value)}
+                        className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-xs font-semibold placeholder:text-slate-500 focus:outline-none focus:border-welqo-terracotta/50 focus:bg-white/8 transition-colors"
+                      />
+                    </div>
+                  </div>
+
+                  <button
+                    type="submit"
+                    disabled={leadStatus === "loading"}
+                    className="w-full py-3.5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-welqo-terracotta/20 disabled:opacity-60"
+                  >
+                    {leadStatus === "loading"
+                      ? "Envoi en cours..."
+                      : "Obtenir mon rapport personnalisé →"}
+                  </button>
+                </form>
+              )}
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

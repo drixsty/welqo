@@ -6,6 +6,9 @@ import { RevenueSimulator } from "../../components/proprietaires/RevenueSimulato
 import { InteractiveHeroDashboard } from "../../components/InteractiveHeroDashboard";
 import { ContactForm } from "../../components/ContactForm";
 import { ScrollReveal } from "../../components/ScrollReveal";
+import { ScrollToTop } from "../../components/ScrollToTop";
+import { InteractiveProcess } from "../../components/InteractiveProcess";
+import { InteractiveFAQ } from "../../components/InteractiveFAQ";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -340,6 +343,19 @@ export default async function HomePage({
           </div>
         </div>
 
+        {/* Kinetic Scroll Indicator */}
+        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
+          <span className="text-[8px] font-black text-slate-500 uppercase tracking-[0.25em]">
+            {t("scrollDiscover")}
+          </span>
+          <div className="w-5 h-8 rounded-full border border-slate-700 flex justify-center p-1.5 relative overflow-hidden bg-slate-950/20 backdrop-blur-sm">
+            <div
+              className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta animate-bounce"
+              style={{ animationDuration: "1.8s" }}
+            />
+          </div>
+        </div>
+
         {/* Platforms bar */}
         <div className="relative z-10 w-full border-t border-white/5 bg-slate-900/50 backdrop-blur-sm py-3 md:py-4 px-4 mt-auto">
           <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
@@ -419,40 +435,7 @@ export default async function HomePage({
               </span>
             </h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
-            {STEPS.map((step, i) => (
-              <div
-                key={step.num}
-                className="group relative flex flex-col items-center md:items-start text-center md:text-left"
-              >
-                <div className="relative mb-6">
-                  {i !== 0 && (
-                    <div className="hidden md:block absolute top-8 right-1/2 w-full h-[2px] bg-slate-200 dark:bg-slate-800 z-0" />
-                  )}
-                  {i !== STEPS.length - 1 && (
-                    <div className="hidden md:block absolute top-8 left-1/2 w-full h-[2px] bg-slate-200 dark:bg-slate-800 z-0" />
-                  )}
-                  <div
-                    className={`w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-sm relative z-10 ${i === 1 ? "bg-welqo-terracotta" : "bg-slate-900 dark:bg-slate-800"}`}
-                  >
-                    {step.num}
-                  </div>
-                  {i === 1 && (
-                    <div className="absolute inset-0 bg-welqo-terracotta rounded-lg animate-ping opacity-20" />
-                  )}
-                </div>
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-welqo-terracotta mb-2">
-                  {step.duration}
-                </span>
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight mb-3">
-                  {step.title}
-                </h3>
-                <p className="text-slate-500 dark:text-slate-400 text-[13px] leading-relaxed">
-                  {step.desc}
-                </p>
-              </div>
-            ))}
-          </div>
+          <InteractiveProcess steps={STEPS} locale={locale} />
         </div>
       </section>
 
@@ -822,38 +805,7 @@ export default async function HomePage({
               {t("faqTitle")}
             </h2>
           </div>
-          <div className="space-y-3">
-            {FAQS.map(({ q, a }, i) => (
-              <details
-                key={i}
-                className="group bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden hover:border-welqo-terracotta/20 transition-colors"
-              >
-                <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none">
-                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">
-                    {q}
-                  </span>
-                  <div className="w-7 h-7 bg-slate-200 dark:bg-slate-700 group-open:bg-welqo-terracotta group-open:text-white rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-slate-500">
-                    <svg
-                      className="w-3.5 h-3.5 group-open:rotate-45 transition-transform duration-200"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="2.5"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M12 4v16m8-8H4"
-                      />
-                    </svg>
-                  </div>
-                </summary>
-                <p className="px-6 pb-5 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
-                  {a}
-                </p>
-              </details>
-            ))}
-          </div>
+          <InteractiveFAQ faqs={FAQS} />
         </div>
       </section>
 
@@ -1069,6 +1021,9 @@ export default async function HomePage({
           </div>
         </div>
       </section>
+
+      {/* Floating Back to Top Button */}
+      <ScrollToTop />
     </main>
   );
 }

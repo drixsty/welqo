@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
 export async function generateMetadata({
   params: { locale },
@@ -15,11 +16,12 @@ export async function generateMetadata({
   };
 }
 
-export default function PolitiqueConfidentialitePage({
+export default async function PolitiqueConfidentialitePage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
+  const t = await getTranslations("PrivacyPolicy");
   const base = `/${locale}`;
   return (
     <main className="min-h-screen bg-white dark:bg-black overflow-hidden selection:bg-welqo-terracotta/20">
@@ -56,19 +58,19 @@ export default function PolitiqueConfidentialitePage({
                 d="M10 19l-7-7m0 0l7-7m-7 7h18"
               />
             </svg>
-            Retour à l'accueil
+            {t("backHome")}
           </Link>
 
           <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-[0.95] mb-6">
-            Votre vie privée,
+            {t("title1")}
             <br />
-            <span className="text-welqo-terracotta">notre priorité.</span>
+            <span className="text-welqo-terracotta">{t("title2")}</span>
           </h1>
 
           <div className="flex flex-wrap items-center gap-4 text-slate-500">
             <span className="flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Conforme RGPD
+              {t("gdprCompliant")}
             </span>
             <span className="text-[10px] font-bold">
               Dernière mise à jour : {new Date().getFullYear()}

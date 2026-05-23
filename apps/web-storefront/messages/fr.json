@@ -1,5 +1,6 @@
 {
   "HomePage": {
+    "scrollDiscover": "Découvrir",
     "badge": "Conciergerie Airbnb — Hauts-de-France",
     "heroTitle": "Maximisez vos revenus locatifs. <span>Sans effort.</span>",
     "heroSubtitle": "Welqo prend en charge la gestion complète de votre bien à Lille, Lens, Arras et dans toute la région. Vous encaissez, nous gérons.",
@@ -226,6 +227,7 @@
     "viewDetail": "Voir le détail"
   },
   "CookieBanner": {
+    "ariaLabel": "Consentement aux cookies",
     "title": "Cookies",
     "message": "Nous utilisons des cookies pour optimiser votre expérience. En continuant, vous acceptez notre",
     "policy": "politique de confidentialité",
@@ -479,6 +481,44 @@
     "auditFootnote": "Visite sur place + étude de marché incluses"
   },
   "RevenueSimulator": {
-    "secureRevenue": "Sécuriser mes {amount}€"
+    "secureRevenue": "Sécuriser mes {amount}€",
+    "year1": "Année 1",
+    "year2": "Année 2",
+    "year3": "Année 3",
+    "soloManagement": "Gestion en solo",
+    "welqoManagement": "Gestion Welqo",
+    "welqoNetGain": "Gain net Welqo",
+    "monthlyNetGain": "Gain mensuel net",
+    "annualPotential": "Potentiel annuel",
+    "disclaimer": "* Estimation basée sur les données du marché local 2024-2025.",
+    "location": "Localisation :",
+    "configuration": "Configuration :",
+    "estimatedRevenue": "Revenu Estimé :",
+    "estimationSecured": "Estimation Sécurisée !",
+    "successMessage": "Votre rapport personnalisé de rendement est en cours de modélisation. Un expert Welqo vous contactera sous 24h.",
+    "close": "Fermer",
+    "fillAllFields": "Veuillez remplir tous les champs obligatoires.",
+    "secureEstimationTitle": "Sécuriser mon estimation",
+    "secureEstimationSubtitle": "Finalisez votre demande pour recevoir l'étude de marché complète et gratuite de votre bien.",
+    "namePlaceholder": "Votre prénom / nom *",
+    "phonePlaceholder": "Téléphone *",
+    "emailPlaceholder": "Email *",
+    "submitError": "Une erreur s'est produite. Veuillez réessayer."
+  },
+  "ScrollToTop": {
+    "backToTop": "Retour en haut de page"
+  },
+  "InteractiveFAQ": {
+    "searchPlaceholder": "Rechercher une question...",
+    "clear": "Effacer",
+    "noAnswerFound": "Aucune réponse trouvée",
+    "noAnswerDesc": "Nous n'avons pas d'article correspondant exact. Posez-nous votre question directement !",
+    "askQuestion": "Poser ma question"
+  },
+  "PrivacyPolicy": {
+    "backHome": "Retour à l'accueil",
+    "title1": "Votre vie privée,",
+    "title2": "notre priorité.",
+    "gdprCompliant": "Conforme RGPD"
   }
 }

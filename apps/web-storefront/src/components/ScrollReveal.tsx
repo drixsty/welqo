@@ -49,10 +49,7 @@ export function ScrollReveal({
   const Comp = Tag as any;
 
   return (
-    <Comp
-      ref={ref}
-      className={`${directionClass[direction]} ${className}`}
-    >
+    <Comp ref={ref} className={`${directionClass[direction]} ${className}`}>
       {children}
     </Comp>
   );

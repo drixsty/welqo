@@ -24,7 +24,9 @@ export function StickyMobileCTA({ locale }: { locale: string }) {
             {isFr ? "Audit gratuit de votre bien" : "Free property audit"}
           </p>
           <p className="text-[10px] text-slate-400 font-medium leading-tight">
-            {isFr ? "Réponse sous 24h · Sans engagement" : "Reply within 24h · No commitment"}
+            {isFr
+              ? "Réponse sous 24h · Sans engagement"
+              : "Reply within 24h · No commitment"}
           </p>
         </div>
         <a

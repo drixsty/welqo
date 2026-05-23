@@ -14,11 +14,31 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-const CITIES_FR = ["Lille", "Roubaix", "Tourcoing", "Lens", "Arras", "Béthune", "Douai", "Autre"];
-const CITIES_EN = ["Lille", "Roubaix", "Tourcoing", "Lens", "Arras", "Béthune", "Douai", "Other"];
+const CITIES_FR = [
+  "Lille",
+  "Roubaix",
+  "Tourcoing",
+  "Lens",
+  "Arras",
+  "Béthune",
+  "Douai",
+  "Autre",
+];
+const CITIES_EN = [
+  "Lille",
+  "Roubaix",
+  "Tourcoing",
+  "Lens",
+  "Arras",
+  "Béthune",
+  "Douai",
+  "Other",
+];
 
 export function ContactForm({ locale }: { locale: string }) {
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
   const isFr = locale !== "en";
 
   const {
@@ -48,8 +68,18 @@ export function ContactForm({ locale }: { locale: string }) {
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
         <div className="w-14 h-14 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center">
-          <svg className="w-7 h-7 text-emerald-500" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+          <svg
+            className="w-7 h-7 text-emerald-500"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.5"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M5 13l4 4L19 7"
+            />
           </svg>
         </div>
         <h3 className="text-xl font-bold text-white">
@@ -64,7 +94,8 @@ export function ContactForm({ locale }: { locale: string }) {
     );
   }
 
-  const inputClass = "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-medium placeholder:text-slate-500 focus:outline-none focus:border-welqo-terracotta/50 focus:bg-white/8 transition-colors";
+  const inputClass =
+    "w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white text-sm font-medium placeholder:text-slate-500 focus:outline-none focus:border-welqo-terracotta/50 focus:bg-white/8 transition-colors";
   const errorClass = "mt-1 text-[11px] text-red-400 font-medium";
 
   return (
@@ -92,12 +123,18 @@ export function ContactForm({ locale }: { locale: string }) {
       </div>
 
       <div>
-        <select {...register("city")} className={`${inputClass} appearance-none`} defaultValue="">
+        <select
+          {...register("city")}
+          className={`${inputClass} appearance-none`}
+          defaultValue=""
+        >
           <option value="" disabled className="bg-slate-900 text-slate-400">
             {isFr ? "Votre ville *" : "Your city *"}
           </option>
           {(isFr ? CITIES_FR : CITIES_EN).map((c) => (
-            <option key={c} value={c} className="bg-slate-900 text-white">{c}</option>
+            <option key={c} value={c} className="bg-slate-900 text-white">
+              {c}
+            </option>
           ))}
         </select>
         {errors.city && <p className={errorClass}>{errors.city.message}</p>}
@@ -106,7 +143,11 @@ export function ContactForm({ locale }: { locale: string }) {
       <div>
         <textarea
           {...register("message")}
-          placeholder={isFr ? "Décrivez votre bien (optionnel)" : "Describe your property (optional)"}
+          placeholder={
+            isFr
+              ? "Décrivez votre bien (optionnel)"
+              : "Describe your property (optional)"
+          }
           rows={3}
           className={`${inputClass} resize-none`}
         />
@@ -127,9 +168,24 @@ export function ContactForm({ locale }: { locale: string }) {
       >
         {status === "loading" ? (
           <>
-            <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            <svg
+              className="w-4 h-4 animate-spin"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <circle
+                className="opacity-25"
+                cx="12"
+                cy="12"
+                r="10"
+                stroke="currentColor"
+                strokeWidth="4"
+              />
+              <path
+                className="opacity-75"
+                fill="currentColor"
+                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+              />
             </svg>
             {isFr ? "Envoi en cours..." : "Sending..."}
           </>

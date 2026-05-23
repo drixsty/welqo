@@ -8,7 +8,8 @@ export function ReadingProgressBar() {
     if (!bar) return;
 
     const update = () => {
-      const { scrollTop, scrollHeight, clientHeight } = document.documentElement;
+      const { scrollTop, scrollHeight, clientHeight } =
+        document.documentElement;
       const progress = scrollTop / (scrollHeight - clientHeight);
       bar.style.transform = `scaleX(${Math.min(progress, 1)})`;
     };

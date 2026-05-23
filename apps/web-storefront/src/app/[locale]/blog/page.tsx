@@ -32,7 +32,11 @@ export async function generateMetadata({
           "guide conciergerie airbnb",
           "revenus airbnb lille",
         ]
-      : ["airbnb tips lille", "short-term rental blog", "airbnb revenue northern france"],
+      : [
+          "airbnb tips lille",
+          "short-term rental blog",
+          "airbnb revenue northern france",
+        ],
     alternates: {
       canonical: `${BASE_URL}/${locale}/blog`,
       languages: {

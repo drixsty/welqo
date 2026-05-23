@@ -9,7 +9,7 @@ type Locale = (typeof LOCALES)[number];
 function alternates(path: string) {
   return {
     languages: Object.fromEntries(
-      LOCALES.map((l) => [l, `${BASE_URL}/${l}${path}`])
+      LOCALES.map((l) => [l, `${BASE_URL}/${l}${path}`]),
     ) as Record<Locale, string>,
   };
 }
@@ -31,7 +31,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: freq,
       priority,
       alternates: alternates(path),
-    }))
+    })),
   );
 
   const blogEntries = LOCALES.flatMap((locale) =>
@@ -41,7 +41,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "monthly" as const,
       priority: 0.75,
       alternates: alternates(`/blog/${post.slug}`),
-    }))
+    })),
   );
 
   return [...staticEntries, ...blogEntries];

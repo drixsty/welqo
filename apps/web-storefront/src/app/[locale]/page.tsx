@@ -182,7 +182,9 @@ export default async function HomePage({
   const BENTO_SERVICES = [
     {
       tag: isFr ? "Multi-plateformes" : "Multi-platform",
-      title: isFr ? "Annonces qui performent partout" : "High-performing listings everywhere",
+      title: isFr
+        ? "Annonces qui performent partout"
+        : "High-performing listings everywhere",
       desc: isFr
         ? "Photos pro, titre SEO, description convertissante. Votre bien visible sur Airbnb, Booking.com, Vrbo et Expedia simultanément."
         : "Professional photos, SEO title, converting description. Your property visible on Airbnb, Booking.com, Vrbo and Expedia simultaneously.",
@@ -193,7 +195,9 @@ export default async function HomePage({
     },
     {
       tag: isFr ? "Optimisation" : "Optimization",
-      title: isFr ? "Tarification dynamique réactive" : "Reactive dynamic pricing",
+      title: isFr
+        ? "Tarification dynamique réactive"
+        : "Reactive dynamic pricing",
       desc: isFr
         ? "Ajustement quotidien basé sur la demande locale — matchs du LOSC, Braderie, salons régionaux — pour maximiser l'occupation au meilleur prix."
         : "Daily adjustment based on local demand — LOSC matches, Braderie, regional trade shows — to maximize occupancy at the best price.",
@@ -204,7 +208,9 @@ export default async function HomePage({
     },
     {
       tag: isFr ? "Transparence" : "Transparency",
-      title: isFr ? "Dashboard propriétaire temps réel" : "Real-time owner dashboard",
+      title: isFr
+        ? "Dashboard propriétaire temps réel"
+        : "Real-time owner dashboard",
       desc: isFr
         ? "Revenus, calendrier, avis voyageurs et état de votre bien. Accessible depuis votre téléphone à tout moment, 24h/24."
         : "Revenue, calendar, guest reviews and property status. Accessible from your phone at any time, 24/7.",
@@ -315,10 +321,11 @@ export default async function HomePage({
               <p className="text-[14px] text-slate-400 max-w-md mb-5 leading-relaxed font-medium">
                 {isFr ? (
                   <>
-                    Welqo est la conciergerie Airbnb de référence à Lille. Gestion{" "}
+                    Welqo est la conciergerie Airbnb de référence à Lille.
+                    Gestion{" "}
                     <strong className="text-slate-200">100 % déléguée</strong> —
-                    annonces, accueil, ménage, maintenance — avec dashboard temps
-                    réel.
+                    annonces, accueil, ménage, maintenance — avec dashboard
+                    temps réel.
                   </>
                 ) : (
                   <>
@@ -360,10 +367,16 @@ export default async function HomePage({
 
               <div className="flex flex-wrap items-center gap-2">
                 {[
-                  { icon: "✨", text: isFr ? "Lancement exclusif" : "Exclusive launch" },
+                  {
+                    icon: "✨",
+                    text: isFr ? "Lancement exclusif" : "Exclusive launch",
+                  },
                   { icon: "🏠", text: isFr ? "Standard 5★" : "5★ Standard" },
                   { icon: "📍", text: "Lille" },
-                  { icon: "🔓", text: isFr ? "Sans engagement" : "No contract" },
+                  {
+                    icon: "🔓",
+                    text: isFr ? "Sans engagement" : "No contract",
+                  },
                 ].map((c) => (
                   <span
                     key={c.text}
@@ -383,34 +396,53 @@ export default async function HomePage({
                   <div className="flex items-center justify-between mb-5">
                     <div>
                       <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest">
-                        {isFr ? "Revenus ce mois (exemple)" : "Monthly income (example)"}
+                        {isFr
+                          ? "Revenus ce mois (exemple)"
+                          : "Monthly income (example)"}
                       </p>
                       <p className="text-white text-3xl font-bold tracking-tighter mt-1">
                         2 280 €
                       </p>
                     </div>
                     <div className="w-10 h-10 bg-emerald-500/10 text-emerald-400 rounded-lg flex items-center justify-center border border-emerald-500/20">
-                      <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                      <svg
+                        width="20"
+                        height="20"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                        />
                       </svg>
                     </div>
                   </div>
                   <div className="flex items-end gap-1.5 h-10 mb-5">
-                    {[40, 65, 55, 80, 70, 90, 75, 95, 85, 100, 88, 96].map((h, i) => (
-                      <div
-                        key={i}
-                        className={`flex-1 rounded-sm ${i === 11 ? "bg-welqo-terracotta" : "bg-white/10"}`}
-                        style={{ height: `${h}%` }}
-                      />
-                    ))}
+                    {[40, 65, 55, 80, 70, 90, 75, 95, 85, 100, 88, 96].map(
+                      (h, i) => (
+                        <div
+                          key={i}
+                          className={`flex-1 rounded-sm ${i === 11 ? "bg-welqo-terracotta" : "bg-white/10"}`}
+                          style={{ height: `${h}%` }}
+                        />
+                      ),
+                    )}
                   </div>
                   <div className="grid grid-cols-2 gap-3">
                     <div className="bg-white/5 border border-white/5 rounded-lg p-3">
-                      <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest mb-0.5">Occup.</p>
+                      <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest mb-0.5">
+                        Occup.
+                      </p>
                       <p className="text-white text-lg font-bold">84 %</p>
                     </div>
                     <div className="bg-white/5 border border-white/5 rounded-lg p-3">
-                      <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest mb-0.5">Note</p>
+                      <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest mb-0.5">
+                        Note
+                      </p>
                       <p className="text-white text-lg font-bold">4.9 ⭐</p>
                     </div>
                   </div>
@@ -430,15 +462,22 @@ export default async function HomePage({
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta" />
               <p className="text-slate-500 text-[9px] font-bold uppercase tracking-[0.2em]">
-                {isFr ? "Diffusé sur les leaders mondiaux" : "Listed on world leaders"}
+                {isFr
+                  ? "Diffusé sur les leaders mondiaux"
+                  : "Listed on world leaders"}
               </p>
             </div>
             <div className="flex items-center gap-6 md:gap-10 flex-wrap justify-center opacity-40">
-              {["Airbnb", "Booking.com", "Vrbo", "Expedia", "Abritel"].map((p) => (
-                <span key={p} className="text-white/80 font-bold text-xs md:text-sm tracking-tight cursor-default">
-                  {p}
-                </span>
-              ))}
+              {["Airbnb", "Booking.com", "Vrbo", "Expedia", "Abritel"].map(
+                (p) => (
+                  <span
+                    key={p}
+                    className="text-white/80 font-bold text-xs md:text-sm tracking-tight cursor-default"
+                  >
+                    {p}
+                  </span>
+                ),
+              )}
             </div>
           </div>
         </div>
@@ -455,9 +494,15 @@ export default async function HomePage({
             </span>
             <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white mb-3">
               {isFr ? (
-                <>Gérer un Airbnb est un{" "}<span className="text-red-500">métier à plein temps.</span></>
+                <>
+                  Gérer un Airbnb est un{" "}
+                  <span className="text-red-500">métier à plein temps.</span>
+                </>
               ) : (
-                <>Managing an Airbnb is a{" "}<span className="text-red-500">full-time job.</span></>
+                <>
+                  Managing an Airbnb is a{" "}
+                  <span className="text-red-500">full-time job.</span>
+                </>
               )}
             </h2>
             <p className="text-slate-500 max-w-lg mx-auto font-medium text-[13px] leading-relaxed">
@@ -487,7 +532,10 @@ export default async function HomePage({
       {/* ══════════════════════════════════════════════════════
           PROCESS
       ══════════════════════════════════════════════════════ */}
-      <section id="comment-ca-marche" className="py-16 px-4 bg-slate-50 dark:bg-slate-950">
+      <section
+        id="comment-ca-marche"
+        className="py-16 px-4 bg-slate-50 dark:bg-slate-950"
+      >
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
             <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] uppercase bg-welqo-terracotta/10 text-welqo-terracotta rounded-full">
@@ -495,15 +543,24 @@ export default async function HomePage({
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
               {isFr ? (
-                <>Votre bien rentable en{" "}<span className="text-welqo-terracotta">7 jours.</span></>
+                <>
+                  Votre bien rentable en{" "}
+                  <span className="text-welqo-terracotta">7 jours.</span>
+                </>
               ) : (
-                <>Your property profitable in{" "}<span className="text-welqo-terracotta">7 days.</span></>
+                <>
+                  Your property profitable in{" "}
+                  <span className="text-welqo-terracotta">7 days.</span>
+                </>
               )}
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
             {STEPS.map((step, i) => (
-              <div key={step.num} className="group relative flex flex-col items-center md:items-start text-center md:text-left">
+              <div
+                key={step.num}
+                className="group relative flex flex-col items-center md:items-start text-center md:text-left"
+              >
                 <div className="relative mb-6">
                   {i !== 0 && (
                     <div className="hidden md:block absolute top-8 right-1/2 w-full h-[2px] bg-slate-200 dark:bg-slate-800 z-0" />
@@ -511,7 +568,9 @@ export default async function HomePage({
                   {i !== STEPS.length - 1 && (
                     <div className="hidden md:block absolute top-8 left-1/2 w-full h-[2px] bg-slate-200 dark:bg-slate-800 z-0" />
                   )}
-                  <div className={`w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-sm relative z-10 ${i === 1 ? "bg-welqo-terracotta" : "bg-slate-900 dark:bg-slate-800"}`}>
+                  <div
+                    className={`w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-sm relative z-10 ${i === 1 ? "bg-welqo-terracotta" : "bg-slate-900 dark:bg-slate-800"}`}
+                  >
                     {step.num}
                   </div>
                   {i === 1 && (
@@ -536,7 +595,10 @@ export default async function HomePage({
       {/* ══════════════════════════════════════════════════════
           BENTO SERVICES
       ══════════════════════════════════════════════════════ */}
-      <section id="services" className="pt-16 pb-32 px-4 bg-white dark:bg-black">
+      <section
+        id="services"
+        className="pt-16 pb-32 px-4 bg-white dark:bg-black"
+      >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] uppercase bg-welqo-terracotta/10 text-welqo-terracotta rounded-full">
@@ -544,9 +606,21 @@ export default async function HomePage({
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
               {isFr ? (
-                <>L'excellence hôtelière<br /><span className="text-welqo-terracotta">au service de votre patrimoine.</span></>
+                <>
+                  L'excellence hôtelière
+                  <br />
+                  <span className="text-welqo-terracotta">
+                    au service de votre patrimoine.
+                  </span>
+                </>
               ) : (
-                <>Hotel excellence<br /><span className="text-welqo-terracotta">at the service of your property.</span></>
+                <>
+                  Hotel excellence
+                  <br />
+                  <span className="text-welqo-terracotta">
+                    at the service of your property.
+                  </span>
+                </>
               )}
             </h2>
           </div>
@@ -555,7 +629,8 @@ export default async function HomePage({
               const accentMap: Record<string, string> = {
                 blue: "text-blue-400 bg-blue-500/10 border-blue-500/20",
                 indigo: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
-                emerald: "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
+                emerald:
+                  "text-emerald-400 bg-emerald-500/10 border-emerald-500/20",
                 amber: "text-amber-400 bg-amber-500/10 border-amber-500/20",
                 violet: "text-violet-400 bg-violet-500/10 border-violet-500/20",
               };
@@ -565,20 +640,41 @@ export default async function HomePage({
                   <div className="group relative rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6 overflow-hidden hover:shadow-card hover:-translate-y-1 hover:border-slate-200 dark:hover:border-slate-600 transition-all duration-300">
                     <div className="relative z-10">
                       <div className="flex items-start justify-between mb-6">
-                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center border ${accentClass}`}>
-                          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" d={svc.icon} />
+                        <div
+                          className={`w-10 h-10 rounded-lg flex items-center justify-center border ${accentClass}`}
+                        >
+                          <svg
+                            width="18"
+                            height="18"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.8"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d={svc.icon}
+                            />
                           </svg>
                         </div>
                         <span className="px-2.5 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 rounded-full text-[9px] font-bold uppercase tracking-wider">
                           {svc.tag}
                         </span>
                       </div>
-                      <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight mb-2">{svc.title}</h3>
-                      <p className="text-slate-500 dark:text-slate-400 text-[13px] leading-relaxed mb-6">{svc.desc}</p>
-                      <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border ${accentClass} bg-opacity-10`}>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight mb-2">
+                        {svc.title}
+                      </h3>
+                      <p className="text-slate-500 dark:text-slate-400 text-[13px] leading-relaxed mb-6">
+                        {svc.desc}
+                      </p>
+                      <div
+                        className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border ${accentClass} bg-opacity-10`}
+                      >
                         <span className="font-bold text-sm">{svc.stat}</span>
-                        <span className="text-[10px] opacity-70 font-medium uppercase tracking-widest">{svc.statLabel}</span>
+                        <span className="text-[10px] opacity-70 font-medium uppercase tracking-widest">
+                          {svc.statLabel}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -592,7 +688,10 @@ export default async function HomePage({
       {/* ══════════════════════════════════════════════════════
           REVENUE SIMULATOR
       ══════════════════════════════════════════════════════ */}
-      <section id="simulator" className="py-16 px-4 bg-slate-50 dark:bg-slate-950">
+      <section
+        id="simulator"
+        className="py-16 px-4 bg-slate-50 dark:bg-slate-950"
+      >
         <div className="max-w-4xl mx-auto">
           <ScrollReveal>
             <RevenueSimulator locale={locale} />
@@ -603,7 +702,10 @@ export default async function HomePage({
       {/* ══════════════════════════════════════════════════════
           COMPARISON TABLE
       ══════════════════════════════════════════════════════ */}
-      <section id="pourquoi-welqo" className="py-12 px-4 bg-white dark:bg-black">
+      <section
+        id="pourquoi-welqo"
+        className="py-12 px-4 bg-white dark:bg-black"
+      >
         <ScrollReveal>
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-10">
@@ -622,7 +724,9 @@ export default async function HomePage({
                       {isFr ? "Seul" : "Solo"}
                     </th>
                     <th className="px-5 py-4 bg-welqo-terracotta/5 dark:bg-welqo-terracotta/10 text-center">
-                      <span className="font-bold text-welqo-terracotta text-sm">WELQO</span>
+                      <span className="font-bold text-welqo-terracotta text-sm">
+                        WELQO
+                      </span>
                     </th>
                     <th className="px-5 py-4 font-bold text-slate-500 text-[9px] uppercase tracking-widest text-center">
                       {isFr ? "Agence trad." : "Traditional agency"}
@@ -631,11 +735,26 @@ export default async function HomePage({
                 </thead>
                 <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
                   {COMPARE_ROWS.map((row, i) => (
-                    <tr key={row.label} className={i % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50/30 dark:bg-slate-800/30"}>
-                      <td className="px-5 py-3 font-bold text-slate-700 dark:text-slate-300">{row.label}</td>
-                      <td className="px-5 py-3 text-center text-slate-400">{row.solo}</td>
-                      <td className="px-5 py-3 text-center font-bold text-welqo-terracotta bg-welqo-terracotta/3 dark:bg-welqo-terracotta/5">{row.welqo}</td>
-                      <td className="px-5 py-3 text-center text-slate-400">{row.agence}</td>
+                    <tr
+                      key={row.label}
+                      className={
+                        i % 2 === 0
+                          ? "bg-white dark:bg-slate-900"
+                          : "bg-slate-50/30 dark:bg-slate-800/30"
+                      }
+                    >
+                      <td className="px-5 py-3 font-bold text-slate-700 dark:text-slate-300">
+                        {row.label}
+                      </td>
+                      <td className="px-5 py-3 text-center text-slate-400">
+                        {row.solo}
+                      </td>
+                      <td className="px-5 py-3 text-center font-bold text-welqo-terracotta bg-welqo-terracotta/3 dark:bg-welqo-terracotta/5">
+                        {row.welqo}
+                      </td>
+                      <td className="px-5 py-3 text-center text-slate-400">
+                        {row.agence}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -665,7 +784,9 @@ export default async function HomePage({
               </span>
             </div>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white leading-[0.95]">
-              {isFr ? "Une relation de confiance, " : "A relationship based on trust, "}
+              {isFr
+                ? "Une relation de confiance, "
+                : "A relationship based on trust, "}
               <span className="text-welqo-terracotta italic text-2xl md:text-3xl ml-1">
                 {isFr ? "directe et transparente." : "direct and transparent."}
               </span>
@@ -686,17 +807,23 @@ export default async function HomePage({
               <div className="border-t border-slate-200 dark:border-white/10 pt-6 mt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div>
                   <h4 className="font-bold text-slate-900 dark:text-white text-base">
-                    {isFr ? "Kevin & l'Équipe Fondatrice" : "Kevin & the Founding Team"}
+                    {isFr
+                      ? "Kevin & l'Équipe Fondatrice"
+                      : "Kevin & the Founding Team"}
                   </h4>
                   <p className="text-xs text-slate-500 mt-1">
-                    {isFr ? "Conciergerie Premium · Hauts-de-France" : "Premium Concierge · Northern France"}
+                    {isFr
+                      ? "Conciergerie Premium · Hauts-de-France"
+                      : "Premium Concierge · Northern France"}
                   </p>
                 </div>
                 <a
                   href="#contact"
                   className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-lg font-bold text-xs transition-all duration-200"
                 >
-                  {isFr ? "Échanger avec les fondateurs" : "Chat with the founders"}
+                  {isFr
+                    ? "Échanger avec les fondateurs"
+                    : "Chat with the founders"}
                 </a>
               </div>
             </div>
@@ -725,9 +852,21 @@ export default async function HomePage({
                 </div>
                 <h2 className="text-white text-3xl md:text-5xl font-bold tracking-tighter mb-4 leading-[1.1]">
                   {isFr ? (
-                    <>Tarification simple,<br /><span className="text-welqo-terracotta">sans frais cachés.</span></>
+                    <>
+                      Tarification simple,
+                      <br />
+                      <span className="text-welqo-terracotta">
+                        sans frais cachés.
+                      </span>
+                    </>
                   ) : (
-                    <>Simple pricing,<br /><span className="text-welqo-terracotta">no hidden fees.</span></>
+                    <>
+                      Simple pricing,
+                      <br />
+                      <span className="text-welqo-terracotta">
+                        no hidden fees.
+                      </span>
+                    </>
                   )}
                 </h2>
                 <p className="text-slate-400 font-medium leading-relaxed mb-10 text-sm max-w-md">
@@ -737,16 +876,46 @@ export default async function HomePage({
                 </p>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
                   {(isFr
-                    ? ["Annonces multi-plateformes", "Photos & rédaction pro", "Check-in / Out 7j/7", "Ménage premium", "Maintenance 24/7", "Pricing dynamique IA", "Dashboard temps réel", "Assurance incluse"]
-                    : ["Multi-platform listings", "Pro photos & copywriting", "Check-in / Out 7d/7", "Premium cleaning", "24/7 Maintenance", "AI dynamic pricing", "Real-time dashboard", "Insurance included"]
+                    ? [
+                        "Annonces multi-plateformes",
+                        "Photos & rédaction pro",
+                        "Check-in / Out 7j/7",
+                        "Ménage premium",
+                        "Maintenance 24/7",
+                        "Pricing dynamique IA",
+                        "Dashboard temps réel",
+                        "Assurance incluse",
+                      ]
+                    : [
+                        "Multi-platform listings",
+                        "Pro photos & copywriting",
+                        "Check-in / Out 7d/7",
+                        "Premium cleaning",
+                        "24/7 Maintenance",
+                        "AI dynamic pricing",
+                        "Real-time dashboard",
+                        "Insurance included",
+                      ]
                   ).map((f) => (
                     <div key={f} className="flex items-center gap-3 text-left">
                       <div className="w-5 h-5 rounded-full bg-welqo-terracotta/10 flex items-center justify-center shrink-0">
-                        <svg className="w-2.5 h-2.5 text-welqo-terracotta" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                        <svg
+                          className="w-2.5 h-2.5 text-welqo-terracotta"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="3"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M5 13l4 4L19 7"
+                          />
                         </svg>
                       </div>
-                      <span className="text-xs text-slate-300 font-medium">{f}</span>
+                      <span className="text-xs text-slate-300 font-medium">
+                        {f}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -760,8 +929,12 @@ export default async function HomePage({
                 </div>
                 <div className="relative z-10 mb-8">
                   <div className="flex items-center justify-center">
-                    <span className="text-white text-8xl font-bold tracking-tighter leading-none">20</span>
-                    <span className="text-welqo-terracotta text-3xl font-bold ml-1 mt-[-20px]">%</span>
+                    <span className="text-white text-8xl font-bold tracking-tighter leading-none">
+                      20
+                    </span>
+                    <span className="text-welqo-terracotta text-3xl font-bold ml-1 mt-[-20px]">
+                      %
+                    </span>
                   </div>
                 </div>
                 <div className="relative z-10 mb-8">
@@ -769,7 +942,9 @@ export default async function HomePage({
                     {isFr ? "Du revenu brut" : "Of gross revenue"}
                   </p>
                   <p className="text-slate-500 text-[10px] font-medium uppercase tracking-widest mt-1">
-                    {isFr ? "Généré par votre bien" : "Generated by your property"}
+                    {isFr
+                      ? "Généré par votre bien"
+                      : "Generated by your property"}
                   </p>
                 </div>
                 <div className="relative z-10 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent mb-8" />
@@ -785,7 +960,9 @@ export default async function HomePage({
                     <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping opacity-40" />
                   </div>
                   <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest">
-                    {isFr ? "Sans engagement de durée" : "No long-term commitment"}
+                    {isFr
+                      ? "Sans engagement de durée"
+                      : "No long-term commitment"}
                   </p>
                 </div>
               </div>
@@ -811,14 +988,28 @@ export default async function HomePage({
                 className="group bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden hover:border-welqo-terracotta/20 transition-colors"
               >
                 <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none">
-                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">{q}</span>
+                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">
+                    {q}
+                  </span>
                   <div className="w-7 h-7 bg-slate-200 dark:bg-slate-700 group-open:bg-welqo-terracotta group-open:text-white rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-slate-500">
-                    <svg className="w-3.5 h-3.5 group-open:rotate-45 transition-transform duration-200" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                    <svg
+                      className="w-3.5 h-3.5 group-open:rotate-45 transition-transform duration-200"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 4v16m8-8H4"
+                      />
                     </svg>
                   </div>
                 </summary>
-                <p className="px-6 pb-5 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
+                <p className="px-6 pb-5 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                  {a}
+                </p>
               </details>
             ))}
           </div>
@@ -828,7 +1019,10 @@ export default async function HomePage({
       {/* ══════════════════════════════════════════════════════
           CTA FINAL / CONTACT
       ══════════════════════════════════════════════════════ */}
-      <section id="contact" className="py-16 px-4 bg-slate-950 relative overflow-hidden">
+      <section
+        id="contact"
+        className="py-16 px-4 bg-slate-950 relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(212,85,55,0.1),transparent)]" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-welqo-terracotta/40 to-transparent" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
@@ -837,9 +1031,21 @@ export default async function HomePage({
           </span>
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-6 leading-[0.9]">
             {isFr ? (
-              <>Votre bien mérite<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-welqo-terracotta to-orange-400">mieux que la moyenne.</span></>
+              <>
+                Votre bien mérite
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-welqo-terracotta to-orange-400">
+                  mieux que la moyenne.
+                </span>
+              </>
             ) : (
-              <>Your property deserves<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-welqo-terracotta to-orange-400">better than average.</span></>
+              <>
+                Your property deserves
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-welqo-terracotta to-orange-400">
+                  better than average.
+                </span>
+              </>
             )}
           </h2>
           <p className="text-slate-400 font-medium max-w-xl mx-auto mb-10 text-base leading-relaxed">
@@ -865,9 +1071,19 @@ export default async function HomePage({
               </span>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white leading-none">
                 {isFr ? (
-                  <>Guides pour les{" "}<span className="text-welqo-terracotta">propriétaires.</span></>
+                  <>
+                    Guides pour les{" "}
+                    <span className="text-welqo-terracotta">
+                      propriétaires.
+                    </span>
+                  </>
                 ) : (
-                  <>Guides for{" "}<span className="text-welqo-terracotta">property owners.</span></>
+                  <>
+                    Guides for{" "}
+                    <span className="text-welqo-terracotta">
+                      property owners.
+                    </span>
+                  </>
                 )}
               </h2>
             </div>
@@ -876,17 +1092,47 @@ export default async function HomePage({
               className="text-sm font-bold text-slate-500 hover:text-welqo-terracotta transition-colors flex items-center gap-2"
             >
               {isFr ? "Voir tout le blog" : "View all posts"}
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </a>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
-              { slug: "combien-rapporte-airbnb-lille-2025", title: "Rentabilité Lille 2025", desc: "Étude complète des revenus par quartier.", category: "Étude" },
-              { slug: "checklist-lancer-airbnb-lille", title: "Lancer son Airbnb", desc: "La checklist juridique et pratique.", category: "Guide" },
-              { slug: "meilleurs-quartiers-airbnb-lille", title: "Meilleurs Quartiers", desc: "Où investir pour maximiser son ROI.", category: "Stratégie" },
-              { slug: "conciergerie-airbnb-lens-arras-bassin-minier", title: "Opportunité Hauts-de-France", desc: "Lens & Arras : le nouvel eldorado.", category: "Marché" },
+              {
+                slug: "combien-rapporte-airbnb-lille-2025",
+                title: "Rentabilité Lille 2025",
+                desc: "Étude complète des revenus par quartier.",
+                category: "Étude",
+              },
+              {
+                slug: "checklist-lancer-airbnb-lille",
+                title: "Lancer son Airbnb",
+                desc: "La checklist juridique et pratique.",
+                category: "Guide",
+              },
+              {
+                slug: "meilleurs-quartiers-airbnb-lille",
+                title: "Meilleurs Quartiers",
+                desc: "Où investir pour maximiser son ROI.",
+                category: "Stratégie",
+              },
+              {
+                slug: "conciergerie-airbnb-lens-arras-bassin-minier",
+                title: "Opportunité Hauts-de-France",
+                desc: "Lens & Arras : le nouvel eldorado.",
+                category: "Marché",
+              },
             ].map((resource) => (
               <a
                 key={resource.slug}
@@ -899,7 +1145,9 @@ export default async function HomePage({
                 <h3 className="text-sm font-bold text-slate-900 dark:text-white mt-2 mb-1 group-hover:text-welqo-terracotta transition-colors">
                   {resource.title}
                 </h3>
-                <p className="text-xs text-slate-500 leading-relaxed">{resource.desc}</p>
+                <p className="text-xs text-slate-500 leading-relaxed">
+                  {resource.desc}
+                </p>
               </a>
             ))}
           </div>

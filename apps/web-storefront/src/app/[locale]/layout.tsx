@@ -144,7 +144,11 @@ export default async function LocaleLayout({
       { "@type": "City", name: "Tourcoing" },
     ],
     serviceType: isFr
-      ? ["Conciergerie Airbnb", "Gestion locative courte durée", "Optimisation tarifaire"]
+      ? [
+          "Conciergerie Airbnb",
+          "Gestion locative courte durée",
+          "Optimisation tarifaire",
+        ]
       : ["Airbnb concierge", "Short-term rental management", "Dynamic pricing"],
     sameAs: [
       "https://www.facebook.com/welqo",

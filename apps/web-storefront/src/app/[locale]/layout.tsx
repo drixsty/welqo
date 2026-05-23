@@ -7,7 +7,6 @@ import { notFound } from "next/navigation";
 import { Navbar, Footer } from "@welqo/ui";
 import { CookieBanner } from "../../components/CookieBanner";
 import { StickyMobileCTA } from "../../components/StickyMobileCTA";
-import { ReadingProgressBar } from "../../components/ReadingProgressBar";
 import { JsonLd } from "../../components/JsonLd";
 import GoogleAnalytics from "../../components/GoogleAnalytics";
 import { Suspense } from "react";
@@ -178,7 +177,6 @@ export default async function LocaleLayout({
           </Suspense>
           <JsonLd data={localBusinessSchema} />
           <JsonLd data={websiteSchema} />
-          <ReadingProgressBar />
           <Navbar title="WELQO" locale={locale} />
           <div className="pt-16">{children}</div>
           <Footer locale={locale} />

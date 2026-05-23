@@ -1,10 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
-export function StickyMobileCTA({ locale }: { locale: string }) {
+export function StickyMobileCTA({ locale: _locale }: { locale: string }) {
+  const t = useTranslations("StickyMobileCTA");
   const [visible, setVisible] = useState(false);
-  const isFr = locale !== "en";
 
   useEffect(() => {
     const handler = () => setVisible(window.scrollY > 400);
@@ -14,27 +16,26 @@ export function StickyMobileCTA({ locale }: { locale: string }) {
 
   return (
     <div
-      className={`md:hidden fixed bottom-0 inset-x-0 z-40 transition-transform duration-300 ${
+      className={`md:hidden fixed bottom-0 inset-x-0 z-40 transition-transform duration-500 ease-out-quint ${
         visible ? "translate-y-0" : "translate-y-full"
       }`}
     >
-      <div className="bg-white/95 dark:bg-slate-950/95 backdrop-blur-xl border-t border-slate-200 dark:border-white/10 px-4 py-3 flex items-center gap-3 shadow-2xl">
+      <div className="bg-white/90 dark:bg-slate-950/90 backdrop-blur-2xl border-t border-slate-200/50 dark:border-white/5 px-4 py-4.5 flex items-center gap-4 shadow-2xl pb-6">
         <div className="flex-1 min-w-0">
-          <p className="text-[11px] font-bold text-slate-900 dark:text-white leading-tight truncate">
-            {isFr ? "Audit gratuit de votre bien" : "Free property audit"}
+          <p className="text-xs font-black text-slate-900 dark:text-white leading-tight truncate">
+            {t("title")}
           </p>
-          <p className="text-[10px] text-slate-400 font-medium leading-tight">
-            {isFr
-              ? "Réponse sous 24h · Sans engagement"
-              : "Reply within 24h · No commitment"}
+          <p className="text-[10px] text-slate-400 font-bold uppercase tracking-wider leading-tight mt-1">
+            {t("subtitle")}
           </p>
         </div>
-        <a
+        <motion.a
+          whileTap={{ scale: 0.95 }}
           href="#contact"
-          className="shrink-0 px-5 py-2.5 bg-welqo-terracotta text-white rounded-lg font-bold text-xs tracking-tight active:scale-95 transition-transform shadow-lg shadow-welqo-terracotta/20"
+          className="shrink-0 h-11 px-5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-xs tracking-tight shadow-lg shadow-welqo-terracotta/20 flex items-center justify-center border border-white/10"
         >
-          {isFr ? "Devis gratuit →" : "Free quote →"}
-        </a>
+          {t("cta")}
+        </motion.a>
       </div>
     </div>
   );

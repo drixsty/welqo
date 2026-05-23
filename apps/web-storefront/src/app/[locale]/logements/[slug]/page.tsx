@@ -1,7 +1,9 @@
 import React from "react";
 import { notFound } from "next/navigation";
 import { getProperty, getProperties } from "@/lib/api";
+import { getTranslations } from "next-intl/server";
 import { Gallery } from "@/components/Gallery";
+import { OwnerPropertyShowcaseSidebar } from "@/components/OwnerPropertyShowcaseSidebar";
 import { JsonLd } from "@/components/JsonLd";
 import { Metadata } from "next";
 import dynamic from "next/dynamic";
@@ -69,20 +71,19 @@ export async function generateMetadata({
   const property = await getProperty(slug);
   if (!property) return {};
 
-  const isFr = locale === "fr";
   const title = property.content
-    ? isFr
+    ? locale === "fr"
       ? property.content.fr.title
       : property.content.en.title
-    : isFr
+    : locale === "fr"
       ? (property as any).titleFr
       : (property as any).titleEn;
 
   const description = property.content
-    ? isFr
+    ? locale === "fr"
       ? property.content.fr.description
       : property.content.en.description
-    : isFr
+    : locale === "fr"
       ? (property as any).descFr
       : (property as any).descEn;
 
@@ -108,158 +109,7 @@ export async function generateMetadata({
   };
 }
 
-function OwnerPropertyShowcaseSidebar({
-  isFr,
-  title,
-  city,
-  address,
-  basePrice,
-  cleaningFee,
-}: {
-  isFr: boolean;
-  title: string;
-  city: string;
-  address: string;
-  basePrice: number;
-  cleaningFee: number;
-}) {
-  const estimatedDays = 25; // 82% occupancy
-  const monthlyRevenue = Math.round(basePrice * estimatedDays);
-  const yearlyRevenue = monthlyRevenue * 12;
-
-  const emailSubject = isFr
-    ? `Demande d'audit et estimation locative - ${title}`
-    : `Audit and rental estimate request - ${title}`;
-
-  const emailBody = isFr
-    ? `Bonjour l'équipe Welqo,\n\nJe suis propriétaire d'un bien de standing similaire à "${title}" situé à ${city} (${address}) et je serais intéressé(e) par une estimation gratuite de son potentiel de revenus ainsi que par votre charte d'aménagement 5★.\n\nMerci de me recontacter pour planifier un échange téléphonique ou une visite sur place.\n\nCordialement.`
-    : `Hello Welqo Team,\n\nI own a premium property similar to "${title}" located in ${city} (${address}) and I would be interested in a free estimation of its revenue potential as well as your 5★ staging charter.\n\nThank you for getting back to me to schedule a call or physical visit.\n\nBest regards.`;
-
-  const mailtoLink = `mailto:contact@welqo.fr?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-
-  return (
-    <div className="bg-slate-900 text-white rounded-3xl border border-white/10 p-6 md:p-8 shadow-xl relative overflow-hidden">
-      {/* Decorative Blur */}
-      <div className="absolute top-0 right-0 w-24 h-24 bg-welqo-terracotta/20 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2" />
-
-      <div className="relative z-10 space-y-6">
-        <div>
-          <span className="px-2.5 py-0.5 bg-primary/20 border border-primary/30 text-primary text-[9px] font-bold rounded-full uppercase tracking-wider">
-            {isFr ? "Performance Propriétaire" : "Owner Performance"}
-          </span>
-          <h3 className="text-xl font-bold tracking-tight mt-4">
-            {isFr ? "Simulateur de Rendement" : "Yield Simulator"}
-          </h3>
-          <p className="text-slate-400 text-xs mt-2 leading-relaxed font-medium">
-            {isFr
-              ? "Estimez les revenus de ce logement s'il était géré sous notre charte d'excellence Welqo 5★."
-              : "Estimate the income of this property if managed under our Welqo 5★ excellence charter."}
-          </p>
-        </div>
-
-        {/* Revenue Display Box */}
-        <div className="p-4 bg-white/5 rounded-2xl border border-white/5 space-y-3">
-          <div>
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
-              {isFr ? "Revenus Locatifs Estimés" : "Estimated Rental Revenue"}
-            </p>
-            <p className="text-3xl font-extrabold text-white mt-1">
-              {monthlyRevenue.toLocaleString()} €{" "}
-              <span className="text-xs font-medium text-slate-400">
-                / {isFr ? "mois" : "month"}
-              </span>
-            </p>
-          </div>
-
-          <div className="pt-2 border-t border-white/5 flex justify-between items-center text-xs">
-            <span className="text-slate-400 font-medium">
-              {isFr ? "Potentiel Annuel" : "Annual Potential"}
-            </span>
-            <span className="font-bold text-primary">
-              {yearlyRevenue.toLocaleString()} €
-            </span>
-          </div>
-        </div>
-
-        {/* Simulation Breakdown Details */}
-        <div className="space-y-3 pt-2">
-          {[
-            {
-              label: isFr ? "Hypothèse d'Occupation" : "Occupancy Assumption",
-              value: "82% (25 nuits / mois)",
-            },
-            {
-              label: isFr ? "Tarif Moyen par Nuit" : "Average Nightly Rate",
-              value: `${basePrice} €`,
-            },
-            {
-              label: isFr
-                ? "Frais Ménage (Payés Voyageurs)"
-                : "Cleaning Fees (Paid by Guests)",
-              value: `${cleaningFee} €`,
-            },
-          ].map((item, index) => (
-            <div
-              key={index}
-              className="flex justify-between items-center text-[11px] border-b border-white/5 pb-2 font-medium"
-            >
-              <span className="text-slate-400">{item.label}</span>
-              <span className="text-slate-200 font-semibold">{item.value}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* Welqo Added Value Checklist */}
-        <div className="space-y-3 pt-2">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">
-            {isFr
-              ? "Ce que Welqo prend en charge :"
-              : "What Welqo handles for you:"}
-          </p>
-          {[
-            isFr
-              ? "Multidiffusion premium (Airbnb, Booking.com, Welqo)"
-              : "Premium multi-listing (Airbnb, Booking.com, Welqo)",
-            isFr
-              ? "Optimisation dynamique des prix via algorithme local"
-              : "Dynamic price optimization via local algorithm",
-            isFr
-              ? "Sélection rigoureuse des voyageurs & caution"
-              : "Rigorous guest screening & security deposit",
-            isFr
-              ? "Maintenance réactive et ménage hôtelier 5★"
-              : "Reactive maintenance & 5★ hotel-grade cleaning",
-          ].map((benefit, index) => (
-            <div
-              key={index}
-              className="flex gap-2 items-start text-[10px] text-slate-300 font-medium"
-            >
-              <span className="text-primary font-bold">✓</span>
-              <span>{benefit}</span>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA Button */}
-        <div className="pt-2">
-          <a
-            href={mailtoLink}
-            className="w-full py-3.5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-xs transition-all shadow-lg flex items-center justify-center gap-2 text-center"
-          >
-            {isFr
-              ? "Faire auditer mon bien gratuitement"
-              : "Get my free property audit"}
-          </a>
-          <p className="mt-2.5 text-[8px] text-slate-400 text-center italic opacity-60 leading-tight">
-            {isFr
-              ? "* Rapport de potentiel personnalisé livré sous 48h sans engagement."
-              : "* Personalized potential report delivered within 48h, no commitment."}
-          </p>
-        </div>
-      </div>
-    </div>
-  );
-}
+// OwnerPropertyShowcaseSidebar is now imported from @/components/OwnerPropertyShowcaseSidebar
 
 export default async function PropertyDetailsPage({
   params: { slug, locale },
@@ -269,23 +119,23 @@ export default async function PropertyDetailsPage({
   const property = await getProperty(slug);
   if (!property) notFound();
 
-  const isFr = locale === "fr";
+  const t = await getTranslations("PropertyPage");
   const p = property as any;
 
   // Normalize data
   const normalized = {
     title: p.content
-      ? isFr
+      ? locale === "fr"
         ? p.content.fr.title
         : p.content.en.title
-      : isFr
+      : locale === "fr"
         ? p.titleFr
         : p.titleEn,
     description: p.content
-      ? isFr
+      ? locale === "fr"
         ? p.content.fr.description
         : p.content.en.description
-      : isFr
+      : locale === "fr"
         ? p.descFr
         : p.descEn,
     location: p.location?.city
@@ -373,7 +223,7 @@ export default async function PropertyDetailsPage({
                 </span>
                 <div className="flex items-center gap-1.5 px-2.5 py-0.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-extrabold rounded uppercase tracking-wider">
                   <Star className="w-3 h-3 fill-current text-primary" />
-                  {isFr ? "Standard 5★ Welqo" : "Welqo 5★ Standard"}
+                  {t("standard5star")}
                 </div>
               </div>
               <h1 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tight">
@@ -416,22 +266,22 @@ export default async function PropertyDetailsPage({
                 {
                   icon: Users,
                   value: normalized.capacity.maxGuests,
-                  label: "Voyageurs",
+                  label: t("travelers"),
                 },
                 {
                   icon: Bed,
                   value: normalized.capacity.bedrooms,
-                  label: "Chambres",
+                  label: t("rooms"),
                 },
                 {
                   icon: Bath,
                   value: normalized.capacity.bathrooms,
-                  label: "Salles de bain",
+                  label: t("bathrooms2"),
                 },
                 {
                   icon: Maximize,
                   value: `${normalized.capacity.surface || 65}m²`,
-                  label: "Surface",
+                  label: t("surface"),
                 },
               ].map((stat, i) => (
                 <div
@@ -454,7 +304,7 @@ export default async function PropertyDetailsPage({
             {/* Description */}
             <div className="space-y-4">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                À propos de ce logement
+                {t("aboutProperty")}
               </h3>
               <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-medium">
                 {normalized.description}
@@ -464,7 +314,7 @@ export default async function PropertyDetailsPage({
             {/* Amenities Section - Improved Design */}
             <div className="space-y-6">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                Équipements et services
+                {t("amenitiesServices")}
               </h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-5">
                 {property.amenities.map((amenity: any) => {
@@ -483,7 +333,7 @@ export default async function PropertyDetailsPage({
                           {amenity.label}
                         </span>
                         <span className="text-[9px] font-bold text-slate-400">
-                          Inclus
+                          {t("included")}
                         </span>
                       </div>
                     </div>
@@ -495,7 +345,7 @@ export default async function PropertyDetailsPage({
             {/* Map */}
             <div className="space-y-4">
               <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                Localisation
+                {t("location")}
               </h3>
               <div className="h-[350px] rounded-xl overflow-hidden border border-slate-100 dark:border-white/10">
                 <PropertyMap
@@ -515,10 +365,9 @@ export default async function PropertyDetailsPage({
                 <ShieldCheck className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h4 className="text-base font-bold mb-1">La promesse Welqo</h4>
+                <h4 className="text-base font-bold mb-1">{t("promise")}</h4>
                 <p className="text-slate-400 text-sm font-medium leading-snug">
-                  Géré avec exigence hôtelière. Propreté impeccable, accueil
-                  personnalisé et assistance 24/7.
+                  {t("promiseText")}
                 </p>
               </div>
             </div>
@@ -527,7 +376,7 @@ export default async function PropertyDetailsPage({
           {/* Sidebar */}
           <aside className="relative">
             <OwnerPropertyShowcaseSidebar
-              isFr={isFr}
+              locale={locale}
               title={normalized.title}
               city={normalized.location.city}
               address={normalized.location.address}

@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import {
   SlidersHorizontal,
   X,
@@ -28,7 +29,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
   const [isCityOpen, setIsCityOpen] = useState(false);
 
   const cityRef = useRef<HTMLDivElement>(null);
-  const isFr = locale === "fr";
+  const t = useTranslations("FilterBar");
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -67,7 +68,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
         <div className="flex items-center gap-2 text-slate-400 mr-2">
           <SlidersHorizontal className="w-3.5 h-3.5" />
           <span className="text-[10px] font-bold uppercase tracking-widest">
-            {isFr ? "Filtres" : "Filters"}
+            {t("filters")}
           </span>
         </div>
 
@@ -78,9 +79,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
             className="flex items-center gap-3 bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 rounded-lg pl-3.5 pr-10 py-2 text-xs font-semibold outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-slate-700 dark:text-slate-200 w-full sm:w-auto sm:min-w-[160px] relative group"
           >
             <MapPin className="w-3.5 h-3.5 text-slate-400 group-hover:text-primary transition-colors" />
-            <span className="truncate">
-              {city || (isFr ? "Toutes les villes" : "All cities")}
-            </span>
+            <span className="truncate">{city || t("allCities")}</span>
             <ChevronDown
               className={`absolute right-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${isCityOpen ? "rotate-180" : ""}`}
             />
@@ -102,7 +101,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
                   }}
                   className="w-full flex items-center justify-between px-3 py-2 text-xs font-semibold rounded-lg transition-colors hover:bg-slate-50 dark:hover:bg-white/5 text-slate-500 dark:text-slate-400"
                 >
-                  {isFr ? "Toutes les villes" : "All cities"}
+                  {t("allCities")}
                   {!city && <Check className="w-3.5 h-3.5 text-primary" />}
                 </button>
                 <div className="h-px bg-slate-100 dark:bg-white/5 my-1" />
@@ -158,7 +157,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
               className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-widest px-2"
             >
               <X className="w-3 h-3" />
-              {isFr ? "Effacer" : "Clear"}
+              {t("clear")}
             </button>
           )}
 
@@ -166,7 +165,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
             onClick={handleApply}
             className="px-5 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-xs font-bold hover:bg-primary hover:text-white transition-all shadow-lg shadow-black/5 active:scale-95"
           >
-            {isFr ? "Appliquer" : "Apply"}
+            {t("apply")}
           </button>
         </div>
       </div>

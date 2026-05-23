@@ -3,7 +3,9 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 const schema = z.object({
   name: z.string().min(2, "Prénom requis (2 caractères min.)"),
@@ -36,17 +38,36 @@ const CITIES_EN = [
 ];
 
 export function ContactForm({ locale }: { locale: string }) {
+  const t = useTranslations("ContactForm");
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
-  const isFr = locale !== "en";
+  const [isCityOpen, setIsCityOpen] = useState(false);
+  const cityDropdownRef = useRef<HTMLDivElement>(null);
 
   const {
     register,
     handleSubmit,
+    setValue,
+    watch,
     formState: { errors },
     reset,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
+
+  const selectedCity = watch("city");
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        cityDropdownRef.current &&
+        !cityDropdownRef.current.contains(event.target as Node)
+      ) {
+        setIsCityOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const onSubmit = async (data: FormData) => {
     setStatus("loading");
@@ -82,13 +103,9 @@ export function ContactForm({ locale }: { locale: string }) {
             />
           </svg>
         </div>
-        <h3 className="text-xl font-bold text-white">
-          {isFr ? "Message envoyé !" : "Message sent!"}
-        </h3>
+        <h3 className="text-xl font-bold text-white">{t("messageSent")}</h3>
         <p className="text-slate-400 text-sm max-w-sm font-medium">
-          {isFr
-            ? "Nous vous recontactons sous 24h pour organiser la visite gratuite de votre bien."
-            : "We'll get back to you within 24h to schedule a free visit of your property."}
+          {t("messageSentDesc")}
         </p>
       </div>
     );
@@ -104,7 +121,7 @@ export function ContactForm({ locale }: { locale: string }) {
         <div>
           <input
             {...register("name")}
-            placeholder={isFr ? "Votre prénom *" : "Your first name *"}
+            placeholder={t("namePlaceholder")}
             className={inputClass}
             autoComplete="given-name"
           />
@@ -113,7 +130,7 @@ export function ContactForm({ locale }: { locale: string }) {
         <div>
           <input
             {...register("phone")}
-            placeholder={isFr ? "Téléphone *" : "Phone *"}
+            placeholder={t("phonePlaceholder")}
             type="tel"
             className={inputClass}
             autoComplete="tel"
@@ -122,32 +139,81 @@ export function ContactForm({ locale }: { locale: string }) {
         </div>
       </div>
 
-      <div>
-        <select
-          {...register("city")}
-          className={`${inputClass} appearance-none`}
-          defaultValue=""
+      <div className="relative animate-fade-in" ref={cityDropdownRef}>
+        <input type="hidden" {...register("city")} />
+        <button
+          type="button"
+          onClick={() => setIsCityOpen(!isCityOpen)}
+          className={`${inputClass} flex items-center justify-between text-left pr-10 cursor-pointer ${
+            isCityOpen
+              ? "border-welqo-terracotta/50 ring-1 ring-welqo-terracotta/20 bg-white/10"
+              : ""
+          }`}
         >
-          <option value="" disabled className="bg-slate-900 text-slate-400">
-            {isFr ? "Votre ville *" : "Your city *"}
-          </option>
-          {(isFr ? CITIES_FR : CITIES_EN).map((c) => (
-            <option key={c} value={c} className="bg-slate-900 text-white">
-              {c}
-            </option>
-          ))}
-        </select>
-        {errors.city && <p className={errorClass}>{errors.city.message}</p>}
+          <span
+            className={
+              selectedCity ? "text-white font-semibold" : "text-slate-500"
+            }
+          >
+            {selectedCity || t("cityPlaceholder")}
+          </span>
+          <div
+            className={`absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition-transform duration-200 ${
+              isCityOpen ? "rotate-180" : ""
+            }`}
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.5"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M19 9l-7 7-7-7"
+              />
+            </svg>
+          </div>
+        </button>
+
+        <AnimatePresence>
+          {isCityOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 10, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 10, scale: 0.95 }}
+              transition={{ duration: 0.12, ease: "easeOut" }}
+              className="absolute left-0 right-0 mt-2 bg-slate-950/95 backdrop-blur-2xl border border-white/10 rounded-lg shadow-2xl overflow-hidden z-50 p-1 max-h-60 overflow-y-auto"
+            >
+              {(locale !== "en" ? CITIES_FR : CITIES_EN).map((c) => (
+                <button
+                  key={c}
+                  type="button"
+                  onClick={() => {
+                    setValue("city", c, { shouldValidate: true });
+                    setIsCityOpen(false);
+                  }}
+                  className={`w-full text-left px-4 py-2.5 rounded-md text-sm font-bold transition-colors ${
+                    selectedCity === c
+                      ? "bg-welqo-terracotta text-white"
+                      : "text-slate-400 hover:bg-white/5 hover:text-white"
+                  }`}
+                >
+                  {c}
+                </button>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
+      {errors.city && <p className={errorClass}>{errors.city.message}</p>}
 
       <div>
         <textarea
           {...register("message")}
-          placeholder={
-            isFr
-              ? "Décrivez votre bien (optionnel)"
-              : "Describe your property (optional)"
-          }
+          placeholder={t("messagePlaceholder")}
           rows={3}
           className={`${inputClass} resize-none`}
         />
@@ -155,9 +221,7 @@ export function ContactForm({ locale }: { locale: string }) {
 
       {status === "error" && (
         <p className="text-sm text-red-400 font-medium text-center">
-          {isFr
-            ? "Une erreur est survenue. Réessayez ou écrivez-nous à contact@welqo.fr"
-            : "An error occurred. Try again or write to contact@welqo.fr"}
+          {t("errorOccurred")}
         </p>
       )}
 
@@ -187,19 +251,15 @@ export function ContactForm({ locale }: { locale: string }) {
                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
               />
             </svg>
-            {isFr ? "Envoi en cours..." : "Sending..."}
+            {t("sending")}
           </>
         ) : (
-          <>
-            {isFr ? "Demander mon devis gratuit →" : "Request my free quote →"}
-          </>
+          <>{t("submitButton")}</>
         )}
       </button>
 
       <p className="text-center text-[11px] text-slate-500 font-medium">
-        {isFr
-          ? "Visite sur place offerte · Réponse garantie sous 24h · Sans engagement"
-          : "Free on-site visit · Response guaranteed within 24h · No commitment"}
+        {t("disclaimer")}
       </p>
     </form>
   );

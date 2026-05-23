@@ -16,7 +16,7 @@ import {
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { DayPicker, DateRange } from "react-day-picker";
-import { format, differenceInDays, addDays, isSameDay } from "date-fns";
+import { format, differenceInDays, addDays } from "date-fns";
 import { fr } from "date-fns/locale";
 
 import "react-day-picker/dist/style.css";
@@ -86,16 +86,34 @@ export const BookingWidget = ({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const formatVal = (val: number) => {
+    return val.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+  };
+
+  const springTransition = {
+    type: "spring",
+    stiffness: 350,
+    damping: 28,
+  } as const;
+
   return (
-    <div className="sticky top-20 md:top-24 bg-white dark:bg-slate-900 rounded-xl p-4 sm:p-5 border border-slate-100 dark:border-white/5 shadow-sm transition-all">
+    <motion.div
+      whileHover={{
+        y: -2,
+        boxShadow: "0 20px 40px -15px rgba(230, 126, 34, 0.15)",
+      }}
+      className="sticky top-20 md:top-24 bg-white dark:bg-slate-900 rounded-[2rem] p-5 sm:p-6 border border-slate-100 dark:border-white/5 shadow-xl transition-all duration-500"
+    >
       <div className="flex justify-between items-baseline mb-5">
         <div className="flex items-baseline gap-1">
-          <span className="text-xl font-bold text-slate-900 dark:text-white">
+          <span className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter">
             €{basePrice}
           </span>
-          <span className="text-[10px] text-slate-400 font-bold">{t("perNight")}</span>
+          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+            {t("perNight")}
+          </span>
         </div>
-        <div className="flex items-center gap-1 text-emerald-500 text-[9px] font-bold">
+        <div className="flex items-center gap-1.5 text-emerald-500 text-[9px] font-black uppercase tracking-widest bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
           <Zap className="w-2.5 h-2.5 fill-current" />
           {t("bestPrice")}
         </div>
@@ -104,28 +122,34 @@ export const BookingWidget = ({
       <div className="space-y-2 mb-5">
         {/* Date Selector */}
         <div className="relative" ref={calendarRef}>
-          <div className="grid grid-cols-2 bg-slate-50 dark:bg-white/[0.03] rounded-lg border border-slate-100 dark:border-white/5 overflow-hidden divide-x divide-slate-100 dark:divide-white/5">
+          <div className="grid grid-cols-2 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-100 dark:border-white/5 overflow-hidden divide-x divide-slate-100 dark:divide-white/5 shadow-sm">
             <button
-              onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-              className="p-2.5 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group"
+              onClick={() => {
+                setIsCalendarOpen(!isCalendarOpen);
+                setIsGuestOpen(false);
+              }}
+              className="p-3 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group focus:outline-none"
             >
-              <span className="text-[8px] font-bold text-slate-400 block mb-0.5">
+              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">
                 {t("checkIn")}
               </span>
-              <span className="text-[11px] font-bold text-slate-900 dark:text-white truncate">
+              <span className="text-[11px] font-bold text-slate-800 dark:text-white truncate block">
                 {range?.from
                   ? format(range.from, "dd MMM yyyy", { locale: fr })
                   : t("choose")}
               </span>
             </button>
             <button
-              onClick={() => setIsCalendarOpen(!isCalendarOpen)}
-              className="p-2.5 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group"
+              onClick={() => {
+                setIsCalendarOpen(!isCalendarOpen);
+                setIsGuestOpen(false);
+              }}
+              className="p-3 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group focus:outline-none"
             >
-              <span className="text-[8px] font-bold text-slate-400 block mb-0.5">
+              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">
                 {t("checkOut")}
               </span>
-              <span className="text-[11px] font-bold text-slate-900 dark:text-white truncate">
+              <span className="text-[11px] font-bold text-slate-800 dark:text-white truncate block">
                 {range?.to
                   ? format(range.to, "dd MMM yyyy", { locale: fr })
                   : t("choose")}
@@ -136,10 +160,11 @@ export const BookingWidget = ({
           <AnimatePresence mode="wait">
             {isCalendarOpen && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.98, y: 4 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.98, y: 4 }}
-                className="absolute top-full right-0 mt-1.5 bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/10 rounded-lg shadow-2xl z-50 p-2 origin-top-right"
+                initial={{ opacity: 0, scale: 0.96, y: 10, rotateX: -5 }}
+                animate={{ opacity: 1, scale: 1, y: 0, rotateX: 0 }}
+                exit={{ opacity: 0, scale: 0.96, y: 10, rotateX: 5 }}
+                transition={springTransition}
+                className="absolute top-full right-0 mt-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl z-50 p-3 origin-top-right w-[290px] sm:w-[320px]"
               >
                 <DayPicker
                   mode="range"
@@ -150,55 +175,55 @@ export const BookingWidget = ({
                   }}
                   locale={fr}
                   disabled={[{ before: new Date() }, ...BLOCKED_DATES]}
-                  className="!m-0"
+                  className="!m-0 flex justify-center"
                   classNames={{
                     months: "flex flex-col space-y-2",
                     month: "space-y-2",
                     month_caption:
                       "flex justify-between pt-1 relative items-center mb-1 px-1",
                     caption_label:
-                      "text-[11px] font-bold text-slate-900 dark:text-white capitalize",
+                      "text-xs font-black text-slate-800 dark:text-white capitalize",
                     nav: "flex items-center gap-0.5",
                     button_previous:
-                      "h-5 w-5 bg-transparent p-0 opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-white/5",
+                      "h-6 w-6 bg-transparent p-0 opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-white/5",
                     button_next:
-                      "h-5 w-5 bg-transparent p-0 opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center rounded-md hover:bg-slate-100 dark:hover:bg-white/5",
+                      "h-6 w-6 bg-transparent p-0 opacity-50 hover:opacity-100 transition-opacity flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-white/5",
                     month_grid: "w-full border-collapse",
                     weeks: "flex flex-col",
                     weekday:
-                      "text-slate-400 rounded-md w-7 font-bold text-[9px]",
+                      "text-slate-400 rounded-md w-7 font-black text-[9px] uppercase tracking-wider text-center py-1",
                     week: "flex w-full mt-0.5",
-                    day: "h-7 w-7 p-0 text-[10px] font-medium flex items-center justify-center aria-selected:opacity-100 hover:bg-slate-100 dark:hover:bg-white/5 rounded-md transition-all relative",
+                    day: "h-7 w-7 sm:h-8 sm:w-8 p-0 text-[10px] font-bold flex items-center justify-center aria-selected:opacity-100 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-all relative",
                     selected:
-                      "bg-primary text-white hover:bg-primary focus:bg-primary",
+                      "bg-welqo-terracotta text-white hover:bg-welqo-terracotta focus:bg-welqo-terracotta",
                     range_middle: "bg-primary/10 text-primary !rounded-none",
-                    range_start: "bg-primary text-white rounded-l-md",
-                    range_end: "bg-primary text-white rounded-r-md",
+                    range_start: "bg-welqo-terracotta text-white rounded-l-lg",
+                    range_end: "bg-welqo-terracotta text-white rounded-r-lg",
                     today:
-                      "text-primary font-bold after:content-[''] after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-primary after:rounded-full",
-                    outside: "text-slate-300 opacity-30",
+                      "text-primary font-black after:content-[''] after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1 after:h-1 after:bg-primary after:rounded-full",
+                    outside: "text-slate-300 opacity-20",
                     disabled:
-                      "text-slate-200 dark:text-slate-700 opacity-50 cursor-not-allowed line-through",
+                      "text-slate-200 dark:text-slate-700 opacity-30 cursor-not-allowed line-through",
                     hidden: "invisible",
                   }}
                   components={{
                     Chevron: (props) =>
                       props.orientation === "left" ? (
-                        <ChevronLeft className="h-3.5 w-3.5" />
+                        <ChevronLeft className="h-4 w-4" />
                       ) : (
-                        <ChevronRight className="h-3.5 w-3.5" />
+                        <ChevronRight className="h-4 w-4" />
                       ),
                   }}
                 />
-                <div className="mt-2 pt-2 border-t border-slate-50 dark:border-white/5 flex items-center justify-between">
+                <div className="mt-3 pt-2.5 border-t border-slate-50 dark:border-white/5 flex items-center justify-between">
                   <button
                     onClick={() => setRange(undefined)}
-                    className="text-[9px] font-bold text-slate-400 hover:text-primary transition-colors flex items-center gap-1"
+                    className="text-[9px] font-black uppercase tracking-wider text-slate-400 hover:text-primary transition-colors flex items-center gap-1 focus:outline-none"
                   >
                     <X className="w-2.5 h-2.5" />
                     {t("clear")}
                   </button>
-                  <span className="text-[9px] font-medium text-slate-400 italic">
+                  <span className="text-[9px] font-bold text-slate-400 italic">
                     {nights > 0
                       ? t("nightsSelected", { nights })
                       : t("selectDates")}
@@ -212,36 +237,40 @@ export const BookingWidget = ({
         {/* Guest Selector */}
         <div className="relative" ref={guestRef}>
           <button
-            onClick={() => setIsGuestOpen(!isGuestOpen)}
-            className="w-full p-2.5 bg-slate-50 dark:bg-white/[0.03] rounded-lg border border-slate-100 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group"
+            onClick={() => {
+              setIsGuestOpen(!isGuestOpen);
+              setIsCalendarOpen(false);
+            }}
+            className="w-full p-3 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-100 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group focus:outline-none shadow-sm"
           >
             <div className="text-left">
-              <span className="text-[8px] font-bold text-slate-400 block mb-0.5">
+              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">
                 {t("guests")}
               </span>
-              <span className="text-[11px] font-bold text-slate-900 dark:text-white">
+              <span className="text-[11px] font-bold text-slate-800 dark:text-white">
                 {guests} {guests > 1 ? t("guestPlural") : t("guest")}
               </span>
             </div>
             <ChevronDown
-              className={`w-3 h-3 text-slate-400 transition-transform ${isGuestOpen ? "rotate-180" : ""}`}
+              className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-300 ${isGuestOpen ? "rotate-180" : ""}`}
             />
           </button>
 
           <AnimatePresence>
             {isGuestOpen && (
               <motion.div
-                initial={{ opacity: 0, scale: 0.98, y: 4 }}
+                initial={{ opacity: 0, scale: 0.96, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.98, y: 4 }}
-                className="absolute top-full left-0 mt-1.5 w-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/10 rounded-lg shadow-xl z-50 p-3 origin-top"
+                exit={{ opacity: 0, scale: 0.96, y: 10 }}
+                transition={springTransition}
+                className="absolute top-full left-0 mt-2 w-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 rounded-2xl shadow-2xl z-50 p-4 origin-top"
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-xs font-bold text-slate-900 dark:text-white">
+                    <p className="text-xs font-bold text-slate-800 dark:text-white">
                       {t("adults")}
                     </p>
-                    <p className="text-[9px] text-slate-400 font-medium">
+                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
                       {t("maxGuests", { max: maxGuests })}
                     </p>
                   </div>
@@ -249,19 +278,19 @@ export const BookingWidget = ({
                     <button
                       disabled={guests <= 1}
                       onClick={() => setGuests(guests - 1)}
-                      className="w-6 h-6 rounded-md border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-300 disabled:opacity-30 transition-all hover:border-primary hover:text-primary"
+                      className="w-7 h-7 rounded-lg border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-300 disabled:opacity-30 transition-all hover:border-primary hover:text-primary focus:outline-none"
                     >
-                      <Minus className="w-3 h-3" />
+                      <Minus className="w-3.5 h-3.5" />
                     </button>
-                    <span className="text-xs font-bold w-3 text-center">
+                    <span className="text-xs font-black w-4 text-center">
                       {guests}
                     </span>
                     <button
                       disabled={guests >= maxGuests}
                       onClick={() => setGuests(guests + 1)}
-                      className="w-6 h-6 rounded-md border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-300 disabled:opacity-30 transition-all hover:border-primary hover:text-primary"
+                      className="w-7 h-7 rounded-lg border border-slate-200 dark:border-white/10 flex items-center justify-center text-slate-600 dark:text-slate-300 disabled:opacity-30 transition-all hover:border-primary hover:text-primary focus:outline-none"
                     >
-                      <Plus className="w-3 h-3" />
+                      <Plus className="w-3.5 h-3.5" />
                     </button>
                   </div>
                 </div>
@@ -271,47 +300,54 @@ export const BookingWidget = ({
         </div>
       </div>
 
-      {/* Pricing */}
-      <div className="space-y-2 mb-5 text-[11px]">
+      {/* Pricing list with CountUp metrics */}
+      <div className="space-y-3 mb-5 text-[11px] font-bold">
         <div className="flex justify-between">
-          <span className="text-slate-500 font-medium">
+          <span className="text-slate-400 font-medium">
             €{basePrice} x {nights} {t("nights", { nights })}
           </span>
-          <span className="font-bold text-slate-900 dark:text-white">
-            €{totalNights.toFixed(2)}
+          <span className="text-slate-800 dark:text-slate-200">
+            €{formatVal(totalNights)}
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-slate-500 font-medium">{t("cleaningFee")}</span>
-          <span className="font-bold text-slate-900 dark:text-white">
-            €{cleaningFee.toFixed(2)}
+          <span className="text-slate-400 font-medium">{t("cleaningFee")}</span>
+          <span className="text-slate-800 dark:text-slate-200">
+            €{formatVal(cleaningFee)}
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-slate-500 font-medium">{t("touristTax")}</span>
-          <span className="font-bold text-slate-900 dark:text-white">
-            €{totalTax.toFixed(2)}
+          <span className="text-slate-400 font-medium">{t("touristTax")}</span>
+          <span className="text-slate-800 dark:text-slate-200">
+            €{formatVal(totalTax)}
           </span>
         </div>
-        <div className="pt-2 border-t border-slate-50 dark:border-white/5 flex justify-between items-baseline">
-          <span className="font-bold text-slate-900 dark:text-white">
+        <div className="pt-3 border-t border-slate-100 dark:border-white/5 flex justify-between items-baseline">
+          <span className="text-slate-500 uppercase tracking-widest text-[9px] font-black">
             {t("total")}
           </span>
-          <span className="text-lg font-bold text-primary">
-            €{total.toFixed(2)}
-          </span>
+          <motion.span
+            key={total}
+            initial={{ opacity: 0, y: -4 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-xl font-black text-welqo-terracotta tracking-tighter"
+          >
+            €{formatVal(total)}
+          </motion.span>
         </div>
       </div>
 
-      <button
+      <motion.button
+        whileTap={{ scale: 0.97 }}
         onClick={() => onBook?.({ range, guests })}
-        className="group w-full py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-bold text-xs hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2"
+        className="group w-full py-4 bg-slate-950 text-white dark:bg-white dark:text-slate-900 rounded-xl font-bold text-xs hover:bg-welqo-terracotta hover:text-white transition-all flex items-center justify-center gap-2 shadow-lg shadow-slate-950/10 active:scale-97 border border-white/5"
       >
         {t("bookNow")}
-        <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
-      </button>
+        <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+      </motion.button>
 
-      <p className="mt-3 text-center text-[9px] font-bold text-slate-400">
+      <p className="mt-3.5 text-center text-[9px] font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
+        <span className="w-1 h-1 rounded-full bg-emerald-500" />
         {t("securePayment")}
       </p>
 
@@ -322,6 +358,6 @@ export const BookingWidget = ({
           margin: 0;
         }
       `}</style>
-    </div>
+    </motion.div>
   );
 };

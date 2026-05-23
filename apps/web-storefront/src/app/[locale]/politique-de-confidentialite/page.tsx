@@ -6,11 +6,11 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }) {
-  const isFr = locale !== "en";
   return {
-    title: isFr
-      ? "Politique de confidentialité — Welqo"
-      : "Privacy Policy — Welqo",
+    title:
+      locale !== "en"
+        ? "Politique de confidentialité — Welqo"
+        : "Privacy Policy — Welqo",
     robots: { index: false },
   };
 }

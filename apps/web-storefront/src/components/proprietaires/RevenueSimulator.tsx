@@ -4,6 +4,7 @@ import React, { useState, useMemo, useRef, useEffect } from "react";
 import { ChevronDown, MapPin, ChevronRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { trackEvent } from "../../lib/tracking";
+import { useTranslations } from "next-intl";
 
 const VILLES = [
   { label: "Hauts-de-France (Lille / Métropole)", base: 2150 },
@@ -24,13 +25,46 @@ function fmt(n: number) {
   return n.toLocaleString("fr-FR");
 }
 
-export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
-  const isFr = locale === "fr";
+function AnimatedNumber({ value }: { value: number }) {
+  const [displayValue, setDisplayValue] = useState(value);
+
+  useEffect(() => {
+    let startTimestamp: number | null = null;
+    const startValue = displayValue;
+    const duration = 400; // ms
+
+    const step = (timestamp: number) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+
+      // Easing function (easeOutQuad)
+      const ease = progress * (2 - progress);
+      const current = Math.round(startValue + (value - startValue) * ease);
+      setDisplayValue(current);
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+
+    window.requestAnimationFrame(step);
+  }, [value]);
+
+  return <>{fmt(displayValue)}</>;
+}
+
+export function RevenueSimulator({
+  locale: _locale = "fr",
+}: {
+  locale?: string;
+}) {
+  const t = useTranslations("RevenueSimulator");
   const [villeIdx, setVilleIdx] = useState(0);
   const [piecesIdx, setPiecesIdx] = useState(1);
   const [surface, setSurface] = useState(45);
   const [isCityOpen, setIsCityOpen] = useState(false);
   const [openUp, setOpenUp] = useState(false);
+  const [hoveredYear, setHoveredYear] = useState<1 | 2 | 3>(3);
   const cityRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -75,13 +109,74 @@ export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
 
   const gainPct = Math.round(((revenuWelqo - revenuSolo) / revenuSolo) * 100);
 
+  const {
+    yS1,
+    yS2,
+    yS3,
+    yW1,
+    yW2,
+    yW3,
+    soloLinePath,
+    soloAreaPath,
+    welqoLinePath,
+    welqoAreaPath,
+    maxYVal,
+  } = useMemo(() => {
+    const s1 = revenuSolo * 12 * 1;
+    const s2 = revenuSolo * 12 * 2;
+    const s3 = revenuSolo * 12 * 3;
+    const w1 = revenuWelqo * 12 * 1;
+    const w2 = revenuWelqo * 12 * 2;
+    const w3 = revenuWelqo * 12 * 3;
+
+    const maxVal = w3;
+    const scaleY = (val: number) => {
+      if (maxVal === 0) return 100;
+      return 110 - (val / maxVal) * 90;
+    };
+
+    const yS1_val = scaleY(s1);
+    const yS2_val = scaleY(s2);
+    const yS3_val = scaleY(s3);
+    const yW1_val = scaleY(w1);
+    const yW2_val = scaleY(w2);
+    const yW3_val = scaleY(w3);
+
+    // Dotted Solo Bezier Path
+    const sLine = `M 40 ${yS1_val} C 95 ${yS1_val}, 95 ${yS2_val}, 150 ${yS2_val} C 205 ${yS2_val}, 205 ${yS3_val}, 260 ${yS3_val}`;
+    const sArea = `M 40 110 L 40 ${yS1_val} C 95 ${yS1_val}, 95 ${yS2_val}, 150 ${yS2_val} C 205 ${yS2_val}, 205 ${yS3_val}, 260 ${yS3_val} L 260 110 Z`;
+
+    // Solid Welqo Bezier Path
+    const wLine = `M 40 ${yW1_val} C 95 ${yW1_val}, 95 ${yW2_val}, 150 ${yW2_val} C 205 ${yW2_val}, 205 ${yW3_val}, 260 ${yW3_val}`;
+    const wArea = `M 40 110 L 40 ${yW1_val} C 95 ${yW1_val}, 95 ${yW2_val}, 150 ${yW2_val} C 205 ${yW2_val}, 205 ${yW3_val}, 260 ${yW3_val} L 260 110 Z`;
+
+    return {
+      yS1: yS1_val,
+      yS2: yS2_val,
+      yS3: yS3_val,
+      yW1: yW1_val,
+      yW2: yW2_val,
+      yW3: yW3_val,
+      soloLinePath: sLine,
+      soloAreaPath: sArea,
+      welqoLinePath: wLine,
+      welqoAreaPath: wArea,
+      maxYVal: maxVal,
+    };
+  }, [revenuSolo, revenuWelqo]);
+
+  const getY = (val: number) => {
+    if (maxYVal === 0) return 100;
+    return 110 - (val / maxYVal) * 90;
+  };
+
   return (
     <div
       id="simulator"
-      className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-white/10 shadow-sm overflow-hidden"
+      className="bg-white dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-white/10 shadow-sm"
     >
       {/* Header */}
-      <div className="bg-slate-900 px-5 py-4 border-b border-slate-800">
+      <div className="bg-slate-900 px-5 py-4 border-b border-slate-800 rounded-t-lg">
         <div className="flex items-center justify-between">
           <div>
             <p className="text-primary text-[10px] font-bold mb-0.5 tracking-widest">
@@ -112,7 +207,7 @@ export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
                 <button
                   type="button"
                   onClick={toggleCity}
-                  className={`w-full flex items-center gap-3 pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-950 border rounded-md text-sm font-bold text-left transition-all ${
+                  className={`w-full flex items-center gap-3 pl-10 pr-10 py-2.5 bg-slate-50 dark:bg-slate-950 border rounded-md text-sm font-bold text-left transition-all cursor-pointer ${
                     isCityOpen
                       ? "border-primary ring-1 ring-primary/20 bg-white dark:bg-slate-900"
                       : "border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white hover:bg-slate-100/50 dark:hover:bg-slate-800/50"
@@ -153,7 +248,7 @@ export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
                               setVilleIdx(i);
                               setIsCityOpen(false);
                             }}
-                            className={`w-full text-left px-4 py-2 rounded-md text-sm font-bold transition-colors ${
+                            className={`w-full text-left px-4 py-2 rounded-md text-sm font-bold transition-colors cursor-pointer ${
                               villeIdx === i
                                 ? "bg-primary text-white"
                                 : "text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
@@ -178,7 +273,7 @@ export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
                   <button
                     key={p.label}
                     onClick={() => setPiecesIdx(i)}
-                    className={`py-2 rounded text-[11px] font-bold transition-all ${
+                    className={`py-2 rounded text-[11px] font-bold transition-all cursor-pointer ${
                       piecesIdx === i
                         ? "bg-white dark:bg-slate-900 text-primary shadow-sm border border-slate-200 dark:border-slate-800"
                         : "text-slate-500 hover:text-slate-900 dark:hover:text-white"
@@ -223,7 +318,7 @@ export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
                     Gestion en solo
                   </p>
                   <p className="text-xl font-bold text-slate-500 tracking-tighter">
-                    {fmt(revenuSolo)}€{" "}
+                    <AnimatedNumber value={revenuSolo} />€{" "}
                     <span className="text-[10px] font-medium">/ mois</span>
                   </p>
                 </div>
@@ -245,7 +340,7 @@ export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
                     </span>
                   </div>
                   <p className="text-3xl font-bold tracking-tighter">
-                    {fmt(revenuWelqo)}€{" "}
+                    <AnimatedNumber value={revenuWelqo} />€{" "}
                     <span className="text-xs text-slate-400 font-medium">
                       / mois
                     </span>
@@ -253,11 +348,246 @@ export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
                 </div>
               </div>
 
+              {/* Interactive SVG Projection Card - IMMERSION PAROXYSM */}
+              <div className="bg-slate-50 dark:bg-slate-950/40 p-4 rounded-lg border border-slate-100 dark:border-slate-800 flex flex-col gap-2 relative overflow-hidden backdrop-blur-md">
+                <div className="flex items-center justify-between">
+                  <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">
+                    Projection cumulative
+                  </span>
+                  <div className="flex gap-1">
+                    {[1, 2, 3].map((y) => (
+                      <button
+                        key={y}
+                        type="button"
+                        onMouseEnter={() => setHoveredYear(y as 1 | 2 | 3)}
+                        onClick={() => setHoveredYear(y as 1 | 2 | 3)}
+                        className={`px-2 py-0.5 rounded text-[9px] font-black transition-all cursor-pointer ${
+                          hoveredYear === y
+                            ? "bg-primary text-white shadow-sm"
+                            : "text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
+                        }`}
+                      >
+                        An {y}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Chart SVG */}
+                <div className="relative h-28 w-full mt-1">
+                  <svg
+                    className="w-full h-full"
+                    viewBox="0 0 300 120"
+                    preserveAspectRatio="none"
+                  >
+                    <defs>
+                      <linearGradient
+                        id="welqoGrad"
+                        x1="0"
+                        y1="0"
+                        x2="0"
+                        y2="1"
+                      >
+                        <stop
+                          offset="0%"
+                          stopColor="#d45537"
+                          stopOpacity="0.25"
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="#d45537"
+                          stopOpacity="0"
+                        />
+                      </linearGradient>
+                      <linearGradient id="soloGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop
+                          offset="0%"
+                          stopColor="#64748b"
+                          stopOpacity="0.1"
+                        />
+                        <stop
+                          offset="100%"
+                          stopColor="#64748b"
+                          stopOpacity="0"
+                        />
+                      </linearGradient>
+                    </defs>
+
+                    {/* Grid Lines */}
+                    <line
+                      x1="40"
+                      y1="110"
+                      x2="260"
+                      y2="110"
+                      stroke="#f1f5f9"
+                      strokeWidth="1"
+                      className="dark:stroke-slate-800/50"
+                    />
+                    <line
+                      x1="40"
+                      y1="60"
+                      x2="260"
+                      y2="60"
+                      stroke="#f1f5f9"
+                      strokeWidth="1"
+                      className="dark:stroke-slate-800/30"
+                      strokeDasharray="3"
+                    />
+                    <line
+                      x1="40"
+                      y1="10"
+                      x2="260"
+                      y2="10"
+                      stroke="#f1f5f9"
+                      strokeWidth="1"
+                      className="dark:stroke-slate-800/30"
+                      strokeDasharray="3"
+                    />
+
+                    {/* Solo Area & Line */}
+                    <motion.path
+                      d={soloAreaPath}
+                      fill="url(#soloGrad)"
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 15,
+                      }}
+                    />
+                    <motion.path
+                      d={soloLinePath}
+                      fill="none"
+                      stroke="#64748b"
+                      strokeWidth="1.5"
+                      strokeDasharray="4"
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 15,
+                      }}
+                    />
+
+                    {/* Welqo Area & Line */}
+                    <motion.path
+                      d={welqoAreaPath}
+                      fill="url(#welqoGrad)"
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 15,
+                      }}
+                    />
+                    <motion.path
+                      d={welqoLinePath}
+                      fill="none"
+                      stroke="#d45537"
+                      strokeWidth="2.5"
+                      transition={{
+                        type: "spring",
+                        stiffness: 100,
+                        damping: 15,
+                      }}
+                    />
+
+                    {/* Year vertical marker lines */}
+                    {[1, 2, 3].map((y) => {
+                      const x = y === 1 ? 40 : y === 2 ? 150 : 260;
+                      const isActive = hoveredYear === y;
+                      return (
+                        <g key={y}>
+                          {isActive && (
+                            <line
+                              x1={x}
+                              y1="10"
+                              x2={x}
+                              y2="110"
+                              stroke="#d45537"
+                              strokeWidth="1"
+                              strokeDasharray="2"
+                              opacity="0.3"
+                            />
+                          )}
+                          {/* Welqo Point */}
+                          <circle
+                            cx={x}
+                            cy={getY(revenuWelqo * 12 * y)}
+                            r={isActive ? "5" : "3.5"}
+                            fill="#d45537"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            className="transition-all duration-200"
+                          />
+                          {/* Solo Point */}
+                          <circle
+                            cx={x}
+                            cy={getY(revenuSolo * 12 * y)}
+                            r={isActive ? "4" : "3"}
+                            fill="#64748b"
+                            stroke="white"
+                            strokeWidth="1"
+                            className="transition-all duration-200"
+                          />
+                          {/* Interactive invisible hit areas */}
+                          <circle
+                            cx={x}
+                            cy={isActive ? getY(revenuWelqo * 12 * y) : 60}
+                            r="20"
+                            fill="transparent"
+                            className="cursor-pointer"
+                            onMouseEnter={() => setHoveredYear(y as 1 | 2 | 3)}
+                          />
+                        </g>
+                      );
+                    })}
+                  </svg>
+
+                  {/* X Axis Labels */}
+                  <div className="absolute bottom-[-10px] left-0 right-0 flex justify-between px-6 text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                    <span>Année 1</span>
+                    <span>Année 2</span>
+                    <span>Année 3</span>
+                  </div>
+                </div>
+
+                {/* Tooltip detail values */}
+                <div className="grid grid-cols-3 gap-2 mt-4 pt-2 border-t border-slate-100 dark:border-slate-800">
+                  <div className="text-center">
+                    <p className="text-[7.5px] font-bold text-slate-400 uppercase tracking-wider">
+                      Gestion en Solo
+                    </p>
+                    <p className="text-xs font-bold text-slate-500 mt-0.5">
+                      <AnimatedNumber value={revenuSolo * 12 * hoveredYear} /> €
+                    </p>
+                  </div>
+                  <div className="text-center border-x border-slate-100 dark:border-slate-800">
+                    <p className="text-[7.5px] font-black text-primary uppercase tracking-wider">
+                      Gestion Welqo
+                    </p>
+                    <p className="text-xs font-extrabold text-slate-900 dark:text-white mt-0.5">
+                      <AnimatedNumber value={revenuWelqo * 12 * hoveredYear} />{" "}
+                      €
+                    </p>
+                  </div>
+                  <div className="text-center">
+                    <p className="text-[7.5px] font-bold text-emerald-500 uppercase tracking-wider">
+                      Gain Net Welqo
+                    </p>
+                    <p className="text-xs font-extrabold text-emerald-500 mt-0.5">
+                      +
+                      <AnimatedNumber
+                        value={(revenuWelqo - revenuSolo) * 12 * hoveredYear}
+                      />{" "}
+                      €
+                    </p>
+                  </div>
+                </div>
+              </div>
+
               {/* Totals Grid */}
               <div className="grid grid-cols-2 gap-3 py-1">
                 <div className="p-3 bg-emerald-500/5 border border-emerald-500/10 rounded-lg text-center">
                   <p className="text-sm font-bold text-emerald-500">
-                    +{fmt(gain)}€
+                    +<AnimatedNumber value={gain} />€
                   </p>
                   <p className="text-[8px] text-slate-500 font-bold tracking-tighter">
                     Gain mensuel net
@@ -265,7 +595,7 @@ export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
                 </div>
                 <div className="p-3 bg-primary/5 border border-primary/10 rounded-lg text-center">
                   <p className="text-sm font-bold text-primary">
-                    {fmt(annual)}€
+                    <AnimatedNumber value={annual} />€
                   </p>
                   <p className="text-[8px] text-slate-500 font-bold tracking-tighter">
                     Potentiel annuel
@@ -284,11 +614,9 @@ export function RevenueSimulator({ locale = "fr" }: { locale?: string }) {
                   });
                   window.location.href = `mailto:contact@welqo.fr?subject=Estimation Welqo: ${revenuWelqo}€&body=Bonjour, j'ai simulé un revenu de ${revenuWelqo}€ pour mon bien à ${VILLES[villeIdx].label}.`;
                 }}
-                className="w-full py-3.5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-xl font-bold text-sm hover:bg-welqo-terracotta hover:text-white transition-all shadow-lg flex items-center justify-center gap-2 group"
+                className="w-full py-3.5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-xl font-bold text-sm hover:bg-welqo-terracotta hover:text-white transition-all shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
               >
-                {isFr
-                  ? `Sécuriser mes ${fmt(revenuWelqo)}€`
-                  : `Secure my ${fmt(revenuWelqo)}€`}
+                {t("secureRevenue", { amount: fmt(revenuWelqo) })}
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               <p className="mt-2.5 text-[8px] text-slate-400 text-center italic opacity-70 leading-tight">

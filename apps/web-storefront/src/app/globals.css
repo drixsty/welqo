@@ -26,12 +26,19 @@ html {
 body {
   color: hsl(var(--foreground));
   background: hsl(var(--background));
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-inter), sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -77,7 +84,7 @@ h1, h2, h3, h4, h5, h6 {
   transform: scale(1);
 }
 
-/* ─── Glass card ─────────────────────────────────────────────────────── */
+/* ─── Glass card & Luxury ────────────────────────────────────────────── */
 .glass-card {
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(8px);
@@ -87,6 +94,55 @@ h1, h2, h3, h4, h5, h6 {
 .dark .glass-card {
   background: rgba(15, 23, 42, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.glass-luxury {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+.dark .glass-luxury {
+  background: rgba(3, 7, 18, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* ─── Ambient Glow Animations ────────────────────────────────────────── */
+@keyframes ambient-glow {
+  0%,
+  100% {
+    transform: translate(0px, 0px) scale(1);
+    opacity: 0.2;
+  }
+  33% {
+    transform: translate(30px, -50px) scale(1.1);
+    opacity: 0.35;
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.95);
+    opacity: 0.25;
+  }
+}
+
+.animate-ambient-1 {
+  animation: ambient-glow 18s ease-in-out infinite;
+}
+
+.animate-ambient-2 {
+  animation: ambient-glow 25s ease-in-out infinite alternate;
+}
+
+/* ─── Premium Text Smoothness ────────────────────────────────────────── */
+.text-smooth {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Smooth Transition System ───────────────────────────────────────── */
+.transition-luxury {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ─── Scrollbar ──────────────────────────────────────────────────────── */

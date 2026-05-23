@@ -10,8 +10,6 @@ export const Hero = async ({ locale = "fr" }: HeroProps) => {
   const t = await getTranslations("HomePage");
   const base = `/${locale}`;
 
-  const isFr = locale === "fr";
-
   return (
     <section className="relative h-[calc(100vh-64px)] w-full flex items-center justify-center bg-slate-950">
       <div className="absolute inset-0 bg-slate-950/65 z-10" />
@@ -42,13 +40,13 @@ export const Hero = async ({ locale = "fr" }: HeroProps) => {
             href={`${base}/proprietaires#simulator`}
             className="w-full sm:w-auto px-8 py-4 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-xl text-center active:scale-95"
           >
-            {isFr ? "Simuler mes revenus" : "Simulate my income"}
+            {t("simulateIncome")}
           </a>
           <a
             href={`mailto:contact@welqo.fr?subject=Demande d'audit gratuit&body=Bonjour, je souhaite obtenir un audit gratuit de mon bien.`}
             className="w-full sm:w-auto px-8 py-4 bg-slate-900/80 hover:bg-slate-800 backdrop-blur border border-white/10 text-white rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-xl text-center active:scale-95"
           >
-            {isFr ? "Demander un audit gratuit" : "Request a free audit"}
+            {t("requestFreeAudit")}
           </a>
         </div>
 
@@ -57,7 +55,7 @@ export const Hero = async ({ locale = "fr" }: HeroProps) => {
             href={`${base}/proprietaires`}
             className="text-[10px] font-black tracking-[0.2em] text-white/50 hover:text-primary transition-colors flex items-center gap-2 uppercase"
           >
-            {isFr ? "Découvrir la méthode Welqo" : "Discover the Welqo method"}
+            {t("discoverMethod")}
             <ArrowRight className="w-3 h-3" />
           </a>
         </div>

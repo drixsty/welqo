@@ -50,9 +50,11 @@ const CALENDRIER_LENS = [
   },
 ];
 
-export function ArticleConciergerieLensArras({ locale }: { locale: string }) {
-  const isFr = locale !== "en";
-
+export function ArticleConciergerieLensArras({
+  locale: _locale,
+}: {
+  locale: string;
+}) {
   return (
     <div>
       {/* ── INTRO ── */}

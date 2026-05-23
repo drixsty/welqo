@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getPostBySlug, BLOG_POSTS } from "../../../../lib/blog";
+import { getTranslations } from "next-intl/server";
 import { JsonLd } from "../../../../components/JsonLd";
 import { ReadingProgress } from "../../../../components/blog/ReadingProgress";
 import { ArticleToc } from "../../../../components/blog/ArticleToc";
@@ -70,12 +71,11 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const post = getPostBySlug(slug);
   if (!post) return {};
-  const isFr = locale !== "en";
 
   return {
-    title: isFr ? post.titleFr : post.titleEn,
-    description: isFr ? post.descriptionFr : post.descriptionEn,
-    keywords: isFr ? post.keywordsFr : post.keywordsEn,
+    title: locale !== "en" ? post.titleFr : post.titleEn,
+    description: locale !== "en" ? post.descriptionFr : post.descriptionEn,
+    keywords: locale !== "en" ? post.keywordsFr : post.keywordsEn,
     authors: [{ name: "Welqo" }],
     alternates: {
       canonical: `${BASE_URL}/${locale}/blog/${slug}`,
@@ -86,8 +86,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: isFr ? post.titleFr : post.titleEn,
-      description: isFr ? post.descriptionFr : post.descriptionEn,
+      title: locale !== "en" ? post.titleFr : post.titleEn,
+      description: locale !== "en" ? post.descriptionFr : post.descriptionEn,
       type: "article",
       publishedTime: post.publishedAt,
       modifiedTime: post.updatedAt ?? post.publishedAt,
@@ -105,7 +105,7 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogPostPage({
+export default async function BlogPostPage({
   params: { slug, locale },
 }: {
   params: { slug: string; locale: string };
@@ -113,7 +113,7 @@ export default function BlogPostPage({
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const isFr = locale !== "en";
+  const t = await getTranslations("Blog");
   const base = `/${locale}`;
   const Article = ARTICLE_MAP[slug];
   const toc = TOC_MAP[slug] ?? [];
@@ -121,8 +121,8 @@ export default function BlogPostPage({
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    headline: isFr ? post.titleFr : post.titleEn,
-    description: isFr ? post.descriptionFr : post.descriptionEn,
+    headline: locale !== "en" ? post.titleFr : post.titleEn,
+    description: locale !== "en" ? post.descriptionFr : post.descriptionEn,
     image: post.coverImage.startsWith("http")
       ? post.coverImage
       : `${BASE_URL}${post.coverImage}`,
@@ -138,7 +138,7 @@ export default function BlogPostPage({
       "@type": "WebPage",
       "@id": `${BASE_URL}/${locale}/blog/${slug}`,
     },
-    keywords: (isFr ? post.keywordsFr : post.keywordsEn).join(", "),
+    keywords: (locale !== "en" ? post.keywordsFr : post.keywordsEn).join(", "),
   };
 
   const breadcrumbSchema = {
@@ -160,7 +160,7 @@ export default function BlogPostPage({
       {
         "@type": "ListItem",
         position: 3,
-        name: isFr ? post.titleFr : post.titleEn,
+        name: locale !== "en" ? post.titleFr : post.titleEn,
       },
     ],
   };
@@ -194,7 +194,7 @@ export default function BlogPostPage({
                 {post.category}
               </span>
               <span className="text-white/80 text-[9px] font-bold uppercase tracking-widest bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full border border-white/5">
-                {post.readingMinutes} min {isFr ? "de lecture" : "read"}
+                {post.readingMinutes} min {t("deRead").toLowerCase()}
               </span>
             </div>
 
@@ -204,7 +204,7 @@ export default function BlogPostPage({
                 href={base}
                 className="hover:text-welqo-terracotta transition-colors"
               >
-                {isFr ? "Accueil" : "Home"}
+                {t("home")}
               </a>
               <span className="text-welqo-terracotta/40">/</span>
               <a
@@ -215,13 +215,13 @@ export default function BlogPostPage({
               </a>
               <span className="text-welqo-terracotta/40">/</span>
               <span className="text-white/40 truncate max-w-[200px] font-medium">
-                {isFr ? post.titleFr : post.titleEn}
+                {locale !== "en" ? post.titleFr : post.titleEn}
               </span>
             </nav>
 
             {/* 3. Title (Aerated) */}
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold text-white tracking-tighter leading-[1.1] max-w-4xl drop-shadow-2xl">
-              {isFr ? post.titleFr : post.titleEn}
+              {locale !== "en" ? post.titleFr : post.titleEn}
             </h1>
           </div>
         </div>
@@ -244,7 +244,7 @@ export default function BlogPostPage({
               <p className="text-[10px] font-bold text-slate-400 leading-none mt-1 uppercase tracking-wider">
                 {new Date(
                   post.updatedAt ?? post.publishedAt,
-                ).toLocaleDateString(isFr ? "fr-FR" : "en-GB", {
+                ).toLocaleDateString(locale !== "en" ? "fr-FR" : "en-GB", {
                   day: "numeric",
                   month: "long",
                   year: "numeric",
@@ -257,7 +257,7 @@ export default function BlogPostPage({
               href={`${base}#contact`}
               className="px-6 py-2 bg-welqo-terracotta hover:bg-welqo-terracotta/90 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-welqo-terracotta/10"
             >
-              {isFr ? "Simulation gratuite" : "Free simulation"}
+              {t("freeSimulation")}
             </a>
           </div>
         </div>
@@ -270,7 +270,7 @@ export default function BlogPostPage({
           {/* Description lead */}
           <div className="mb-8 p-5 bg-slate-50 dark:bg-slate-900/50 rounded-lg border-l-4 border-welqo-terracotta max-w-2xl">
             <p className="text-base text-slate-700 dark:text-slate-300 font-medium leading-relaxed italic">
-              "{isFr ? post.descriptionFr : post.descriptionEn}"
+              "{locale !== "en" ? post.descriptionFr : post.descriptionEn}"
             </p>
           </div>
 
@@ -279,11 +279,7 @@ export default function BlogPostPage({
             {Article ? (
               <Article locale={locale} />
             ) : (
-              <p className="text-slate-500">
-                {isFr
-                  ? "Article en cours de rédaction."
-                  : "Article coming soon."}
-              </p>
+              <p className="text-slate-500">{t("articleComingSoon")}</p>
             )}
           </div>
 
@@ -292,23 +288,19 @@ export default function BlogPostPage({
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,85,55,0.15),transparent_60%)] pointer-events-none" />
             <div className="relative z-10">
               <p className="text-welqo-terracotta text-[10px] font-bold tracking-[0.3em] mb-6 uppercase">
-                {isFr ? "Passez à l'action" : "Take action"}
+                {t("takeAction")}
               </p>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-6 leading-tight">
-                {isFr
-                  ? "Prêt à déléguer votre Airbnb à Lille ?"
-                  : "Ready to hand over your Lille Airbnb?"}
+                {t("readyTitle")}
               </h2>
               <p className="text-slate-400 font-medium mb-10 text-lg max-w-lg mx-auto leading-relaxed">
-                {isFr
-                  ? "Welqo s'occupe de tout : annonces, check-in, ménage, maintenance. Devis gratuit en 24h."
-                  : "Welqo handles everything: listings, check-in, cleaning, maintenance. Free quote in 24h."}
+                {t("readySubtitle")}
               </p>
               <a
                 href={`${base}#contact`}
                 className="inline-block px-10 py-4 bg-welqo-terracotta text-white rounded-xl font-bold hover:bg-welqo-terracotta/90 transition-all active:scale-95 border border-welqo-terracotta/20"
               >
-                {isFr ? "Devis gratuit" : "Free quote"}
+                {t("freeQuote")}
               </a>
             </div>
           </div>
@@ -317,7 +309,7 @@ export default function BlogPostPage({
           <div className="mt-16">
             <div className="flex items-center gap-4 mb-8">
               <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tighter">
-                {isFr ? "À lire également" : "Related articles"}
+                {t("relatedArticles")}
               </h2>
               <div className="h-px flex-1 bg-slate-100 dark:bg-white/5" />
             </div>
@@ -342,7 +334,7 @@ export default function BlogPostPage({
                         {p.category.toUpperCase()}
                       </span>
                       <p className="font-bold text-slate-900 dark:text-white text-sm leading-snug group-hover:text-welqo-terracotta transition-colors line-clamp-2 tracking-tight">
-                        {isFr ? p.titleFr : p.titleEn}
+                        {locale !== "en" ? p.titleFr : p.titleEn}
                       </p>
                     </div>
                   </a>
@@ -356,7 +348,7 @@ export default function BlogPostPage({
           <aside className="hidden xl:block xl:sticky xl:top-28 xl:self-start">
             <div className="p-6 rounded-2xl border border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-sm">
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">
-                {isFr ? "Sommaire" : "Summary"}
+                {t("summaryLabel")}
               </p>
               <nav className="space-y-5">
                 {toc.map((item, i) => (

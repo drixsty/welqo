@@ -51,8 +51,6 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
   const [isCityOpen, setIsCityOpen] = useState(false);
   const cityRef = useRef<HTMLDivElement>(null);
 
-  const isFr = locale === "fr";
-
   useEffect(() => {
     setMinPrice(Number(searchParams.get("minPrice")) || MIN_LIMIT);
     setMaxPrice(Number(searchParams.get("maxPrice")) || MAX_LIMIT);
@@ -151,9 +149,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
             onClick={() => setIsCityOpen(!isCityOpen)}
             className="w-full flex items-center justify-between bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-[11px] font-bold text-slate-700 dark:text-slate-200 transition-all hover:border-welqo-terracotta/30"
           >
-            <span className="truncate">
-              {city || t("anywhere")}
-            </span>
+            <span className="truncate">{city || t("anywhere")}</span>
             <ChevronDown
               className={`w-3 h-3 text-slate-400 transition-transform ${isCityOpen ? "rotate-180" : ""}`}
             />

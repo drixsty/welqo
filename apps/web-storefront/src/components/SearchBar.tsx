@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Search, MapPin, Users, ChevronDown } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -24,7 +25,7 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
   const cityRef = useRef<HTMLDivElement>(null);
   const guestsRef = useRef<HTMLDivElement>(null);
 
-  const isFr = locale === "fr";
+  const t = useTranslations("SearchBar");
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -90,14 +91,14 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
           </div>
           <div className="flex flex-col items-start overflow-hidden">
             <span className="text-[11px] font-black text-slate-900 dark:text-white truncate">
-              {city || (isFr ? "Où allez-vous ?" : "Where to?")}
+              {city || t("whereTo")}
             </span>
             <div className="flex items-center gap-2 text-[9px] font-bold text-slate-400 tracking-widest">
               <span>
-                {guests} {isFr ? "voyageurs" : "guests"}
+                {guests} {t("guests")}
               </span>
               <span className="w-1 h-1 rounded-full bg-slate-300" />
-              <span>{isFr ? "Toute la région" : "Whole region"}</span>
+              <span>{t("wholeRegion")}</span>
             </div>
           </div>
         </button>
@@ -127,7 +128,7 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
                 !city ? "text-slate-500" : "text-slate-900 dark:text-white"
               }
             >
-              {city || (isFr ? "Destination" : "Location")}
+              {city || t("destination")}
             </span>
             <div
               className={`absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition-transform duration-200 ${isCityOpen ? "rotate-180" : ""}`}
@@ -183,14 +184,7 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
               <Users className="w-5 h-5" />
             </div>
             <span className="text-slate-900 dark:text-white">
-              {guests}{" "}
-              {isFr
-                ? guests > 1
-                  ? "Voyageurs"
-                  : "Voyageur"
-                : guests > 1
-                  ? "Guests"
-                  : "Guest"}
+              {guests} {t("guests")}
             </span>
             <div
               className={`absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition-transform duration-200 ${isGuestsOpen ? "rotate-180" : ""}`}
@@ -241,7 +235,7 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
           className="px-10 py-4 bg-welqo-terracotta hover:bg-welqo-terracotta/90 text-white rounded-xl font-black text-sm flex items-center justify-center gap-3 transition-all active:scale-95 shadow-lg shadow-welqo-terracotta/20 shrink-0"
         >
           <Search className="w-5 h-5 stroke-[2.5px]" />
-          <span>{isFr ? "Rechercher" : "Search"}</span>
+          <span>{t("search")}</span>
         </button>
       </form>
 
@@ -264,7 +258,7 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
                 <ChevronDown className="w-6 h-6 rotate-90" />
               </button>
               <h2 className="text-sm font-black text-slate-900 dark:text-white tracking-widest">
-                {isFr ? "Votre recherche" : "Your search"}
+                {t("yourSearch")}
               </h2>
               <button
                 onClick={() => {
@@ -273,7 +267,7 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
                 }}
                 className="text-[10px] font-bold text-slate-500 underline"
               >
-                {isFr ? "Effacer" : "Clear"}
+                {t("clear")}
               </button>
             </div>
 
@@ -281,7 +275,7 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
               {/* Destination Section */}
               <div className="space-y-4">
                 <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
-                  {isFr ? "Où voulez-vous aller ?" : "Where do you want to go?"}
+                  {t("whereToGo")}
                 </h3>
                 <div className="grid grid-cols-2 gap-3">
                   {CITIES.map((c) => (
@@ -303,11 +297,11 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
               {/* Guests Section */}
               <div className="space-y-4">
                 <h3 className="text-xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
-                  {isFr ? "Combien de voyageurs ?" : "How many guests?"}
+                  {t("howManyGuests")}
                 </h3>
                 <div className="flex items-center justify-between p-6 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-white/10">
                   <span className="text-sm font-bold text-slate-900 dark:text-white">
-                    {isFr ? "Voyageurs" : "Guests"}
+                    {t("guests")}
                   </span>
                   <div className="flex items-center gap-6">
                     <button
@@ -340,7 +334,7 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
                 className="w-full py-5 bg-welqo-terracotta text-white rounded-[2rem] font-black text-base shadow-2xl shadow-welqo-terracotta/30 flex items-center justify-center gap-3 active:scale-95 transition-all"
               >
                 <Search className="w-5 h-5 stroke-[3px]" />
-                {isFr ? "Rechercher" : "Search"}
+                {t("search")}
               </button>
             </div>
           </motion.div>
@@ -349,9 +343,7 @@ export const SearchBar = ({ locale }: SearchBarProps) => {
 
       <div className="mt-4 flex items-center justify-center gap-2 text-[10px] text-white/30 font-bold tracking-widest">
         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-        {isFr
-          ? "Disponibilités et prix mis à jour en temps réel"
-          : "Real-time availability and pricing updated"}
+        {t("realtime")}
       </div>
     </>
   );

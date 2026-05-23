@@ -1,7 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import React, { useState, useEffect } from "react";
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  useTransform,
+  useSpring,
+} from "framer-motion";
+import { useTranslations } from "next-intl";
 import { PropertySummary } from "@welqo/types";
 import { Star, Bed, Maximize, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -19,9 +26,9 @@ export const PropertyCard = ({
   loading = false,
   locale = "fr",
 }: PropertyCardProps) => {
+  const t = useTranslations("PropertyPage");
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
-  const isFr = locale === "fr";
 
   // Fallback images logic
   const allImages =
@@ -29,6 +36,51 @@ export const PropertyCard = ({
     (property?.coverPhoto
       ? [property.coverPhoto, ...(images || [])].slice(0, 5)
       : []);
+
+  // Hover Slideshow Effect
+  useEffect(() => {
+    if (!isHovered || allImages.length <= 1) return;
+
+    // Start a 1.8s auto-scroll slideshow after 300ms hover delay
+    const delayTimer = setTimeout(() => {
+      const interval = setInterval(() => {
+        setCurrentIdx((prev) => (prev + 1) % allImages.length);
+      }, 1600);
+      return () => clearInterval(interval);
+    }, 300);
+
+    return () => clearTimeout(delayTimer);
+  }, [isHovered, allImages.length]);
+
+  // Mouse Tilt 3D Parallax logic
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const rotateX = useSpring(useTransform(y, [-0.5, 0.5], [6, -6]), {
+    damping: 25,
+    stiffness: 220,
+  });
+  const rotateY = useSpring(useTransform(x, [-0.5, 0.5], [-6, 6]), {
+    damping: 25,
+    stiffness: 220,
+  });
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left - width / 2;
+    const mouseY = e.clientY - rect.top - height / 2;
+    x.set(mouseX / width);
+    y.set(mouseY / height);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    x.set(0);
+    y.set(0);
+  };
 
   if (loading || !property) {
     return <PropertyCardSkeleton />;
@@ -48,23 +100,28 @@ export const PropertyCard = ({
 
   return (
     <a
-      href={`/logements/${property.slug}`}
+      href={`/${locale}/logements/${property.slug}`}
       className="group block space-y-4"
+      style={{ perspective: 1000 }}
+      onMouseMove={handleMouseMove}
       onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onMouseLeave={handleMouseLeave}
     >
-      {/* 🖼️ Image Container */}
-      <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-slate-100 dark:bg-white/[0.02] border border-slate-200/50 dark:border-white/5 transition-all duration-500 group-hover:shadow-xl group-hover:shadow-slate-900/5 dark:group-hover:shadow-none">
+      {/* 🖼️ Image Container with 3D Rotation */}
+      <motion.div
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-slate-100 dark:bg-white/[0.02] border border-slate-200/50 dark:border-white/5 transition-shadow duration-500 group-hover:shadow-2xl group-hover:shadow-slate-900/10 dark:group-hover:shadow-none"
+      >
         <AnimatePresence mode="wait">
           <motion.img
             key={currentIdx}
             src={allImages[currentIdx]}
             alt={property.title}
-            initial={{ opacity: 0.8, scale: 1.1 }}
+            initial={{ opacity: 0.85, scale: 1.05 }}
             animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0.8 }}
-            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            className="w-full h-full object-cover"
+            exit={{ opacity: 0.85 }}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+            className="w-full h-full object-cover select-none pointer-events-none"
           />
         </AnimatePresence>
 
@@ -78,15 +135,15 @@ export const PropertyCard = ({
           >
             <button
               onClick={prevImg}
-              className="w-10 h-10 md:w-8 md:h-8 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95"
+              className="w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-white flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95 border border-slate-200/20"
             >
-              <ChevronLeft className="w-4 h-4" />
+              <ChevronLeft className="w-4.5 h-4.5 stroke-[2.5px]" />
             </button>
             <button
               onClick={nextImg}
-              className="w-10 h-10 md:w-8 md:h-8 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95"
+              className="w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 text-slate-700 dark:text-white flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95 border border-slate-200/20"
             >
-              <ChevronRight className="w-4 h-4" />
+              <ChevronRight className="w-4.5 h-4.5 stroke-[2.5px]" />
             </button>
           </div>
         )}
@@ -116,12 +173,12 @@ export const PropertyCard = ({
           </div>
         ) : (
           <div className="absolute top-4 left-4 px-3 py-1.5 bg-slate-900/90 text-white backdrop-blur-md shadow-sm rounded-2xl border border-white/10 flex items-center gap-1.5 z-20">
-            <span className="text-[9px] font-bold uppercase tracking-widest">
-              {isFr ? "Standard 5★" : "5★ Standard"}
+            <span className="text-[9px] font-bold uppercase tracking-widest text-primary">
+              {t("standard5star")}
             </span>
           </div>
         )}
-      </div>
+      </motion.div>
 
       {/* 📝 Content */}
       <div className="px-2 space-y-1">
@@ -136,7 +193,7 @@ export const PropertyCard = ({
                   Inspiration
                 </span>
                 <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest text-right">
-                  {isFr ? "Showroom Staging" : "Staging Concept"}
+                  Staging
                 </span>
               </>
             ) : (
@@ -145,7 +202,7 @@ export const PropertyCard = ({
                   €{property.price.base}
                 </span>
                 <span className="text-[9px] font-bold text-slate-400 tracking-widest">
-                  {isFr ? "par nuit" : "per night"}
+                  {t("night")}
                 </span>
               </>
             )}
@@ -167,7 +224,9 @@ export const PropertyCard = ({
           </div>
           <div className="flex items-center gap-1.5">
             <Maximize className="w-3.5 h-3.5" />
-            <span className="text-[10px] font-bold">65 m²</span>
+            <span className="text-[10px] font-bold">
+              {(property as any).capacity?.surface || 65} m²
+            </span>
           </div>
         </div>
       </div>

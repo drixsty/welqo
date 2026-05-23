@@ -6,6 +6,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Navbar, Footer } from "@welqo/ui";
 import { CookieBanner } from "../../components/CookieBanner";
+import { CustomCursor } from "../../components/CustomCursor";
 import { StickyMobileCTA } from "../../components/StickyMobileCTA";
 import { JsonLd } from "../../components/JsonLd";
 import GoogleAnalytics from "../../components/GoogleAnalytics";
@@ -23,16 +24,16 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-  const isFr = locale !== "en";
+  const fr = locale !== "en";
 
   return {
-    title: isFr
+    title: fr
       ? "Welqo — Conciergerie Airbnb & Gestion Locative Hauts-de-France"
       : "Welqo — Airbnb Concierge & Rental Management Northern France",
-    description: isFr
+    description: fr
       ? "Gestion locative d'exception et conciergerie Airbnb dans les Hauts-de-France (Lille, Lens, Arras). Maximisez vos revenus sereinement avec l'expert local."
       : "Exceptional rental management and Airbnb concierge in Northern France (Lille, Lens, Arras). Maximize your income with the local expert.",
-    keywords: isFr
+    keywords: fr
       ? [
           "conciergerie airbnb hauts-de-france",
           "conciergerie airbnb lille",
@@ -61,22 +62,22 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: isFr
+      title: fr
         ? "Welqo — Conciergerie Airbnb Hauts-de-France"
         : "Welqo — Airbnb Concierge Northern France",
-      description: isFr
+      description: fr
         ? "Gestion locative d'exception dans les Hauts-de-France. Expertise locale à Lille, Lens et Arras."
         : "Exceptional rental management in Northern France. Local expertise in Lille, Lens and Arras.",
       url: `${BASE_URL}/${locale}`,
       siteName: "Welqo",
-      locale: isFr ? "fr_FR" : "en_GB",
+      locale: fr ? "fr_FR" : "en_GB",
       type: "website",
       images: [
         {
           url: `${BASE_URL}/og-image.jpg`,
           width: 1200,
           height: 630,
-          alt: isFr
+          alt: fr
             ? "Welqo Conciergerie Airbnb Hauts-de-France"
             : "Welqo Airbnb Concierge Hauts-de-France",
         },
@@ -84,10 +85,10 @@ export async function generateMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: isFr
+      title: fr
         ? "Welqo — Conciergerie Airbnb Lens & Arras"
         : "Welqo — Airbnb Concierge Lens & Arras",
-      description: isFr
+      description: fr
         ? "Gestion complète de vos locations courtes durée en Hauts-de-France."
         : "Complete short-term rental management in Hauts-de-France.",
       images: [`${BASE_URL}/og-image.jpg`],
@@ -119,14 +120,14 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
 
-  const isFr = locale !== "en";
+  const fr = locale !== "en";
 
   const localBusinessSchema = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     "@id": `${BASE_URL}/#business`,
     name: "Welqo",
-    description: isFr
+    description: fr
       ? "Conciergerie Airbnb et gestion locative courte durée dans les Hauts-de-France."
       : "Airbnb concierge and short-term rental management in Northern France.",
     url: BASE_URL,
@@ -142,7 +143,7 @@ export default async function LocaleLayout({
       { "@type": "City", name: "Roubaix" },
       { "@type": "City", name: "Tourcoing" },
     ],
-    serviceType: isFr
+    serviceType: fr
       ? [
           "Conciergerie Airbnb",
           "Gestion locative courte durée",
@@ -165,7 +166,7 @@ export default async function LocaleLayout({
     "@type": "WebSite",
     name: "Welqo",
     url: BASE_URL,
-    inLanguage: isFr ? "fr-FR" : "en-GB",
+    inLanguage: fr ? "fr-FR" : "en-GB",
   };
 
   return (
@@ -180,6 +181,7 @@ export default async function LocaleLayout({
           <Navbar title="WELQO" locale={locale} />
           <div className="pt-16">{children}</div>
           <Footer locale={locale} />
+          <CustomCursor />
           <StickyMobileCTA locale={locale} />
           <CookieBanner locale={locale} />
         </NextIntlClientProvider>

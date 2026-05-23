@@ -2,6 +2,7 @@ import React from "react";
 import type { Metadata } from "next";
 import { BLOG_POSTS } from "../../../lib/blog";
 import { JsonLd } from "../../../components/JsonLd";
+import { getTranslations } from "next-intl/server";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -16,27 +17,29 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }): Promise<Metadata> {
-  const isFr = locale !== "en";
   return {
-    title: isFr
-      ? "Blog Welqo — Conseils Airbnb & Gestion Locative Hauts-de-France"
-      : "Welqo Blog — Airbnb Tips & Short-Term Rental Management Lille",
-    description: isFr
-      ? "Guides pratiques, études de rentabilité et conseils d'experts pour maximiser les revenus de votre Airbnb à Lille, Lens et Arras. Par la conciergerie Welqo."
-      : "Practical guides, profitability studies and expert tips to maximise your Airbnb revenue in Lille, Lens and Arras. By Welqo concierge.",
-    keywords: isFr
-      ? [
-          "blog airbnb lille",
-          "conseils location courte durée",
-          "rentabilité airbnb hauts-de-france",
-          "guide conciergerie airbnb",
-          "revenus airbnb lille",
-        ]
-      : [
-          "airbnb tips lille",
-          "short-term rental blog",
-          "airbnb revenue northern france",
-        ],
+    title:
+      locale !== "en"
+        ? "Blog Welqo — Conseils Airbnb & Gestion Locative Hauts-de-France"
+        : "Welqo Blog — Airbnb Tips & Short-Term Rental Management Lille",
+    description:
+      locale !== "en"
+        ? "Guides pratiques, études de rentabilité et conseils d'experts pour maximiser les revenus de votre Airbnb à Lille, Lens et Arras. Par la conciergerie Welqo."
+        : "Practical guides, profitability studies and expert tips to maximise your Airbnb revenue in Lille, Lens and Arras. By Welqo concierge.",
+    keywords:
+      locale !== "en"
+        ? [
+            "blog airbnb lille",
+            "conseils location courte durée",
+            "rentabilité airbnb hauts-de-france",
+            "guide conciergerie airbnb",
+            "revenus airbnb lille",
+          ]
+        : [
+            "airbnb tips lille",
+            "short-term rental blog",
+            "airbnb revenue northern france",
+          ],
     alternates: {
       canonical: `${BASE_URL}/${locale}/blog`,
       languages: {
@@ -46,12 +49,14 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: isFr
-        ? "Blog Welqo — Conseils Airbnb Hauts-de-France"
-        : "Welqo Blog — Airbnb Tips Northern France",
-      description: isFr
-        ? "Guides et études de marché pour rentabiliser votre Airbnb à Lille, Lens et Arras."
-        : "Guides and market studies to maximise your Airbnb in Lille, Lens and Arras.",
+      title:
+        locale !== "en"
+          ? "Blog Welqo — Conseils Airbnb Hauts-de-France"
+          : "Welqo Blog — Airbnb Tips Northern France",
+      description:
+        locale !== "en"
+          ? "Guides et études de marché pour rentabiliser votre Airbnb à Lille, Lens et Arras."
+          : "Guides and market studies to maximise your Airbnb in Lille, Lens and Arras.",
       url: `${BASE_URL}/${locale}/blog`,
       siteName: "Welqo",
       type: "website",
@@ -60,12 +65,12 @@ export async function generateMetadata({
   };
 }
 
-export default function BlogPage({
+export default async function BlogPage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
-  const isFr = locale !== "en";
+  const t = await getTranslations("Blog");
   const base = `/${locale}`;
   const featured = BLOG_POSTS[0];
   const rest = BLOG_POSTS.slice(1);
@@ -92,14 +97,15 @@ export default function BlogPage({
   const blogSchema = {
     "@context": "https://schema.org",
     "@type": "Blog",
-    name: isFr
-      ? "Blog Welqo — Conseils Airbnb Lille"
-      : "Welqo Blog — Airbnb Lille Tips",
+    name:
+      locale !== "en"
+        ? "Blog Welqo — Conseils Airbnb Lille"
+        : "Welqo Blog — Airbnb Lille Tips",
     url: `${BASE_URL}/${locale}/blog`,
     publisher: { "@type": "Organization", name: "Welqo", url: BASE_URL },
     blogPost: BLOG_POSTS.map((p) => ({
       "@type": "BlogPosting",
-      headline: isFr ? p.titleFr : p.titleEn,
+      headline: locale !== "en" ? p.titleFr : p.titleEn,
       url: `${BASE_URL}/${locale}/blog/${p.slug}`,
       datePublished: p.publishedAt,
       dateModified: p.updatedAt ?? p.publishedAt,
@@ -134,7 +140,7 @@ export default function BlogPage({
               href={base}
               className="hover:text-welqo-terracotta transition-colors uppercase"
             >
-              {isFr ? "Accueil" : "Home"}
+              {t("home")}
             </a>
             <span className="text-welqo-terracotta">/</span>
             <span className="text-slate-300 uppercase">Blog</span>
@@ -145,30 +151,19 @@ export default function BlogPage({
             <div className="lg:w-1/2">
               <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 bg-white/5 border border-white/10 rounded-md shadow-sm">
                 <span className="text-slate-400 text-[9px] font-bold">
-                  {isFr ? "Ressources propriétaires" : "Owner resources"}
+                  {t("ownerResources")}
                 </span>
               </div>
 
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-white leading-[0.95] mb-4">
-                {isFr ? (
-                  <>
-                    Conseils{" "}
-                    <span className="text-welqo-terracotta">Airbnb</span>
-                    <br />à Lille.
-                  </>
-                ) : (
-                  <>
-                    <span className="text-welqo-terracotta">Airbnb</span> Tips
-                    <br />
-                    in Lille.
-                  </>
-                )}
+                {t("airbnbTipsTitle1")}{" "}
+                <span className="text-welqo-terracotta">Airbnb</span>
+                <br />
+                {t("airbnbTipsTitle2")}
               </h1>
 
               <p className="text-slate-400 font-medium text-sm leading-relaxed mb-6 max-w-md">
-                {isFr
-                  ? "Guides pratiques, études de marché et stratégies pour maximiser la rentabilité de votre bien à Lille."
-                  : "Practical guides, market studies and strategies to maximise your Lille property's profitability."}
+                {t("heroSubtitle")}
               </p>
 
               <div className="flex flex-wrap items-center gap-3">
@@ -210,7 +205,7 @@ export default function BlogPage({
                 {/* Text */}
                 <div className="p-6 md:p-8">
                   <h2 className="text-xl md:text-2xl font-bold text-white tracking-tighter mb-4 group-hover:text-welqo-terracotta transition-colors leading-tight">
-                    {isFr ? featured.titleFr : featured.titleEn}
+                    {locale !== "en" ? featured.titleFr : featured.titleEn}
                   </h2>
                   <div className="flex items-center gap-4 text-xs text-slate-500 mb-0">
                     <div className="w-8 h-8 bg-welqo-terracotta rounded-full flex items-center justify-center text-[10px] font-bold text-white">
@@ -220,7 +215,7 @@ export default function BlogPage({
                       <span className="font-bold text-slate-300">Welqo</span>
                       <span>
                         {new Date(featured.publishedAt).toLocaleDateString(
-                          isFr ? "fr-FR" : "en-GB",
+                          locale !== "en" ? "fr-FR" : "en-GB",
                           { day: "numeric", month: "long", year: "numeric" },
                         )}{" "}
                         · {featured.readingMinutes} min
@@ -242,7 +237,7 @@ export default function BlogPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-12 flex items-center justify-between">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tighter">
-              {isFr ? "Derniers articles" : "Latest articles"}
+              {t("latestArticles")}
             </h2>
             <div className="h-px flex-1 mx-8 bg-slate-100 dark:bg-white/5" />
             <span className="text-[10px] font-bold text-slate-400 tracking-widest">
@@ -277,19 +272,19 @@ export default function BlogPage({
                       {post.category}
                     </span>
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight tracking-tight group-hover:text-welqo-terracotta transition-colors line-clamp-2">
-                      {isFr ? post.titleFr : post.titleEn}
+                      {locale !== "en" ? post.titleFr : post.titleEn}
                     </h3>
                   </div>
                   <div className="flex items-center gap-3 text-[10px] text-slate-400 font-bold mt-4">
                     <span>
                       {new Date(post.publishedAt).toLocaleDateString(
-                        isFr ? "fr-FR" : "en-GB",
+                        locale !== "en" ? "fr-FR" : "en-GB",
                         { month: "short", year: "numeric" },
                       )}
                     </span>
                     <span className="w-1 h-1 rounded-full bg-slate-300 dark:bg-slate-700" />
                     <span>
-                      {post.readingMinutes} MIN {isFr ? "DE LECTURE" : "READ"}
+                      {post.readingMinutes} MIN {t("deRead")}
                     </span>
                   </div>
                 </div>
@@ -304,30 +299,10 @@ export default function BlogPage({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-12 text-center">
             {[
-              {
-                val: "1 200 €",
-                label: isFr
-                  ? "Revenu brut moyen / mois"
-                  : "Avg. monthly revenue",
-              },
-              {
-                val: "82 %",
-                label: isFr
-                  ? "Taux d'occupation Vieux-Lille"
-                  : "Vieux-Lille occupancy",
-              },
-              {
-                val: "+38 %",
-                label: isFr
-                  ? "Revenus avec Welqo vs solo"
-                  : "Revenue vs self-managing",
-              },
-              {
-                val: "4,9 / 5",
-                label: isFr
-                  ? "Note moyenne nos logements"
-                  : "Avg. rating our listings",
-              },
+              { val: "1 200 €", label: t("avgMonthlyRevenue") },
+              { val: "82 %", label: t("vieuxLilleOccupancy") },
+              { val: "+38 %", label: t("revenueVsSolo") },
+              { val: "4,9 / 5", label: t("avgRating") },
             ].map(({ val, label }) => (
               <div key={val}>
                 <p className="text-3xl md:text-4xl font-bold text-welqo-terracotta tracking-tighter">
@@ -357,40 +332,26 @@ export default function BlogPage({
             />
             <div className="relative z-10">
               <p className="text-welqo-terracotta text-[10px] font-bold tracking-[0.3em] mb-6">
-                {isFr ? "PASSEZ À L'ACTION" : "TAKE ACTION"}
+                {t("ctaAction")}
               </p>
               <h2 className="text-4xl md:text-6xl font-bold text-white tracking-tighter mb-8 leading-[0.95]">
-                {isFr ? (
-                  <>
-                    Prêt à déléguer votre
-                    <br />
-                    Airbnb à Lille ?
-                  </>
-                ) : (
-                  <>
-                    Ready to hand over your
-                    <br />
-                    Lille Airbnb?
-                  </>
-                )}
+                {t("ctaTitle")}
               </h2>
               <p className="text-slate-400 font-medium text-lg mb-12 max-w-lg mx-auto leading-relaxed">
-                {isFr
-                  ? "Welqo gère tout : annonces, check-in, ménage, maintenance. Devis gratuit sous 24h."
-                  : "Welqo handles everything: listings, check-in, cleaning, maintenance. Free quote in 24h."}
+                {t("ctaSubtitle")}
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
                   href={`${base}#contact`}
                   className="px-10 py-5 bg-welqo-terracotta hover:bg-welqo-terracotta/90 text-white rounded-xl font-bold transition-all active:scale-95 border border-welqo-terracotta/20"
                 >
-                  {isFr ? "Devis gratuit" : "Free quote"}
+                  {t("freeQuote")}
                 </a>
                 <a
                   href={`${base}#contact`}
                   className="px-10 py-5 bg-white/5 hover:bg-white/10 text-white rounded-2xl font-bold transition-all border border-white/10"
                 >
-                  {isFr ? "Nous contacter" : "Contact us"}
+                  {t("contactUs")}
                 </a>
               </div>
             </div>

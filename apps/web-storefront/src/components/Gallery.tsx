@@ -17,6 +17,7 @@ export const Gallery = ({ images }: { images: string[] }) => {
   const t = useTranslations("Gallery");
   const [isOpen, setIsOpen] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(0);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   // Handle keyboard navigation
   useEffect(() => {
@@ -38,7 +39,14 @@ export const Gallery = ({ images }: { images: string[] }) => {
         <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[360px] sm:h-[440px] md:h-[560px] lg:h-[650px] w-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-slate-200/50 dark:border-white/[0.05]">
           {/* Main Image */}
           <div
-            className="md:col-span-2 md:row-span-2 relative group overflow-hidden cursor-pointer"
+            className={cn(
+              "md:col-span-2 md:row-span-2 relative group overflow-hidden cursor-pointer transition-all duration-700",
+              hoveredIdx !== null && hoveredIdx !== 0
+                ? "opacity-30 blur-[2px] scale-[0.98]"
+                : "opacity-100 scale-100",
+            )}
+            onMouseEnter={() => setHoveredIdx(0)}
+            onMouseLeave={() => setHoveredIdx(null)}
             onClick={() => {
               setCurrentIdx(0);
               setIsOpen(true);
@@ -54,23 +62,33 @@ export const Gallery = ({ images }: { images: string[] }) => {
 
           {/* Secondary Images Grid */}
           <div className="hidden md:grid md:col-span-2 md:row-span-2 grid-cols-2 grid-rows-2 gap-4">
-            {images.slice(1, 5).map((img, i) => (
-              <div
-                key={i}
-                className="relative group overflow-hidden cursor-pointer"
-                onClick={() => {
-                  setCurrentIdx(i + 1);
-                  setIsOpen(true);
-                }}
-              >
-                <img
-                  src={img}
-                  alt={`View ${i + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
-              </div>
-            ))}
+            {images.slice(1, 5).map((img, i) => {
+              const actualIdx = i + 1;
+              return (
+                <div
+                  key={i}
+                  className={cn(
+                    "relative group overflow-hidden cursor-pointer transition-all duration-700",
+                    hoveredIdx !== null && hoveredIdx !== actualIdx
+                      ? "opacity-30 blur-[2px] scale-[0.98]"
+                      : "opacity-100 scale-100",
+                  )}
+                  onMouseEnter={() => setHoveredIdx(actualIdx)}
+                  onMouseLeave={() => setHoveredIdx(null)}
+                  onClick={() => {
+                    setCurrentIdx(actualIdx);
+                    setIsOpen(true);
+                  }}
+                >
+                  <img
+                    src={img}
+                    alt={`View ${actualIdx}`}
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
+                </div>
+              );
+            })}
           </div>
         </div>
 
@@ -103,7 +121,7 @@ export const Gallery = ({ images }: { images: string[] }) => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[999] bg-slate-950/95 backdrop-blur-2xl flex flex-col items-center justify-center p-4 md:p-12"
+            className="fixed inset-0 z-[999] bg-slate-950/98 backdrop-blur-2xl flex flex-col items-center justify-center p-4 md:p-12"
           >
             {/* Header Controls */}
             <div className="absolute top-8 left-8 right-8 flex justify-between items-center z-[1000]">
@@ -124,9 +142,9 @@ export const Gallery = ({ images }: { images: string[] }) => {
                 <motion.img
                   key={currentIdx}
                   src={images[currentIdx]}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: -20 }}
+                  initial={{ opacity: 0, x: 30, scale: 0.98 }}
+                  animate={{ opacity: 1, x: 0, scale: 1 }}
+                  exit={{ opacity: 0, x: -30, scale: 0.98 }}
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
                   onDragEnd={(_, info) => {
@@ -137,20 +155,20 @@ export const Gallery = ({ images }: { images: string[] }) => {
                         (prev) => (prev - 1 + images.length) % images.length,
                       );
                   }}
-                  transition={{ duration: 0.3, ease: "easeOut" }}
-                  className="w-full h-full object-contain rounded-2xl cursor-grab active:cursor-grabbing"
+                  transition={{ duration: 0.35, ease: "easeOut" }}
+                  className="w-full h-full object-contain rounded-2xl cursor-grab active:cursor-grabbing select-none"
                 />
               </AnimatePresence>
 
               {/* Navigation Arrows */}
-              <div className="absolute inset-0 flex items-center justify-between px-4 md:-mx-20">
+              <div className="absolute inset-0 flex items-center justify-between px-4 md:-mx-20 pointer-events-none">
                 <button
                   onClick={() =>
                     setCurrentIdx(
                       (prev) => (prev - 1 + images.length) % images.length,
                     )
                   }
-                  className="w-14 h-14 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all border border-white/10 backdrop-blur-md"
+                  className="w-14 h-14 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all border border-white/10 backdrop-blur-md pointer-events-auto shadow-2xl active:scale-95"
                 >
                   <ChevronLeft className="w-8 h-8" />
                 </button>
@@ -158,7 +176,7 @@ export const Gallery = ({ images }: { images: string[] }) => {
                   onClick={() =>
                     setCurrentIdx((prev) => (prev + 1) % images.length)
                   }
-                  className="w-14 h-14 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all border border-white/10 backdrop-blur-md"
+                  className="w-14 h-14 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all border border-white/10 backdrop-blur-md pointer-events-auto shadow-2xl active:scale-95"
                 >
                   <ChevronRight className="w-8 h-8" />
                 </button>
@@ -174,13 +192,13 @@ export const Gallery = ({ images }: { images: string[] }) => {
                   className={cn(
                     "relative shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all",
                     currentIdx === i
-                      ? "border-welqo-terracotta scale-110"
+                      ? "border-welqo-terracotta scale-110 shadow-lg shadow-welqo-terracotta/20"
                       : "border-transparent opacity-40 hover:opacity-100",
                   )}
                 >
                   <img
                     src={img}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover select-none pointer-events-none"
                     alt="Thumbnail"
                   />
                 </button>

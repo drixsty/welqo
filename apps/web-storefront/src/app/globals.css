@@ -2,42 +2,82 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+/* ─── Design Tokens ──────────────────────────────────────────────────── */
 :root {
-  --background: 210 40% 98%; /* Slate 50 */
-  --foreground: 222 47% 11%; /* Slate 950 */
-  --primary: 28 80% 52%; /* Terracotta */
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+  --primary: 28 80% 52%;
   --primary-foreground: 0 0% 100%;
-
   --welqo-anthracite: 222 47% 11%;
   --welqo-terracotta: 28 80% 52%;
   --welqo-cream: 210 40% 98%;
 }
 
 .dark {
-  --background: 222 47% 4%; /* Slate 950 deep */
+  --background: 222 47% 4%;
   --foreground: 210 40% 98%;
+}
+
+/* ─── Global base ────────────────────────────────────────────────────── */
+html {
+  scroll-behavior: smooth;
 }
 
 body {
   color: hsl(var(--foreground));
   background: hsl(var(--background));
-  font-feature-settings:
-    "rlig" 1,
-    "calt" 1;
+  font-feature-settings: "rlig" 1, "calt" 1;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-inter), sans-serif;
   font-weight: 700;
   letter-spacing: -0.02em;
 }
 
+/* ─── Scroll-reveal system ───────────────────────────────────────────── */
+.sr-hidden {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sr-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.sr-hidden-left {
+  opacity: 0;
+  transform: translateX(-24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sr-hidden-left.sr-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.sr-hidden-scale {
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sr-hidden-scale.sr-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* ─── Glass card ─────────────────────────────────────────────────────── */
 .glass-card {
   background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(8px);
@@ -49,11 +89,11 @@ h6 {
   border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Custom Scrollbar */
+/* ─── Scrollbar ──────────────────────────────────────────────────────── */
 @layer base {
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
 
   ::-webkit-scrollbar-track {
@@ -61,21 +101,20 @@ h6 {
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #cbd5e1; /* Slate 300 */
+    background: #cbd5e1;
     border-radius: 10px;
     border: 2px solid transparent;
     background-clip: padding-box;
   }
 
   .dark ::-webkit-scrollbar-thumb {
-    background: #334155; /* Slate 700 */
+    background: #334155;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #e67e22; /* Primary */
+    background: #e67e22;
   }
 
-  /* Firefox support */
   * {
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
@@ -84,4 +123,35 @@ h6 {
   .dark * {
     scrollbar-color: #334155 transparent;
   }
+}
+
+/* ─── Reading progress bar ───────────────────────────────────────────── */
+#reading-progress {
+  position: fixed;
+  top: 64px; /* below navbar h-16 */
+  left: 0;
+  height: 2px;
+  background: #e67e22;
+  z-index: 49;
+  transform-origin: left;
+  transition: transform 0.1s linear;
+  width: 100%;
+}
+
+/* ─── Anchor offset (compensate fixed navbar) ────────────────────────── */
+[id] {
+  scroll-margin-top: 80px;
+}
+
+/* ─── Focus visible ──────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid #e67e22;
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ─── Selection ──────────────────────────────────────────────────────── */
+::selection {
+  background: rgba(230, 126, 34, 0.2);
+  color: inherit;
 }

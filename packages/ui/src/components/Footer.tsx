@@ -14,7 +14,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
     links: [
       {
         label: isFr ? "Conciergerie Lens & Arras" : "Lens & Arras Concierge",
-        href: `${base}/proprietaires`,
+        href: `${base}/blog/conciergerie-airbnb-lens-arras-bassin-minier`,
       },
       {
         label: isFr ? "Espace Propriétaire" : "Owner Portal",
@@ -22,11 +22,11 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
       },
       {
         label: isFr ? "Nos Logements" : "Our Properties",
-        href: base,
+        href: `${base}/logements`,
       },
       {
-        label: isFr ? "Estimation de revenus" : "Revenue Estimation",
-        href: `${base}/proprietaires#simulator`,
+        label: isFr ? "Estimer mes revenus" : "Estimate my income",
+        href: `${base}#simulator`,
       },
       {
         label: "Blog",

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { JsonLd } from "../../components/JsonLd";
 import { RevenueSimulator } from "../../components/proprietaires/RevenueSimulator";
 import { ContactForm } from "../../components/ContactForm";
+import { ScrollReveal } from "../../components/ScrollReveal";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -465,19 +466,21 @@ export default async function HomePage({
                 : "Delegate the mental load. Save 10 hours a week."}
             </p>
           </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-            {PAIN_POINTS.map((p) => (
-              <div
-                key={p.text}
-                className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-100 dark:border-slate-800"
-              >
-                <span className="text-xl shrink-0">{p.emoji}</span>
-                <p className="text-slate-600 dark:text-slate-300 text-[13px] font-medium leading-snug">
-                  {p.text}
-                </p>
-              </div>
-            ))}
-          </div>
+          <ScrollReveal delay={100}>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+              {PAIN_POINTS.map((p) => (
+                <div
+                  key={p.text}
+                  className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-100 dark:border-slate-800 hover:bg-white dark:hover:bg-slate-800/70 hover:shadow-sm hover:border-slate-200 dark:hover:border-slate-700 transition-all duration-200"
+                >
+                  <span className="text-xl shrink-0">{p.emoji}</span>
+                  <p className="text-slate-600 dark:text-slate-300 text-[13px] font-medium leading-snug">
+                    {p.text}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </ScrollReveal>
         </div>
       </section>
 
@@ -548,7 +551,7 @@ export default async function HomePage({
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {BENTO_SERVICES.map((svc) => {
+            {BENTO_SERVICES.map((svc, i) => {
               const accentMap: Record<string, string> = {
                 blue: "text-blue-400 bg-blue-500/10 border-blue-500/20",
                 indigo: "text-indigo-400 bg-indigo-500/10 border-indigo-500/20",
@@ -558,29 +561,28 @@ export default async function HomePage({
               };
               const accentClass = accentMap[svc.accent] ?? accentMap.blue;
               return (
-                <div
-                  key={svc.title}
-                  className="group relative rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6 overflow-hidden"
-                >
-                  <div className="relative z-10">
-                    <div className="flex items-start justify-between mb-6">
-                      <div className={`w-10 h-10 rounded-lg flex items-center justify-center border ${accentClass}`}>
-                        <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" d={svc.icon} />
-                        </svg>
+                <ScrollReveal key={svc.title} delay={i * 80}>
+                  <div className="group relative rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900/50 p-6 overflow-hidden hover:shadow-card hover:-translate-y-1 hover:border-slate-200 dark:hover:border-slate-600 transition-all duration-300">
+                    <div className="relative z-10">
+                      <div className="flex items-start justify-between mb-6">
+                        <div className={`w-10 h-10 rounded-lg flex items-center justify-center border ${accentClass}`}>
+                          <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" d={svc.icon} />
+                          </svg>
+                        </div>
+                        <span className="px-2.5 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 rounded-full text-[9px] font-bold uppercase tracking-wider">
+                          {svc.tag}
+                        </span>
                       </div>
-                      <span className="px-2.5 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 rounded-full text-[9px] font-bold uppercase tracking-wider">
-                        {svc.tag}
-                      </span>
-                    </div>
-                    <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight mb-2">{svc.title}</h3>
-                    <p className="text-slate-500 dark:text-slate-400 text-[13px] leading-relaxed mb-6">{svc.desc}</p>
-                    <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border ${accentClass} bg-opacity-10`}>
-                      <span className="font-bold text-sm">{svc.stat}</span>
-                      <span className="text-[10px] opacity-70 font-medium uppercase tracking-widest">{svc.statLabel}</span>
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white tracking-tight mb-2">{svc.title}</h3>
+                      <p className="text-slate-500 dark:text-slate-400 text-[13px] leading-relaxed mb-6">{svc.desc}</p>
+                      <div className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border ${accentClass} bg-opacity-10`}>
+                        <span className="font-bold text-sm">{svc.stat}</span>
+                        <span className="text-[10px] opacity-70 font-medium uppercase tracking-widest">{svc.statLabel}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
+                </ScrollReveal>
               );
             })}
           </div>
@@ -592,7 +594,9 @@ export default async function HomePage({
       ══════════════════════════════════════════════════════ */}
       <section id="simulator" className="py-16 px-4 bg-slate-50 dark:bg-slate-950">
         <div className="max-w-4xl mx-auto">
-          <RevenueSimulator locale={locale} />
+          <ScrollReveal>
+            <RevenueSimulator locale={locale} />
+          </ScrollReveal>
         </div>
       </section>
 
@@ -600,43 +604,45 @@ export default async function HomePage({
           COMPARISON TABLE
       ══════════════════════════════════════════════════════ */}
       <section id="pourquoi-welqo" className="py-12 px-4 bg-white dark:bg-black">
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white mb-3">
-              {isFr ? "Pourquoi Welqo ?" : "Why Welqo?"}
-            </h2>
-          </div>
-          <div className="overflow-x-auto rounded-lg border border-slate-100 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-900">
-            <table className="w-full text-xs">
-              <thead>
-                <tr className="border-b border-slate-100 dark:border-slate-800">
-                  <th className="text-left px-5 py-4 font-bold text-slate-400 text-[9px] uppercase tracking-widest w-1/3">
-                    {isFr ? "Critère" : "Criteria"}
-                  </th>
-                  <th className="px-5 py-4 font-bold text-slate-500 text-[9px] uppercase tracking-widest text-center">
-                    {isFr ? "Seul" : "Solo"}
-                  </th>
-                  <th className="px-5 py-4 bg-welqo-terracotta/5 dark:bg-welqo-terracotta/10 text-center">
-                    <span className="font-bold text-welqo-terracotta text-sm">WELQO</span>
-                  </th>
-                  <th className="px-5 py-4 font-bold text-slate-500 text-[9px] uppercase tracking-widest text-center">
-                    {isFr ? "Agence trad." : "Traditional agency"}
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
-                {COMPARE_ROWS.map((row, i) => (
-                  <tr key={row.label} className={i % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50/30 dark:bg-slate-800/30"}>
-                    <td className="px-5 py-3 font-bold text-slate-700 dark:text-slate-300">{row.label}</td>
-                    <td className="px-5 py-3 text-center text-slate-400">{row.solo}</td>
-                    <td className="px-5 py-3 text-center font-bold text-welqo-terracotta bg-welqo-terracotta/3 dark:bg-welqo-terracotta/5">{row.welqo}</td>
-                    <td className="px-5 py-3 text-center text-slate-400">{row.agence}</td>
+        <ScrollReveal>
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-10">
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white mb-3">
+                {isFr ? "Pourquoi Welqo ?" : "Why Welqo?"}
+              </h2>
+            </div>
+            <div className="overflow-x-auto rounded-lg border border-slate-100 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-900">
+              <table className="w-full text-xs">
+                <thead>
+                  <tr className="border-b border-slate-100 dark:border-slate-800">
+                    <th className="text-left px-5 py-4 font-bold text-slate-400 text-[9px] uppercase tracking-widest w-1/3">
+                      {isFr ? "Critère" : "Criteria"}
+                    </th>
+                    <th className="px-5 py-4 font-bold text-slate-500 text-[9px] uppercase tracking-widest text-center">
+                      {isFr ? "Seul" : "Solo"}
+                    </th>
+                    <th className="px-5 py-4 bg-welqo-terracotta/5 dark:bg-welqo-terracotta/10 text-center">
+                      <span className="font-bold text-welqo-terracotta text-sm">WELQO</span>
+                    </th>
+                    <th className="px-5 py-4 font-bold text-slate-500 text-[9px] uppercase tracking-widest text-center">
+                      {isFr ? "Agence trad." : "Traditional agency"}
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody className="divide-y divide-slate-50 dark:divide-slate-800">
+                  {COMPARE_ROWS.map((row, i) => (
+                    <tr key={row.label} className={i % 2 === 0 ? "bg-white dark:bg-slate-900" : "bg-slate-50/30 dark:bg-slate-800/30"}>
+                      <td className="px-5 py-3 font-bold text-slate-700 dark:text-slate-300">{row.label}</td>
+                      <td className="px-5 py-3 text-center text-slate-400">{row.solo}</td>
+                      <td className="px-5 py-3 text-center font-bold text-welqo-terracotta bg-welqo-terracotta/3 dark:bg-welqo-terracotta/5">{row.welqo}</td>
+                      <td className="px-5 py-3 text-center text-slate-400">{row.agence}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </section>
 
       {/* ══════════════════════════════════════════════════════

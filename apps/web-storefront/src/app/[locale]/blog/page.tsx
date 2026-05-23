@@ -19,11 +19,20 @@ export async function generateMetadata({
   const isFr = locale !== "en";
   return {
     title: isFr
-      ? "Blog Welqo — Conseils Airbnb & Location Courte Durée Lille"
-      : "Welqo Blog — Airbnb Tips & Short-Term Rental Lille",
+      ? "Blog Welqo — Conseils Airbnb & Gestion Locative Hauts-de-France"
+      : "Welqo Blog — Airbnb Tips & Short-Term Rental Management Lille",
     description: isFr
-      ? "Guides, études de marché et conseils pratiques pour rentabiliser votre bien sur Airbnb à Lille. Rédigés par les experts de la conciergerie Welqo."
-      : "Guides, market studies and practical tips to maximise your Airbnb revenue in Lille. Written by Welqo concierge experts.",
+      ? "Guides pratiques, études de rentabilité et conseils d'experts pour maximiser les revenus de votre Airbnb à Lille, Lens et Arras. Par la conciergerie Welqo."
+      : "Practical guides, profitability studies and expert tips to maximise your Airbnb revenue in Lille, Lens and Arras. By Welqo concierge.",
+    keywords: isFr
+      ? [
+          "blog airbnb lille",
+          "conseils location courte durée",
+          "rentabilité airbnb hauts-de-france",
+          "guide conciergerie airbnb",
+          "revenus airbnb lille",
+        ]
+      : ["airbnb tips lille", "short-term rental blog", "airbnb revenue northern france"],
     alternates: {
       canonical: `${BASE_URL}/${locale}/blog`,
       languages: {
@@ -31,6 +40,18 @@ export async function generateMetadata({
         en: `${BASE_URL}/en/blog`,
         "x-default": `${BASE_URL}/fr/blog`,
       },
+    },
+    openGraph: {
+      title: isFr
+        ? "Blog Welqo — Conseils Airbnb Hauts-de-France"
+        : "Welqo Blog — Airbnb Tips Northern France",
+      description: isFr
+        ? "Guides et études de marché pour rentabiliser votre Airbnb à Lille, Lens et Arras."
+        : "Guides and market studies to maximise your Airbnb in Lille, Lens and Arras.",
+      url: `${BASE_URL}/${locale}/blog`,
+      siteName: "Welqo",
+      type: "website",
+      images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630 }],
     },
   };
 }
@@ -356,10 +377,10 @@ export default function BlogPage({
               </p>
               <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a
-                  href={`${base}/proprietaires`}
+                  href={`${base}#contact`}
                   className="px-10 py-5 bg-welqo-terracotta hover:bg-welqo-terracotta/90 text-white rounded-xl font-bold transition-all active:scale-95 border border-welqo-terracotta/20"
                 >
-                  {isFr ? "Découvrir nos services" : "Explore our services"}
+                  {isFr ? "Devis gratuit" : "Free quote"}
                 </a>
                 <a
                   href={`${base}#contact`}

@@ -8,6 +8,7 @@ import { ArticleToc } from "../../../../components/blog/ArticleToc";
 import { ArticleCombienRapporteAirbnbLille } from "../../../../components/blog/ArticleCombienRapporteAirbnbLille";
 import { ArticleChecklistLancerAirbnb } from "../../../../components/blog/ArticleChecklistLancerAirbnb";
 import { ArticleMeilleursQuartiers } from "../../../../components/blog/ArticleMeilleursQuartiers";
+import { ArticleConciergerieLensArras } from "../../../../components/blog/ArticleConciergerieLensArras";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -41,12 +42,21 @@ const TOC_MAP: Record<string, TocItem[]> = {
     { id: "choisir", title: "Choisir selon son profil" },
     { id: "gestion-pro", title: "Impact de la gestion pro" },
   ],
+  "conciergerie-airbnb-lens-arras-bassin-minier": [
+    { id: "louvre-lens", title: "L'effet Louvre-Lens" },
+    { id: "rc-lens-matchs", title: "RC Lens : nuits de match" },
+    { id: "lens-vs-arras", title: "Lens vs Arras" },
+    { id: "rentabilite", title: "Rentabilité estimée 2025" },
+    { id: "conciergerie", title: "Pourquoi une conciergerie ?" },
+    { id: "conclusion", title: "Conclusion" },
+  ],
 };
 
 const ARTICLE_MAP: Record<string, React.ComponentType<{ locale: string }>> = {
   "combien-rapporte-airbnb-lille-2025": ArticleCombienRapporteAirbnbLille,
   "checklist-lancer-airbnb-lille": ArticleChecklistLancerAirbnb,
   "meilleurs-quartiers-airbnb-lille": ArticleMeilleursQuartiers,
+  "conciergerie-airbnb-lens-arras-bassin-minier": ArticleConciergerieLensArras,
 };
 
 export function generateStaticParams() {
@@ -244,7 +254,7 @@ export default function BlogPostPage({
           </div>
           <div className="flex items-center gap-4 shrink-0">
             <a
-              href={`${base}/proprietaires`}
+              href={`${base}#contact`}
               className="px-6 py-2 bg-welqo-terracotta hover:bg-welqo-terracotta/90 text-white rounded-xl text-xs font-bold transition-all shadow-md shadow-welqo-terracotta/10"
             >
               {isFr ? "Simulation gratuite" : "Free simulation"}
@@ -295,10 +305,10 @@ export default function BlogPostPage({
                   : "Welqo handles everything: listings, check-in, cleaning, maintenance. Free quote in 24h."}
               </p>
               <a
-                href={`${base}/proprietaires`}
+                href={`${base}#contact`}
                 className="inline-block px-10 py-4 bg-welqo-terracotta text-white rounded-xl font-bold hover:bg-welqo-terracotta/90 transition-all active:scale-95 border border-welqo-terracotta/20"
               >
-                {isFr ? "Découvrir nos services" : "Explore our services"}
+                {isFr ? "Devis gratuit" : "Free quote"}
               </a>
             </div>
           </div>

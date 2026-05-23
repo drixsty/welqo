@@ -12,11 +12,11 @@ export async function generateMetadata({
 
   return {
     title: isFr
-      ? "Votre bien ici | Conciergerie Welqo Hauts-de-France"
-      : "Your property here | Welqo Concierge Northern France",
+      ? "Confier son Airbnb à Welqo — Gestion Locative Hauts-de-France"
+      : "Hand Over Your Airbnb to Welqo — Property Management Northern France",
     description: isFr
-      ? "Welqo gère votre logement sur Airbnb, Booking.com et plus. Audit gratuit, mise en ligne en 7 jours, revenus maximisés."
-      : "Welqo manages your property on Airbnb, Booking.com and more. Free audit, live in 7 days, maximized income.",
+      ? "Welqo gère votre Airbnb à Lille, Lens, Arras, Béthune et Douai : annonces multi-plateformes, ménage, check-in, tarification dynamique. Audit gratuit, mise en ligne en 7 jours."
+      : "Welqo manages your Airbnb in Lille, Lens, Arras and across Northern France: multi-platform listings, cleaning, check-in, dynamic pricing. Free audit, live in 7 days.",
     alternates: {
       canonical: `${BASE_URL}/${locale}/logements`,
       languages: {

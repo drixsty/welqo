@@ -239,7 +239,15 @@ export default async function HomePage({
         addressCountry: "FR",
       },
     },
-    areaServed: { "@type": "City", name: "Lille" },
+    areaServed: [
+      { "@type": "City", name: "Lille" },
+      { "@type": "City", name: "Lens" },
+      { "@type": "City", name: "Arras" },
+      { "@type": "City", name: "Béthune" },
+      { "@type": "City", name: "Douai" },
+      { "@type": "City", name: "Roubaix" },
+      { "@type": "City", name: "Tourcoing" },
+    ],
     description:
       "Gestion locative courte durée complète pour propriétaires Airbnb à Lille. Commission 15-20%, sans frais fixe.",
     offers: {

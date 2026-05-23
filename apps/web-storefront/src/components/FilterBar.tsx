@@ -62,7 +62,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
 
   return (
     <div className="sticky top-16 z-30 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-slate-200 dark:border-white/[0.05]">
-      <div className="max-w-7xl mx-auto px-6 py-3 flex flex-wrap items-center gap-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center gap-3 sm:gap-4">
         {/* Filters Label */}
         <div className="flex items-center gap-2 text-slate-400 mr-2">
           <SlidersHorizontal className="w-3.5 h-3.5" />
@@ -75,7 +75,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
         <div className="relative" ref={cityRef}>
           <button
             onClick={() => setIsCityOpen(!isCityOpen)}
-            className="flex items-center gap-3 bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 rounded-lg pl-3.5 pr-10 py-2 text-xs font-semibold outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-slate-700 dark:text-slate-200 min-w-[160px] relative group"
+            className="flex items-center gap-3 bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 rounded-lg pl-3.5 pr-10 py-2 text-xs font-semibold outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all text-slate-700 dark:text-slate-200 w-full sm:w-auto sm:min-w-[160px] relative group"
           >
             <MapPin className="w-3.5 h-3.5 text-slate-400 group-hover:text-primary transition-colors" />
             <span className="truncate">
@@ -129,7 +129,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
         </div>
 
         {/* Price Range */}
-        <div className="flex items-center bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 rounded-lg px-3 py-1 gap-2">
+        <div className="flex items-center bg-slate-50 dark:bg-white/[0.03] border border-slate-200 dark:border-white/10 rounded-lg px-3 py-1 gap-2 w-full sm:w-auto">
           <Euro className="w-3.5 h-3.5 text-slate-400" />
           <input
             type="number"

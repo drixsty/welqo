@@ -260,7 +260,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
           <Users className="w-3 h-3 text-welqo-terracotta" />
           {isFr ? "Voyageurs" : "Guests"}
         </label>
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
           {[1, 2, 3, 4, "5+"].map((n) => (
             <button
               key={n}

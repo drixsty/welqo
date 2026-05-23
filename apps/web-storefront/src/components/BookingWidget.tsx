@@ -85,7 +85,7 @@ export const BookingWidget = ({
   }, []);
 
   return (
-    <div className="sticky top-24 bg-white dark:bg-slate-900 rounded-xl p-5 border border-slate-100 dark:border-white/5 shadow-sm transition-all">
+    <div className="sticky top-20 md:top-24 bg-white dark:bg-slate-900 rounded-xl p-4 sm:p-5 border border-slate-100 dark:border-white/5 shadow-sm transition-all">
       <div className="flex justify-between items-baseline mb-5">
         <div className="flex items-baseline gap-1">
           <span className="text-xl font-bold text-slate-900 dark:text-white">

@@ -87,12 +87,12 @@ export const PropertyBookingSystem = ({
       />
 
       {showTunnel && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+        <div className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-0 sm:p-4">
           <div
             className="absolute inset-0 bg-slate-950/60 backdrop-blur-md"
             onClick={() => setShowTunnel(false)}
           />
-          <div className="relative w-full max-w-4xl max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-950 rounded-[2.5rem] shadow-2xl">
+          <div className="relative w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] overflow-y-auto bg-white dark:bg-slate-950 rounded-t-[2rem] sm:rounded-[2.5rem] shadow-2xl">
             <ReservationTunnel quote={mockQuote} locale={locale} />
             <button
               onClick={() => setShowTunnel(false)}

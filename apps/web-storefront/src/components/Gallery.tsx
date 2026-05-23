@@ -33,7 +33,7 @@ export const Gallery = ({ images }: { images: string[] }) => {
   return (
     <>
       <div className="relative group/gallery">
-        <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[500px] md:h-[650px] w-full rounded-[2.5rem] overflow-hidden border border-slate-200/50 dark:border-white/[0.05]">
+        <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[360px] sm:h-[440px] md:h-[560px] lg:h-[650px] w-full rounded-[2rem] md:rounded-[2.5rem] overflow-hidden border border-slate-200/50 dark:border-white/[0.05]">
           {/* Main Image */}
           <div
             className="md:col-span-2 md:row-span-2 relative group overflow-hidden cursor-pointer"

@@ -108,7 +108,7 @@ export const ReservationTunnel = ({
   };
 
   return (
-    <div className="max-w-4xl mx-auto px-6 py-12">
+    <div className="max-w-4xl mx-auto px-4 sm:px-6 py-8 sm:py-12">
       {/* 🟢 NEW PROGRESS BAR */}
       <div className="mb-12">
         <div className="flex justify-between mb-4">
@@ -154,7 +154,7 @@ export const ReservationTunnel = ({
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-12">
         <div className="lg:col-span-2">
           <AnimatePresence mode="wait">
             {step === 1 && (
@@ -177,7 +177,7 @@ export const ReservationTunnel = ({
                 </div>
 
                 <div className="bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 p-8 rounded-3xl space-y-6">
-                  <div className="grid grid-cols-2 gap-8">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
                     <div className="space-y-1">
                       <span className="text-[10px] font-black tracking-widest text-slate-400">
                         {isFr ? "Arrivée" : "Check-in"}
@@ -419,7 +419,7 @@ export const ReservationTunnel = ({
         </div>
 
         <div className="lg:col-span-1">
-          <div className="sticky top-24 space-y-6">
+          <div className="sticky top-20 md:top-24 space-y-6">
             <div className="bg-slate-950 text-white rounded-[2rem] p-8 space-y-8 shadow-2xl">
               <h3 className="font-bold text-lg flex items-center gap-3">
                 <div className="w-1.5 h-6 bg-primary rounded-full" />

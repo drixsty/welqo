@@ -71,18 +71,20 @@ export const PropertyCard = ({
         {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
-        {/* Gallery Controls (Mobile hidden, Desktop hover) */}
-        {allImages.length > 1 && isHovered && (
-          <div className="absolute inset-0 flex items-center justify-between px-4 z-20">
+        {/* Gallery Controls — always visible on touch, hover-only on desktop */}
+        {allImages.length > 1 && (
+          <div
+            className={`absolute inset-0 flex items-center justify-between px-4 z-20 transition-opacity duration-300 ${isHovered ? "opacity-100" : "opacity-0 md:opacity-0 opacity-100 md:group-hover:opacity-100"}`}
+          >
             <button
               onClick={prevImg}
-              className="w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95"
+              className="w-10 h-10 md:w-8 md:h-8 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
             <button
               onClick={nextImg}
-              className="w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95"
+              className="w-10 h-10 md:w-8 md:h-8 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95"
             >
               <ChevronRight className="w-4 h-4" />
             </button>

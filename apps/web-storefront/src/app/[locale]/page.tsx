@@ -728,7 +728,7 @@ export default async function HomePage({
                         WELQO
                       </span>
                     </th>
-                    <th className="px-5 py-4 font-bold text-slate-500 text-[9px] uppercase tracking-widest text-center">
+                    <th className="hidden sm:table-cell px-5 py-4 font-bold text-slate-500 text-[9px] uppercase tracking-widest text-center">
                       {isFr ? "Agence trad." : "Traditional agency"}
                     </th>
                   </tr>
@@ -743,16 +743,16 @@ export default async function HomePage({
                           : "bg-slate-50/30 dark:bg-slate-800/30"
                       }
                     >
-                      <td className="px-5 py-3 font-bold text-slate-700 dark:text-slate-300">
+                      <td className="px-4 sm:px-5 py-3 font-bold text-slate-700 dark:text-slate-300">
                         {row.label}
                       </td>
-                      <td className="px-5 py-3 text-center text-slate-400">
+                      <td className="px-4 sm:px-5 py-3 text-center text-slate-400">
                         {row.solo}
                       </td>
-                      <td className="px-5 py-3 text-center font-bold text-welqo-terracotta bg-welqo-terracotta/3 dark:bg-welqo-terracotta/5">
+                      <td className="px-4 sm:px-5 py-3 text-center font-bold text-welqo-terracotta bg-welqo-terracotta/3 dark:bg-welqo-terracotta/5">
                         {row.welqo}
                       </td>
-                      <td className="px-5 py-3 text-center text-slate-400">
+                      <td className="hidden sm:table-cell px-4 sm:px-5 py-3 text-center text-slate-400">
                         {row.agence}
                       </td>
                     </tr>

@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import {
   SlidersHorizontal,
@@ -24,18 +25,19 @@ interface FilterSidebarProps {
 }
 
 const CITIES = ["Lille", "Lens", "Arras", "Valenciennes", "Douai"];
-const AMENITIES = [
-  { id: "wifi", label: "Wifi", icon: Wifi },
-  { id: "parking", label: "Parking", icon: Car },
-  { id: "kitchen", label: "Cuisine", icon: ChefHat },
-  { id: "tv", label: "TV", icon: Tv },
-  { id: "ac", label: "Climatisation", icon: Wind },
+const AMENITY_IDS = [
+  { id: "wifi", key: "amenity_wifi", icon: Wifi },
+  { id: "parking", key: "amenity_parking", icon: Car },
+  { id: "kitchen", key: "amenity_kitchen", icon: ChefHat },
+  { id: "tv", key: "amenity_tv", icon: Tv },
+  { id: "ac", key: "amenity_ac", icon: Wind },
 ];
 
 const MIN_LIMIT = 0;
 const MAX_LIMIT = 500;
 
 export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
+  const t = useTranslations("FilterSidebar");
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -117,7 +119,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
         <div className="flex items-center gap-1.5">
           <SlidersHorizontal className="w-3.5 h-3.5 text-welqo-terracotta" />
           <span className="text-[11px] font-black text-slate-900 dark:text-white tracking-widest">
-            {isFr ? "Filtres" : "Filters"}
+            {t("filters")}
           </span>
         </div>
         <div className="flex items-center gap-3">
@@ -126,7 +128,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
               onClick={handleClear}
               className="text-[10px] font-bold text-slate-400 hover:text-welqo-terracotta transition-colors tracking-tighter"
             >
-              {isFr ? "Reset" : "Reset"}
+              {t("reset")}
             </button>
           )}
           <button
@@ -142,7 +144,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
       <div className="space-y-2" ref={cityRef}>
         <label className="text-[10px] font-black text-slate-400 tracking-widest flex items-center gap-2">
           <MapPin className="w-3 h-3 text-welqo-terracotta" />
-          {isFr ? "Localisation" : "Location"}
+          {t("location")}
         </label>
         <div className="relative">
           <button
@@ -150,7 +152,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
             className="w-full flex items-center justify-between bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-[11px] font-bold text-slate-700 dark:text-slate-200 transition-all hover:border-welqo-terracotta/30"
           >
             <span className="truncate">
-              {city || (isFr ? "Partout" : "Anywhere")}
+              {city || t("anywhere")}
             </span>
             <ChevronDown
               className={`w-3 h-3 text-slate-400 transition-transform ${isCityOpen ? "rotate-180" : ""}`}
@@ -172,7 +174,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
                   }}
                   className="w-full flex items-center justify-between px-3 py-2 text-[11px] font-bold rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 text-slate-500"
                 >
-                  {isFr ? "Partout" : "Anywhere"}
+                  {t("anywhere")}
                   {!city && (
                     <Check className="w-3.5 h-3.5 text-welqo-terracotta" />
                   )}
@@ -204,7 +206,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
       <div className="space-y-4">
         <label className="text-[10px] font-black text-slate-400 tracking-widest flex items-center gap-2">
           <Euro className="w-3 h-3 text-welqo-terracotta" />
-          {isFr ? "Prix par nuit" : "Price per night"}
+          {t("pricePerNight")}
         </label>
 
         <div className="flex items-center gap-2 mb-6">
@@ -258,7 +260,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
       <div className="space-y-3">
         <label className="text-[10px] font-black text-slate-400 tracking-widest flex items-center gap-2">
           <Users className="w-3 h-3 text-welqo-terracotta" />
-          {isFr ? "Voyageurs" : "Guests"}
+          {t("guests")}
         </label>
         <div className="grid grid-cols-3 sm:grid-cols-5 gap-2">
           {[1, 2, 3, 4, "5+"].map((n) => (
@@ -280,10 +282,10 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
       {/* Amenities */}
       <div className="space-y-3">
         <label className="text-[10px] font-black text-slate-400 tracking-widest">
-          {isFr ? "Équipements" : "Amenities"}
+          {t("amenities")}
         </label>
         <div className="space-y-2">
-          {AMENITIES.map((a) => (
+          {AMENITY_IDS.map((a) => (
             <button
               key={a.id}
               onClick={() => toggleAmenity(a.id)}
@@ -307,7 +309,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
                     : "text-slate-500 dark:text-slate-400"
                 }`}
               >
-                {a.label}
+                {t(a.key as any)}
               </span>
             </button>
           ))}
@@ -321,7 +323,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
         }}
         className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl text-xs font-black tracking-[0.1em] shadow-2xl transition-all active:scale-95"
       >
-        {isFr ? "Appliquer les filtres" : "Apply Filters"}
+        {t("apply")}
       </button>
     </div>
   );
@@ -340,7 +342,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
           className="flex items-center gap-3 px-6 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-[2rem] shadow-2xl font-black text-xs tracking-widest active:scale-95 transition-all"
         >
           <SlidersHorizontal className="w-4 h-4 text-welqo-terracotta" />
-          {isFr ? "Filtres" : "Filters"}
+          {t("filters")}
           {searchParams.toString() !== "" && (
             <span className="w-5 h-5 rounded-full bg-welqo-terracotta text-white flex items-center justify-center text-[10px]">
               !

@@ -14,6 +14,7 @@ import {
   X,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 import { DayPicker, DateRange } from "react-day-picker";
 import { format, differenceInDays, addDays, isSameDay } from "date-fns";
 import { fr } from "date-fns/locale";
@@ -51,6 +52,7 @@ export const BookingWidget = ({
     to: addDays(new Date(), 3),
   });
 
+  const t = useTranslations("Booking");
   const [guests, setGuests] = useState(1);
   const [isGuestOpen, setIsGuestOpen] = useState(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
@@ -91,11 +93,11 @@ export const BookingWidget = ({
           <span className="text-xl font-bold text-slate-900 dark:text-white">
             €{basePrice}
           </span>
-          <span className="text-[10px] text-slate-400 font-bold">/ nuit</span>
+          <span className="text-[10px] text-slate-400 font-bold">{t("perNight")}</span>
         </div>
         <div className="flex items-center gap-1 text-emerald-500 text-[9px] font-bold">
           <Zap className="w-2.5 h-2.5 fill-current" />
-          Meilleur prix garanti
+          {t("bestPrice")}
         </div>
       </div>
 
@@ -108,12 +110,12 @@ export const BookingWidget = ({
               className="p-2.5 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group"
             >
               <span className="text-[8px] font-bold text-slate-400 block mb-0.5">
-                Arrivée
+                {t("checkIn")}
               </span>
               <span className="text-[11px] font-bold text-slate-900 dark:text-white truncate">
                 {range?.from
                   ? format(range.from, "dd MMM yyyy", { locale: fr })
-                  : "Choisir"}
+                  : t("choose")}
               </span>
             </button>
             <button
@@ -121,12 +123,12 @@ export const BookingWidget = ({
               className="p-2.5 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group"
             >
               <span className="text-[8px] font-bold text-slate-400 block mb-0.5">
-                Départ
+                {t("checkOut")}
               </span>
               <span className="text-[11px] font-bold text-slate-900 dark:text-white truncate">
                 {range?.to
                   ? format(range.to, "dd MMM yyyy", { locale: fr })
-                  : "Choisir"}
+                  : t("choose")}
               </span>
             </button>
           </div>
@@ -194,12 +196,12 @@ export const BookingWidget = ({
                     className="text-[9px] font-bold text-slate-400 hover:text-primary transition-colors flex items-center gap-1"
                   >
                     <X className="w-2.5 h-2.5" />
-                    Effacer
+                    {t("clear")}
                   </button>
                   <span className="text-[9px] font-medium text-slate-400 italic">
                     {nights > 0
-                      ? `${nights} nuits sélectionnées`
-                      : "Sélectionnez vos dates"}
+                      ? t("nightsSelected", { nights })
+                      : t("selectDates")}
                   </span>
                 </div>
               </motion.div>
@@ -215,10 +217,10 @@ export const BookingWidget = ({
           >
             <div className="text-left">
               <span className="text-[8px] font-bold text-slate-400 block mb-0.5">
-                Voyageurs
+                {t("guests")}
               </span>
               <span className="text-[11px] font-bold text-slate-900 dark:text-white">
-                {guests} {guests > 1 ? "voyageurs" : "voyageur"}
+                {guests} {guests > 1 ? t("guestPlural") : t("guest")}
               </span>
             </div>
             <ChevronDown
@@ -237,10 +239,10 @@ export const BookingWidget = ({
                 <div className="flex items-center justify-between">
                   <div>
                     <p className="text-xs font-bold text-slate-900 dark:text-white">
-                      Adultes
+                      {t("adults")}
                     </p>
                     <p className="text-[9px] text-slate-400 font-medium">
-                      Max {maxGuests} voyageurs
+                      {t("maxGuests", { max: maxGuests })}
                     </p>
                   </div>
                   <div className="flex items-center gap-3">
@@ -273,27 +275,27 @@ export const BookingWidget = ({
       <div className="space-y-2 mb-5 text-[11px]">
         <div className="flex justify-between">
           <span className="text-slate-500 font-medium">
-            €{basePrice} x {nights} nuits
+            €{basePrice} x {nights} {t("nights", { nights })}
           </span>
           <span className="font-bold text-slate-900 dark:text-white">
             €{totalNights.toFixed(2)}
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-slate-500 font-medium">Frais de ménage</span>
+          <span className="text-slate-500 font-medium">{t("cleaningFee")}</span>
           <span className="font-bold text-slate-900 dark:text-white">
             €{cleaningFee.toFixed(2)}
           </span>
         </div>
         <div className="flex justify-between">
-          <span className="text-slate-500 font-medium">Taxes de séjour</span>
+          <span className="text-slate-500 font-medium">{t("touristTax")}</span>
           <span className="font-bold text-slate-900 dark:text-white">
             €{totalTax.toFixed(2)}
           </span>
         </div>
         <div className="pt-2 border-t border-slate-50 dark:border-white/5 flex justify-between items-baseline">
           <span className="font-bold text-slate-900 dark:text-white">
-            Total
+            {t("total")}
           </span>
           <span className="text-lg font-bold text-primary">
             €{total.toFixed(2)}
@@ -305,12 +307,12 @@ export const BookingWidget = ({
         onClick={() => onBook?.({ range, guests })}
         className="group w-full py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-bold text-xs hover:bg-primary hover:text-white transition-all flex items-center justify-center gap-2"
       >
-        Réserver maintenant
+        {t("bookNow")}
         <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
       </button>
 
       <p className="mt-3 text-center text-[9px] font-bold text-slate-400">
-        Paiement sécurisé par Stripe
+        {t("securePayment")}
       </p>
 
       <style jsx global>{`

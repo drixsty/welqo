@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { PropertySummary } from "@welqo/types";
+import { useTranslations } from "next-intl";
 
 export const PropertyMap = ({
   properties,
@@ -12,6 +13,7 @@ export const PropertyMap = ({
   center?: [number, number];
   zoom?: number;
 }) => {
+  const t = useTranslations("PropertyMap");
   const [MapComponents, setMapComponents] = useState<any>(null);
 
   useEffect(() => {
@@ -164,14 +166,14 @@ export const PropertyMap = ({
                   <p className="text-welqo-terracotta font-mono font-bold text-sm">
                     {p.price.base}€{" "}
                     <span className="text-[10px] text-slate-400 uppercase">
-                      / nuit
+                      {t("perNight")}
                     </span>
                   </p>
                   <a
                     href={`/logements/${p.slug}`}
                     className="mt-2 block text-center py-1.5 bg-slate-900 text-white text-[10px] font-bold uppercase rounded hover:bg-welqo-terracotta transition-colors"
                   >
-                    Voir le détail
+                    {t("viewDetail")}
                   </a>
                 </div>
               </Popup>

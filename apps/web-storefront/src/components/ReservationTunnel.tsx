@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { BookingQuote } from "@welqo/types";
+import { useTranslations } from "next-intl";
 import {
   ChevronRight,
   ChevronLeft,
@@ -18,14 +19,12 @@ import {
 import { cn } from "@/lib/utils";
 import { trackEvent } from "../lib/tracking";
 
-const bookingSchema = z.object({
-  firstName: z.string().min(2, "Le prénom est trop court"),
-  lastName: z.string().min(2, "Le nom est trop court"),
-  email: z.string().email("Email invalide"),
-  phone: z.string().min(10, "Numéro de téléphone invalide"),
-});
-
-type BookingFormData = z.infer<typeof bookingSchema>;
+type BookingFormData = {
+  firstName: string;
+  lastName: string;
+  email: string;
+  phone: string;
+};
 
 interface ReservationTunnelProps {
   quote: BookingQuote;
@@ -36,9 +35,16 @@ export const ReservationTunnel = ({
   quote,
   locale,
 }: ReservationTunnelProps) => {
+  const t = useTranslations("ReservationTunnel");
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
-  const isFr = locale === "fr";
+
+  const bookingSchema = z.object({
+    firstName: z.string().min(2, t("errorFirstName")),
+    lastName: z.string().min(2, t("errorLastName")),
+    email: z.string().email(t("errorEmail")),
+    phone: z.string().min(10, t("errorPhone")),
+  });
 
   React.useEffect(() => {
     trackEvent("begin_checkout", {
@@ -57,7 +63,7 @@ export const ReservationTunnel = ({
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     trigger,
   } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
@@ -115,11 +121,11 @@ export const ReservationTunnel = ({
           {[
             {
               id: 1,
-              label: isFr ? "Récapitulatif" : "Summary",
+              label: t("stepSummary"),
               icon: ClipboardList,
             },
-            { id: 2, label: isFr ? "Informations" : "Info", icon: User },
-            { id: 3, label: isFr ? "Paiement" : "Payment", icon: CreditCard },
+            { id: 2, label: t("stepInfo"), icon: User },
+            { id: 3, label: t("stepPayment"), icon: CreditCard },
           ].map((s) => (
             <div
               key={s.id}
@@ -180,7 +186,7 @@ export const ReservationTunnel = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-8">
                     <div className="space-y-1">
                       <span className="text-[10px] font-black tracking-widest text-slate-400">
-                        {isFr ? "Arrivée" : "Check-in"}
+                        {t("checkIn")}
                       </span>
                       <p className="font-bold text-lg">
                         {new Date(quote.checkIn).toLocaleDateString(locale, {
@@ -191,7 +197,7 @@ export const ReservationTunnel = ({
                     </div>
                     <div className="space-y-1">
                       <span className="text-[10px] font-black tracking-widest text-slate-400">
-                        {isFr ? "Départ" : "Check-out"}
+                        {t("checkOut")}
                       </span>
                       <p className="font-bold text-lg">
                         {new Date(quote.checkOut).toLocaleDateString(locale, {
@@ -207,11 +213,12 @@ export const ReservationTunnel = ({
                         <User className="w-4 h-4 text-slate-400" />
                       </div>
                       <span className="font-bold">
-                        {quote.guests} {isFr ? "voyageurs" : "guests"}
+                        {quote.guests}{" "}
+                        {quote.guests > 1 ? t("guestPlural") : t("guest")}
                       </span>
                     </div>
                     <span className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full">
-                      {isFr ? "Annulation flexible" : "Flexible cancellation"}
+                      {t("flexibleCancel")}
                     </span>
                   </div>
                 </div>
@@ -220,7 +227,7 @@ export const ReservationTunnel = ({
                   onClick={nextStep}
                   className="group w-full py-5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-2xl font-bold hover:bg-welqo-terracotta hover:text-white transition-all flex items-center justify-center gap-3 shadow-xl shadow-slate-900/10 dark:shadow-none"
                 >
-                  {isFr ? "Continuer vers mes infos" : "Continue to my info"}
+                  {t("continueToInfo")}
                   <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </motion.div>
@@ -249,7 +256,7 @@ export const ReservationTunnel = ({
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">
-                        {isFr ? "Prénom" : "First Name"}
+                        {t("firstName")}
                       </label>
                       <input
                         {...register("firstName")}
@@ -269,7 +276,7 @@ export const ReservationTunnel = ({
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">
-                        {isFr ? "Nom" : "Last Name"}
+                        {t("lastName")}
                       </label>
                       <input
                         {...register("lastName")}
@@ -313,7 +320,7 @@ export const ReservationTunnel = ({
 
                   <div className="space-y-1.5">
                     <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">
-                      {isFr ? "Téléphone" : "Phone"}
+                      {t("phone")}
                     </label>
                     <input
                       {...register("phone")}
@@ -344,9 +351,7 @@ export const ReservationTunnel = ({
                     onClick={nextStep}
                     className="flex-1 py-5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-2xl font-bold hover:bg-welqo-terracotta hover:text-white transition-all disabled:opacity-50 disabled:hover:bg-slate-900 disabled:hover:text-white"
                   >
-                    {isFr
-                      ? "Continuer vers le paiement"
-                      : "Continue to payment"}
+                    {t("continueToPay")}
                   </button>
                 </div>
               </motion.div>
@@ -377,14 +382,12 @@ export const ReservationTunnel = ({
                   </div>
                   <div className="space-y-1">
                     <h4 className="font-bold text-base">
-                      {isFr
-                        ? "Garantie Tranquillité"
-                        : "Peace of Mind Guarantee"}
+                      {t("guarantee")}
                     </h4>
                     <p className="text-sm text-slate-500 leading-relaxed">
-                      {isFr
-                        ? `Une caution de ${quote.securityDeposit}€ sera simplement pré-autorisée. Aucun débit ne sera effectué sans constatation de dommages.`
-                        : `A security deposit of ${quote.securityDeposit}€ will be pre-authorized. No charge will be made unless damage is reported.`}
+                      {t("guaranteeText", {
+                        amount: quote.securityDeposit,
+                      })}
                     </p>
                   </div>
                 </div>

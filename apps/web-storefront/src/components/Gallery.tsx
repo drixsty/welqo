@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   X,
@@ -13,6 +14,7 @@ import {
 import { cn } from "@/lib/utils";
 
 export const Gallery = ({ images }: { images: string[] }) => {
+  const t = useTranslations("Gallery");
   const [isOpen, setIsOpen] = useState(false);
   const [currentIdx, setCurrentIdx] = useState(0);
 
@@ -89,7 +91,7 @@ export const Gallery = ({ images }: { images: string[] }) => {
             className="inline-flex items-center gap-3 px-6 py-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/[0.1] rounded-2xl text-[11px] font-black tracking-[0.15em] text-slate-900 dark:text-white shadow-2xl hover:scale-105 transition-all active:scale-95 group"
           >
             <Grid className="w-4 h-4 text-welqo-terracotta transition-transform group-hover:rotate-90" />
-            Voir les {images.length} photos
+            {t("viewAll", { count: images.length })}
           </button>
         </div>
       </div>

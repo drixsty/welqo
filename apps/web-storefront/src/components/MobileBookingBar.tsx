@@ -3,6 +3,7 @@
 import React from "react";
 import { Star, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 interface MobileBookingBarProps {
   price: number;
@@ -19,6 +20,8 @@ export const MobileBookingBar = ({
   onBook,
   isVisible,
 }: MobileBookingBarProps) => {
+  const t = useTranslations("MobileBooking");
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -36,7 +39,7 @@ export const MobileBookingBar = ({
                 €{price}
               </span>
               <span className="text-[10px] font-bold text-slate-400 tracking-widest">
-                / nuit
+                {t("perNight")}
               </span>
             </div>
             <div className="flex items-center gap-1.5 mt-1">
@@ -54,7 +57,7 @@ export const MobileBookingBar = ({
             onClick={onBook}
             className="px-8 py-4 bg-welqo-terracotta text-white rounded-2xl font-black text-sm shadow-xl shadow-welqo-terracotta/20 flex items-center gap-3 active:scale-95 transition-transform"
           >
-            Réserver
+            {t("book")}
             <ArrowRight className="w-4 h-4" />
           </button>
         </motion.div>

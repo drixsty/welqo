@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 const STORAGE_KEY = "welqo_cookie_consent";
 
@@ -12,6 +13,7 @@ interface CookieBannerProps {
 }
 
 export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
+  const t = useTranslations("CookieBanner");
   const [consent, setConsent] = useState<Consent>(null);
   const [visible, setVisible] = useState(false);
   const base = `/${locale}`;
@@ -56,18 +58,17 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
             🍪
           </div>
           <h2 className="font-bold text-slate-900 dark:text-white text-base tracking-tight">
-            Cookies
+            {t("title")}
           </h2>
         </div>
 
         <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mb-6">
-          Nous utilisons des cookies pour optimiser votre expérience. En
-          continuant, vous acceptez notre{" "}
+          {t("message")}{" "}
           <Link
             href={`${base}/politique-de-confidentialite`}
             className="text-welqo-terracotta hover:underline font-bold"
           >
-            politique de confidentialité
+            {t("policy")}
           </Link>
           .
         </p>
@@ -77,13 +78,13 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
             onClick={accept}
             className="flex-1 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg font-bold text-xs transition-all hover:bg-slate-800 dark:hover:bg-slate-100"
           >
-            Accepter
+            {t("accept")}
           </button>
           <button
             onClick={decline}
             className="flex-1 py-2.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg font-bold text-xs transition-all hover:bg-slate-100 dark:hover:bg-slate-700"
           >
-            Refuser
+            {t("decline")}
           </button>
         </div>
       </div>

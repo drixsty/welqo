@@ -15,8 +15,8 @@ export async function generateMetadata({
   
   return {
     title: isFr 
-      ? "Nos Demeures d'Exception | Conciergerie Welqo Bassin Minier" 
-      : "Our Exceptional Properties | Welqo Concierge Bassin Minier",
+      ? "Nos Demeures d'Exception | Conciergerie Welqo Hauts-de-France" 
+      : "Our Exceptional Properties | Welqo Concierge Hauts-de-France",
     description: isFr
       ? "Découvrez notre sélection de logements premium à Lens, Arras et Béthune. Réservez votre séjour idéal avec Welqo."
       : "Discover our selection of premium properties in Lens, Arras, and Béthune. Book your ideal stay with Welqo.",
@@ -57,7 +57,7 @@ export default async function PropertyListingPage({
                   {isFr ? "Trouvez votre séjour idéal" : "Find your perfect stay"}
                 </h1>
                 <p className="text-slate-500 dark:text-slate-400 font-medium">
-                  {properties.length} {isFr ? "logements disponibles dans le bassin minier" : "Properties available in the mining area"}
+                  {properties.length} {isFr ? "logements disponibles dans le Hauts-de-France" : "Properties available in the mining area"}
                 </p>
               </div>
             </div>
@@ -145,7 +145,7 @@ export default async function PropertyListingPage({
               },
               {
                 slug: "conciergerie-airbnb-lens-arras-bassin-minier",
-                title: "Focus Bassin Minier",
+                title: "Focus Hauts-de-France",
                 category: "Local"
               }
             ].map((post) => (

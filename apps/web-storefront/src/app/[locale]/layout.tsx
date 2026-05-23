@@ -76,8 +76,8 @@ export async function generateMetadata({
           width: 1200,
           height: 630,
           alt: isFr
-            ? "Welqo Conciergerie Airbnb Bassin Minier"
-            : "Welqo Airbnb Concierge Bassin Minier",
+            ? "Welqo Conciergerie Airbnb Hauts-de-France"
+            : "Welqo Airbnb Concierge Hauts-de-France",
         },
       ],
     },
@@ -87,8 +87,8 @@ export async function generateMetadata({
         ? "Welqo — Conciergerie Airbnb Lens & Arras"
         : "Welqo — Airbnb Concierge Lens & Arras",
       description: isFr
-        ? "Gestion complète de vos locations courtes durée en Bassin Minier."
-        : "Complete short-term rental management in Bassin Minier.",
+        ? "Gestion complète de vos locations courtes durée en Hauts-de-France."
+        : "Complete short-term rental management in Hauts-de-France.",
       images: [`${BASE_URL}/og-image.jpg`],
     },
     robots: {

@@ -69,7 +69,7 @@ export class StatsService {
       include: { property: { select: { titleFr: true, titleEn: true } } },
     });
 
-    // 4. Local Events (Bassin Minier Smart Pricing)
+    // 4. Local Events (Hauts-de-France Smart Pricing)
     const cities = await this.prisma.property.findMany({
       where: { id: { in: propertyIds } },
       select: { city: true },

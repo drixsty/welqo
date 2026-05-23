@@ -5,7 +5,7 @@ import { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Réservation | Welqo",
-  description: "Réservez votre séjour en Bassin Minier avec Welqo.",
+  description: "Réservez votre séjour en Hauts-de-France avec Welqo.",
 };
 
 interface ReservationPageProps {

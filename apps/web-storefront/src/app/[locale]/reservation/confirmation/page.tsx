@@ -31,8 +31,8 @@ export default async function ConfirmationPage({
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-lg mb-12 max-w-lg mx-auto">
           {isFr 
-            ? "Votre séjour est réservé. Préparez-vous à vivre une expérience inoubliable en Bassin Minier."
-            : "Your stay is booked. Get ready for an unforgettable experience in the Bassin Minier."}
+            ? "Votre séjour est réservé. Préparez-vous à vivre une expérience inoubliable en Hauts-de-France."
+            : "Your stay is booked. Get ready for an unforgettable experience in the Hauts-de-France."}
         </p>
 
         {/* Info Cards */}

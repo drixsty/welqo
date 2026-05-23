@@ -1,6 +1,6 @@
 # WELQO — Suivi de Projet & Backlog MVP
 
-## 📊 État d'Avancement : Pivot Bassin Minier en cours
+## 📊 État d'Avancement : Pivot Hauts-de-France en cours
 
 | ID             | User Story / Task                                | Module      | MoSCoW | Points | Statut         |
 | :------------- | :----------------------------------------------- | :---------- | :----- | :----- | :------------- |
@@ -15,7 +15,7 @@
 | **US-DASH-01** | Pricing Dynamique (Calendrier Overrides)         | Dashboard   | MUST   | 8      | [x]            |
 | **US-DASH-02** | Messagerie Locataires (Chat Temps Réel)          | Dashboard   | SHOULD | 13     | [x]            |
 | **US-DASH-03** | Configuration Messages Automatiques              | Dashboard   | SHOULD | 5      | [/]            |
-| **US-SRCH-01** | Recherche Localisée (Bassin Minier)              | Recherche   | MUST   | 5      | [x]            |
+| **US-SRCH-01** | Recherche Localisée (Hauts-de-France)              | Recherche   | MUST   | 5      | [x]            |
 | **US-SRCH-02** | Filtre de Prix sur Carte Interactive             | Recherche   | SHOULD | 8      | [x]            |
 | **TECH-MINIO** | Setup MinIO (Storage Photos & Contrats)          | Infra       | MUST   | 5      | [x]            |
 | **TECH-SIGN**  | Intégration API Signature Électronique           | Infra       | MUST   | 5      | [x]            |
@@ -48,7 +48,7 @@
 
 ## 📈 Métriques de succès du Pivot (J+60)
 
-- [ ] **Acquisition :** > 5 mandats de gestion signés électroniquement (Bassin Minier).
+- [ ] **Acquisition :** > 5 mandats de gestion signés électroniquement (Hauts-de-France).
 - [ ] **Lead Gen :** > 50 estimations de revenus réalisées via le formulaire.
 - [ ] **Opérations :** 0 erreur de synchronisation sur le pricing dynamique.
 - [ ] **Confiance :** 100% des contrats stockés et accessibles via MinIO.

@@ -130,7 +130,7 @@ export default function StatsPage() {
             Performances analytiques
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            Indicateurs clés de rendement locatif — Bassin Minier
+            Indicateurs clés de rendement locatif — Hauts-de-France
           </p>
         </div>
         <div className="h-px bg-slate-100 dark:bg-slate-800/60" />
@@ -186,7 +186,7 @@ export default function StatsPage() {
             <div className="mt-5 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-2">
               <AlertCircle className="w-3.5 h-3.5 text-slate-300 shrink-0" />
               <p className="text-[10px] text-slate-400 leading-relaxed">
-                Données actualisées en temps réel — Bassin Minier.
+                Données actualisées en temps réel — Hauts-de-France.
               </p>
             </div>
           </div>

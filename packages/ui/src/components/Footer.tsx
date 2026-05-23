@@ -66,8 +66,8 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
             </a>
             <p className="text-slate-500 dark:text-slate-400 max-w-sm text-sm leading-relaxed">
               {isFr
-                ? "Gestion locative et conciergerie de confiance pour vos biens d'exception dans le Bassin Minier."
-                : "Trusted rental management and concierge services for your exceptional properties in Bassin Minier."}
+                ? "Gestion locative et conciergerie de confiance pour vos biens d'exception dans le Hauts-de-France."
+                : "Trusted rental management and concierge services for your exceptional properties in Hauts-de-France."}
             </p>
           </div>
 
@@ -131,7 +131,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
               {isFr ? "Confidentialité" : "Privacy"}
             </a>
             <span className="text-welqo-terracotta font-bold uppercase tracking-tighter">
-              Bassin Minier
+              Hauts-de-France
             </span>
           </div>
         </div>

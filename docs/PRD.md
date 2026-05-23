@@ -1,10 +1,10 @@
 # WELQO — Product Requirements Document
 
-## MVP V1 — Focus Acquisition & Gestion Bassin Minier
+## MVP V1 — Focus Acquisition & Gestion Hauts-de-France
 
 **Version:** 1.2  
 **Date:** Mai 2026  
-**Statut:** IN PROGRESS — Pivot Bassin Minier
+**Statut:** IN PROGRESS — Pivot Hauts-de-France
 
 ---
 
@@ -12,7 +12,7 @@
 
 ### 1.1 Genèse & Pivot Stratégique
 
-Welqo est une solution de conciergerie "Boutique". Nous délaissons le marché saturé et ultra-réglementé de Lille pour dominer le **Bassin Minier (Lens, Arras, Béthune, Douai)**.
+Welqo est une solution de conciergerie "Boutique". Nous délaissons le marché saturé et ultra-réglementé de Lille pour dominer le **Hauts-de-France (Lens, Arras, Béthune, Douai)**.
 
 ### 1.2 Proposition de Valeur "The Welqo Edge"
 
@@ -57,7 +57,7 @@ Le design doit évoquer la chaleur du Nord et le luxe d'une conciergerie privée
 
 ### 4.1 Acquisition (Propriétaires)
 
-- **Estimation de Revenus :** Simulateur basé sur les données réelles du Bassin Minier (pas de moyennes nationales floues).
+- **Estimation de Revenus :** Simulateur basé sur les données réelles du Hauts-de-France (pas de moyennes nationales floues).
 - **Signature de Mandat :** Workflow 100% digital avec archivage sécurisé sur MinIO.
 
 ### 4.2 Management (Dashboard)

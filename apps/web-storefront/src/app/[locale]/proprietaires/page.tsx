@@ -1194,7 +1194,7 @@ export default function ProprietairesPage({
               },
               {
                 slug: "conciergerie-airbnb-lens-arras-bassin-minier",
-                title: "Opportunité Bassin Minier",
+                title: "Opportunité Hauts-de-France",
                 desc: "Lens & Arras : le nouvel eldorado.",
                 category: "Marché"
               }

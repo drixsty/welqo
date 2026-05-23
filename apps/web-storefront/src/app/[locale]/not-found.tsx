@@ -11,7 +11,7 @@ export default async function NotFound() {
       <div className="max-w-xl w-full text-center space-y-10">
         <div className="space-y-4">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-slate-100 dark:bg-white/5 rounded-3xl border border-slate-200 dark:border-white/10 mb-4">
-             <span className="text-4xl font-black text-slate-300">404</span>
+            <span className="text-4xl font-black text-slate-300">404</span>
           </div>
           <h1 className="text-4xl md:text-5xl font-black text-slate-900 dark:text-white tracking-tighter leading-none">
             {t("title")}
@@ -44,18 +44,27 @@ export default async function NotFound() {
 
         <div className="pt-10 border-t border-slate-100 dark:border-white/5">
           <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
-             {t("popularLinks")}
+            {t("popularLinks")}
           </p>
           <div className="flex flex-wrap justify-center gap-6">
-             <a href="/proprietaires" className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
-               {t("owners")}
-             </a>
-             <a href="/blog" className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
-               Blog
-             </a>
-             <a href="/contact" className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors">
-               Contact
-             </a>
+            <a
+              href="/proprietaires"
+              className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
+            >
+              {t("owners")}
+            </a>
+            <a
+              href="/blog"
+              className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
+            >
+              Blog
+            </a>
+            <a
+              href="/contact"
+              className="text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-primary transition-colors"
+            >
+              Contact
+            </a>
           </div>
         </div>
       </div>

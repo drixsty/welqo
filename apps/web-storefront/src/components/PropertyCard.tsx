@@ -13,20 +13,22 @@ interface PropertyCardProps {
   locale?: string;
 }
 
-export const PropertyCard = ({ 
-  property, 
+export const PropertyCard = ({
+  property,
   images = [],
   loading = false,
-  locale = "fr"
+  locale = "fr",
 }: PropertyCardProps) => {
   const [currentIdx, setCurrentIdx] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
   const isFr = locale === "fr";
 
   // Fallback images logic
-  const allImages = (property as any)?.images || (property?.coverPhoto 
-    ? [property.coverPhoto, ...(images || [])].slice(0, 5) 
-    : []);
+  const allImages =
+    (property as any)?.images ||
+    (property?.coverPhoto
+      ? [property.coverPhoto, ...(images || [])].slice(0, 5)
+      : []);
 
   if (loading || !property) {
     return <PropertyCardSkeleton />;
@@ -45,8 +47,8 @@ export const PropertyCard = ({
   };
 
   return (
-    <a 
-      href={`/logements/${property.slug}`} 
+    <a
+      href={`/logements/${property.slug}`}
       className="group block space-y-4"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
@@ -54,10 +56,10 @@ export const PropertyCard = ({
       {/* 🖼️ Image Container */}
       <div className="relative aspect-[4/3] rounded-3xl overflow-hidden bg-slate-100 dark:bg-white/[0.02] border border-slate-200/50 dark:border-white/5 transition-all duration-500 group-hover:shadow-xl group-hover:shadow-slate-900/5 dark:group-hover:shadow-none">
         <AnimatePresence mode="wait">
-          <motion.img 
+          <motion.img
             key={currentIdx}
-            src={allImages[currentIdx]} 
-            alt={property.title} 
+            src={allImages[currentIdx]}
+            alt={property.title}
             initial={{ opacity: 0.8, scale: 1.1 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0.8 }}
@@ -72,13 +74,13 @@ export const PropertyCard = ({
         {/* Gallery Controls (Mobile hidden, Desktop hover) */}
         {allImages.length > 1 && isHovered && (
           <div className="absolute inset-0 flex items-center justify-between px-4 z-20">
-            <button 
+            <button
               onClick={prevImg}
               className="w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <button 
+            <button
               onClick={nextImg}
               className="w-8 h-8 rounded-full bg-white/90 dark:bg-slate-900/90 flex items-center justify-center backdrop-blur-sm shadow-xl transition-all hover:scale-110 active:scale-95"
             >
@@ -91,11 +93,11 @@ export const PropertyCard = ({
         {allImages.length > 1 && (
           <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5 z-20">
             {allImages.map((_, i) => (
-              <div 
+              <div
                 key={i}
                 className={cn(
                   "w-1.5 h-1.5 rounded-full transition-all duration-300",
-                  currentIdx === i ? "bg-white w-4" : "bg-white/40"
+                  currentIdx === i ? "bg-white w-4" : "bg-white/40",
                 )}
               />
             ))}
@@ -103,10 +105,20 @@ export const PropertyCard = ({
         )}
 
         {/* Rating Badge */}
-        <div className="absolute top-4 left-4 px-3 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm rounded-2xl border border-slate-200/50 dark:border-white/10 flex items-center gap-1.5 z-20">
-          <Star className="w-3 h-3 text-amber-500 fill-current" />
-          <span className="text-[10px] font-black tracking-tight text-slate-900 dark:text-white">{property.rating.toFixed(1)}</span>
-        </div>
+        {property.rating && property.rating > 0 ? (
+          <div className="absolute top-4 left-4 px-3 py-1.5 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md shadow-sm rounded-2xl border border-slate-200/50 dark:border-white/10 flex items-center gap-1.5 z-20">
+            <Star className="w-3 h-3 text-amber-500 fill-current" />
+            <span className="text-[10px] font-black tracking-tight text-slate-900 dark:text-white">
+              {property.rating.toFixed(1)}
+            </span>
+          </div>
+        ) : (
+          <div className="absolute top-4 left-4 px-3 py-1.5 bg-slate-900/90 text-white backdrop-blur-md shadow-sm rounded-2xl border border-white/10 flex items-center gap-1.5 z-20">
+            <span className="text-[9px] font-bold uppercase tracking-widest">
+              {isFr ? "Standard 5★" : "5★ Standard"}
+            </span>
+          </div>
+        )}
       </div>
 
       {/* 📝 Content */}
@@ -116,19 +128,40 @@ export const PropertyCard = ({
             {property.title}
           </h3>
           <div className="flex flex-col items-end shrink-0">
-            <span className="text-lg font-black text-slate-900 dark:text-white tracking-tighter">€{property.price.base}</span>
-            <span className="text-[9px] font-bold text-slate-400 tracking-widest">{isFr ? "par nuit" : "per night"}</span>
+            {property.rating === 0 ? (
+              <>
+                <span className="text-xs font-black text-welqo-terracotta uppercase tracking-wider">
+                  Inspiration
+                </span>
+                <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest text-right">
+                  {isFr ? "Showroom Staging" : "Staging Concept"}
+                </span>
+              </>
+            ) : (
+              <>
+                <span className="text-lg font-black text-slate-900 dark:text-white tracking-tighter">
+                  €{property.price.base}
+                </span>
+                <span className="text-[9px] font-bold text-slate-400 tracking-widest">
+                  {isFr ? "par nuit" : "per night"}
+                </span>
+              </>
+            )}
           </div>
         </div>
-        
+
         <p className="text-xs font-bold text-slate-500/80 dark:text-slate-400/60 tracking-[0.1em]">
-          {(property as any).location?.city || (property as any).city || "Hauts-de-France"}
+          {(property as any).location?.city ||
+            (property as any).city ||
+            "Hauts-de-France"}
         </p>
-        
+
         <div className="pt-3 flex items-center gap-4 text-slate-400 dark:text-slate-500">
           <div className="flex items-center gap-1.5">
             <Bed className="w-3.5 h-3.5" />
-            <span className="text-[10px] font-bold">{(property as any).capacity?.bedrooms || 2} Ch.</span>
+            <span className="text-[10px] font-bold">
+              {(property as any).capacity?.bedrooms || 2} Ch.
+            </span>
           </div>
           <div className="flex items-center gap-1.5">
             <Maximize className="w-3.5 h-3.5" />

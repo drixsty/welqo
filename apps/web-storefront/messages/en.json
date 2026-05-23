@@ -1,22 +1,22 @@
 {
   "HomePage": {
-    "badge": "Luxury Concierge — Northern France",
-    "heroTitle": "Experience excellence in the Heart of Northern France.",
-    "heroSubtitle": "Charming stays and 5★ rental management in Lille, Lens, Arras and across the region. Benefit from local expertise for optimized income and total peace of mind.",
+    "badge": "Airbnb Concierge — Northern France",
+    "heroTitle": "Maximize your rental income. <span>Effortlessly.</span>",
+    "heroSubtitle": "Welqo handles the complete management of your property in Lille, Lens, Arras, and across the region. You collect, we manage.",
     "bookStay": "Book your stay",
     "trustUs": "Partner with Welqo",
-    "featuredBadge": "City Manager's Selection",
-    "featuredTitle": "Gems of Northern France",
-    "featuredSubtitle": "Discover our exclusive catalog of properties managed with excellence in Lille, Lens, Arras and their surroundings.",
-    "viewCatalog": "View all properties",
+    "featuredBadge": "Standard & Inspiration",
+    "featuredTitle": "The Art of Living by <span>Welqo</span>",
+    "featuredSubtitle": "A preview of our staging standards and premium hospitality style in Lille, Lens, and Arras.",
+    "viewCatalog": "Discover our portfolio",
     "ownersBadge": "Owner Portal",
-    "ownersTitle": "Rental management, reinvented by data.",
-    "ownersSubtitle": "A robust infrastructure designed to maximize your income. Full transparency, local performance and simplified management.",
-    "simulatorBadge": "Revenue Maximization",
-    "simulatorTitle": "Estimate your income in the region",
-    "ctaTitle": "Ready to redefine your rental experience?",
-    "ctaProperties": "Explore our homes",
-    "ctaOwners": "Become a Welqo owner"
+    "ownersTitle": "Rental management, <span>reinvented by proximity.</span>",
+    "ownersSubtitle": "Bespoke support combined with our tools to maximize your income. Full transparency, local performance and peace of mind.",
+    "simulatorBadge": "Local Simulation",
+    "simulatorTitle": "How much can <span>your property earn?</span>",
+    "ctaTitle": "Ready to maximize your rental income?",
+    "ctaProperties": "See our universe",
+    "ctaOwners": "Entrust your property to us"
   },
   "Navbar": {
     "properties": "Properties",
@@ -41,9 +41,9 @@
   },
   "NotFound": {
     "title": "Page not found",
-    "subtitle": "It seems this property is nowhere to be found or no longer exists.",
+    "subtitle": "It seems this page is nowhere to be found or no longer exists.",
     "goHome": "Go back home",
-    "browseProperties": "Browse our properties",
+    "browseProperties": "For Owners",
     "popularLinks": "Useful links",
     "owners": "For Owners"
   }

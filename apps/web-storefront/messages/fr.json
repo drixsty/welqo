@@ -1,22 +1,22 @@
 {
   "HomePage": {
-    "badge": "Conciergerie de Prestige — Hauts-de-France",
-    "heroTitle": "Vivez l'exception au cœur des Hauts-de-France.",
-    "heroSubtitle": "Séjours de charme et gestion locative 5★ à Lille, Lens, Arras et dans toute la région. Profitez d'une expertise locale pour des revenus optimisés et une sérénité totale.",
+    "badge": "Conciergerie Airbnb — Hauts-de-France",
+    "heroTitle": "Maximisez vos revenus locatifs. <span>Sans effort.</span>",
+    "heroSubtitle": "Welqo prend en charge la gestion complète de votre bien à Lille, Lens, Arras et dans toute la région. Vous encaissez, nous gérons.",
     "bookStay": "Réserver votre séjour",
     "trustUs": "Confier mon bien à Welqo",
-    "featuredBadge": "Sélection City Manager",
-    "featuredTitle": "Les Perles des Hauts-de-France",
-    "featuredSubtitle": "Découvrez notre catalogue exclusif de propriétés gérées avec excellence à Lille, Lens, Arras et leurs environs.",
-    "viewCatalog": "Voir tout le catalogue",
+    "featuredBadge": "Standard & Inspiration",
+    "featuredTitle": "L'Art de Vivre selon <span>Welqo</span>",
+    "featuredSubtitle": "Un aperçu de nos exigences d'aménagement et de notre standard hôtelier à Lille, Lens et Arras.",
+    "viewCatalog": "Découvrir notre portfolio",
     "ownersBadge": "Espace Propriétaires",
-    "ownersTitle": "La gestion locative, réinventée par la donnée.",
-    "ownersSubtitle": "Une infrastructure robuste conçue pour maximiser vos revenus. Transparence totale, performance locale et pilotage simplifié.",
-    "simulatorBadge": "Maximisation de CA",
-    "simulatorTitle": "Estimez vos revenus en région",
-    "ctaTitle": "Prêt à redéfinir votre expérience locative ?",
-    "ctaProperties": "Explorer nos demeures",
-    "ctaOwners": "Devenir propriétaire Welqo"
+    "ownersTitle": "La gestion locative, <span>réinventée par la proximité.</span>",
+    "ownersSubtitle": "Un accompagnement sur-mesure combiné à nos outils pour maximiser vos revenus. Transparence totale, performance locale et pilotage serein.",
+    "simulatorBadge": "Simulation Locale",
+    "simulatorTitle": "Combien peut rapporter <span>votre bien ?</span>",
+    "ctaTitle": "Prêt à maximiser vos revenus locatifs ?",
+    "ctaProperties": "Voir notre univers",
+    "ctaOwners": "Nous confier votre bien"
   },
   "Navbar": {
     "properties": "Propriétés",
@@ -41,9 +41,9 @@
   },
   "NotFound": {
     "title": "Page égarée",
-    "subtitle": "Il semble que cette demeure soit introuvable ou n'existe plus.",
+    "subtitle": "Il semble que cette page soit introuvable ou n'existe plus.",
     "goHome": "Retour à l'accueil",
-    "browseProperties": "Explorer nos demeures",
+    "browseProperties": "Espace Propriétaires",
     "popularLinks": "Liens utiles",
     "owners": "Espace Propriétaires"
   }

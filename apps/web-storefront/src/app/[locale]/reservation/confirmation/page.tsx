@@ -30,7 +30,7 @@ export default async function ConfirmationPage({
           {isFr ? "C'est confirmé !" : "It's confirmed!"}
         </h1>
         <p className="text-slate-500 dark:text-slate-400 text-lg mb-12 max-w-lg mx-auto">
-          {isFr 
+          {isFr
             ? "Votre séjour est réservé. Préparez-vous à vivre une expérience inoubliable en Hauts-de-France."
             : "Your stay is booked. Get ready for an unforgettable experience in the Hauts-de-France."}
         </p>
@@ -39,18 +39,22 @@ export default async function ConfirmationPage({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12 text-left">
           <div className="p-6 bg-slate-50 dark:bg-white/[0.03] rounded-2xl border border-slate-100 dark:border-white/5">
             <Mail className="w-5 h-5 text-welqo-terracotta mb-3" />
-            <h3 className="font-bold text-sm mb-1">{isFr ? "Confirmation par email" : "Email confirmation"}</h3>
+            <h3 className="font-bold text-sm mb-1">
+              {isFr ? "Confirmation par email" : "Email confirmation"}
+            </h3>
             <p className="text-xs text-slate-500">
-              {isFr 
+              {isFr
                 ? "Vous allez recevoir votre récapitulatif et votre facture d'ici quelques instants."
                 : "You will receive your summary and invoice in a few moments."}
             </p>
           </div>
           <div className="p-6 bg-slate-50 dark:bg-white/[0.03] rounded-2xl border border-slate-100 dark:border-white/5">
             <Calendar className="w-5 h-5 text-welqo-terracotta mb-3" />
-            <h3 className="font-bold text-sm mb-1">{isFr ? "Instructions d'arrivée" : "Check-in instructions"}</h3>
+            <h3 className="font-bold text-sm mb-1">
+              {isFr ? "Instructions d'arrivée" : "Check-in instructions"}
+            </h3>
             <p className="text-xs text-slate-500">
-              {isFr 
+              {isFr
                 ? "Elles vous seront envoyées automatiquement 48h avant votre arrivée."
                 : "They will be sent to you automatically 48h before your arrival."}
             </p>
@@ -59,7 +63,7 @@ export default async function ConfirmationPage({
 
         {/* CTA */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link 
+          <Link
             href={base}
             className="w-full sm:w-auto px-8 py-4 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-xl font-bold hover:bg-welqo-terracotta hover:text-white transition-all flex items-center justify-center gap-2"
           >
@@ -72,7 +76,8 @@ export default async function ConfirmationPage({
         </div>
 
         <p className="mt-12 text-[10px] font-bold text-slate-400 tracking-[0.2em]">
-          Welqo conciergerie · {isFr ? "Gestion professionnelle" : "Professional management"}
+          Welqo conciergerie ·{" "}
+          {isFr ? "Gestion professionnelle" : "Professional management"}
         </p>
       </div>
     </main>

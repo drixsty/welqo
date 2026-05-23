@@ -2,6 +2,7 @@ import React from "react";
 import { getQuote } from "../../../lib/api";
 import { ReservationTunnel } from "../../../components/ReservationTunnel";
 import { Metadata } from "next";
+import { redirect } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Réservation | Welqo",
@@ -22,6 +23,8 @@ export default async function ReservationPage({
   params: { locale },
   searchParams,
 }: ReservationPageProps) {
+  redirect(`/${locale}/proprietaires`);
+
   const { propertyId, checkIn, checkOut, guests } = searchParams;
 
   if (!propertyId || !checkIn || !checkOut || !guests) {
@@ -29,7 +32,9 @@ export default async function ReservationPage({
       <div className="min-h-[60vh] flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold mb-4">Informations manquantes</h1>
-          <p className="text-slate-500">Veuillez sélectionner vos dates depuis la page du logement.</p>
+          <p className="text-slate-500">
+            Veuillez sélectionner vos dates depuis la page du logement.
+          </p>
         </div>
       </div>
     );
@@ -52,8 +57,12 @@ export default async function ReservationPage({
     return (
       <div className="min-h-[60vh] flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold mb-4">Erreur lors du calcul du devis</h1>
-          <p className="text-slate-500">Une erreur est survenue. Veuillez réessayer plus tard.</p>
+          <h1 className="text-2xl font-bold mb-4">
+            Erreur lors du calcul du devis
+          </h1>
+          <p className="text-slate-500">
+            Une erreur est survenue. Veuillez réessayer plus tard.
+          </p>
         </div>
       </div>
     );

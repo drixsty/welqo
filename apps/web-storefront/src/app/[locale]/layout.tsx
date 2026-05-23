@@ -6,6 +6,7 @@ import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Navbar, Footer } from "@welqo/ui";
 import { CookieBanner } from "../../components/CookieBanner";
+import { StickyMobileCTA } from "../../components/StickyMobileCTA";
 import { JsonLd } from "../../components/JsonLd";
 import GoogleAnalytics from "../../components/GoogleAnalytics";
 import { Suspense } from "react";
@@ -118,33 +119,49 @@ export default async function LocaleLayout({
 
   const messages = await getMessages();
 
-  const organizationSchema = {
+  const isFr = locale !== "en";
+
+  const localBusinessSchema = {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "Welqo",
-    "url": BASE_URL,
-    "logo": `${BASE_URL}/logo.png`,
-    "sameAs": [
-      "https://www.facebook.com/welqo",
-      "https://www.instagram.com/welqo.conciergerie"
+    "@type": "LocalBusiness",
+    "@id": `${BASE_URL}/#business`,
+    name: "Welqo",
+    description: isFr
+      ? "Conciergerie Airbnb et gestion locative courte durée dans les Hauts-de-France."
+      : "Airbnb concierge and short-term rental management in Northern France.",
+    url: BASE_URL,
+    logo: `${BASE_URL}/logo.png`,
+    image: `${BASE_URL}/og-image.jpg`,
+    priceRange: "20% commission",
+    areaServed: [
+      { "@type": "City", name: "Lille" },
+      { "@type": "City", name: "Lens" },
+      { "@type": "City", name: "Arras" },
+      { "@type": "City", name: "Béthune" },
+      { "@type": "City", name: "Douai" },
+      { "@type": "City", name: "Roubaix" },
+      { "@type": "City", name: "Tourcoing" },
     ],
-    "contactPoint": {
+    serviceType: isFr
+      ? ["Conciergerie Airbnb", "Gestion locative courte durée", "Optimisation tarifaire"]
+      : ["Airbnb concierge", "Short-term rental management", "Dynamic pricing"],
+    sameAs: [
+      "https://www.facebook.com/welqo",
+      "https://www.instagram.com/welqo.conciergerie",
+    ],
+    contactPoint: {
       "@type": "ContactPoint",
-      "telephone": "+33-3-XX-XX-XX-XX",
-      "contactType": "customer service"
-    }
+      contactType: "customer service",
+      availableLanguage: ["French", "English"],
+    },
   };
 
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "name": "Welqo",
-    "url": BASE_URL,
-    "potentialAction": {
-      "@type": "SearchAction",
-      "target": `${BASE_URL}/${locale}/logements?q={search_term_string}`,
-      "query-input": "required name=search_term_string"
-    }
+    name: "Welqo",
+    url: BASE_URL,
+    inLanguage: isFr ? "fr-FR" : "en-GB",
   };
 
   return (
@@ -154,11 +171,12 @@ export default async function LocaleLayout({
           <Suspense fallback={null}>
             <GoogleAnalytics />
           </Suspense>
-          <JsonLd data={organizationSchema} />
+          <JsonLd data={localBusinessSchema} />
           <JsonLd data={websiteSchema} />
           <Navbar title="WELQO" locale={locale} />
           <div className="pt-16">{children}</div>
           <Footer locale={locale} />
+          <StickyMobileCTA locale={locale} />
           <CookieBanner locale={locale} />
         </NextIntlClientProvider>
       </body>

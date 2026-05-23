@@ -6,7 +6,15 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { BookingQuote } from "@welqo/types";
-import { ChevronRight, ChevronLeft, CreditCard, User, ClipboardList, ShieldCheck, Loader2 } from "lucide-react";
+import {
+  ChevronRight,
+  ChevronLeft,
+  CreditCard,
+  User,
+  ClipboardList,
+  ShieldCheck,
+  Loader2,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 import { trackEvent } from "../lib/tracking";
 
@@ -24,7 +32,10 @@ interface ReservationTunnelProps {
   locale: string;
 }
 
-export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => {
+export const ReservationTunnel = ({
+  quote,
+  locale,
+}: ReservationTunnelProps) => {
   const [step, setStep] = useState(1);
   const [loading, setLoading] = useState(false);
   const isFr = locale === "fr";
@@ -33,11 +44,13 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
     trackEvent("begin_checkout", {
       currency: "EUR",
       value: quote.priceBreakdown.totalGross,
-      items: [{
-        item_id: quote.propertyId,
-        price: quote.priceBreakdown.nightlyRate,
-        quantity: quote.nightsCount
-      }]
+      items: [
+        {
+          item_id: quote.propertyId,
+          price: quote.priceBreakdown.nightlyRate,
+          quantity: quote.nightsCount,
+        },
+      ],
     });
   }, [quote]);
 
@@ -58,27 +71,30 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
     }
     setStep((s) => s + 1);
   };
-  
+
   const prevStep = () => setStep((s) => s - 1);
 
   const onSubmit = async (data: BookingFormData) => {
     setLoading(true);
     try {
-      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/booking/checkout`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          propertyId: quote.propertyId,
-          checkIn: quote.checkIn,
-          checkOut: quote.checkOut,
-          guestCount: quote.guests,
-          guestFirstName: data.firstName,
-          guestLastName: data.lastName,
-          guestEmail: data.email,
-          guestPhone: data.phone,
-          nightsCount: quote.nightsCount,
-        }),
-      });
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/booking/checkout`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            propertyId: quote.propertyId,
+            checkIn: quote.checkIn,
+            checkOut: quote.checkOut,
+            guestCount: quote.guests,
+            guestFirstName: data.firstName,
+            guestLastName: data.lastName,
+            guestEmail: data.email,
+            guestPhone: data.phone,
+            nightsCount: quote.nightsCount,
+          }),
+        },
+      );
 
       const result = await res.json();
       if (result.url) {
@@ -97,29 +113,39 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
       <div className="mb-12">
         <div className="flex justify-between mb-4">
           {[
-            { id: 1, label: isFr ? "Récapitulatif" : "Summary", icon: ClipboardList },
+            {
+              id: 1,
+              label: isFr ? "Récapitulatif" : "Summary",
+              icon: ClipboardList,
+            },
             { id: 2, label: isFr ? "Informations" : "Info", icon: User },
             { id: 3, label: isFr ? "Paiement" : "Payment", icon: CreditCard },
           ].map((s) => (
-            <div 
-              key={s.id} 
+            <div
+              key={s.id}
               className={cn(
                 "flex flex-col items-center gap-2 transition-opacity duration-300",
-                step < s.id ? "opacity-30" : "opacity-100"
+                step < s.id ? "opacity-30" : "opacity-100",
               )}
             >
-              <div className={cn(
-                "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
-                step >= s.id ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900" : "bg-slate-100 text-slate-400"
-              )}>
+              <div
+                className={cn(
+                  "w-8 h-8 rounded-full flex items-center justify-center transition-colors",
+                  step >= s.id
+                    ? "bg-slate-900 text-white dark:bg-white dark:text-slate-900"
+                    : "bg-slate-100 text-slate-400",
+                )}
+              >
                 <s.icon className="w-4 h-4" />
               </div>
-              <span className="text-[10px] font-black tracking-widest">{s.label}</span>
+              <span className="text-[10px] font-black tracking-widest">
+                {s.label}
+              </span>
             </div>
           ))}
         </div>
         <div className="h-1 w-full bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
-          <motion.div 
+          <motion.div
             className="h-full bg-welqo-terracotta"
             initial={{ width: "33%" }}
             animate={{ width: `${(step / 3) * 100}%` }}
@@ -140,19 +166,39 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                 className="space-y-8"
               >
                 <div className="space-y-2">
-                  <h2 className="text-3xl font-bold tracking-tighter">{isFr ? "Vérifiez votre séjour" : "Check your stay"}</h2>
-                  <p className="text-slate-500 text-sm font-medium">{isFr ? "Un moment d'exception se prépare." : "An exceptional moment is coming."}</p>
+                  <h2 className="text-3xl font-bold tracking-tighter">
+                    {isFr ? "Vérifiez votre séjour" : "Check your stay"}
+                  </h2>
+                  <p className="text-slate-500 text-sm font-medium">
+                    {isFr
+                      ? "Un moment d'exception se prépare."
+                      : "An exceptional moment is coming."}
+                  </p>
                 </div>
 
                 <div className="bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 p-8 rounded-3xl space-y-6">
                   <div className="grid grid-cols-2 gap-8">
                     <div className="space-y-1">
-                      <span className="text-[10px] font-black tracking-widest text-slate-400">{isFr ? "Arrivée" : "Check-in"}</span>
-                      <p className="font-bold text-lg">{new Date(quote.checkIn).toLocaleDateString(locale, { day: 'numeric', month: 'long' })}</p>
+                      <span className="text-[10px] font-black tracking-widest text-slate-400">
+                        {isFr ? "Arrivée" : "Check-in"}
+                      </span>
+                      <p className="font-bold text-lg">
+                        {new Date(quote.checkIn).toLocaleDateString(locale, {
+                          day: "numeric",
+                          month: "long",
+                        })}
+                      </p>
                     </div>
                     <div className="space-y-1">
-                      <span className="text-[10px] font-black tracking-widest text-slate-400">{isFr ? "Départ" : "Check-out"}</span>
-                      <p className="font-bold text-lg">{new Date(quote.checkOut).toLocaleDateString(locale, { day: 'numeric', month: 'long' })}</p>
+                      <span className="text-[10px] font-black tracking-widest text-slate-400">
+                        {isFr ? "Départ" : "Check-out"}
+                      </span>
+                      <p className="font-bold text-lg">
+                        {new Date(quote.checkOut).toLocaleDateString(locale, {
+                          day: "numeric",
+                          month: "long",
+                        })}
+                      </p>
                     </div>
                   </div>
                   <div className="pt-6 border-t border-slate-200/50 dark:border-white/5 flex justify-between items-center">
@@ -160,7 +206,9 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                       <div className="w-10 h-10 bg-white dark:bg-white/5 rounded-full flex items-center justify-center shadow-sm">
                         <User className="w-4 h-4 text-slate-400" />
                       </div>
-                      <span className="font-bold">{quote.guests} {isFr ? "voyageurs" : "guests"}</span>
+                      <span className="font-bold">
+                        {quote.guests} {isFr ? "voyageurs" : "guests"}
+                      </span>
                     </div>
                     <span className="text-xs font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full">
                       {isFr ? "Annulation flexible" : "Flexible cancellation"}
@@ -168,7 +216,7 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                   </div>
                 </div>
 
-                <button 
+                <button
                   onClick={nextStep}
                   className="group w-full py-5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-2xl font-bold hover:bg-welqo-terracotta hover:text-white transition-all flex items-center justify-center gap-3 shadow-xl shadow-slate-900/10 dark:shadow-none"
                 >
@@ -187,78 +235,118 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                 className="space-y-8"
               >
                 <div className="space-y-2">
-                  <h2 className="text-3xl font-bold tracking-tighter">{isFr ? "Vos informations" : "Your information"}</h2>
-                  <p className="text-slate-500 text-sm font-medium">{isFr ? "Sécurisons votre réservation ensemble." : "Let's secure your booking together."}</p>
+                  <h2 className="text-3xl font-bold tracking-tighter">
+                    {isFr ? "Vos informations" : "Your information"}
+                  </h2>
+                  <p className="text-slate-500 text-sm font-medium">
+                    {isFr
+                      ? "Sécurisons votre réservation ensemble."
+                      : "Let's secure your booking together."}
+                  </p>
                 </div>
 
                 <div className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">{isFr ? "Prénom" : "First Name"}</label>
-                      <input 
+                      <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">
+                        {isFr ? "Prénom" : "First Name"}
+                      </label>
+                      <input
                         {...register("firstName")}
                         className={cn(
                           "w-full bg-slate-50 dark:bg-white/[0.03] border rounded-2xl px-5 py-4 text-sm outline-none transition-all focus:ring-4 focus:ring-welqo-terracotta/5",
-                          errors.firstName ? "border-red-500" : "border-slate-100 dark:border-white/10 focus:border-welqo-terracotta"
+                          errors.firstName
+                            ? "border-red-500"
+                            : "border-slate-100 dark:border-white/10 focus:border-welqo-terracotta",
                         )}
                         placeholder="Jean"
                       />
-                      {errors.firstName && <p className="text-[10px] text-red-500 font-bold ml-1">{errors.firstName.message}</p>}
+                      {errors.firstName && (
+                        <p className="text-[10px] text-red-500 font-bold ml-1">
+                          {errors.firstName.message}
+                        </p>
+                      )}
                     </div>
                     <div className="space-y-1.5">
-                      <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">{isFr ? "Nom" : "Last Name"}</label>
-                      <input 
+                      <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">
+                        {isFr ? "Nom" : "Last Name"}
+                      </label>
+                      <input
                         {...register("lastName")}
                         className={cn(
                           "w-full bg-slate-50 dark:bg-white/[0.03] border rounded-2xl px-5 py-4 text-sm outline-none transition-all focus:ring-4 focus:ring-welqo-terracotta/5",
-                          errors.lastName ? "border-red-500" : "border-slate-100 dark:border-white/10 focus:border-welqo-terracotta"
+                          errors.lastName
+                            ? "border-red-500"
+                            : "border-slate-100 dark:border-white/10 focus:border-welqo-terracotta",
                         )}
                         placeholder="Dupont"
                       />
-                      {errors.lastName && <p className="text-[10px] text-red-500 font-bold ml-1">{errors.lastName.message}</p>}
+                      {errors.lastName && (
+                        <p className="text-[10px] text-red-500 font-bold ml-1">
+                          {errors.lastName.message}
+                        </p>
+                      )}
                     </div>
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">Email</label>
-                    <input 
+                    <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">
+                      Email
+                    </label>
+                    <input
                       {...register("email")}
                       type="email"
                       className={cn(
                         "w-full bg-slate-50 dark:bg-white/[0.03] border rounded-2xl px-5 py-4 text-sm outline-none transition-all focus:ring-4 focus:ring-welqo-terracotta/5",
-                        errors.email ? "border-red-500" : "border-slate-100 dark:border-white/10 focus:border-welqo-terracotta"
+                        errors.email
+                          ? "border-red-500"
+                          : "border-slate-100 dark:border-white/10 focus:border-welqo-terracotta",
                       )}
                       placeholder="jean.dupont@email.com"
                     />
-                    {errors.email && <p className="text-[10px] text-red-500 font-bold ml-1">{errors.email.message}</p>}
+                    {errors.email && (
+                      <p className="text-[10px] text-red-500 font-bold ml-1">
+                        {errors.email.message}
+                      </p>
+                    )}
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">{isFr ? "Téléphone" : "Phone"}</label>
-                    <input 
+                    <label className="text-[10px] font-black tracking-widest text-slate-400 ml-1">
+                      {isFr ? "Téléphone" : "Phone"}
+                    </label>
+                    <input
                       {...register("phone")}
                       className={cn(
                         "w-full bg-slate-50 dark:bg-white/[0.03] border rounded-2xl px-5 py-4 text-sm outline-none transition-all focus:ring-4 focus:ring-welqo-terracotta/5",
-                        errors.phone ? "border-red-500" : "border-slate-100 dark:border-white/10 focus:border-welqo-terracotta"
+                        errors.phone
+                          ? "border-red-500"
+                          : "border-slate-100 dark:border-white/10 focus:border-welqo-terracotta",
                       )}
                       placeholder="+33 6 12 34 56 78"
                     />
-                    {errors.phone && <p className="text-[10px] text-red-500 font-bold ml-1">{errors.phone.message}</p>}
+                    {errors.phone && (
+                      <p className="text-[10px] text-red-500 font-bold ml-1">
+                        {errors.phone.message}
+                      </p>
+                    )}
                   </div>
                 </div>
 
                 <div className="flex gap-4">
-                  <button 
-                    onClick={prevStep} 
+                  <button
+                    onClick={prevStep}
                     className="p-5 bg-slate-100 dark:bg-white/5 rounded-2xl hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
                   >
                     <ChevronLeft className="w-6 h-6" />
                   </button>
-                  <button 
+                  <button
                     onClick={nextStep}
                     className="flex-1 py-5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-2xl font-bold hover:bg-welqo-terracotta hover:text-white transition-all disabled:opacity-50 disabled:hover:bg-slate-900 disabled:hover:text-white"
                   >
-                    {isFr ? "Continuer vers le paiement" : "Continue to payment"}
+                    {isFr
+                      ? "Continuer vers le paiement"
+                      : "Continue to payment"}
                   </button>
                 </div>
               </motion.div>
@@ -273,8 +361,14 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                 className="space-y-8"
               >
                 <div className="space-y-2">
-                  <h2 className="text-3xl font-bold tracking-tighter">{isFr ? "Paiement sécurisé" : "Secure payment"}</h2>
-                  <p className="text-slate-500 text-sm font-medium">{isFr ? "Dernière étape avant votre séjour d'exception." : "Final step before your exceptional stay."}</p>
+                  <h2 className="text-3xl font-bold tracking-tighter">
+                    {isFr ? "Paiement sécurisé" : "Secure payment"}
+                  </h2>
+                  <p className="text-slate-500 text-sm font-medium">
+                    {isFr
+                      ? "Dernière étape avant votre séjour d'exception."
+                      : "Final step before your exceptional stay."}
+                  </p>
                 </div>
 
                 <div className="bg-emerald-500/5 border border-emerald-500/10 p-8 rounded-3xl flex items-start gap-5">
@@ -282,9 +376,13 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                     <ShieldCheck className="w-6 h-6 text-emerald-500" />
                   </div>
                   <div className="space-y-1">
-                    <h4 className="font-bold text-base">{isFr ? "Garantie Tranquillité" : "Peace of Mind Guarantee"}</h4>
+                    <h4 className="font-bold text-base">
+                      {isFr
+                        ? "Garantie Tranquillité"
+                        : "Peace of Mind Guarantee"}
+                    </h4>
                     <p className="text-sm text-slate-500 leading-relaxed">
-                      {isFr 
+                      {isFr
                         ? `Une caution de ${quote.securityDeposit}€ sera simplement pré-autorisée. Aucun débit ne sera effectué sans constatation de dommages.`
                         : `A security deposit of ${quote.securityDeposit}€ will be pre-authorized. No charge will be made unless damage is reported.`}
                     </p>
@@ -292,8 +390,13 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                 </div>
 
                 <div className="flex gap-4">
-                  <button onClick={prevStep} className="p-5 bg-slate-100 dark:bg-white/5 rounded-2xl hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"><ChevronLeft className="w-6 h-6" /></button>
-                  <button 
+                  <button
+                    onClick={prevStep}
+                    className="p-5 bg-slate-100 dark:bg-white/5 rounded-2xl hover:bg-slate-200 dark:hover:bg-white/10 transition-colors"
+                  >
+                    <ChevronLeft className="w-6 h-6" />
+                  </button>
+                  <button
                     disabled={loading}
                     onClick={handleSubmit(onSubmit)}
                     className="flex-1 py-5 bg-emerald-600 text-white rounded-2xl font-bold hover:bg-emerald-700 transition-all flex items-center justify-center gap-3 shadow-xl shadow-emerald-600/10"
@@ -303,7 +406,9 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                     ) : (
                       <>
                         <CreditCard className="w-5 h-5" />
-                        {isFr ? `Payer ${quote.priceBreakdown.totalGross}€` : `Pay ${quote.priceBreakdown.totalGross}€`}
+                        {isFr
+                          ? `Payer ${quote.priceBreakdown.totalGross}€`
+                          : `Pay ${quote.priceBreakdown.totalGross}€`}
                       </>
                     )}
                   </button>
@@ -320,23 +425,40 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                 <div className="w-1.5 h-6 bg-primary rounded-full" />
                 {isFr ? "Détails du prix" : "Price details"}
               </h3>
-              
+
               <div className="space-y-4">
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-400 font-medium">{quote.nightsCount} {isFr ? "nuits" : "nights"} x {quote.priceBreakdown.nightlyRate}€</span>
-                  <span className="font-bold">{quote.priceBreakdown.totalNights}€</span>
+                  <span className="text-slate-400 font-medium">
+                    {quote.nightsCount} {isFr ? "nuits" : "nights"} x{" "}
+                    {quote.priceBreakdown.nightlyRate}€
+                  </span>
+                  <span className="font-bold">
+                    {quote.priceBreakdown.totalNights}€
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-400 font-medium">{isFr ? "Frais de ménage" : "Cleaning fee"}</span>
-                  <span className="font-bold">{quote.priceBreakdown.cleaningFee}€</span>
+                  <span className="text-slate-400 font-medium">
+                    {isFr ? "Frais de ménage" : "Cleaning fee"}
+                  </span>
+                  <span className="font-bold">
+                    {quote.priceBreakdown.cleaningFee}€
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm">
-                  <span className="text-slate-400 font-medium">{isFr ? "Taxe de séjour" : "Tourist tax"}</span>
-                  <span className="font-bold">{quote.priceBreakdown.touristTax}€</span>
+                  <span className="text-slate-400 font-medium">
+                    {isFr ? "Taxe de séjour" : "Tourist tax"}
+                  </span>
+                  <span className="font-bold">
+                    {quote.priceBreakdown.touristTax}€
+                  </span>
                 </div>
                 <div className="pt-6 border-t border-white/10 flex justify-between items-end">
-                  <span className="text-slate-400 font-medium">{isFr ? "Total" : "Total"}</span>
-                  <span className="text-3xl font-bold text-primary tracking-tighter">{quote.priceBreakdown.totalGross}€</span>
+                  <span className="text-slate-400 font-medium">
+                    {isFr ? "Total" : "Total"}
+                  </span>
+                  <span className="text-3xl font-bold text-primary tracking-tighter">
+                    {quote.priceBreakdown.totalGross}€
+                  </span>
                 </div>
               </div>
 
@@ -345,10 +467,10 @@ export const ReservationTunnel = ({ quote, locale }: ReservationTunnelProps) => 
                 Paiement sécurisé Stripe
               </div>
             </div>
-            
+
             <div className="p-6 bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 rounded-3xl">
               <p className="text-[10px] font-bold text-slate-400 leading-relaxed italic">
-                {isFr 
+                {isFr
                   ? "« Une gestion irréprochable pour un séjour sans compromis. Welqo garantit la qualité de chaque demeure. »"
                   : "« Impeccable management for an uncompromising stay. Welqo guarantees the quality of every home. »"}
               </p>

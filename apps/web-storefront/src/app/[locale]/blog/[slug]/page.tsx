@@ -190,7 +190,10 @@ export default function BlogPostPage({
 
             {/* 2. Breadcrumb (Integrated) */}
             <nav className="flex items-center gap-3 text-[10px] font-bold text-white/60 mb-6 uppercase tracking-wider">
-              <a href={base} className="hover:text-welqo-terracotta transition-colors">
+              <a
+                href={base}
+                className="hover:text-welqo-terracotta transition-colors"
+              >
                 {isFr ? "Accueil" : "Home"}
               </a>
               <span className="text-welqo-terracotta/40">/</span>
@@ -267,7 +270,9 @@ export default function BlogPostPage({
               <Article locale={locale} />
             ) : (
               <p className="text-slate-500">
-                {isFr ? "Article en cours de rédaction." : "Article coming soon."}
+                {isFr
+                  ? "Article en cours de rédaction."
+                  : "Article coming soon."}
               </p>
             )}
           </div>
@@ -301,7 +306,7 @@ export default function BlogPostPage({
           {/* Related articles */}
           <div className="mt-16">
             <div className="flex items-center gap-4 mb-8">
-               <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tighter">
+              <h2 className="text-xl font-bold text-slate-900 dark:text-white tracking-tighter">
                 {isFr ? "À lire également" : "Related articles"}
               </h2>
               <div className="h-px flex-1 bg-slate-100 dark:bg-white/5" />
@@ -350,7 +355,9 @@ export default function BlogPostPage({
                     href={`#${item.id}`}
                     className="block text-xs font-bold text-slate-500 hover:text-welqo-terracotta transition-colors"
                   >
-                    <span className="text-slate-300 dark:text-slate-700 mr-3">0{i + 1}</span>
+                    <span className="text-slate-300 dark:text-slate-700 mr-3">
+                      0{i + 1}
+                    </span>
                     {item.title}
                   </a>
                 ))}

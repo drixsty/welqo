@@ -82,8 +82,10 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "conciergerie-airbnb-lens-arras-bassin-minier",
-    titleFr: "Conciergerie Airbnb à Lens & Arras : Pourquoi le Hauts-de-France explose en 2025 ?",
-    titleEn: "Airbnb Concierge in Lens & Arras: Why the Mining Basin is Booming in 2025?",
+    titleFr:
+      "Conciergerie Airbnb à Lens & Arras : Pourquoi le Hauts-de-France explose en 2025 ?",
+    titleEn:
+      "Airbnb Concierge in Lens & Arras: Why the Mining Basin is Booming in 2025?",
     descriptionFr:
       "L'effet Louvre-Lens, les matches du RC Lens et le patrimoine de l'UNESCO transforment le Hauts-de-France en eldorado pour la location courte durée. Guide complet.",
     descriptionEn:

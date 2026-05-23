@@ -77,7 +77,8 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
         Classement des quartiers les plus rentables
       </h2>
       <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-10 text-[15px]">
-        Analyse basée sur les données AirDNA et les performances réelles des biens gérés par Welqo à Lille (T1 2025).
+        Analyse basée sur les données AirDNA et les performances réelles des
+        biens gérés par Welqo à Lille (T1 2025).
       </p>
 
       <div className="space-y-6 mb-16">
@@ -110,7 +111,10 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
                 { label: "Taux d'occupation", val: q.tauxOcc },
                 { label: "Revenu brut / mois", val: q.revenuMois },
               ].map(({ label, val }) => (
-                <div key={label} className="px-2 py-1 text-center bg-slate-50/50 dark:bg-white/5">
+                <div
+                  key={label}
+                  className="px-2 py-1 text-center bg-slate-50/50 dark:bg-white/5"
+                >
                   <p className="text-[12px] font-bold text-welqo-terracotta">
                     {val}
                   </p>
@@ -124,11 +128,15 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
             <div className="p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
               <div className="text-[12px] leading-relaxed flex items-start gap-2">
                 <span className="text-emerald-500 font-bold shrink-0">✓</span>
-                <span className="text-slate-600 dark:text-slate-400">{q.atout}</span>
+                <span className="text-slate-600 dark:text-slate-400">
+                  {q.atout}
+                </span>
               </div>
               <div className="text-[12px] leading-relaxed flex items-start gap-2">
                 <span className="text-red-500 font-bold shrink-0">✕</span>
-                <span className="text-slate-500 dark:text-slate-400">{q.limite}</span>
+                <span className="text-slate-500 dark:text-slate-400">
+                  {q.limite}
+                </span>
               </div>
               <div className="sm:col-span-2 text-[10px] text-slate-400 italic pt-1 border-t border-slate-50 dark:border-white/5">
                 Profil cible : {q.profil}
@@ -161,14 +169,19 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
             detail: "Meilleurs rapports prix d'achat / revenus.",
           },
         ].map(({ title, icon, rec, detail }) => (
-          <div key={title} className="p-4 rounded-lg border border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5">
+          <div
+            key={title}
+            className="p-4 rounded-lg border border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5"
+          >
             <div className="flex items-center gap-2 mb-2">
               <span className="text-lg">{icon}</span>
               <p className="font-bold text-slate-900 dark:text-white text-sm tracking-tight">
                 {title}
               </p>
             </div>
-            <p className="text-welqo-terracotta font-bold text-[12px] mb-1">→ {rec}</p>
+            <p className="text-welqo-terracotta font-bold text-[12px] mb-1">
+              → {rec}
+            </p>
             <p className="text-slate-500 dark:text-slate-400 text-[11px] leading-snug">
               {detail}
             </p>
@@ -190,9 +203,16 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
             { label: "Amateur", val: "-25 %", color: "text-slate-400" },
             { label: "Welqo", val: "+38 %", color: "text-welqo-terracotta" },
           ].map(({ label, val, color }) => (
-            <div key={label} className="text-center p-3 bg-white/5 border border-white/5 rounded-md">
-              <p className={`text-2xl font-bold tracking-tighter ${color}`}>{val}</p>
-              <p className="text-slate-400 text-[9px] mt-0.5 font-bold">{label}</p>
+            <div
+              key={label}
+              className="text-center p-3 bg-white/5 border border-white/5 rounded-md"
+            >
+              <p className={`text-2xl font-bold tracking-tighter ${color}`}>
+                {val}
+              </p>
+              <p className="text-slate-400 text-[9px] mt-0.5 font-bold">
+                {label}
+              </p>
             </div>
           ))}
         </div>
@@ -202,7 +222,8 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
       </div>
 
       <p className="text-slate-600 dark:text-slate-400 text-[14px] leading-relaxed mt-10">
-        Quel que soit le quartier choisi, Welqo optimise chaque détail pour transformer votre investissement en succès.{" "}
+        Quel que soit le quartier choisi, Welqo optimise chaque détail pour
+        transformer votre investissement en succès.{" "}
         <a
           href={`${base}/proprietaires`}
           className="text-welqo-terracotta font-bold hover:underline"

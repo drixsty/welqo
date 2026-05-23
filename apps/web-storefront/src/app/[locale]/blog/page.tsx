@@ -105,7 +105,10 @@ export default function BlogPage({
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
           {/* Breadcrumb */}
           <nav className="flex items-center gap-3 text-[9px] font-bold text-white mb-4">
-            <a href={base} className="hover:text-welqo-terracotta transition-colors uppercase">
+            <a
+              href={base}
+              className="hover:text-welqo-terracotta transition-colors uppercase"
+            >
               {isFr ? "Accueil" : "Home"}
             </a>
             <span className="text-welqo-terracotta">/</span>
@@ -124,13 +127,15 @@ export default function BlogPage({
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tighter text-white leading-[0.95] mb-4">
                 {isFr ? (
                   <>
-                    Conseils <span className="text-welqo-terracotta">Airbnb</span>
+                    Conseils{" "}
+                    <span className="text-welqo-terracotta">Airbnb</span>
                     <br />à Lille.
                   </>
                 ) : (
                   <>
                     <span className="text-welqo-terracotta">Airbnb</span> Tips
-                    <br />in Lille.
+                    <br />
+                    in Lille.
                   </>
                 )}
               </h1>
@@ -187,12 +192,13 @@ export default function BlogPage({
                       W
                     </div>
                     <div className="flex flex-col">
-                       <span className="font-bold text-slate-300">Welqo</span>
-                       <span>
+                      <span className="font-bold text-slate-300">Welqo</span>
+                      <span>
                         {new Date(featured.publishedAt).toLocaleDateString(
                           isFr ? "fr-FR" : "en-GB",
                           { day: "numeric", month: "long", year: "numeric" },
-                        )} · {featured.readingMinutes} min
+                        )}{" "}
+                        · {featured.readingMinutes} min
                       </span>
                     </div>
                   </div>

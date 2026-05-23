@@ -123,10 +123,11 @@ export function ArticleCombienRapporteAirbnbLille({
             {DATA_QUARTIERS.map((row, i) => (
               <tr
                 key={row.name}
-                className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${i % 2 === 0
+                className={`border-b border-slate-100 dark:border-slate-800 last:border-0 ${
+                  i % 2 === 0
                     ? "bg-white dark:bg-slate-900"
                     : "bg-slate-50/50 dark:bg-slate-800/50"
-                  }`}
+                }`}
               >
                 <td className="px-3 py-1.5 font-bold text-slate-900 dark:text-white text-[13px]">
                   {row.name}
@@ -239,7 +240,11 @@ export function ArticleCombienRapporteAirbnbLille({
             </p>
             <p className="text-emerald-700 dark:text-emerald-500 text-base leading-relaxed">
               Les propriétaires qui confient leur bien à Welqo gagnent en
-              moyenne <strong className="text-emerald-900 dark:text-emerald-300">38 % de revenus supplémentaires</strong>.
+              moyenne{" "}
+              <strong className="text-emerald-900 dark:text-emerald-300">
+                38 % de revenus supplémentaires
+              </strong>
+              .
             </p>
           </div>
         </div>

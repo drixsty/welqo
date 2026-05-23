@@ -12,12 +12,12 @@ interface MobileBookingBarProps {
   isVisible: boolean;
 }
 
-export const MobileBookingBar = ({ 
-  price, 
-  rating, 
-  reviewsCount, 
+export const MobileBookingBar = ({
+  price,
+  rating,
+  reviewsCount,
   onBook,
-  isVisible 
+  isVisible,
 }: MobileBookingBarProps) => {
   return (
     <AnimatePresence>
@@ -31,17 +31,25 @@ export const MobileBookingBar = ({
         >
           <div className="flex flex-col">
             <div className="flex items-baseline gap-1">
-              <span className="text-xl font-black text-slate-900 dark:text-white tracking-tighter">€{price}</span>
-              <span className="text-[10px] font-bold text-slate-400 tracking-widest">/ nuit</span>
+              <span className="text-xl font-black text-slate-900 dark:text-white tracking-tighter">
+                €{price}
+              </span>
+              <span className="text-[10px] font-bold text-slate-400 tracking-widest">
+                / nuit
+              </span>
             </div>
             <div className="flex items-center gap-1.5 mt-1">
               <Star className="w-3 h-3 text-amber-500 fill-current" />
-              <span className="text-[10px] font-black text-slate-900 dark:text-white">{rating.toFixed(1)}</span>
-              <span className="text-[10px] font-bold text-slate-400">({reviewsCount})</span>
+              <span className="text-[10px] font-black text-slate-900 dark:text-white">
+                {rating.toFixed(1)}
+              </span>
+              <span className="text-[10px] font-bold text-slate-400">
+                ({reviewsCount})
+              </span>
             </div>
           </div>
 
-          <button 
+          <button
             onClick={onBook}
             className="px-8 py-4 bg-welqo-terracotta text-white rounded-2xl font-black text-sm shadow-xl shadow-welqo-terracotta/20 flex items-center gap-3 active:scale-95 transition-transform"
           >

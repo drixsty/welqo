@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { BrandLogo } from "./BrandLogo";
-import { Globe } from "lucide-react";
 
 interface NavLink {
   label: string;
   href: string;
+  sectionId?: string;
 }
 
 interface NavbarProps {
@@ -23,26 +23,27 @@ function defaultLinks(locale: string): NavLink[] {
   const base = `/${locale}`;
   return isFr
     ? [
-        { label: "Hébergements", href: base },
-        { label: "Propriétaires", href: `${base}/proprietaires` },
+        { label: "Comment ça marche", href: `${base}#comment-ca-marche`, sectionId: "comment-ca-marche" },
+        { label: "Pourquoi Welqo", href: `${base}#pourquoi-welqo`, sectionId: "pourquoi-welqo" },
+        { label: "Estimer mes revenus", href: `${base}#simulator`, sectionId: "simulator" },
         { label: "Blog", href: `${base}/blog` },
       ]
     : [
-        { label: "Accommodations", href: base },
-        { label: "Owners", href: `${base}/proprietaires` },
+        { label: "How it works", href: `${base}#comment-ca-marche`, sectionId: "comment-ca-marche" },
+        { label: "Why Welqo", href: `${base}#pourquoi-welqo`, sectionId: "pourquoi-welqo" },
+        { label: "Estimate my income", href: `${base}#simulator`, sectionId: "simulator" },
         { label: "Blog", href: `${base}/blog` },
       ];
 }
 
 export const Navbar = ({
-  title = "WELQO",
   locale = "fr",
   links,
   ctaLabel,
   ctaHref,
 }: NavbarProps) => {
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
   const pathname = usePathname();
 
   const isFr = locale !== "en";
@@ -51,118 +52,190 @@ export const Navbar = ({
     ? pathname.replace(new RegExp(`^/${locale}`), `/${altLocale}`)
     : `/${altLocale}`;
   const navLinks = links ?? defaultLinks(locale);
-  const cta = ctaLabel ?? (isFr ? "Devenir partenaire" : "Become a partner");
-  const ctaLink = ctaHref ?? `/${locale}/proprietaires#simulator`;
+  const cta = ctaLabel ?? (isFr ? "Devis gratuit" : "Free quote");
+  const ctaLink = ctaHref ?? `/${locale}#contact`;
 
+
+  // Scroll-spy
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    const handler = () => setScrolled(window.scrollY > 5);
-    window.addEventListener("scroll", handler, { passive: true });
-    return () => window.removeEventListener("scroll", handler);
-  }, []);
+    const sectionIds = navLinks
+      .filter((l) => l.sectionId)
+      .map((l) => l.sectionId as string);
+    if (sectionIds.length === 0) return;
+
+    const visible = new Map<string, number>();
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          visible.set(id, entry.isIntersecting ? entry.intersectionRatio : 0);
+          let best: string | null = null;
+          let bestRatio = 0;
+          visible.forEach((ratio, key) => {
+            if (ratio > bestRatio) { bestRatio = ratio; best = key; }
+          });
+          setActiveSection(best);
+        },
+        { threshold: [0, 0.1, 0.3, 0.5] }
+      );
+      obs.observe(el);
+      observers.push(obs);
+    });
+
+    return () => observers.forEach((obs) => obs.disconnect());
+  }, [navLinks]);
+
+  const isTransparent = false;
+
+  const isLinkActive = (link: NavLink) => {
+    if (link.sectionId) return activeSection === link.sectionId;
+    return pathname === link.href || (link.href !== `/${locale}` && pathname?.startsWith(link.href));
+  };
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-200 border-b h-16 flex items-center bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl ${
-        scrolled || open
-          ? "border-slate-200/60 dark:border-white/10 shadow-sm"
-          : "border-slate-200/20 dark:border-white/5 shadow-none"
+      className={`fixed top-0 w-full z-50 h-16 flex items-center transition-all duration-300 ${
+        isTransparent
+          ? "bg-gradient-to-b from-black/40 to-transparent border-b border-transparent"
+          : "bg-white dark:bg-slate-950 border-b border-slate-100 dark:border-slate-800 shadow-sm"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 w-full">
-        <div className="flex justify-between items-center h-full">
-          {/* Logo Section */}
-          <div className="flex items-center">
-            <a href={`/${locale}`} className="transition-transform hover:scale-105 active:scale-95">
-              <BrandLogo
-                variant="cursive"
-                size="sm"
-                className="text-slate-900 dark:text-white scale-90 origin-left"
-              />
-            </a>
-          </div>
+        <div className="flex justify-between items-center">
 
-          {/* Desktop Links - Center */}
-          <div className="hidden md:flex items-center gap-1">
-            {navLinks.map((link: NavLink) => {
-              const isActive = pathname === link.href || (link.href !== `/${locale}` && pathname?.startsWith(link.href));
+          {/* Logo */}
+          <a href={`/${locale}`} className="transition-transform hover:scale-105 active:scale-95 shrink-0">
+            <BrandLogo
+              variant="cursive"
+              size="sm"
+              className={`scale-90 origin-left transition-colors duration-300 ${
+                isTransparent ? "text-white" : "text-slate-900 dark:text-white"
+              }`}
+            />
+          </a>
+
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-0.5">
+            {navLinks.map((link, i) => {
+              const active = isLinkActive(link);
+              const showSep = i === navLinks.length - 1 && !link.sectionId && navLinks.length > 1;
               return (
-                <a
-                  key={link.label}
-                  href={link.href}
-                  className={`px-3 py-1.5 rounded-md text-[12px] font-bold transition-all duration-200 ${
-                    isActive 
-                      ? "text-welqo-terracotta bg-welqo-terracotta/5" 
-                      : "text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white hover:bg-slate-100/50 dark:hover:bg-white/5"
-                  }`}
-                >
-                  {link.label}
-                </a>
+                <div key={link.label} className="flex items-center">
+                  {showSep && (
+                    <div className={`w-px h-4 mx-2 ${isTransparent ? "bg-white/30" : "bg-slate-200 dark:bg-slate-700"}`} />
+                  )}
+                  <a
+                    href={link.href}
+                    className={`px-3 py-1.5 rounded-md text-[12px] font-bold transition-all duration-200 ${
+                      active
+                        ? isTransparent
+                          ? "text-white bg-white/15"
+                          : "text-welqo-terracotta bg-welqo-terracotta/10"
+                        : isTransparent
+                          ? "text-white/80 hover:text-white hover:bg-white/10"
+                          : "text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                </div>
               );
             })}
           </div>
 
-          {/* Right Section - CTA & Locale */}
+          {/* Right: locale + CTA */}
           <div className="hidden md:flex items-center gap-3">
             <a
               href={localeSwitchHref}
-              className="flex items-center gap-1.5 px-2 py-1.5 rounded-md text-[11px] font-bold text-slate-400 hover:text-slate-900 transition-colors"
+              className={`text-[11px] font-bold px-2 py-1.5 rounded-md transition-all duration-200 ${
+                isTransparent
+                  ? "text-white/70 hover:text-white hover:bg-white/10"
+                  : "text-slate-400 dark:text-slate-500 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800"
+              }`}
             >
-              <Globe className="w-3.5 h-3.5" />
-              <span>{locale === "fr" ? "EN" : "FR"}</span>
+              {locale === "fr" ? "EN" : "FR"}
             </a>
             <a
               href={ctaLink}
-              className="h-9 px-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[11px] font-bold rounded-lg hover:bg-welqo-terracotta dark:hover:bg-welqo-terracotta dark:hover:text-white transition-all flex items-center justify-center tracking-tight shadow-sm active:scale-95 border border-transparent"
+              className="h-9 px-5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white text-[11px] font-bold rounded-lg transition-all flex items-center gap-1.5 shadow-sm active:scale-95 whitespace-nowrap"
             >
               {cta}
+              <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </a>
           </div>
 
-          {/* Mobile Toggle */}
+          {/* Mobile burger */}
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-slate-100 dark:hover:bg-white/5 transition-colors"
+            aria-label="Menu"
+            className={`md:hidden w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
+              isTransparent ? "hover:bg-white/10" : "hover:bg-slate-100 dark:hover:bg-slate-800"
+            }`}
           >
-            <div className="w-5 h-4 flex flex-col justify-between">
-              <span className={`w-full h-[1.5px] rounded-full bg-slate-900 dark:bg-white transition-all duration-300 ${open ? "rotate-45 translate-y-[5.5px]" : ""}`} />
-              <span className={`w-3/4 h-[1.5px] rounded-full bg-slate-900 dark:bg-white transition-all duration-300 ${open ? "opacity-0" : ""}`} />
-              <span className={`w-full h-[1.5px] rounded-full bg-slate-900 dark:bg-white transition-all duration-300 ${open ? "-rotate-45 -translate-y-[6.5px]" : ""}`} />
+            <div className="w-5 flex flex-col gap-[5px]">
+              {[
+                open ? "rotate-45 translate-y-[6.5px]" : "",
+                open ? "opacity-0 scale-x-0" : "",
+                open ? "-rotate-45 -translate-y-[6.5px]" : "",
+              ].map((transform, i) => (
+                <span
+                  key={i}
+                  className={`block h-[1.5px] w-full rounded-full transition-all duration-300 origin-center ${transform} ${
+                    isTransparent ? "bg-white" : "bg-slate-900 dark:bg-white"
+                  }`}
+                />
+              ))}
             </div>
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu Overlay */}
+      {/* Mobile menu — fond solide pour éviter tout problème de contraste */}
       <div
-        className={`fixed inset-x-0 top-16 z-50 md:hidden overflow-hidden transition-all duration-500 ease-in-out ${
-          open ? "max-h-screen opacity-100 border-t border-slate-100 dark:border-white/5" : "max-h-0 opacity-0"
+        className={`fixed inset-x-0 top-16 z-40 md:hidden transition-all duration-300 ${
+          open ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"
         }`}
       >
-        <div className="px-6 py-10 space-y-4 bg-white/95 dark:bg-slate-950/95 backdrop-blur-2xl">
-          {navLinks.map((link: NavLink) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              className="block text-2xl font-bold text-slate-900 dark:text-white hover:text-welqo-terracotta transition-all"
-            >
-              {link.label}
-            </a>
-          ))}
-          <div className="pt-8 flex flex-col gap-3">
+        <div className="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 px-4 py-4 space-y-1 shadow-xl">
+          {navLinks.map((link) => {
+            const active = isLinkActive(link);
+            return (
+              <a
+                key={link.label}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                className={`flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold transition-all ${
+                  active
+                    ? "bg-welqo-terracotta/10 text-welqo-terracotta"
+                    : "text-slate-800 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-800"
+                }`}
+              >
+                {link.label}
+                {active && <span className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta shrink-0" />}
+              </a>
+            );
+          })}
+
+          <div className="pt-3 mt-1 border-t border-slate-100 dark:border-slate-800 space-y-2">
             <a
               href={ctaLink}
               onClick={() => setOpen(false)}
-              className="w-full py-4 bg-welqo-terracotta text-white rounded-lg font-bold text-center active:scale-95 transition-transform"
+              className="flex items-center justify-center gap-2 w-full py-3.5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-sm transition-all active:scale-95"
             >
               {cta}
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              </svg>
             </a>
             <a
               href={localeSwitchHref}
-              className="w-full py-4 bg-slate-50 dark:bg-slate-900 text-slate-400 rounded-lg text-xs font-bold text-center flex items-center justify-center gap-2"
+              className="flex items-center justify-center w-full py-2.5 text-slate-400 dark:text-slate-500 text-xs font-bold"
             >
-              <Globe className="w-3.5 h-3.5" />
               {locale === "fr" ? "Switch to English" : "Version Française"}
             </a>
           </div>

@@ -2,19 +2,19 @@
 
 import React, { useState, useRef, useEffect } from "react";
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
-import { 
-  SlidersHorizontal, 
-  X, 
-  MapPin, 
-  Euro, 
-  Users, 
-  Wifi, 
-  Car, 
-  ChefHat, 
-  Tv, 
+import {
+  SlidersHorizontal,
+  X,
+  MapPin,
+  Euro,
+  Users,
+  Wifi,
+  Car,
+  ChefHat,
+  Tv,
   Wind,
   Check,
-  ChevronDown
+  ChevronDown,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -39,13 +39,13 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
   const router = useRouter();
   const searchParams = useSearchParams();
   const pathname = usePathname();
-  
+
   const [minPrice, setMinPrice] = useState(MIN_LIMIT);
   const [maxPrice, setMaxPrice] = useState(MAX_LIMIT);
   const [city, setCity] = useState("");
   const [guests, setGuests] = useState("");
   const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
-  
+
   const [isCityOpen, setIsCityOpen] = useState(false);
   const cityRef = useRef<HTMLDivElement>(null);
 
@@ -72,10 +72,14 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
 
   const handleApply = () => {
     const params = new URLSearchParams(searchParams.toString());
-    if (minPrice > MIN_LIMIT) params.set("minPrice", minPrice.toString()); else params.delete("minPrice");
-    if (maxPrice < MAX_LIMIT) params.set("maxPrice", maxPrice.toString()); else params.delete("maxPrice");
-    if (city) params.set("city", city); else params.delete("city");
-    if (guests) params.set("guests", guests); else params.delete("guests");
+    if (minPrice > MIN_LIMIT) params.set("minPrice", minPrice.toString());
+    else params.delete("minPrice");
+    if (maxPrice < MAX_LIMIT) params.set("maxPrice", maxPrice.toString());
+    else params.delete("maxPrice");
+    if (city) params.set("city", city);
+    else params.delete("city");
+    if (guests) params.set("guests", guests);
+    else params.delete("guests");
     if (selectedAmenities.length > 0) {
       params.set("amenities", selectedAmenities.join(","));
     } else {
@@ -89,8 +93,8 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
   };
 
   const toggleAmenity = (id: string) => {
-    setSelectedAmenities(prev => 
-      prev.includes(id) ? prev.filter(a => a !== id) : [...prev, id]
+    setSelectedAmenities((prev) =>
+      prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id],
     );
   };
 
@@ -117,15 +121,18 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
           </span>
         </div>
         <div className="flex items-center gap-3">
-          {(searchParams.toString() !== "") && (
-            <button 
+          {searchParams.toString() !== "" && (
+            <button
               onClick={handleClear}
               className="text-[10px] font-bold text-slate-400 hover:text-welqo-terracotta transition-colors tracking-tighter"
             >
               {isFr ? "Reset" : "Reset"}
             </button>
           )}
-          <button onClick={() => setIsMobileOpen(false)} className="lg:hidden p-1">
+          <button
+            onClick={() => setIsMobileOpen(false)}
+            className="lg:hidden p-1"
+          >
             <X className="w-4 h-4 text-slate-400" />
           </button>
         </div>
@@ -142,8 +149,12 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
             onClick={() => setIsCityOpen(!isCityOpen)}
             className="w-full flex items-center justify-between bg-white dark:bg-slate-800/50 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-[11px] font-bold text-slate-700 dark:text-slate-200 transition-all hover:border-welqo-terracotta/30"
           >
-            <span className="truncate">{city || (isFr ? "Partout" : "Anywhere")}</span>
-            <ChevronDown className={`w-3 h-3 text-slate-400 transition-transform ${isCityOpen ? "rotate-180" : ""}`} />
+            <span className="truncate">
+              {city || (isFr ? "Partout" : "Anywhere")}
+            </span>
+            <ChevronDown
+              className={`w-3 h-3 text-slate-400 transition-transform ${isCityOpen ? "rotate-180" : ""}`}
+            />
           </button>
 
           <AnimatePresence>
@@ -155,18 +166,28 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
                 className="absolute top-full left-0 mt-1.5 w-full bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/10 rounded-xl shadow-2xl z-50 overflow-hidden p-1.5"
               >
                 <button
-                  onClick={() => { setCity(""); setIsCityOpen(false); }}
+                  onClick={() => {
+                    setCity("");
+                    setIsCityOpen(false);
+                  }}
                   className="w-full flex items-center justify-between px-3 py-2 text-[11px] font-bold rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 text-slate-500"
                 >
                   {isFr ? "Partout" : "Anywhere"}
-                  {!city && <Check className="w-3.5 h-3.5 text-welqo-terracotta" />}
+                  {!city && (
+                    <Check className="w-3.5 h-3.5 text-welqo-terracotta" />
+                  )}
                 </button>
-                {CITIES.map(c => (
+                {CITIES.map((c) => (
                   <button
                     key={c}
-                    onClick={() => { setCity(c); setIsCityOpen(false); }}
+                    onClick={() => {
+                      setCity(c);
+                      setIsCityOpen(false);
+                    }}
                     className={`w-full flex items-center justify-between px-3 py-2 text-[11px] font-bold rounded-lg ${
-                      city === c ? "bg-welqo-terracotta/5 text-welqo-terracotta" : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
+                      city === c
+                        ? "bg-welqo-terracotta/5 text-welqo-terracotta"
+                        : "text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-white/5"
                     }`}
                   >
                     {c}
@@ -185,33 +206,49 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
           <Euro className="w-3 h-3 text-welqo-terracotta" />
           {isFr ? "Prix par nuit" : "Price per night"}
         </label>
-        
+
         <div className="flex items-center gap-2 mb-6">
           <div className="flex-1 bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 rounded-xl px-3 py-2.5 text-center">
-            <p className="text-[9px] font-black text-slate-400 leading-none mb-1">Min</p>
-            <p className="text-xs font-black text-slate-900 dark:text-white leading-none">{minPrice}€</p>
+            <p className="text-[9px] font-black text-slate-400 leading-none mb-1">
+              Min
+            </p>
+            <p className="text-xs font-black text-slate-900 dark:text-white leading-none">
+              {minPrice}€
+            </p>
           </div>
           <div className="w-2 h-[2px] bg-slate-200 dark:bg-slate-700" />
           <div className="flex-1 bg-slate-50 dark:bg-white/[0.03] border border-slate-100 dark:border-white/5 rounded-xl px-3 py-2.5 text-center">
-            <p className="text-[9px] font-black text-slate-400 leading-none mb-1">Max</p>
-            <p className="text-xs font-black text-slate-900 dark:text-white leading-none">{maxPrice}€</p>
+            <p className="text-[9px] font-black text-slate-400 leading-none mb-1">
+              Max
+            </p>
+            <p className="text-xs font-black text-slate-900 dark:text-white leading-none">
+              {maxPrice}€
+            </p>
           </div>
         </div>
-        
+
         <div className="relative h-1.5 bg-slate-100 dark:bg-slate-800 rounded-full mx-1">
-          <div 
+          <div
             className="absolute h-1.5 bg-welqo-terracotta rounded-full"
-            style={{ 
-              left: `${(minPrice / MAX_LIMIT) * 100}%`, 
-              right: `${100 - (maxPrice / MAX_LIMIT) * 100}%` 
+            style={{
+              left: `${(minPrice / MAX_LIMIT) * 100}%`,
+              right: `${100 - (maxPrice / MAX_LIMIT) * 100}%`,
             }}
           />
           <input
-            type="range" min={MIN_LIMIT} max={MAX_LIMIT} value={minPrice} onChange={handleMinChange}
+            type="range"
+            min={MIN_LIMIT}
+            max={MAX_LIMIT}
+            value={minPrice}
+            onChange={handleMinChange}
             className="absolute w-full appearance-none bg-transparent pointer-events-none top-1/2 -translate-y-1/2 z-20 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-welqo-terracotta [&::-webkit-slider-thumb]:shadow-xl [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:active:scale-125"
           />
           <input
-            type="range" min={MIN_LIMIT} max={MAX_LIMIT} value={maxPrice} onChange={handleMaxChange}
+            type="range"
+            min={MIN_LIMIT}
+            max={MAX_LIMIT}
+            value={maxPrice}
+            onChange={handleMaxChange}
             className="absolute w-full appearance-none bg-transparent pointer-events-none top-1/2 -translate-y-1/2 z-20 cursor-pointer [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:pointer-events-auto [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5 [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:border-4 [&::-webkit-slider-thumb]:border-welqo-terracotta [&::-webkit-slider-thumb]:shadow-xl [&::-webkit-slider-thumb]:cursor-pointer [&::-webkit-slider-thumb]:transition-all [&::-webkit-slider-thumb]:active:scale-125"
           />
         </div>
@@ -224,7 +261,7 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
           {isFr ? "Voyageurs" : "Guests"}
         </label>
         <div className="grid grid-cols-5 gap-2">
-          {[1, 2, 3, 4, "5+"].map(n => (
+          {[1, 2, 3, 4, "5+"].map((n) => (
             <button
               key={n}
               onClick={() => setGuests(n.toString())}
@@ -246,22 +283,30 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
           {isFr ? "Équipements" : "Amenities"}
         </label>
         <div className="space-y-2">
-          {AMENITIES.map(a => (
+          {AMENITIES.map((a) => (
             <button
               key={a.id}
               onClick={() => toggleAmenity(a.id)}
               className="w-full flex items-center gap-3 group text-left"
             >
-              <div className={`w-5 h-5 rounded-lg border-2 transition-all flex items-center justify-center ${
-                selectedAmenities.includes(a.id)
-                  ? "bg-welqo-terracotta border-welqo-terracotta"
-                  : "bg-white dark:bg-slate-800 border-slate-200 dark:border-white/10 group-hover:border-welqo-terracotta/30"
-              }`}>
-                {selectedAmenities.includes(a.id) && <Check className="w-3.5 h-3.5 text-white stroke-[3px]" />}
+              <div
+                className={`w-5 h-5 rounded-lg border-2 transition-all flex items-center justify-center ${
+                  selectedAmenities.includes(a.id)
+                    ? "bg-welqo-terracotta border-welqo-terracotta"
+                    : "bg-white dark:bg-slate-800 border-slate-200 dark:border-white/10 group-hover:border-welqo-terracotta/30"
+                }`}
+              >
+                {selectedAmenities.includes(a.id) && (
+                  <Check className="w-3.5 h-3.5 text-white stroke-[3px]" />
+                )}
               </div>
-              <span className={`text-xs font-bold transition-colors ${
-                selectedAmenities.includes(a.id) ? "text-slate-900 dark:text-white" : "text-slate-500 dark:text-slate-400"
-              }`}>
+              <span
+                className={`text-xs font-bold transition-colors ${
+                  selectedAmenities.includes(a.id)
+                    ? "text-slate-900 dark:text-white"
+                    : "text-slate-500 dark:text-slate-400"
+                }`}
+              >
                 {a.label}
               </span>
             </button>
@@ -270,7 +315,10 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
       </div>
 
       <button
-        onClick={() => { handleApply(); setIsMobileOpen(false); }}
+        onClick={() => {
+          handleApply();
+          setIsMobileOpen(false);
+        }}
         className="w-full py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl text-xs font-black tracking-[0.1em] shadow-2xl transition-all active:scale-95"
       >
         {isFr ? "Appliquer les filtres" : "Apply Filters"}
@@ -282,14 +330,12 @@ export const FilterSidebar = ({ locale }: FilterSidebarProps) => {
     <>
       {/* 💻 DESKTOP VIEW */}
       <div className="hidden lg:block w-64 shrink-0">
-        <div className="sticky top-24">
-          {sidebarContent}
-        </div>
+        <div className="sticky top-24">{sidebarContent}</div>
       </div>
 
       {/* 📱 MOBILE FLOATING TRIGGER */}
       <div className="lg:hidden fixed bottom-10 left-1/2 -translate-x-1/2 z-[100]">
-        <button 
+        <button
           onClick={() => setIsMobileOpen(true)}
           className="flex items-center gap-3 px-6 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-[2rem] shadow-2xl font-black text-xs tracking-widest active:scale-95 transition-all"
         >

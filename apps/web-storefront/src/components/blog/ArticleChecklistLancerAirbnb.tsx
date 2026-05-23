@@ -79,7 +79,8 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
         Les 6 étapes incontournables avant de publier
       </h2>
       <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-10 text-[15px]">
-        Chaque étape est indispensable pour garantir des avis 5 étoiles et des revenus optimisés dès le premier mois.
+        Chaque étape est indispensable pour garantir des avis 5 étoiles et des
+        revenus optimisés dès le premier mois.
       </p>
 
       <div className="space-y-4 mb-16">
@@ -121,7 +122,9 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
               Temps estimé pour lancer votre Airbnb
             </p>
             <p className="text-emerald-700 dark:text-emerald-500 text-[14px] leading-relaxed">
-              En solo : <strong>2 à 4 semaines</strong>. Avec Welqo : <strong>72h</strong> après signature du contrat. Nous gérons tout de A à Z.
+              En solo : <strong>2 à 4 semaines</strong>. Avec Welqo :{" "}
+              <strong>72h</strong> après signature du contrat. Nous gérons tout
+              de A à Z.
             </p>
           </div>
         </div>
@@ -137,10 +140,7 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
 
       <div className="space-y-5 mb-16">
         {ERRORS.map(({ title, desc }) => (
-          <div
-            key={title}
-            className="group"
-          >
+          <div key={title} className="group">
             <p className="font-bold text-slate-900 dark:text-white text-base mb-1.5 flex items-center gap-2">
               <span className="text-red-500 text-xs">✕</span> {title}
             </p>
@@ -177,11 +177,36 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
           <tbody>
             {/* Same rows with updated styling */}
             {[
-              { label: "Temps / semaine", solo: "8–12h", welqo: "0h", ok: true },
-              { label: "Revenus optimisés", solo: "Moyens", welqo: "+38 %", ok: true },
-              { label: "Gestion des urgences", solo: "À vous", welqo: "7j/7", ok: true },
-              { label: "Photos professionnelles", solo: "En option", welqo: "Incluses", ok: true },
-              { label: "Tarification dynamique", solo: "Manuelle", welqo: "Auto", ok: true },
+              {
+                label: "Temps / semaine",
+                solo: "8–12h",
+                welqo: "0h",
+                ok: true,
+              },
+              {
+                label: "Revenus optimisés",
+                solo: "Moyens",
+                welqo: "+38 %",
+                ok: true,
+              },
+              {
+                label: "Gestion des urgences",
+                solo: "À vous",
+                welqo: "7j/7",
+                ok: true,
+              },
+              {
+                label: "Photos professionnelles",
+                solo: "En option",
+                welqo: "Incluses",
+                ok: true,
+              },
+              {
+                label: "Tarification dynamique",
+                solo: "Manuelle",
+                welqo: "Auto",
+                ok: true,
+              },
               { label: "Commission", solo: "0 %", welqo: "20 %", ok: false },
             ].map(({ label, solo, welqo, ok }, i) => (
               <tr
@@ -195,7 +220,9 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
                 <td className="px-4 py-2.5 font-medium text-slate-700 dark:text-slate-300 text-[13px]">
                   {label}
                 </td>
-                <td className="px-4 py-2.5 text-center text-slate-500 text-[13px]">{solo}</td>
+                <td className="px-4 py-2.5 text-center text-slate-500 text-[13px]">
+                  {solo}
+                </td>
                 <td
                   className={`px-4 py-2.5 text-center font-bold text-[13px] ${ok ? "text-welqo-terracotta" : "text-slate-500"}`}
                 >
@@ -210,7 +237,8 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
       <p className="text-slate-600 dark:text-slate-400 text-[14px] leading-relaxed mt-10">
         Si vous avez le temps et l'envie de vous impliquer, la gestion en solo
         est tout à fait possible. Mais si vous souhaitez maximiser vos revenus
-        sans y consacrer vos soirées et week-ends, Welqo s'avère rapidement rentable.{" "}
+        sans y consacrer vos soirées et week-ends, Welqo s'avère rapidement
+        rentable.{" "}
         <a
           href={`${base}/proprietaires`}
           className="text-welqo-terracotta font-bold hover:underline"

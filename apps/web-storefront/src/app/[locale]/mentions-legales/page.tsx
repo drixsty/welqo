@@ -24,7 +24,10 @@ export default function MentionsLegalesPage({
   const SECTIONS = [
     { id: "editeur", label: isFr ? "Éditeur du site" : "Publisher" },
     { id: "hebergement", label: isFr ? "Hébergement" : "Hosting" },
-    { id: "propriete", label: isFr ? "Propriété intellectuelle" : "Intellectual Property" },
+    {
+      id: "propriete",
+      label: isFr ? "Propriété intellectuelle" : "Intellectual Property",
+    },
     { id: "responsabilite", label: isFr ? "Responsabilité" : "Liability" },
     { id: "donnees", label: isFr ? "Données personnelles" : "Personal Data" },
     { id: "cookies", label: isFr ? "Cookies" : "Cookies" },
@@ -71,7 +74,9 @@ export default function MentionsLegalesPage({
           <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tighter leading-[0.95] mb-8">
             {isFr ? "Mentions" : "Legal"}
             <br />
-            <span className="text-welqo-terracotta">{isFr ? "légales." : "Notice."}</span>
+            <span className="text-welqo-terracotta">
+              {isFr ? "légales." : "Notice."}
+            </span>
           </h1>
 
           <div className="flex items-center gap-4 text-slate-500">
@@ -100,7 +105,9 @@ export default function MentionsLegalesPage({
                     href={`#${section.id}`}
                     className="block text-xs font-bold text-slate-500 hover:text-welqo-terracotta transition-colors"
                   >
-                    <span className="text-slate-300 dark:text-slate-700 mr-3">0{i + 1}</span>
+                    <span className="text-slate-300 dark:text-slate-700 mr-3">
+                      0{i + 1}
+                    </span>
                     {section.label}
                   </a>
                 ))}
@@ -117,18 +124,39 @@ export default function MentionsLegalesPage({
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-100 dark:bg-white/5 border border-slate-100 dark:border-white/5 rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/5">
                 {[
-                  { label: isFr ? "Raison sociale" : "Company", value: "Welqo SAS" },
-                  { label: isFr ? "Siège social" : "Headquarters", value: "Lille, France" },
+                  {
+                    label: isFr ? "Raison sociale" : "Company",
+                    value: "Welqo SAS",
+                  },
+                  {
+                    label: isFr ? "Siège social" : "Headquarters",
+                    value: "Lille, France",
+                  },
                   { label: "SIRET", value: "894 562 123 00012" },
-                  { label: isFr ? "Capital social" : "Share Capital", value: "10 000 €" },
-                  { label: "Email", value: "contact@welqo.fr", color: "text-welqo-terracotta" },
-                  { label: isFr ? "Publication" : "Publisher", value: "Kevin Tsague" },
+                  {
+                    label: isFr ? "Capital social" : "Share Capital",
+                    value: "10 000 €",
+                  },
+                  {
+                    label: "Email",
+                    value: "contact@welqo.fr",
+                    color: "text-welqo-terracotta",
+                  },
+                  {
+                    label: isFr ? "Publication" : "Publisher",
+                    value: "Kevin Tsague",
+                  },
                 ].map((item) => (
-                  <div key={item.label} className="bg-white dark:bg-slate-950 p-8">
+                  <div
+                    key={item.label}
+                    className="bg-white dark:bg-slate-950 p-8"
+                  >
                     <p className="text-[10px] font-black tracking-widest text-slate-400 mb-2">
                       {item.label}
                     </p>
-                    <p className={`font-bold text-sm ${item.color || "text-slate-900 dark:text-white"}`}>
+                    <p
+                      className={`font-bold text-sm ${item.color || "text-slate-900 dark:text-white"}`}
+                    >
                       {item.value}
                     </p>
                   </div>
@@ -147,9 +175,12 @@ export default function MentionsLegalesPage({
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">
                       {isFr ? "Hébergeur" : "Provider"}
                     </p>
-                    <p className="text-slate-900 dark:text-white font-bold text-lg">Vercel Inc.</p>
+                    <p className="text-slate-900 dark:text-white font-bold text-lg">
+                      Vercel Inc.
+                    </p>
                     <p className="text-slate-500 text-xs mt-2 leading-relaxed">
-                      440 N Barranca Ave #4133<br />
+                      440 N Barranca Ave #4133
+                      <br />
                       Covina, CA 91723
                     </p>
                   </div>
@@ -157,9 +188,13 @@ export default function MentionsLegalesPage({
                     <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">
                       {isFr ? "Juridiction" : "Jurisdiction"}
                     </p>
-                    <p className="text-slate-900 dark:text-white font-bold text-lg">{isFr ? "France / Europe" : "France / Europe"}</p>
+                    <p className="text-slate-900 dark:text-white font-bold text-lg">
+                      {isFr ? "France / Europe" : "France / Europe"}
+                    </p>
                     <p className="text-slate-500 text-xs mt-2 leading-relaxed">
-                      {isFr ? "Serveurs situés en région parisienne (cdg1)." : "Servers located in Paris region (cdg1)."}
+                      {isFr
+                        ? "Serveurs situés en région parisienne (cdg1)."
+                        : "Servers located in Paris region (cdg1)."}
                     </p>
                   </div>
                 </div>
@@ -173,7 +208,7 @@ export default function MentionsLegalesPage({
               </h2>
               <div className="prose prose-slate dark:prose-invert max-w-none">
                 <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-[15px]">
-                  {isFr 
+                  {isFr
                     ? "L'intégralité du site Welqo, incluant sans s'y limiter, les graphismes, images, textes, vidéos, animations, sons, logos, gifs et icônes ainsi que leur mise en forme sont la propriété exclusive de la société Welqo à l'exception des marques, logos ou contenus appartenant à d'autres sociétés partenaires ou auteurs."
                     : "The entire Welqo website, including but not limited to graphics, images, texts, videos, animations, sounds, logos, gifs, and icons, as well as their formatting, is the exclusive property of Welqo, with the exception of trademarks, logos, or content belonging to other partner companies or authors."}
                 </p>
@@ -201,8 +236,16 @@ export default function MentionsLegalesPage({
               </h2>
               <div className="flex items-center justify-between p-8 bg-slate-900 rounded-3xl group">
                 <div className="space-y-1">
-                  <p className="text-white font-bold">{isFr ? "Protection de la vie privée" : "Privacy Protection"}</p>
-                  <p className="text-slate-400 text-xs">{isFr ? "Consultez notre politique dédiée au RGPD." : "Read our dedicated GDPR policy."}</p>
+                  <p className="text-white font-bold">
+                    {isFr
+                      ? "Protection de la vie privée"
+                      : "Privacy Protection"}
+                  </p>
+                  <p className="text-slate-400 text-xs">
+                    {isFr
+                      ? "Consultez notre politique dédiée au RGPD."
+                      : "Read our dedicated GDPR policy."}
+                  </p>
                 </div>
                 <Link
                   href={`${base}/politique-de-confidentialite`}

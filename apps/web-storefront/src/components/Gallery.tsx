@@ -2,7 +2,14 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight, Grid, Share2, Heart } from "lucide-react";
+import {
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Grid,
+  Share2,
+  Heart,
+} from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export const Gallery = ({ images }: { images: string[] }) => {
@@ -14,8 +21,10 @@ export const Gallery = ({ images }: { images: string[] }) => {
     if (!isOpen) return;
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") setIsOpen(false);
-      if (e.key === "ArrowRight") setCurrentIdx((prev) => (prev + 1) % images.length);
-      if (e.key === "ArrowLeft") setCurrentIdx((prev) => (prev - 1 + images.length) % images.length);
+      if (e.key === "ArrowRight")
+        setCurrentIdx((prev) => (prev + 1) % images.length);
+      if (e.key === "ArrowLeft")
+        setCurrentIdx((prev) => (prev - 1 + images.length) % images.length);
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
@@ -26,9 +35,12 @@ export const Gallery = ({ images }: { images: string[] }) => {
       <div className="relative group/gallery">
         <div className="grid grid-cols-1 md:grid-cols-4 grid-rows-2 gap-4 h-[500px] md:h-[650px] w-full rounded-[2.5rem] overflow-hidden border border-slate-200/50 dark:border-white/[0.05]">
           {/* Main Image */}
-          <div 
+          <div
             className="md:col-span-2 md:row-span-2 relative group overflow-hidden cursor-pointer"
-            onClick={() => { setCurrentIdx(0); setIsOpen(true); }}
+            onClick={() => {
+              setCurrentIdx(0);
+              setIsOpen(true);
+            }}
           >
             <img
               src={images[0]}
@@ -41,10 +53,13 @@ export const Gallery = ({ images }: { images: string[] }) => {
           {/* Secondary Images Grid */}
           <div className="hidden md:grid md:col-span-2 md:row-span-2 grid-cols-2 grid-rows-2 gap-4">
             {images.slice(1, 5).map((img, i) => (
-              <div 
-                key={i} 
+              <div
+                key={i}
                 className="relative group overflow-hidden cursor-pointer"
-                onClick={() => { setCurrentIdx(i + 1); setIsOpen(true); }}
+                onClick={() => {
+                  setCurrentIdx(i + 1);
+                  setIsOpen(true);
+                }}
               >
                 <img
                   src={img}
@@ -69,7 +84,7 @@ export const Gallery = ({ images }: { images: string[] }) => {
 
         {/* View All Button Overlay */}
         <div className="absolute bottom-8 right-8 z-10">
-          <button 
+          <button
             onClick={() => setIsOpen(true)}
             className="inline-flex items-center gap-3 px-6 py-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-xl border border-slate-200/50 dark:border-white/[0.1] rounded-2xl text-[11px] font-black tracking-[0.15em] text-slate-900 dark:text-white shadow-2xl hover:scale-105 transition-all active:scale-95 group"
           >
@@ -93,7 +108,7 @@ export const Gallery = ({ images }: { images: string[] }) => {
               <div className="text-white/40 text-[10px] font-black tracking-[0.2em]">
                 {currentIdx + 1} <span className="mx-2">/</span> {images.length}
               </div>
-              <button 
+              <button
                 onClick={() => setIsOpen(false)}
                 className="w-12 h-12 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all border border-white/10 backdrop-blur-md"
               >
@@ -113,8 +128,12 @@ export const Gallery = ({ images }: { images: string[] }) => {
                   drag="x"
                   dragConstraints={{ left: 0, right: 0 }}
                   onDragEnd={(_, info) => {
-                    if (info.offset.x < -50) setCurrentIdx((prev) => (prev + 1) % images.length);
-                    if (info.offset.x > 50) setCurrentIdx((prev) => (prev - 1 + images.length) % images.length);
+                    if (info.offset.x < -50)
+                      setCurrentIdx((prev) => (prev + 1) % images.length);
+                    if (info.offset.x > 50)
+                      setCurrentIdx(
+                        (prev) => (prev - 1 + images.length) % images.length,
+                      );
                   }}
                   transition={{ duration: 0.3, ease: "easeOut" }}
                   className="w-full h-full object-contain rounded-2xl cursor-grab active:cursor-grabbing"
@@ -123,14 +142,20 @@ export const Gallery = ({ images }: { images: string[] }) => {
 
               {/* Navigation Arrows */}
               <div className="absolute inset-0 flex items-center justify-between px-4 md:-mx-20">
-                <button 
-                  onClick={() => setCurrentIdx((prev) => (prev - 1 + images.length) % images.length)}
+                <button
+                  onClick={() =>
+                    setCurrentIdx(
+                      (prev) => (prev - 1 + images.length) % images.length,
+                    )
+                  }
                   className="w-14 h-14 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all border border-white/10 backdrop-blur-md"
                 >
                   <ChevronLeft className="w-8 h-8" />
                 </button>
-                <button 
-                  onClick={() => setCurrentIdx((prev) => (prev + 1) % images.length)}
+                <button
+                  onClick={() =>
+                    setCurrentIdx((prev) => (prev + 1) % images.length)
+                  }
                   className="w-14 h-14 rounded-full bg-white/5 hover:bg-white/10 text-white flex items-center justify-center transition-all border border-white/10 backdrop-blur-md"
                 >
                   <ChevronRight className="w-8 h-8" />
@@ -146,10 +171,16 @@ export const Gallery = ({ images }: { images: string[] }) => {
                   onClick={() => setCurrentIdx(i)}
                   className={cn(
                     "relative shrink-0 w-20 h-14 rounded-lg overflow-hidden border-2 transition-all",
-                    currentIdx === i ? "border-welqo-terracotta scale-110" : "border-transparent opacity-40 hover:opacity-100"
+                    currentIdx === i
+                      ? "border-welqo-terracotta scale-110"
+                      : "border-transparent opacity-40 hover:opacity-100",
                   )}
                 >
-                  <img src={img} className="w-full h-full object-cover" alt="Thumbnail" />
+                  <img
+                    src={img}
+                    className="w-full h-full object-cover"
+                    alt="Thumbnail"
+                  />
                 </button>
               ))}
             </div>

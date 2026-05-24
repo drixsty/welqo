@@ -113,7 +113,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
 
       {/* Bottom bar */}
       <div className="border-t border-slate-100 dark:border-slate-900">
-        <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="max-w-7xl mx-auto px-6 pt-8 pb-32 md:py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-slate-400 font-medium">
             © {year} Welqo. {isFr ? "Conciergerie à Lille, Lens & Arras." : "Concierge in Lille, Lens & Arras."}
           </p>

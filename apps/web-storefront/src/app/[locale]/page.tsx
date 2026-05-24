@@ -299,21 +299,23 @@ export default async function HomePage({
           </div>
         </div>
 
-        {/* Kinetic Scroll Indicator */}
-        <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
-          <span className="text-[8px] font-black text-slate-500 uppercase tracking-[0.25em]">
-            {t("scrollDiscover")}
-          </span>
-          <div className="w-5 h-8 rounded-full border border-slate-700 flex justify-center p-1.5 relative overflow-hidden bg-slate-950/20 backdrop-blur-sm">
-            <div
-              className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta animate-bounce"
-              style={{ animationDuration: "1.8s" }}
-            />
+        {/* Kinetic Scroll Indicator — in-flow to avoid overlap with chips */}
+        <div className="relative z-20 hidden md:flex justify-center py-3">
+          <div className="flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
+            <span className="text-[8px] font-black text-slate-500 uppercase tracking-[0.25em]">
+              {t("scrollDiscover")}
+            </span>
+            <div className="w-5 h-8 rounded-full border border-slate-700 flex justify-center p-1.5 relative overflow-hidden bg-slate-950/20 backdrop-blur-sm">
+              <div
+                className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta animate-bounce"
+                style={{ animationDuration: "1.8s" }}
+              />
+            </div>
           </div>
         </div>
 
         {/* Platforms bar */}
-        <div className="relative z-10 w-full border-t border-white/5 bg-slate-900/50 backdrop-blur-sm py-3 px-5 mt-auto">
+        <div className="relative z-10 w-full border-t border-white/5 bg-slate-900/50 backdrop-blur-sm py-3 px-5">
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta" />

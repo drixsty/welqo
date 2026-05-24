@@ -20,18 +20,43 @@ interface NavbarProps {
 
 function defaultLinks(locale: string): NavLink[] {
   const isFr = locale !== "en";
-  const base = `/${locale}`;
+  const base = isFr ? "" : "/en";
+  const homePath = isFr ? "/" : "/en";
   return isFr
     ? [
-        { label: "Comment ça marche", href: `${base}#comment-ca-marche`, sectionId: "comment-ca-marche" },
-        { label: "Pourquoi Welqo", href: `${base}#pourquoi-welqo`, sectionId: "pourquoi-welqo" },
-        { label: "Estimer mes revenus", href: `${base}#simulator`, sectionId: "simulator" },
+        {
+          label: "Comment ça marche",
+          href: `${homePath}#comment-ca-marche`,
+          sectionId: "comment-ca-marche",
+        },
+        {
+          label: "Pourquoi Welqo",
+          href: `${homePath}#pourquoi-welqo`,
+          sectionId: "pourquoi-welqo",
+        },
+        {
+          label: "Estimer mes revenus",
+          href: `${homePath}#simulator`,
+          sectionId: "simulator",
+        },
         { label: "Blog", href: `${base}/blog` },
       ]
     : [
-        { label: "How it works", href: `${base}#comment-ca-marche`, sectionId: "comment-ca-marche" },
-        { label: "Why Welqo", href: `${base}#pourquoi-welqo`, sectionId: "pourquoi-welqo" },
-        { label: "Estimate my income", href: `${base}#simulator`, sectionId: "simulator" },
+        {
+          label: "How it works",
+          href: `${homePath}#how-it-works`,
+          sectionId: "how-it-works",
+        },
+        {
+          label: "Why Welqo",
+          href: `${homePath}#why-welqo`,
+          sectionId: "why-welqo",
+        },
+        {
+          label: "Estimate my income",
+          href: `${homePath}#simulator`,
+          sectionId: "simulator",
+        },
         { label: "Blog", href: `${base}/blog` },
       ];
 }
@@ -47,14 +72,25 @@ export const Navbar = ({
   const pathname = usePathname();
 
   const isFr = locale !== "en";
-  const altLocale = locale === "fr" ? "en" : "fr";
-  const localeSwitchHref = pathname
-    ? pathname.replace(new RegExp(`^/${locale}`), `/${altLocale}`)
-    : `/${altLocale}`;
+  const base = isFr ? "" : "/en";
+
+  // Custom language switcher logic for 'as-needed' locale prefix
+  let localeSwitchHref = "/";
+  if (pathname) {
+    if (locale === "fr") {
+      // Switch from FR to EN (prepend /en)
+      localeSwitchHref = pathname === "/" ? "/en" : `/en${pathname}`;
+    } else {
+      // Switch from EN to FR (remove /en)
+      localeSwitchHref = pathname.replace(/^\/en/, "") || "/";
+    }
+  } else {
+    localeSwitchHref = locale === "fr" ? "/en" : "/";
+  }
+
   const navLinks = links ?? defaultLinks(locale);
   const cta = ctaLabel ?? (isFr ? "Devis gratuit" : "Free quote");
-  const ctaLink = ctaHref ?? `/${locale}#contact`;
-
+  const ctaLink = ctaHref ?? (isFr ? "/#contact" : "/en#contact");
 
   // Scroll-spy
   useEffect(() => {
@@ -75,11 +111,14 @@ export const Navbar = ({
           let best: string | null = null;
           let bestRatio = 0;
           visible.forEach((ratio, key) => {
-            if (ratio > bestRatio) { bestRatio = ratio; best = key; }
+            if (ratio > bestRatio) {
+              bestRatio = ratio;
+              best = key;
+            }
           });
           setActiveSection(best);
         },
-        { threshold: [0, 0.1, 0.3, 0.5] }
+        { threshold: [0, 0.1, 0.3, 0.5] },
       );
       obs.observe(el);
       observers.push(obs);
@@ -92,7 +131,16 @@ export const Navbar = ({
 
   const isLinkActive = (link: NavLink) => {
     if (link.sectionId) return activeSection === link.sectionId;
-    return pathname === link.href || (link.href !== `/${locale}` && pathname?.startsWith(link.href));
+    const homePath = base || "/";
+    return (
+      pathname === link.href ||
+      (link.href !== homePath && pathname?.startsWith(link.href))
+    );
+  };
+
+  const handleLocaleSwitch = () => {
+    const targetLocale = locale === "fr" ? "en" : "fr";
+    document.cookie = `NEXT_LOCALE=${targetLocale}; path=/; max-age=31536000; SameSite=Lax`;
   };
 
   return (
@@ -105,9 +153,11 @@ export const Navbar = ({
     >
       <div className="max-w-7xl mx-auto px-6 w-full">
         <div className="flex justify-between items-center">
-
           {/* Logo */}
-          <a href={`/${locale}`} className="transition-transform hover:scale-105 active:scale-95 shrink-0">
+          <a
+            href={base || "/"}
+            className="transition-transform hover:scale-105 active:scale-95 shrink-0"
+          >
             <BrandLogo
               variant="cursive"
               size="sm"
@@ -121,11 +171,16 @@ export const Navbar = ({
           <div className="hidden md:flex items-center gap-0.5">
             {navLinks.map((link, i) => {
               const active = isLinkActive(link);
-              const showSep = i === navLinks.length - 1 && !link.sectionId && navLinks.length > 1;
+              const showSep =
+                i === navLinks.length - 1 &&
+                !link.sectionId &&
+                navLinks.length > 1;
               return (
                 <div key={link.label} className="flex items-center">
                   {showSep && (
-                    <div className={`w-px h-4 mx-2 ${isTransparent ? "bg-white/30" : "bg-slate-200 dark:bg-slate-700"}`} />
+                    <div
+                      className={`w-px h-4 mx-2 ${isTransparent ? "bg-white/30" : "bg-slate-200 dark:bg-slate-700"}`}
+                    />
                   )}
                   <a
                     href={link.href}
@@ -150,6 +205,7 @@ export const Navbar = ({
           <div className="hidden md:flex items-center gap-3">
             <a
               href={localeSwitchHref}
+              onClick={handleLocaleSwitch}
               className={`text-[11px] font-bold px-2 py-1.5 rounded-md transition-all duration-200 ${
                 isTransparent
                   ? "text-white/70 hover:text-white hover:bg-white/10"
@@ -163,8 +219,18 @@ export const Navbar = ({
               className="h-9 px-5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white text-[11px] font-bold rounded-lg transition-all flex items-center gap-1.5 shadow-sm active:scale-95 whitespace-nowrap"
             >
               {cta}
-              <svg className="w-3 h-3" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <svg
+                className="w-3 h-3"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </a>
           </div>
@@ -174,7 +240,9 @@ export const Navbar = ({
             onClick={() => setOpen(!open)}
             aria-label="Menu"
             className={`md:hidden w-10 h-10 flex items-center justify-center rounded-lg transition-colors ${
-              isTransparent ? "hover:bg-white/10" : "hover:bg-slate-100 dark:hover:bg-slate-800"
+              isTransparent
+                ? "hover:bg-white/10"
+                : "hover:bg-slate-100 dark:hover:bg-slate-800"
             }`}
           >
             <div className="w-5 flex flex-col gap-[5px]">
@@ -198,7 +266,9 @@ export const Navbar = ({
       {/* Mobile menu — fond solide pour éviter tout problème de contraste */}
       <div
         className={`fixed inset-x-0 top-16 z-40 md:hidden transition-all duration-300 ${
-          open ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"
+          open
+            ? "opacity-100 pointer-events-auto translate-y-0"
+            : "opacity-0 pointer-events-none -translate-y-1"
         }`}
       >
         <div className="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 px-4 py-4 space-y-1 shadow-xl">
@@ -216,7 +286,9 @@ export const Navbar = ({
                 }`}
               >
                 {link.label}
-                {active && <span className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta shrink-0" />}
+                {active && (
+                  <span className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta shrink-0" />
+                )}
               </a>
             );
           })}
@@ -228,12 +300,23 @@ export const Navbar = ({
               className="flex items-center justify-center gap-2 w-full py-3.5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-sm transition-all active:scale-95"
             >
               {cta}
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+              <svg
+                className="w-3.5 h-3.5"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
               </svg>
             </a>
             <a
               href={localeSwitchHref}
+              onClick={handleLocaleSwitch}
               className="flex items-center justify-center w-full py-2.5 text-slate-400 dark:text-slate-500 text-xs font-bold"
             >
               {locale === "fr" ? "Switch to English" : "Version Française"}

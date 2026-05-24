@@ -37,7 +37,7 @@ export function HeroAnimated({
   chips,
 }: HeroAnimatedProps) {
   return (
-    <div className="w-full">
+    <div className="w-full flex flex-col items-center lg:items-start text-center lg:text-left">
       {/* Badge */}
       <motion.div {...fadeUp(0.05)} className="mb-5">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-full">
@@ -71,7 +71,7 @@ export function HeroAnimated({
       {/* CTAs */}
       <motion.div
         {...fadeUp(0.35)}
-        className="flex flex-col sm:flex-row gap-3 mb-8"
+        className="flex flex-col sm:flex-row gap-3 mb-8 w-full lg:w-auto"
       >
         <a
           href={cta1Href}
@@ -103,7 +103,7 @@ export function HeroAnimated({
       {/* Chips */}
       <motion.div
         {...fadeUp(0.45)}
-        className="flex flex-wrap items-center gap-2"
+        className="flex flex-wrap justify-center lg:justify-start items-center gap-2"
       >
         {chips.map((c) => (
           <span

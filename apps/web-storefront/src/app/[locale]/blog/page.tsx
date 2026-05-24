@@ -208,7 +208,10 @@ export default async function BlogPage({
                     <span
                       className={`px-3 py-1 rounded-full text-[10px] font-bold border backdrop-blur-md ${CATEGORY_STYLE[featured.category] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}
                     >
-                      {t(CATEGORY_I18N_KEY[featured.category] ?? featured.category)}
+                      {t(
+                        CATEGORY_I18N_KEY[featured.category] ??
+                          featured.category,
+                      )}
                     </span>
                   </div>
                 </div>

@@ -51,7 +51,10 @@ export async function submitContactForm(rawData: unknown) {
         throw new Error(`Resend responded with ${res.status}`);
       }
     } else {
-      console.log("[contact form] no RESEND_API_KEY — logging submission:", data);
+      console.log(
+        "[contact form] no RESEND_API_KEY — logging submission:",
+        data,
+      );
     }
 
     return { success: true };

@@ -17,7 +17,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   target?: string;
 }
 
-export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
+export const Button = React.forwardRef<
+  HTMLButtonElement | HTMLAnchorElement,
+  ButtonProps
+>(
   (
     {
       className,
@@ -34,10 +37,14 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
     ref,
   ) => {
     const variants = {
-      primary: "bg-primary text-white hover:bg-primary-dark/95 border border-primary/10 shadow-sm shadow-primary/5",
-      secondary: "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 border border-slate-800 dark:border-slate-200 shadow-sm",
-      outline: "border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:text-slate-900 dark:hover:text-white bg-white/50 dark:bg-white/5 shadow-sm shadow-black/[0.02]",
-      ghost: "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white",
+      primary:
+        "bg-primary text-white hover:bg-primary-dark/95 border border-primary/10 shadow-sm shadow-primary/5",
+      secondary:
+        "bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 border border-slate-800 dark:border-slate-200 shadow-sm",
+      outline:
+        "border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900/50 hover:text-slate-900 dark:hover:text-white bg-white/50 dark:bg-white/5 shadow-sm shadow-black/[0.02]",
+      ghost:
+        "text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white",
     };
 
     const sizes = {
@@ -61,11 +68,21 @@ export const Button = React.forwardRef<HTMLButtonElement | HTMLAnchorElement, Bu
         ) : (
           <>
             {Icon && iconPosition === "left" && (
-              <Icon className={cn("shrink-0", size === "xs" || size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4")} />
+              <Icon
+                className={cn(
+                  "shrink-0",
+                  size === "xs" || size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4",
+                )}
+              />
             )}
             <span className="truncate">{children}</span>
             {Icon && iconPosition === "right" && (
-              <Icon className={cn("shrink-0", size === "xs" || size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4")} />
+              <Icon
+                className={cn(
+                  "shrink-0",
+                  size === "xs" || size === "sm" ? "w-3.5 h-3.5" : "w-4 h-4",
+                )}
+              />
             )}
           </>
         )}

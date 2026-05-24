@@ -28,7 +28,8 @@ export const LuxuryCard = ({
         variant === "glass" && "glass-card",
         variant === "outline" &&
           "border border-slate-200 dark:border-slate-800 bg-transparent",
-        isClickable && "cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-primary/20",
+        isClickable &&
+          "cursor-pointer hover:bg-slate-50 dark:hover:bg-slate-800/50 hover:border-primary/20",
         className,
       )}
     >

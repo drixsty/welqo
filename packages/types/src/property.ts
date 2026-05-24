@@ -103,7 +103,6 @@ export interface BookingQuote {
   securityDeposit: number;
 }
 
-
 export interface PropertySearchFilters {
   city?: string;
   checkIn?: string;

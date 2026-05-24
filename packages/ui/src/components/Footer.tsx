@@ -6,7 +6,8 @@ interface FooterProps {
 
 export const Footer = ({ locale = "fr" }: FooterProps) => {
   const isFr = locale !== "en";
-  const base = `/${locale}`;
+  const base = isFr ? "" : "/en";
+  const homePath = isFr ? "/" : "/en";
   const year = new Date().getFullYear();
 
   const col1 = {
@@ -26,7 +27,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
       },
       {
         label: isFr ? "Estimer mes revenus" : "Estimate my income",
-        href: `${base}#simulator`,
+        href: `${homePath}#simulator`,
       },
       {
         label: "Blog",
@@ -57,14 +58,14 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-2 space-y-4">
-            <a href={base} className="block w-fit">
+            <a href={base || "/"} className="block w-fit">
               <BrandLogo
                 variant="cursive"
                 size="sm"
                 className="text-slate-900 dark:text-white"
               />
             </a>
-            <p className="text-slate-500 dark:text-slate-400 max-w-sm text-sm leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-400 max-w-sm text-sm leading-relaxed">
               {isFr
                 ? "Gestion locative et conciergerie de confiance pour vos biens d'exception dans le Hauts-de-France."
                 : "Trusted rental management and concierge services for your exceptional properties in Hauts-de-France."}
@@ -81,7 +82,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
                 <li key={l.label}>
                   <a
                     href={l.href}
-                    className="text-sm text-slate-500 dark:text-slate-400 hover:text-welqo-terracotta transition-colors"
+                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-welqo-terracotta transition-colors"
                   >
                     {l.label}
                   </a>
@@ -100,7 +101,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
                 <li key={l.label}>
                   <a
                     href={l.href}
-                    className="text-sm text-slate-500 dark:text-slate-400 hover:text-welqo-terracotta transition-colors"
+                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-welqo-terracotta transition-colors"
                   >
                     {l.label}
                   </a>
@@ -114,10 +115,13 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
       {/* Bottom bar */}
       <div className="border-t border-slate-100 dark:border-slate-900">
         <div className="max-w-7xl mx-auto px-6 pt-8 pb-32 md:py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-slate-400 font-medium">
-            © {year} Welqo. {isFr ? "Conciergerie à Lille, Lens & Arras." : "Concierge in Lille, Lens & Arras."}
+          <p className="text-xs text-slate-600 dark:text-slate-400 font-medium">
+            © {year} Welqo.{" "}
+            {isFr
+              ? "Conciergerie à Lille, Lens & Arras."
+              : "Concierge in Lille, Lens & Arras."}
           </p>
-          <div className="flex items-center gap-6 text-xs text-slate-400">
+          <div className="flex items-center gap-6 text-xs text-slate-600 dark:text-slate-400">
             <a
               href={`${base}/mentions-legales`}
               className="hover:text-welqo-terracotta transition-colors"

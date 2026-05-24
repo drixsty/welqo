@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 
-
 interface HeroAnimatedProps {
   badge: string;
   title1: string;

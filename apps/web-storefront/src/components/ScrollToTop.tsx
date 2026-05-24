@@ -38,7 +38,7 @@ export function ScrollToTop() {
           transition={{ duration: 0.25, ease: "easeOut" }}
           onClick={scrollToTop}
           type="button"
-          className="fixed bottom-6 right-6 z-[80] w-11 h-11 bg-slate-950/80 backdrop-blur-md border border-white/10 text-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:bg-welqo-terracotta hover:border-welqo-terracotta cursor-pointer hover:-translate-y-1 active:scale-90 active:translate-y-0 group"
+          className="fixed bottom-28 md:bottom-6 right-6 z-[80] w-11 h-11 bg-slate-950/80 backdrop-blur-md border border-white/10 text-white rounded-full flex items-center justify-center shadow-2xl transition-all duration-300 hover:bg-welqo-terracotta hover:border-welqo-terracotta cursor-pointer hover:-translate-y-1 active:scale-90 active:translate-y-0 group"
           aria-label={t("backToTop")}
         >
           <svg

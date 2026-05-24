@@ -348,7 +348,7 @@ export function ArticleCombienRapporteAirbnbLille({
           href={`${base}/proprietaires`}
           className="text-welqo-terracotta font-bold hover:underline"
         >
-          Découvrez comment Welqo gère votre bien à Lille →
+          Découvrez comment Welqo gère votre bien en Hauts-de-France →
         </a>
       </p>
     </article>

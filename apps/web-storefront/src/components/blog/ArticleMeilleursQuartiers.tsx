@@ -228,7 +228,7 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
           href={`${base}/proprietaires`}
           className="text-welqo-terracotta font-bold hover:underline"
         >
-          Optimisez vos revenus à Lille dès maintenant →
+          Optimisez vos revenus en Hauts-de-France dès maintenant →
         </a>
       </p>
     </article>

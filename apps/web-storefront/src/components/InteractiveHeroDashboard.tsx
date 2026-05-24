@@ -188,7 +188,7 @@ export const InteractiveHeroDashboard = ({
             <div className="flex justify-between items-center text-[8px] font-black text-slate-500 uppercase tracking-widest">
               <span>{t("seasonality")}</span>
               <span className="text-primary tracking-[0.15em]">
-                Lille / Métropole
+                Hauts-de-France / Métropole
               </span>
             </div>
 

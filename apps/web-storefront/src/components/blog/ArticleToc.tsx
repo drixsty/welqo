@@ -58,7 +58,7 @@ export function ArticleToc({
           Déléguer votre Airbnb
         </p>
         <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">
-          Welqo gère votre bien à Lille. Devis gratuit en 24h.
+          Welqo gère votre bien en Hauts-de-France. Devis gratuit en 24h.
         </p>
         <a
           href="#contact"

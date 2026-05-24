@@ -21,11 +21,11 @@ export async function generateMetadata({
     title:
       locale !== "en"
         ? "Blog Welqo — Conseils Airbnb & Gestion Locative Hauts-de-France"
-        : "Welqo Blog — Airbnb Tips & Short-Term Rental Management Lille",
+        : "Welqo Blog — Airbnb Tips & Rental Management Hauts-de-France",
     description:
       locale !== "en"
-        ? "Guides pratiques, études de rentabilité et conseils d'experts pour maximiser les revenus de votre Airbnb à Lille, Lens et Arras. Par la conciergerie Welqo."
-        : "Practical guides, profitability studies and expert tips to maximise your Airbnb revenue in Lille, Lens and Arras. By Welqo concierge.",
+        ? "Guides pratiques, études de rentabilité et conseils d'experts pour maximiser les revenus de votre Airbnb en Hauts-de-France. Par la conciergerie Welqo."
+        : "Practical guides, profitability studies and expert tips to maximise your Airbnb revenue in Hauts-de-France. By Welqo concierge.",
     keywords:
       locale !== "en"
         ? [
@@ -55,8 +55,8 @@ export async function generateMetadata({
           : "Welqo Blog — Airbnb Tips Northern France",
       description:
         locale !== "en"
-          ? "Guides et études de marché pour rentabiliser votre Airbnb à Lille, Lens et Arras."
-          : "Guides and market studies to maximise your Airbnb in Lille, Lens and Arras.",
+          ? "Guides et études de marché pour rentabiliser votre Airbnb en Hauts-de-France."
+          : "Guides and market studies to maximise your Airbnb in Hauts-de-France.",
       url: `${BASE_URL}/${locale}/blog`,
       siteName: "Welqo",
       type: "website",
@@ -99,8 +99,8 @@ export default async function BlogPage({
     "@type": "Blog",
     name:
       locale !== "en"
-        ? "Blog Welqo — Conseils Airbnb Lille"
-        : "Welqo Blog — Airbnb Lille Tips",
+        ? "Blog Welqo — Conseils Airbnb Hauts-de-France"
+        : "Welqo Blog — Airbnb Hauts-de-France Tips",
     url: `${BASE_URL}/${locale}/blog`,
     publisher: { "@type": "Organization", name: "Welqo", url: BASE_URL },
     blogPost: BLOG_POSTS.map((p) => ({

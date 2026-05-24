@@ -243,7 +243,7 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
           href={`${base}/proprietaires`}
           className="text-welqo-terracotta font-bold hover:underline"
         >
-          Découvrez nos services à Lille →
+          Découvrez nos services en Hauts-de-France →
         </a>
       </p>
     </article>

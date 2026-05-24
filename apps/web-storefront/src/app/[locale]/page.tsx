@@ -7,8 +7,6 @@ import { InteractiveHeroDashboard } from "../../components/InteractiveHeroDashbo
 import { ContactForm } from "../../components/ContactForm";
 import { ScrollReveal } from "../../components/ScrollReveal";
 import { ScrollToTop } from "../../components/ScrollToTop";
-import { InteractiveProcess } from "../../components/InteractiveProcess";
-import { InteractiveFAQ } from "../../components/InteractiveFAQ";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -20,11 +18,11 @@ export async function generateMetadata({
   const fr = locale !== "en";
   return {
     title: fr
-      ? "Conciergerie Airbnb Lille — Gestion Locative Clé en Main | Welqo"
-      : "Airbnb Concierge Lille — Hands-Free Property Management | Welqo",
+      ? "Conciergerie Airbnb Hauts-de-France — Gestion Locative Clé en Main | Welqo"
+      : "Airbnb Concierge Hauts-de-France — Hands-Free Property Management | Welqo",
     description: fr
-      ? "Welqo gère votre bien Airbnb à Lille de A à Z : annonces optimisées, check-in/out, ménage professionnel, maintenance et dashboard propriétaire en temps réel. Devis gratuit sous 24h."
-      : "Welqo manages your Airbnb property in Lille from A to Z: optimised listings, check-in/out, professional cleaning, maintenance and real-time owner dashboard. Free quote in 24h.",
+      ? "Welqo gère votre bien Airbnb dans les Hauts-de-France de A à Z : annonces optimisées, check-in/out, ménage professionnel, maintenance et dashboard propriétaire en temps réel. Devis gratuit sous 24h."
+      : "Welqo manages your Airbnb property in Hauts-de-France from A to Z: optimised listings, check-in/out, professional cleaning, maintenance and real-time owner dashboard. Free quote in 24h.",
     keywords: fr
       ? [
           "conciergerie airbnb lille",
@@ -50,11 +48,11 @@ export async function generateMetadata({
     },
     openGraph: {
       title: fr
-        ? "Conciergerie Airbnb Lille — Gestion Locative Clé en Main | Welqo"
-        : "Airbnb Concierge Lille — Hands-Free Property Management | Welqo",
+        ? "Conciergerie Airbnb Hauts-de-France — Gestion Locative Clé en Main | Welqo"
+        : "Airbnb Concierge Hauts-de-France — Hands-Free Property Management | Welqo",
       description: fr
-        ? "Welqo gère votre bien Airbnb à Lille : annonces, check-in/out, ménage, maintenance. Devis gratuit 24h."
-        : "Welqo manages your Airbnb in Lille. Free quote 24h.",
+        ? "Welqo gère votre bien Airbnb en Hauts-de-France : annonces, check-in/out, ménage, maintenance. Devis gratuit 24h."
+        : "Welqo manages your Airbnb in Hauts-de-France. Free quote 24h.",
       url: `${BASE_URL}/${locale}`,
       siteName: "Welqo",
       type: "website",
@@ -233,7 +231,7 @@ export default async function HomePage({
       { "@type": "City", name: "Tourcoing" },
     ],
     description:
-      "Gestion locative courte durée complète pour propriétaires Airbnb à Lille. Commission 15-20%, sans frais fixe.",
+      "Gestion locative courte durée complète pour propriétaires Airbnb en Hauts-de-France. Commission 15-20%, sans frais fixe.",
     offers: {
       "@type": "Offer",
       priceCurrency: "EUR",
@@ -320,7 +318,7 @@ export default async function HomePage({
                 {[
                   { icon: "✨", text: t("heroBadgeLaunch") },
                   { icon: "🏠", text: t("heroBadgeStandard") },
-                  { icon: "📍", text: "Lille" },
+                  { icon: "📍", text: "Hauts-de-France" },
                   { icon: "🔓", text: t("heroBadgeNoContract") },
                 ].map((c) => (
                   <span
@@ -435,7 +433,40 @@ export default async function HomePage({
               </span>
             </h2>
           </div>
-          <InteractiveProcess steps={STEPS} locale={locale} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 relative">
+            {STEPS.map((step, i) => (
+              <div
+                key={step.num}
+                className="group relative flex flex-col items-center md:items-start text-center md:text-left"
+              >
+                <div className="relative mb-6">
+                  {i !== 0 && (
+                    <div className="hidden md:block absolute top-8 right-1/2 w-full h-[2px] bg-slate-200 dark:bg-slate-800 z-0" />
+                  )}
+                  {i !== STEPS.length - 1 && (
+                    <div className="hidden md:block absolute top-8 left-1/2 w-full h-[2px] bg-slate-200 dark:bg-slate-800 z-0" />
+                  )}
+                  <div
+                    className={`w-16 h-16 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-sm relative z-10 ${i === 1 ? "bg-welqo-terracotta" : "bg-slate-900 dark:bg-slate-800"}`}
+                  >
+                    {step.num}
+                  </div>
+                  {i === 1 && (
+                    <div className="absolute inset-0 bg-welqo-terracotta rounded-lg animate-ping opacity-20" />
+                  )}
+                </div>
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-welqo-terracotta mb-2">
+                  {step.duration}
+                </span>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight mb-3">
+                  {step.title}
+                </h3>
+                <p className="text-slate-500 dark:text-slate-400 text-[13px] leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -805,7 +836,38 @@ export default async function HomePage({
               {t("faqTitle")}
             </h2>
           </div>
-          <InteractiveFAQ faqs={FAQS} />
+          <div className="space-y-3">
+            {FAQS.map(({ q, a }, i) => (
+              <details
+                key={i}
+                className="group bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 overflow-hidden hover:border-welqo-terracotta/20 transition-colors"
+              >
+                <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none">
+                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">
+                    {q}
+                  </span>
+                  <div className="w-7 h-7 bg-slate-200 dark:bg-slate-700 group-open:bg-welqo-terracotta group-open:text-white rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-slate-500">
+                    <svg
+                      className="w-3.5 h-3.5 group-open:rotate-45 transition-transform duration-200"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 4v16m8-8H4"
+                      />
+                    </svg>
+                  </div>
+                </summary>
+                <p className="px-6 pb-5 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                  {a}
+                </p>
+              </details>
+            ))}
+          </div>
         </div>
       </section>
 

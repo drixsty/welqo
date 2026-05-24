@@ -3,7 +3,7 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { submitContactForm } from "@/app/actions/contact";
@@ -32,12 +32,18 @@ const CITIES_EN = [
 export function ContactForm({ locale }: { locale: string }) {
   const t = useTranslations("ContactForm");
 
-  const schema = z.object({
-    name: z.string().min(2, t("errorName")),
-    phone: z.string().min(10, t("errorPhone")),
-    city: z.string().min(1, t("errorCity")),
-    message: z.string().optional(),
-  });
+  const schema = useMemo(
+    () =>
+      z.object({
+        name: z.string().min(2, t("errorName")),
+        phone: z.string().min(10, t("errorPhone")),
+        city: z.string().min(1, t("errorCity")),
+        message: z.string().optional(),
+      }),
+    [t],
+  );
+
+  type FormValues = z.infer<typeof schema>;
 
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -52,7 +58,10 @@ export function ContactForm({ locale }: { locale: string }) {
     watch,
     formState: { errors },
     reset,
-  } = useForm<z.infer<typeof schema>>({ resolver: zodResolver(schema) });
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    mode: "onTouched",
+  });
 
   const selectedCity = watch("city");
 
@@ -69,7 +78,7 @@ export function ContactForm({ locale }: { locale: string }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  const onSubmit = async (data: z.infer<typeof schema>) => {
+  const onSubmit = async (data: FormValues) => {
     setStatus("loading");
     try {
       const res = await submitContactForm(data);

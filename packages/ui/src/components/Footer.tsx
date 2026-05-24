@@ -9,6 +9,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
   const base = isFr ? "" : "/en";
   const homePath = isFr ? "/" : "/en";
   const year = new Date().getFullYear();
+  const dashboardUrl = process.env.NEXT_PUBLIC_DASHBOARD_URL;
 
   const col1 = {
     title: isFr ? "L'Univers Welqo" : "Welqo Universe",
@@ -17,10 +18,14 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
         label: isFr ? "Conciergerie Lens & Arras" : "Lens & Arras Concierge",
         href: `${base}/blog/conciergerie-airbnb-lens-arras-bassin-minier`,
       },
-      {
-        label: isFr ? "Espace Propriétaire" : "Owner Portal",
-        href: process.env.NEXT_PUBLIC_DASHBOARD_URL ?? "#",
-      },
+      ...(dashboardUrl
+        ? [
+            {
+              label: isFr ? "Espace Propriétaire" : "Owner Portal",
+              href: dashboardUrl,
+            },
+          ]
+        : []),
       {
         label: isFr ? "Nos Logements" : "Our Properties",
         href: `${base}/logements`,
@@ -39,7 +44,6 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
   const col2 = {
     title: isFr ? "Légal & Éthique" : "Legal & Ethics",
     links: [
-      { label: isFr ? "Centre d'aide" : "Help center", href: "#" },
       {
         label: isFr ? "Mentions légales" : "Legal notice",
         href: `${base}/mentions-legales`,

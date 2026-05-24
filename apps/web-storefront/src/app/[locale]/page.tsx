@@ -254,7 +254,7 @@ export default async function HomePage({
       {/* ══════════════════════════════════════════════════════
           HERO
       ══════════════════════════════════════════════════════ */}
-      <section className="relative h-[calc(100dvh-4rem)] flex flex-col bg-slate-950 overflow-hidden">
+      <section className="relative min-h-[calc(100dvh-4rem)] flex flex-col bg-slate-950 overflow-hidden">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(212,85,55,0.2),transparent)]" />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(15,23,42,0.5),transparent)]" />
@@ -268,7 +268,7 @@ export default async function HomePage({
           />
         </div>
 
-        <div className="relative z-10 flex-grow flex items-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+        <div className="relative z-10 flex-grow flex items-center w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-10 md:py-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
             {/* Left — Copy (animated) */}
             <HeroAnimated
@@ -313,20 +313,20 @@ export default async function HomePage({
         </div>
 
         {/* Platforms bar */}
-        <div className="relative z-10 w-full border-t border-white/5 bg-slate-900/50 backdrop-blur-sm py-3 md:py-4 px-4 mt-auto">
-          <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="relative z-10 w-full border-t border-white/5 bg-slate-900/50 backdrop-blur-sm py-3 px-5 mt-auto">
+          <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta" />
               <p className="text-slate-500 text-[9px] font-bold uppercase tracking-[0.2em]">
                 {t("heroPlatformsLabel")}
               </p>
             </div>
-            <div className="flex items-center gap-6 md:gap-10 flex-wrap justify-center opacity-40">
+            <div className="flex items-center gap-5 sm:gap-8 flex-wrap justify-center opacity-40">
               {["Airbnb", "Booking.com", "Vrbo", "Expedia", "Abritel"].map(
                 (p) => (
                   <span
                     key={p}
-                    className="text-white/80 font-bold text-xs md:text-sm tracking-tight cursor-default"
+                    className="text-white/80 font-bold text-xs tracking-tight cursor-default"
                   >
                     {p}
                   </span>

@@ -37,9 +37,9 @@ export function HeroAnimated({
   chips,
 }: HeroAnimatedProps) {
   return (
-    <div>
+    <div className="w-full">
       {/* Badge */}
-      <motion.div {...fadeUp(0.05)} className="mb-4">
+      <motion.div {...fadeUp(0.05)} className="mb-5">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-full">
           <span className="w-1.5 h-1.5 bg-welqo-terracotta rounded-full animate-pulse-soft" />
           <span className="text-welqo-terracotta text-[9px] font-bold tracking-[0.15em] uppercase">
@@ -52,7 +52,7 @@ export function HeroAnimated({
       <motion.h1
         {...fadeUp(0.15)}
         transition={{ duration: 0.7, ease, delay: 0.15 }}
-        className="text-3xl md:text-5xl font-bold text-white tracking-tighter leading-[0.95] mb-3"
+        className="text-[2rem] sm:text-4xl md:text-5xl font-bold text-white tracking-tighter leading-[1.05] mb-5"
       >
         {title1}
         <br />
@@ -64,18 +64,18 @@ export function HeroAnimated({
       {/* Desc */}
       <motion.p
         {...fadeUp(0.25)}
-        className="text-[14px] text-slate-400 max-w-md mb-5 leading-relaxed font-medium"
+        className="text-[13px] sm:text-sm text-slate-400 max-w-md mb-7 leading-relaxed font-medium"
         dangerouslySetInnerHTML={{ __html: desc }}
       />
 
       {/* CTAs */}
       <motion.div
         {...fadeUp(0.35)}
-        className="flex flex-col sm:flex-row gap-3 mb-6"
+        className="flex flex-col sm:flex-row gap-3 mb-8"
       >
         <a
           href={cta1Href}
-          className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-lg font-bold text-sm transition-all duration-200 shadow-lg shadow-welqo-terracotta/20 hover:shadow-welqo-terracotta/40"
+          className="group inline-flex items-center justify-center gap-2 px-6 py-4 sm:py-3.5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-sm transition-all duration-200 shadow-lg shadow-welqo-terracotta/20 hover:shadow-welqo-terracotta/40"
         >
           {cta1Label}
           <svg
@@ -94,7 +94,7 @@ export function HeroAnimated({
         </a>
         <a
           href={cta2Href}
-          className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-bold text-sm transition-all duration-200"
+          className="inline-flex items-center justify-center gap-2 px-6 py-4 sm:py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-xl font-bold text-sm transition-all duration-200"
         >
           {cta2Label}
         </a>
@@ -108,7 +108,7 @@ export function HeroAnimated({
         {chips.map((c) => (
           <span
             key={c.text}
-            className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 text-slate-400 rounded-full text-[10px] font-bold"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/8 text-slate-400 rounded-full text-[10px] font-semibold"
           >
             <span>{c.icon}</span> {c.text}
           </span>

@@ -20,7 +20,9 @@ export class BookingController {
   @Post("checkout")
   @ApiOperation({ summary: "Create a Stripe Checkout session" })
   @ApiResponse({ status: 201, description: "Session created" })
-  async createCheckout(@Body() dto: CreateBookingDto & { nightsCount: number }) {
+  async createCheckout(
+    @Body() dto: CreateBookingDto & { nightsCount: number },
+  ) {
     return this.bookingService.createCheckoutSession(dto);
   }
 

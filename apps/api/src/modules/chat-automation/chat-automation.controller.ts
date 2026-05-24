@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Param, Put, UseGuards } from "@nestjs/common";
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  Put,
+  UseGuards,
+} from "@nestjs/common";
 import { ChatAutomationService } from "./chat-automation.service";
 import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 

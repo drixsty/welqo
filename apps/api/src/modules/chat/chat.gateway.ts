@@ -6,17 +6,17 @@ import {
   OnGatewayDisconnect,
   MessageBody,
   ConnectedSocket,
-} from '@nestjs/websockets';
-import { Server, Socket } from 'socket.io';
-import { Logger } from '@nestjs/common';
-import { ChatService } from './chat.service';
-import { JwtService } from '@nestjs/jwt';
+} from "@nestjs/websockets";
+import { Server, Socket } from "socket.io";
+import { Logger } from "@nestjs/common";
+import { ChatService } from "./chat.service";
+import { JwtService } from "@nestjs/jwt";
 
 @WebSocketGateway({
   cors: {
-    origin: '*',
+    origin: "*",
   },
-  namespace: 'chat',
+  namespace: "chat",
 })
 export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
   @WebSocketServer()
@@ -31,7 +31,9 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
 
   async handleConnection(client: Socket) {
     try {
-      const token = client.handshake.auth.token || client.handshake.headers.authorization?.split(' ')[1];
+      const token =
+        client.handshake.auth.token ||
+        client.handshake.headers.authorization?.split(" ")[1];
       if (!token) {
         client.disconnect();
         return;
@@ -50,17 +52,19 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     this.logger.log(`Client disconnected: ${client.id}`);
   }
 
-  @SubscribeMessage('joinConversation')
+  @SubscribeMessage("joinConversation")
   handleJoinConversation(
     @MessageBody() conversationId: string,
     @ConnectedSocket() client: Socket,
   ) {
     client.join(`conv_${conversationId}`);
-    this.logger.log(`Client ${client.id} joined conversation ${conversationId}`);
-    return { status: 'ok' };
+    this.logger.log(
+      `Client ${client.id} joined conversation ${conversationId}`,
+    );
+    return { status: "ok" };
   }
 
-  @SubscribeMessage('sendMessage')
+  @SubscribeMessage("sendMessage")
   async handleMessage(
     @MessageBody() data: { conversationId: string; content: string },
     @ConnectedSocket() client: Socket,
@@ -69,13 +73,13 @@ export class ChatGateway implements OnGatewayConnection, OnGatewayDisconnect {
     const message = await this.chatService.saveMessage(
       data.conversationId,
       data.content,
-      'OWNER',
+      "OWNER",
       senderId,
     );
 
     // Broadcast to the room
-    this.server.to(`conv_${data.conversationId}`).emit('newMessage', message);
-    
+    this.server.to(`conv_${data.conversationId}`).emit("newMessage", message);
+
     return message;
   }
 }

@@ -1,12 +1,11 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../common/prisma/prisma.service';
-import { StorageService } from '../storage/storage.service';
-import { SignatureService } from '../signature/signature.service';
-import { MandateStatus } from '@prisma/client';
+import { Injectable, NotFoundException } from "@nestjs/common";
+import { PrismaService } from "../../common/prisma/prisma.service";
+import { StorageService } from "../storage/storage.service";
+import { SignatureService } from "../signature/signature.service";
+import { MandateStatus } from "@prisma/client";
 
 @Injectable()
 export class OwnerService {
-
   constructor(
     private prisma: PrismaService,
     private storage: StorageService,
@@ -16,13 +15,15 @@ export class OwnerService {
   async getMandates(ownerId: string) {
     return this.prisma.mandate.findMany({
       where: { ownerId },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { createdAt: "desc" },
     });
   }
 
   async initiateMandate(ownerId: string) {
-    const owner = await this.prisma.owner.findUnique({ where: { id: ownerId } });
-    if (!owner) throw new NotFoundException('Owner not found');
+    const owner = await this.prisma.owner.findUnique({
+      where: { id: ownerId },
+    });
+    if (!owner) throw new NotFoundException("Owner not found");
 
     // 1. Create mandate in DB
     const mandate = await this.prisma.mandate.create({
@@ -37,9 +38,9 @@ export class OwnerService {
     const fileName = `mandates/${ownerId}/${mandate.id}.txt`; // Using .txt for simplicity in mock
 
     // 3. Upload to MinIO
-    await this.storage.uploadFile('private-docs', fileName, mockPdfContent, {
-      'Content-Type': 'text/plain',
-      'Owner-Id': ownerId,
+    await this.storage.uploadFile("private-docs", fileName, mockPdfContent, {
+      "Content-Type": "text/plain",
+      "Owner-Id": ownerId,
     });
 
     // 4. Create Signature Request

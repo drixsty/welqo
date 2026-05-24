@@ -8,10 +8,7 @@ export class CalendarController {
   constructor(private readonly bookingService: BookingService) {}
 
   @Get("bookings")
-  async getBookings(
-    @Query("start") start: string,
-    @Query("end") end: string,
-  ) {
+  async getBookings(@Query("start") start: string, @Query("end") end: string) {
     return this.bookingService.getCalendarBookings(start, end);
   }
 }

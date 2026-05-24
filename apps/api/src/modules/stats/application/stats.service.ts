@@ -70,11 +70,13 @@ export class StatsService {
     });
 
     // 4. Local Events (Hauts-de-France Smart Pricing)
-    const cities = await this.prisma.property.findMany({
-      where: { id: { in: propertyIds } },
-      select: { city: true },
-      distinct: ['city'],
-    }).then(res => res.map(r => r.city));
+    const cities = await this.prisma.property
+      .findMany({
+        where: { id: { in: propertyIds } },
+        select: { city: true },
+        distinct: ["city"],
+      })
+      .then((res) => res.map((r) => r.city));
 
     const upcomingEvents = await this.prisma.localEvent.findMany({
       where: {
@@ -82,7 +84,7 @@ export class StatsService {
         endDate: { gte: new Date() },
       },
       take: 2,
-      orderBy: { startDate: 'asc' },
+      orderBy: { startDate: "asc" },
     });
 
     return {

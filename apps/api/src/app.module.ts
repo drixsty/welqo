@@ -17,7 +17,7 @@ import { SignatureModule } from "./modules/signature/signature.module";
 import { PricingModule } from "./modules/pricing/pricing.module";
 import { ChatModule } from "./modules/chat/chat.module";
 import { validate } from "./config/env.validation";
-import { ChatAutomationModule } from './modules/chat-automation/chat-automation.module';
+import { ChatAutomationModule } from "./modules/chat-automation/chat-automation.module";
 
 @Module({
   imports: [

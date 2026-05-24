@@ -1,5 +1,5 @@
-import { Global, Module, OnModuleInit } from '@nestjs/common';
-import { PricingService } from './pricing.service';
+import { Global, Module, OnModuleInit } from "@nestjs/common";
+import { PricingService } from "./pricing.service";
 
 @Global()
 @Module({

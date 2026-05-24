@@ -1,9 +1,8 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../common/prisma/prisma.service';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../../common/prisma/prisma.service";
 
 @Injectable()
 export class ChatService {
-
   constructor(private prisma: PrismaService) {}
 
   async getConversations(ownerId: string) {
@@ -11,7 +10,7 @@ export class ChatService {
       where: { ownerId },
       select: { id: true },
     });
-    const propertyIds = properties.map(p => p.id);
+    const propertyIds = properties.map((p) => p.id);
 
     return this.prisma.conversation.findMany({
       where: { propertyId: { in: propertyIds } },
@@ -19,22 +18,27 @@ export class ChatService {
         property: { select: { titleFr: true } },
         booking: { select: { checkIn: true, checkOut: true, status: true } },
         messages: {
-          orderBy: { createdAt: 'desc' },
+          orderBy: { createdAt: "desc" },
           take: 1,
         },
       },
-      orderBy: { lastMessageAt: 'desc' },
+      orderBy: { lastMessageAt: "desc" },
     });
   }
 
   async getMessages(conversationId: string) {
     return this.prisma.message.findMany({
       where: { conversationId },
-      orderBy: { createdAt: 'asc' },
+      orderBy: { createdAt: "asc" },
     });
   }
 
-  async saveMessage(conversationId: string, content: string, senderType: 'OWNER' | 'GUEST' | 'SYSTEM', senderId?: string) {
+  async saveMessage(
+    conversationId: string,
+    content: string,
+    senderType: "OWNER" | "GUEST" | "SYSTEM",
+    senderId?: string,
+  ) {
     const message = await this.prisma.message.create({
       data: {
         conversationId,
@@ -52,9 +56,13 @@ export class ChatService {
     return message;
   }
 
-  async createConversation(propertyId: string, guestEmail: string, bookingId?: string) {
+  async createConversation(
+    propertyId: string,
+    guestEmail: string,
+    bookingId?: string,
+  ) {
     return this.prisma.conversation.upsert({
-      where: { bookingId: bookingId || 'none' }, // Simple logic for demo
+      where: { bookingId: bookingId || "none" }, // Simple logic for demo
       update: {},
       create: {
         propertyId,

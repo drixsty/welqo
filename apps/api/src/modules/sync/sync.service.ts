@@ -46,10 +46,10 @@ export class SyncService {
   @Cron("0 */15 * * * *")
   async pullBookingsFromBeds24(): Promise<void> {
     this.logger.log("Pulling bookings from Beds24...");
-    
+
     // For the pilot, we'll iterate over properties that have a Beds24 ID
     const properties = await this.prisma.property.findMany({
-      where: { beds24PropertyId: { not: null } }
+      where: { beds24PropertyId: { not: null } },
     });
 
     for (const prop of properties) {
@@ -57,13 +57,13 @@ export class SyncService {
         const bedsBookings = await this.beds24Client.getBookings({
           propId: prop.beds24PropertyId,
           includeData: "none", // Lightweight
-          arrivalGte: format(new Date(), "yyyy-MM-dd") // Only future bookings
+          arrivalGte: format(new Date(), "yyyy-MM-dd"), // Only future bookings
         });
 
         for (const b24b of bedsBookings) {
           // Check if booking already exists (either Welqo-born or already pulled)
           const exists = await this.prisma.booking.findFirst({
-            where: { beds24BookingId: String(b24b.bookId || b24b.id) }
+            where: { beds24BookingId: String(b24b.bookId || b24b.id) },
           });
 
           if (!exists) {
@@ -85,13 +85,17 @@ export class SyncService {
                 cleaningFee: 0,
                 touristTax: 0,
                 nightsCount: 1, // Default
-              }
+              },
             });
-            this.logger.log(`Synced external booking ${b24b.bookId} for property ${prop.id}`);
+            this.logger.log(
+              `Synced external booking ${b24b.bookId} for property ${prop.id}`,
+            );
           }
         }
       } catch (err: any) {
-        this.logger.error(`Failed to pull bookings for property ${prop.id}: ${err.message}`);
+        this.logger.error(
+          `Failed to pull bookings for property ${prop.id}: ${err.message}`,
+        );
       }
     }
   }

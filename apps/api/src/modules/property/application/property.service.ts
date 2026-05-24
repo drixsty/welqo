@@ -4,15 +4,18 @@ import { PropertySearchFilters, PropertySummary } from "@welqo/types";
 
 @Injectable()
 export class PropertyService {
-
   constructor(private prisma: PrismaService) {}
 
-  async findAll(filters: PropertySearchFilters): Promise<{ properties: PropertySummary[], distribution: number[] }> {
+  async findAll(
+    filters: PropertySearchFilters,
+  ): Promise<{ properties: PropertySummary[]; distribution: number[] }> {
     const { city, guests, minPrice, maxPrice, amenities } = filters;
-    
+
     let amenityList: string[] = [];
     if (amenities) {
-      amenityList = Array.isArray(amenities) ? amenities : String(amenities).split(",");
+      amenityList = Array.isArray(amenities)
+        ? amenities
+        : String(amenities).split(",");
     }
 
     // 1. Fetch properties with ALL filters
@@ -59,15 +62,20 @@ export class PropertyService {
     // Calculate histogram (12 buckets from 0 to 500)
     const distribution = new Array(12).fill(0);
     const BUCKET_SIZE = 500 / 12;
-    
-    distributionProps.forEach(p => {
-      const bucketIndex = Math.min(Math.floor(p.basePricePerNight / BUCKET_SIZE), 11);
+
+    distributionProps.forEach((p) => {
+      const bucketIndex = Math.min(
+        Math.floor(p.basePricePerNight / BUCKET_SIZE),
+        11,
+      );
       distribution[bucketIndex]++;
     });
 
     // Normalize distribution to 0-100 for visual bars
     const maxCount = Math.max(...distribution, 1);
-    const normalizedDistribution = distribution.map(count => Math.round((count / maxCount) * 100));
+    const normalizedDistribution = distribution.map((count) =>
+      Math.round((count / maxCount) * 100),
+    );
 
     return {
       properties: properties.map((p) => ({
@@ -92,7 +100,7 @@ export class PropertyService {
         rating: 4.8,
         reviewsCount: 12,
       })),
-      distribution: normalizedDistribution
+      distribution: normalizedDistribution,
     };
   }
 
@@ -130,10 +138,10 @@ export class PropertyService {
         cleaningFee: p.cleaningFee,
         touristTax: p.touristTax,
       },
-      amenities: p.amenities.map(a => ({
+      amenities: p.amenities.map((a) => ({
         key: a.key,
-        label: a.labelFr // Default to French for now or handle via locale if passed
-      }))
+        label: a.labelFr, // Default to French for now or handle via locale if passed
+      })),
     };
   }
 }

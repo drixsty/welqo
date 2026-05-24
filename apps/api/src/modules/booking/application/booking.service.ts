@@ -32,22 +32,28 @@ export class BookingService {
     );
   }
 
-  async isAvailable(propertyId: string, checkIn: Date, checkOut: Date): Promise<boolean> {
+  async isAvailable(
+    propertyId: string,
+    checkIn: Date,
+    checkOut: Date,
+  ): Promise<boolean> {
     const overlappingBookings = await this.prisma.booking.count({
       where: {
         propertyId,
         status: { in: ["CONFIRMED", "PENDING", "EXTERNAL" as any] },
-        AND: [
-          { checkIn: { lt: checkOut } },
-          { checkOut: { gt: checkIn } },
-        ],
+        AND: [{ checkIn: { lt: checkOut } }, { checkOut: { gt: checkIn } }],
       },
     });
 
     return overlappingBookings === 0;
   }
 
-  async calculateQuote(propertyId: string, checkIn: string, checkOut: string, guests: number) {
+  async calculateQuote(
+    propertyId: string,
+    checkIn: string,
+    checkOut: string,
+    guests: number,
+  ) {
     const start = new Date(checkIn);
     const end = new Date(checkOut);
 
@@ -106,7 +112,9 @@ export class BookingService {
       new Date(dto.checkOut),
     );
     if (!isAvailable) {
-      throw new BadRequestException("Désolé, ce logement a été réservé entre temps.");
+      throw new BadRequestException(
+        "Désolé, ce logement a été réservé entre temps.",
+      );
     }
 
     // Re-calculate prices server-side to prevent tampering

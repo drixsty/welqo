@@ -57,9 +57,9 @@ export async function generateMetadata({
     creator: "Welqo",
     metadataBase: new URL(BASE_URL),
     icons: {
-      icon: "/icons/welqo.svg",
-      shortcut: "/icons/welqo.svg",
-      apple: "/icons/welqo.svg",
+      icon: "/icons/favicon.svg",
+      shortcut: "/icons/favicon.svg",
+      apple: "/icons/favicon.svg",
     },
     alternates: {
       canonical: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,

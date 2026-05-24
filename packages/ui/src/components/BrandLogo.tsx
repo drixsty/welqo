@@ -35,10 +35,10 @@ export const BrandLogo = ({
   size = "md",
 }: BrandLogoProps) => {
   const markSizes = {
-    sm: "w-8 h-8",
-    md: "w-12 h-12",
-    lg: "w-20 h-20",
-    xl: "w-32 h-32",
+    sm: "h-10 w-auto",
+    md: "h-16 w-auto",
+    lg: "h-24 w-auto",
+    xl: "h-36 w-auto",
   };
 
   if (variant === "monogram") {

@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { WelqoMark } from "@welqo/ui";
 
 
 interface HeroAnimatedProps {
@@ -12,7 +13,7 @@ interface HeroAnimatedProps {
   cta2Label: string;
   cta1Href: string;
   cta2Href: string;
-  chips: { icon: string; text: string }[];
+  chips: { text: string }[];
   scrollLabel: string;
 }
 
@@ -111,7 +112,8 @@ export function HeroAnimated({
             key={c.text}
             className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/8 text-slate-400 rounded-full text-[10px] font-semibold"
           >
-            <span>{c.icon}</span> {c.text}
+            <WelqoMark className="w-3 h-auto shrink-0 text-slate-400" />
+            {c.text}
           </span>
         ))}
       </motion.div>

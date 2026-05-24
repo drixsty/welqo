@@ -28,6 +28,7 @@ import { ScrollReveal } from "../../components/ScrollReveal";
 import { ScrollToTop } from "../../components/ScrollToTop";
 import { HeroAnimated } from "../../components/HeroAnimated";
 import { AnimatedCounter } from "../../components/AnimatedCounter";
+import { WelqoMark } from "@welqo/ui";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -98,7 +99,6 @@ export default async function HomePage({
       tag: t("svc_0_tag"),
       title: t("svc_0_title"),
       desc: t("svc_0_desc"),
-      icon: "M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z",
       stat: t("svc_0_stat"),
       statLabel: t("svc_0_statLabel"),
       accent: "blue",
@@ -108,7 +108,6 @@ export default async function HomePage({
       tag: t("svc_1_tag"),
       title: t("svc_1_title"),
       desc: t("svc_1_desc"),
-      icon: "M13 10V3L4 14h7v7l9-11h-7z",
       stat: "+22%",
       statLabel: t("svc_1_statLabel"),
       accent: "blue",
@@ -118,7 +117,6 @@ export default async function HomePage({
       tag: t("svc_2_tag"),
       title: t("svc_2_title"),
       desc: t("svc_2_desc"),
-      icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
       stat: "24/7",
       statLabel: t("svc_2_statLabel"),
       accent: "violet",
@@ -126,12 +124,12 @@ export default async function HomePage({
   ];
 
   const PAIN_POINTS = [
-    { emoji: "😩", text: t("pain_0") },
-    { emoji: "🧹", text: t("pain_1") },
-    { emoji: "📉", text: t("pain_2") },
-    { emoji: "🔧", text: t("pain_3") },
-    { emoji: "📸", text: t("pain_4") },
-    { emoji: "⭐", text: t("pain_5") },
+    { text: t("pain_0") },
+    { text: t("pain_1") },
+    { text: t("pain_2") },
+    { text: t("pain_3") },
+    { text: t("pain_4") },
+    { text: t("pain_5") },
   ];
 
   const STEPS = [
@@ -140,21 +138,18 @@ export default async function HomePage({
       title: t("step_0_title"),
       desc: t("step_0_desc"),
       duration: t("step_0_duration"),
-      icon: "M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6",
     },
     {
       num: "02",
       title: t("step_1_title"),
       desc: t("step_1_desc"),
       duration: t("step_1_duration"),
-      icon: "M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z",
     },
     {
       num: "03",
       title: t("step_2_title"),
       desc: t("step_2_desc"),
       duration: t("step_2_duration"),
-      icon: "M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z",
     },
   ];
 
@@ -301,10 +296,10 @@ export default async function HomePage({
               cta1Href="#contact"
               cta2Href={fr ? "#comment-ca-marche" : "#how-it-works"}
               chips={[
-                { icon: "✨", text: t("heroBadgeLaunch") },
-                { icon: "🏠", text: t("heroBadgeStandard") },
-                { icon: "📍", text: "Hauts-de-France" },
-                { icon: "🔓", text: t("heroBadgeNoContract") },
+                { text: t("heroBadgeLaunch") },
+                { text: t("heroBadgeStandard") },
+                { text: "Hauts-de-France" },
+                { text: t("heroBadgeNoContract") },
               ]}
               scrollLabel={t("scrollDiscover")}
             />
@@ -383,7 +378,7 @@ export default async function HomePage({
                   key={p.text}
                   className="flex items-center gap-3 p-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg border border-slate-100 dark:border-slate-800"
                 >
-                  <span className="text-xl shrink-0">{p.emoji}</span>
+                  <WelqoMark className="w-6 h-auto shrink-0 text-welqo-terracotta" />
                   <p className="text-slate-600 dark:text-slate-300 text-[13px] font-medium leading-snug">
                     {p.text}
                   </p>
@@ -489,20 +484,7 @@ export default async function HomePage({
                         <div
                           className={`w-10 h-10 rounded-lg flex items-center justify-center border ${accentClass}`}
                         >
-                          <svg
-                            width="18"
-                            height="18"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.8"
-                            viewBox="0 0 24 24"
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d={svc.icon}
-                            />
-                          </svg>
+                          <WelqoMark className="w-full h-full p-1.5" />
                         </div>
                         <span className="px-2.5 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 rounded-full text-[9px] font-bold uppercase tracking-wider">
                           {svc.tag}

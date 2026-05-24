@@ -24,8 +24,10 @@ export async function submitContactForm(rawData: unknown) {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          from: "Welqo Contact <noreply@welqo.fr>",
-          to: ["contact@welqo.fr"],
+          from:
+            process.env.RESEND_FROM_EMAIL ??
+            "Welqo Contact <onboarding@resend.dev>",
+          to: [process.env.RESEND_TO_EMAIL ?? "contact@welqo.fr"],
           subject: `🏠 Nouvelle demande de devis — ${data.name} (${data.city})`,
           html: `
             <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px;">

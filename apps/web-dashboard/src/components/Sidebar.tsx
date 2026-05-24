@@ -28,14 +28,28 @@ const NAV_GROUPS = [
   {
     label: null,
     items: [
-      { icon: LayoutDashboard, label: "Tableau de bord", path: "", exact: true },
+      {
+        icon: LayoutDashboard,
+        label: "Tableau de bord",
+        path: "",
+        exact: true,
+      },
     ],
   },
   {
     label: "Communication",
     items: [
-      { icon: MessageCircle, label: "Messages", path: "/messages", exact: true },
-      { icon: Zap, label: "Automatisations", path: "/messages/automatisations" },
+      {
+        icon: MessageCircle,
+        label: "Messages",
+        path: "/messages",
+        exact: true,
+      },
+      {
+        icon: Zap,
+        label: "Automatisations",
+        path: "/messages/automatisations",
+      },
     ],
   },
   {
@@ -61,7 +75,6 @@ type NavLinkProps = {
   label: string;
   active: boolean;
 };
-
 
 function NavLink({ href, icon: Icon, label, active }: NavLinkProps) {
   return (
@@ -107,7 +120,8 @@ export const Sidebar = () => {
 
   function isActive(path: string, exact?: boolean) {
     const href = `${localeBase}${path}`;
-    if (path === "") return pathname === localeBase || pathname === `${localeBase}/`;
+    if (path === "")
+      return pathname === localeBase || pathname === `${localeBase}/`;
     if (exact) return pathname === href;
     return pathname.startsWith(href);
   }

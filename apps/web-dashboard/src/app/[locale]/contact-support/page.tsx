@@ -17,14 +17,14 @@ export default function ContactSupportPage() {
       <div className="w-full max-w-[400px] z-10 animate-fade-up">
         <div className="bg-white dark:bg-slate-900/50 rounded-lg p-7 border border-slate-100 dark:border-white/5">
           <div className="mb-8">
-            <button 
+            <button
               onClick={() => router.back()}
               className="flex items-center gap-2 text-slate-400 hover:text-welqo-terracotta transition-colors mb-5 group"
             >
               <ArrowLeft className="w-4 h-4 transition-transform group-hover:-translate-x-1" />
               <span className="text-[12px] font-bold">Retour</span>
             </button>
-            
+
             <div className="text-center flex flex-col items-center">
               <BrandLogo size="sm" className="mb-4 scale-95" />
               <h1 className="text-xl font-bold text-slate-900 dark:text-white tracking-tight">
@@ -42,15 +42,15 @@ export default function ContactSupportPage() {
                 icon: Mail,
                 title: "Par e-mail",
                 value: "partenaires@welqo.com",
-                href: "mailto:partenaires@welqo.com"
+                href: "mailto:partenaires@welqo.com",
               },
               {
                 icon: Phone,
                 title: "Par téléphone",
                 value: "03 20 00 00 00",
                 sub: "9h - 18h",
-                href: "tel:0320000000"
-              }
+                href: "tel:0320000000",
+              },
             ].map((item, i) => (
               <a
                 key={i}
@@ -65,7 +65,11 @@ export default function ContactSupportPage() {
                     <p className="text-[10px] font-bold text-slate-500 group-hover:text-welqo-terracotta transition-colors uppercase tracking-tight">
                       {item.title}
                     </p>
-                    {item.sub && <span className="text-[9px] text-slate-400 italic">({item.sub})</span>}
+                    {item.sub && (
+                      <span className="text-[9px] text-slate-400 italic">
+                        ({item.sub})
+                      </span>
+                    )}
                   </div>
                   <p className="text-[15px] font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-tight">
                     {item.value}
@@ -76,8 +80,8 @@ export default function ContactSupportPage() {
           </div>
 
           <div className="mt-8 pt-6 border-t border-slate-50 dark:border-white/5 text-center">
-            <button 
-              onClick={() => router.push(`/${locale}/login`)} 
+            <button
+              onClick={() => router.push(`/${locale}/login`)}
               className="text-welqo-terracotta text-[13px] font-bold hover:underline"
             >
               Se connecter

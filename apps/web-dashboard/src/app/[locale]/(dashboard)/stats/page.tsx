@@ -199,8 +199,8 @@ export default function StatsPage() {
               </h3>
               <p className="text-[11px] text-slate-400 leading-relaxed">
                 Vos revenus ont progressé de{" "}
-                <span className="text-emerald-400 font-bold">14%</span> ce mois-ci
-                grâce à l'ajustement automatique des tarifs.
+                <span className="text-emerald-400 font-bold">14%</span> ce
+                mois-ci grâce à l'ajustement automatique des tarifs.
               </p>
             </div>
             <div className="mt-5 p-4 bg-white/5 rounded-lg border border-white/10">
@@ -209,7 +209,9 @@ export default function StatsPage() {
               </p>
               <p className="text-2xl font-bold tracking-tight">
                 +450€{" "}
-                <span className="text-xs text-slate-500 font-medium">/ mois</span>
+                <span className="text-xs text-slate-500 font-medium">
+                  / mois
+                </span>
               </p>
             </div>
           </div>

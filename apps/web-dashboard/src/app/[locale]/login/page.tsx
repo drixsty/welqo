@@ -126,7 +126,7 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-7 pt-6 border-t border-slate-50 dark:border-white/5 text-center">
-            <button 
+            <button
               onClick={() => router.push(`/${locale}/contact-support`)}
               className="text-slate-900 dark:text-white text-[13px] font-bold hover:text-welqo-terracotta transition-colors"
             >

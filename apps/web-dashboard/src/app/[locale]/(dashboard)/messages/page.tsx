@@ -55,7 +55,9 @@ export default function MessagesPage() {
   useEffect(() => {
     loadConversations();
     setupSocket();
-    return () => { socketRef.current?.disconnect(); };
+    return () => {
+      socketRef.current?.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -71,7 +73,9 @@ export default function MessagesPage() {
 
   const setupSocket = () => {
     const token = getStoredToken();
-    const socket = io(`${API_BASE_URL.replace("/v1", "")}/chat`, { auth: { token } });
+    const socket = io(`${API_BASE_URL.replace("/v1", "")}/chat`, {
+      auth: { token },
+    });
     socket.on("newMessage", (msg: Message) => {
       if (msg.conversationId === activeConvId) {
         setMessages((prev) => [...prev, msg]);
@@ -83,7 +87,11 @@ export default function MessagesPage() {
               ? { ...c, lastMessageAt: msg.createdAt, messages: [msg] }
               : c,
           )
-          .sort((a, b) => new Date(b.lastMessageAt).getTime() - new Date(a.lastMessageAt).getTime()),
+          .sort(
+            (a, b) =>
+              new Date(b.lastMessageAt).getTime() -
+              new Date(a.lastMessageAt).getTime(),
+          ),
       );
     });
     socketRef.current = socket;
@@ -94,20 +102,30 @@ export default function MessagesPage() {
       const data = await fetchApi<Conversation[]>("/chat/conversations");
       setConversations(data);
       if (data.length > 0) setActiveConvId(data[0].id);
-    } catch { /* silent */ }
-    finally { setLoading(false); }
+    } catch {
+      /* silent */
+    } finally {
+      setLoading(false);
+    }
   };
 
   const loadMessages = async (id: string) => {
     try {
-      const data = await fetchApi<Message[]>(`/chat/conversations/${id}/messages`);
+      const data = await fetchApi<Message[]>(
+        `/chat/conversations/${id}/messages`,
+      );
       setMessages(data);
-    } catch { /* silent */ }
+    } catch {
+      /* silent */
+    }
   };
 
   const handleSend = () => {
     if (!newMessage.trim() || !activeConvId) return;
-    socketRef.current?.emit("sendMessage", { conversationId: activeConvId, content: newMessage });
+    socketRef.current?.emit("sendMessage", {
+      conversationId: activeConvId,
+      content: newMessage,
+    });
     setNewMessage("");
     inputRef.current?.focus();
   };
@@ -129,9 +147,12 @@ export default function MessagesPage() {
     <div className="flex flex-col space-y-4">
       {/* Page header */}
       <div>
-        <h1 className="text-xl font-semibold text-slate-900 dark:text-white tracking-tight">Messages</h1>
+        <h1 className="text-xl font-semibold text-slate-900 dark:text-white tracking-tight">
+          Messages
+        </h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-          {conversations.length} conversation{conversations.length !== 1 ? "s" : ""}
+          {conversations.length} conversation
+          {conversations.length !== 1 ? "s" : ""}
         </p>
       </div>
       <div className="h-px bg-slate-100 dark:bg-slate-800/60" />
@@ -261,7 +282,9 @@ export default function MessagesPage() {
               <div className="flex-1 overflow-y-auto px-5 py-4 space-y-2">
                 {messages.length === 0 && (
                   <div className="flex items-center justify-center h-full">
-                    <p className="text-xs text-slate-400">Aucun message pour le moment</p>
+                    <p className="text-xs text-slate-400">
+                      Aucun message pour le moment
+                    </p>
                   </div>
                 )}
                 {messages.map((msg, i) => {
@@ -304,7 +327,9 @@ export default function MessagesPage() {
                           </div>
                         )}
 
-                        <div className={`max-w-[65%] flex flex-col gap-0.5 ${isOwner ? "items-end" : "items-start"}`}>
+                        <div
+                          className={`max-w-[65%] flex flex-col gap-0.5 ${isOwner ? "items-end" : "items-start"}`}
+                        >
                           <div
                             className={[
                               "px-3.5 py-2 text-xs leading-relaxed",
@@ -319,16 +344,20 @@ export default function MessagesPage() {
                             className={`flex items-center gap-1 text-[10px] text-slate-400 ${isOwner ? "flex-row-reverse" : ""}`}
                           >
                             <span>
-                              {new Date(msg.createdAt).toLocaleTimeString("fr-FR", {
-                                hour: "2-digit",
-                                minute: "2-digit",
-                              })}
+                              {new Date(msg.createdAt).toLocaleTimeString(
+                                "fr-FR",
+                                {
+                                  hour: "2-digit",
+                                  minute: "2-digit",
+                                },
+                              )}
                             </span>
-                            {isOwner && (
-                              msg.isRead
-                                ? <CheckCheck className="w-3 h-3 text-emerald-400" />
-                                : <Check className="w-3 h-3" />
-                            )}
+                            {isOwner &&
+                              (msg.isRead ? (
+                                <CheckCheck className="w-3 h-3 text-emerald-400" />
+                              ) : (
+                                <Check className="w-3 h-3" />
+                              ))}
                           </div>
                         </div>
                       </motion.div>
@@ -347,7 +376,8 @@ export default function MessagesPage() {
                     onChange={(e) => {
                       setNewMessage(e.target.value);
                       e.target.style.height = "auto";
-                      e.target.style.height = Math.min(e.target.scrollHeight, 120) + "px";
+                      e.target.style.height =
+                        Math.min(e.target.scrollHeight, 120) + "px";
                     }}
                     onKeyDown={(e) => {
                       if (e.key === "Enter" && !e.shiftKey) {

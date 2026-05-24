@@ -107,17 +107,27 @@ export default function PaiementsPage() {
   }
 
   const kpis = [
-    { label: "Volume d'affaires", value: `${totalGross.toLocaleString("fr-FR")}€`, icon: Euro },
+    {
+      label: "Volume d'affaires",
+      value: `${totalGross.toLocaleString("fr-FR")}€`,
+      icon: Euro,
+    },
     {
       label: "Net propriétaire",
       value: `${totalNet.toLocaleString("fr-FR")}€`,
       icon: TrendingUp,
       primary: true,
     },
-    { label: "Transactions actives", value: active.length, icon: CalendarCheck },
+    {
+      label: "Transactions actives",
+      value: active.length,
+      icon: CalendarCheck,
+    },
   ];
 
-  const sc = selected ? (STATUS_LABELS[selected.status] ?? STATUS_LABELS.CONFIRMED) : null;
+  const sc = selected
+    ? (STATUS_LABELS[selected.status] ?? STATUS_LABELS.CONFIRMED)
+    : null;
   const nights = selected
     ? differenceInDays(parseISO(selected.checkOut), parseISO(selected.checkIn))
     : 0;
@@ -185,21 +195,28 @@ export default function PaiementsPage() {
             <table className="w-full text-xs">
               <thead>
                 <tr className="bg-slate-50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
-                  {["Voyageur", "Logement", "Séjour", "Total TTC", "Net", "Statut", ""].map(
-                    (h) => (
-                      <th
-                        key={h}
-                        className="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400"
-                      >
-                        {h}
-                      </th>
-                    ),
-                  )}
+                  {[
+                    "Voyageur",
+                    "Logement",
+                    "Séjour",
+                    "Total TTC",
+                    "Net",
+                    "Statut",
+                    "",
+                  ].map((h) => (
+                    <th
+                      key={h}
+                      className="px-4 py-3 text-left text-[10px] font-bold uppercase tracking-widest text-slate-400"
+                    >
+                      {h}
+                    </th>
+                  ))}
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 dark:divide-slate-800/50">
                 {rows.map((row, i) => {
-                  const s = STATUS_LABELS[row.status] ?? STATUS_LABELS.CONFIRMED;
+                  const s =
+                    STATUS_LABELS[row.status] ?? STATUS_LABELS.CONFIRMED;
                   const isActive = selected?.id === row.id;
                   return (
                     <motion.tr
@@ -228,7 +245,9 @@ export default function PaiementsPage() {
                         <p className="font-semibold text-slate-900 dark:text-white">
                           {row.guestFirstName} {row.guestLastName}
                         </p>
-                        <p className="text-[10px] text-slate-400 mt-0.5">{row.guestEmail}</p>
+                        <p className="text-[10px] text-slate-400 mt-0.5">
+                          {row.guestEmail}
+                        </p>
                       </td>
                       <td className="px-4 py-3 text-slate-600 dark:text-slate-400 font-medium max-w-[160px] truncate">
                         {row.property.titleFr}
@@ -251,7 +270,9 @@ export default function PaiementsPage() {
                         {row.totalAmountNet.toFixed(2)}€
                       </td>
                       <td className="px-4 py-3">
-                        <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${s.cls}`}>
+                        <span
+                          className={`px-2 py-0.5 rounded text-[10px] font-bold border ${s.cls}`}
+                        >
                           {s.label}
                         </span>
                       </td>
@@ -273,12 +294,20 @@ export default function PaiementsPage() {
       <DetailPanel
         isOpen={!!selected}
         onClose={() => setSelected(null)}
-        title={selected ? `${selected.guestFirstName} ${selected.guestLastName}` : ""}
+        title={
+          selected ? `${selected.guestFirstName} ${selected.guestLastName}` : ""
+        }
         subtitle={selected?.property.titleFr}
         footer={
           selected && (
-            <Button variant="outline" size="md" className="w-full" icon={Download} iconPosition="right"
-              onClick={() => exportCsv([selected])}>
+            <Button
+              variant="outline"
+              size="md"
+              className="w-full"
+              icon={Download}
+              iconPosition="right"
+              onClick={() => exportCsv([selected])}
+            >
               Exporter cette transaction
             </Button>
           )
@@ -287,7 +316,9 @@ export default function PaiementsPage() {
         {selected && sc && (
           <div className="p-5 space-y-5">
             {/* Status */}
-            <span className={`px-2 py-0.5 rounded text-[10px] font-bold border ${sc.cls}`}>
+            <span
+              className={`px-2 py-0.5 rounded text-[10px] font-bold border ${sc.cls}`}
+            >
               {sc.label}
             </span>
 
@@ -300,7 +331,9 @@ export default function PaiementsPage() {
                 <p className="text-sm font-semibold text-slate-900 dark:text-white truncate">
                   {selected.guestFirstName} {selected.guestLastName}
                 </p>
-                <p className="text-[11px] text-slate-400 truncate">{selected.guestEmail}</p>
+                <p className="text-[11px] text-slate-400 truncate">
+                  {selected.guestEmail}
+                </p>
               </div>
             </div>
 
@@ -309,7 +342,9 @@ export default function PaiementsPage() {
               <div className="flex items-start gap-3">
                 <MapPin className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-[10px] font-medium text-slate-400 mb-0.5">Logement</p>
+                  <p className="text-[10px] font-medium text-slate-400 mb-0.5">
+                    Logement
+                  </p>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                     {selected.property.titleFr}
                   </p>
@@ -319,14 +354,20 @@ export default function PaiementsPage() {
               <div className="flex items-start gap-3">
                 <CalendarDays className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-[10px] font-medium text-slate-400 mb-1">Séjour</p>
+                  <p className="text-[10px] font-medium text-slate-400 mb-1">
+                    Séjour
+                  </p>
                   <div className="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200">
                     <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
-                      {format(parseISO(selected.checkIn), "dd MMM", { locale: fr })}
+                      {format(parseISO(selected.checkIn), "dd MMM", {
+                        locale: fr,
+                      })}
                     </span>
                     <span className="text-slate-300">→</span>
                     <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
-                      {format(parseISO(selected.checkOut), "dd MMM", { locale: fr })}
+                      {format(parseISO(selected.checkOut), "dd MMM", {
+                        locale: fr,
+                      })}
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-400 mt-1">
@@ -339,7 +380,9 @@ export default function PaiementsPage() {
               <div className="flex items-start gap-3">
                 <Euro className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
                 <div className="flex-1">
-                  <p className="text-[10px] font-medium text-slate-400 mb-2">Détail financier</p>
+                  <p className="text-[10px] font-medium text-slate-400 mb-2">
+                    Détail financier
+                  </p>
                   <div className="space-y-1.5 p-3 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800">
                     <div className="flex justify-between text-[11px]">
                       <span className="text-slate-500">Total TTC</span>
@@ -369,9 +412,12 @@ export default function PaiementsPage() {
               <div className="flex items-start gap-3">
                 <User className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-[10px] font-medium text-slate-400 mb-0.5">Durée</p>
+                  <p className="text-[10px] font-medium text-slate-400 mb-0.5">
+                    Durée
+                  </p>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
-                    {selected.nightsCount} nuit{selected.nightsCount > 1 ? "s" : ""}
+                    {selected.nightsCount} nuit
+                    {selected.nightsCount > 1 ? "s" : ""}
                   </p>
                 </div>
               </div>

@@ -35,10 +35,19 @@ const TRIGGER_LABELS: Record<string, string> = {
   BOOKING_CANCELLED: "Réservation annulée",
 };
 
-function Toggle({ enabled, onToggle }: { enabled: boolean; onToggle: () => void }) {
+function Toggle({
+  enabled,
+  onToggle,
+}: {
+  enabled: boolean;
+  onToggle: () => void;
+}) {
   return (
     <button
-      onClick={(e) => { e.stopPropagation(); onToggle(); }}
+      onClick={(e) => {
+        e.stopPropagation();
+        onToggle();
+      }}
       className={[
         "relative w-9 h-5 rounded-full transition-colors duration-200 shrink-0",
         enabled ? "bg-primary" : "bg-slate-200 dark:bg-slate-700",
@@ -61,7 +70,9 @@ export default function AutomatisationsPage() {
   const [error, setError] = useState<string | null>(null);
   const [selected, setSelected] = useState<MessageTemplate | null>(null);
 
-  useEffect(() => { loadTemplates(); }, []);
+  useEffect(() => {
+    loadTemplates();
+  }, []);
 
   async function loadTemplates() {
     try {
@@ -83,7 +94,9 @@ export default function AutomatisationsPage() {
         body: JSON.stringify({ isEnabled: !template.isEnabled }),
       });
       const updated = { ...template, isEnabled: !template.isEnabled };
-      setTemplates((prev) => prev.map((t) => (t.id === template.id ? updated : t)));
+      setTemplates((prev) =>
+        prev.map((t) => (t.id === template.id ? updated : t)),
+      );
       if (selected?.id === template.id) setSelected(updated);
     } catch (err: any) {
       alert("Erreur : " + err.message);
@@ -129,8 +142,15 @@ export default function AutomatisationsPage() {
           <div className="grid grid-cols-3 gap-3">
             {[
               { label: "Templates total", value: templates.length },
-              { label: "Actifs", value: templates.filter((t) => t.isEnabled).length, primary: true },
-              { label: "Inactifs", value: templates.filter((t) => !t.isEnabled).length },
+              {
+                label: "Actifs",
+                value: templates.filter((t) => t.isEnabled).length,
+                primary: true,
+              },
+              {
+                label: "Inactifs",
+                value: templates.filter((t) => !t.isEnabled).length,
+              },
             ].map((s) => (
               <div
                 key={s.label}
@@ -139,7 +159,9 @@ export default function AutomatisationsPage() {
                 <p className="text-[11px] font-medium text-slate-500 dark:text-slate-400 mb-0.5">
                   {s.label}
                 </p>
-                <p className={`text-xl font-bold tracking-tight ${"primary" in s && s.primary ? "text-primary" : "text-slate-900 dark:text-white"}`}>
+                <p
+                  className={`text-xl font-bold tracking-tight ${"primary" in s && s.primary ? "text-primary" : "text-slate-900 dark:text-white"}`}
+                >
                   {s.value}
                 </p>
               </div>
@@ -157,7 +179,8 @@ export default function AutomatisationsPage() {
               Aucun automatisme configuré
             </p>
             <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs mb-5">
-              Créez votre premier message automatique pour améliorer l'expérience voyageur.
+              Créez votre premier message automatique pour améliorer
+              l'expérience voyageur.
             </p>
             <Button variant="outline" size="sm" icon={Plus}>
               Créer un template
@@ -208,11 +231,16 @@ export default function AutomatisationsPage() {
                 {/* Delay badge */}
                 <div className="flex items-center gap-1 text-[10px] font-medium text-slate-400 shrink-0 hidden sm:flex">
                   <Clock className="w-3 h-3" />
-                  {template.daysOffset === 0 ? "Immédiat" : `J+${template.daysOffset}`}
+                  {template.daysOffset === 0
+                    ? "Immédiat"
+                    : `J+${template.daysOffset}`}
                 </div>
 
                 {/* Toggle */}
-                <Toggle enabled={template.isEnabled} onToggle={() => toggleTemplate(template)} />
+                <Toggle
+                  enabled={template.isEnabled}
+                  onToggle={() => toggleTemplate(template)}
+                />
               </motion.div>
             ))}
           </div>
@@ -224,12 +252,21 @@ export default function AutomatisationsPage() {
             <Zap className="w-3.5 h-3.5 text-primary" />
           </div>
           <div>
-            <p className="text-xs font-semibold mb-0.5">Variables dynamiques disponibles</p>
+            <p className="text-xs font-semibold mb-0.5">
+              Variables dynamiques disponibles
+            </p>
             <p className="text-[11px] text-slate-400 leading-relaxed">
               Personnalisez vos messages avec{" "}
-              <code className="text-primary font-mono">{"{{guest_name}}"}</code>,{" "}
-              <code className="text-primary font-mono">{"{{property_name}}"}</code>,{" "}
-              <code className="text-primary font-mono">{"{{check_in_date}}"}</code> et plus encore.
+              <code className="text-primary font-mono">{"{{guest_name}}"}</code>
+              ,{" "}
+              <code className="text-primary font-mono">
+                {"{{property_name}}"}
+              </code>
+              ,{" "}
+              <code className="text-primary font-mono">
+                {"{{check_in_date}}"}
+              </code>{" "}
+              et plus encore.
             </p>
           </div>
         </div>
@@ -240,11 +277,20 @@ export default function AutomatisationsPage() {
         isOpen={!!selected}
         onClose={() => setSelected(null)}
         title={selected?.name ?? ""}
-        subtitle={selected ? TRIGGER_LABELS[selected.trigger] ?? selected.trigger : undefined}
+        subtitle={
+          selected
+            ? (TRIGGER_LABELS[selected.trigger] ?? selected.trigger)
+            : undefined
+        }
         footer={
           selected && (
             <>
-              <Button variant="primary" size="sm" className="w-full" icon={Pencil}>
+              <Button
+                variant="primary"
+                size="sm"
+                className="w-full"
+                icon={Pencil}
+              >
                 Modifier le template
               </Button>
               <Button
@@ -290,7 +336,9 @@ export default function AutomatisationsPage() {
             <div className="flex items-start gap-3 p-3 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800">
               <Zap className="w-3.5 h-3.5 text-primary mt-0.5 shrink-0" />
               <div>
-                <p className="text-[10px] font-medium text-slate-400 mb-0.5">Déclencheur</p>
+                <p className="text-[10px] font-medium text-slate-400 mb-0.5">
+                  Déclencheur
+                </p>
                 <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                   {TRIGGER_LABELS[selected.trigger] ?? selected.trigger}
                 </p>
@@ -301,7 +349,9 @@ export default function AutomatisationsPage() {
             <div className="flex items-start gap-3">
               <Clock className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
               <div>
-                <p className="text-[10px] font-medium text-slate-400 mb-0.5">Envoi</p>
+                <p className="text-[10px] font-medium text-slate-400 mb-0.5">
+                  Envoi
+                </p>
                 <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                   {selected.daysOffset === 0
                     ? "Envoyé immédiatement"
@@ -312,7 +362,9 @@ export default function AutomatisationsPage() {
 
             {/* Content preview */}
             <div>
-              <p className="text-[10px] font-medium text-slate-400 mb-2">Contenu du message</p>
+              <p className="text-[10px] font-medium text-slate-400 mb-2">
+                Contenu du message
+              </p>
               <div className="p-3.5 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800">
                 <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed italic">
                   "{selected.content}"

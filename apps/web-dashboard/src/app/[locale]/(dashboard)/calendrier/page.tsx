@@ -54,37 +54,80 @@ interface PropertyRow {
 
 // ── Constants ──────────────────────────────────────────────────────────────────
 
-const W_PROP = 188;   // px — property label column
-const W_DAY  = 42;   // px — one day column
-const HDR_H  = 56;   // px — date header row height
-const ROW_H  = 68;   // px — property row height
-const BAR_H  = 38;   // px — booking bar height
-const BAR_V  = (ROW_H - BAR_H) / 2;  // 15px — vertical centering
-const INSET  = 4;    // px — bar left/right inset at true start/end
+const W_PROP = 188; // px — property label column
+const W_DAY = 42; // px — one day column
+const HDR_H = 56; // px — date header row height
+const ROW_H = 68; // px — property row height
+const BAR_H = 38; // px — booking bar height
+const BAR_V = (ROW_H - BAR_H) / 2; // 15px — vertical centering
+const INSET = 4; // px — bar left/right inset at true start/end
 
 // ── Booking colors (hash-stable per booking id) ───────────────────────────────
 
 const PALETTE = [
-  { pill: "#f4724a", bg: "rgba(244,114,74,0.14)", hover: "rgba(244,114,74,0.22)", text: "#c44e2a" },
-  { pill: "#7c3aed", bg: "rgba(124,58,237,0.12)", hover: "rgba(124,58,237,0.20)", text: "#6d28d9" },
-  { pill: "#0ea5e9", bg: "rgba(14,165,233,0.12)", hover: "rgba(14,165,233,0.20)", text: "#0284c7" },
-  { pill: "#10b981", bg: "rgba(16,185,129,0.12)", hover: "rgba(16,185,129,0.20)", text: "#059669" },
-  { pill: "#f59e0b", bg: "rgba(245,158,11,0.14)", hover: "rgba(245,158,11,0.22)", text: "#d97706" },
-  { pill: "#ec4899", bg: "rgba(236,72,153,0.12)", hover: "rgba(236,72,153,0.20)", text: "#db2777" },
+  {
+    pill: "#f4724a",
+    bg: "rgba(244,114,74,0.14)",
+    hover: "rgba(244,114,74,0.22)",
+    text: "#c44e2a",
+  },
+  {
+    pill: "#7c3aed",
+    bg: "rgba(124,58,237,0.12)",
+    hover: "rgba(124,58,237,0.20)",
+    text: "#6d28d9",
+  },
+  {
+    pill: "#0ea5e9",
+    bg: "rgba(14,165,233,0.12)",
+    hover: "rgba(14,165,233,0.20)",
+    text: "#0284c7",
+  },
+  {
+    pill: "#10b981",
+    bg: "rgba(16,185,129,0.12)",
+    hover: "rgba(16,185,129,0.20)",
+    text: "#059669",
+  },
+  {
+    pill: "#f59e0b",
+    bg: "rgba(245,158,11,0.14)",
+    hover: "rgba(245,158,11,0.22)",
+    text: "#d97706",
+  },
+  {
+    pill: "#ec4899",
+    bg: "rgba(236,72,153,0.12)",
+    hover: "rgba(236,72,153,0.20)",
+    text: "#db2777",
+  },
 ];
 
 function getColor(id: string) {
   let h = 0;
-  for (let i = 0; i < id.length; i++) h = (h * 31 + id.charCodeAt(i)) & 0xffffffff;
+  for (let i = 0; i < id.length; i++)
+    h = (h * 31 + id.charCodeAt(i)) & 0xffffffff;
   return PALETTE[Math.abs(h) % PALETTE.length];
 }
 
 // ── Status config ──────────────────────────────────────────────────────────────
 
 function statusConfig(status: string) {
-  if (status === "CONFIRMED") return { label: "Confirmé",    cls: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20" };
-  if (status === "PENDING")   return { label: "En attente",  cls: "bg-amber-500/10 text-amber-600 border-amber-500/20" };
-  if (status === "CANCELLED") return { label: "Annulé",      cls: "bg-rose-500/10 text-rose-600 border-rose-500/20" };
+  if (status === "CONFIRMED")
+    return {
+      label: "Confirmé",
+      cls: "bg-emerald-500/10 text-emerald-600 border-emerald-500/20",
+    };
+  if (status === "PENDING")
+    return {
+      label: "En attente",
+      cls: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+    };
+  if (status === "CANCELLED")
+    return {
+      label: "Annulé",
+      cls: "bg-rose-500/10 text-rose-600 border-rose-500/20",
+    };
   return { label: status, cls: "bg-slate-100 text-slate-500 border-slate-200" };
 }
 
@@ -105,7 +148,12 @@ function buildPropertyRows(
     const key = b.property.id ?? b.property.titleFr;
     if (!key) continue;
     if (!rows.has(key)) {
-      rows.set(key, { key, titleFr: b.property.titleFr ?? key, city: b.property.city, bookings: [] });
+      rows.set(key, {
+        key,
+        titleFr: b.property.titleFr ?? key,
+        city: b.property.city,
+        bookings: [],
+      });
     }
     rows.get(key)!.bookings.push(b);
   }
@@ -116,13 +164,22 @@ function buildPropertyRows(
 
 // ── Initials avatar ────────────────────────────────────────────────────────────
 
-function Initials({ first, last, color }: { first: string; last: string; color: ReturnType<typeof getColor> }) {
+function Initials({
+  first,
+  last,
+  color,
+}: {
+  first: string;
+  last: string;
+  color: ReturnType<typeof getColor>;
+}) {
   return (
     <span
       className="w-6 h-6 rounded-md flex items-center justify-center text-[9px] font-bold shrink-0 leading-none"
       style={{ background: color.pill, color: "#fff" }}
     >
-      {first[0]}{last[0]}
+      {first[0]}
+      {last[0]}
     </span>
   );
 }
@@ -132,24 +189,29 @@ function Initials({ first, last, color }: { first: string; last: string; color: 
 export default function CalendrierPage() {
   const { locale } = useAuthGuard();
   const [currentMonth, setCurrentMonth] = useState(new Date());
-  const [bookings, setBookings]         = useState<Booking[]>([]);
-  const [loading, setLoading]           = useState(true);
-  const [selected, setSelected]         = useState<Booking | null>(null);
-  const scrollRef   = useRef<HTMLDivElement>(null);
+  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState<Booking | null>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
   // Accumulates every property ever seen across month navigations
-  const knownProps  = useRef<Map<string, Omit<PropertyRow, "bookings">>>(new Map());
+  const knownProps = useRef<Map<string, Omit<PropertyRow, "bookings">>>(
+    new Map(),
+  );
 
   const monthStart = startOfMonth(currentMonth);
-  const monthEnd   = endOfMonth(currentMonth);
-  const today      = new Date();
+  const monthEnd = endOfMonth(currentMonth);
+  const today = new Date();
 
   // Build days array (full month)
   const days: Date[] = [];
   let cur = monthStart;
-  while (cur <= monthEnd) { days.push(cur); cur = addDays(cur, 1); }
+  while (cur <= monthEnd) {
+    days.push(cur);
+    cur = addDays(cur, 1);
+  }
 
-  const totalGridW  = days.length * W_DAY;
-  const totalWidth  = W_PROP + totalGridW;
+  const totalGridW = days.length * W_DAY;
+  const totalWidth = W_PROP + totalGridW;
   const todayOffset = isSameMonth(today, currentMonth)
     ? differenceInDays(today, monthStart)
     : -1;
@@ -172,25 +234,32 @@ export default function CalendrierPage() {
         }
       }
       setBookings(data);
-    } catch { /* silent */ }
-    finally { setLoading(false); }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    } catch {
+      /* silent */
+    } finally {
+      setLoading(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMonth]);
 
-  useEffect(() => { loadBookings(); }, [loadBookings]);
+  useEffect(() => {
+    loadBookings();
+  }, [loadBookings]);
 
   // Auto-scroll to today when month changes
   useEffect(() => {
     if (!scrollRef.current || todayOffset < 0) return;
     const target = Math.max(0, W_PROP + todayOffset * W_DAY - 120);
     scrollRef.current.scrollLeft = target;
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentMonth]);
 
-  const propertyRows    = buildPropertyRows(knownProps.current, bookings);
-  const confirmedCount  = bookings.filter(b => b.status === "CONFIRMED").length;
+  const propertyRows = buildPropertyRows(knownProps.current, bookings);
+  const confirmedCount = bookings.filter(
+    (b) => b.status === "CONFIRMED",
+  ).length;
 
-  const sc     = selected ? statusConfig(selected.status) : null;
+  const sc = selected ? statusConfig(selected.status) : null;
   const nights = selected
     ? differenceInDays(parseISO(selected.checkOut), parseISO(selected.checkIn))
     : 0;
@@ -199,7 +268,6 @@ export default function CalendrierPage() {
     <PageWrapper>
       {/* Outer layout fills available height */}
       <div className="flex flex-col" style={{ height: "calc(100vh - 112px)" }}>
-
         {/* ── Page header ───────────────────────────────────────────────────── */}
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pb-4 shrink-0">
           <div>
@@ -217,7 +285,13 @@ export default function CalendrierPage() {
             {/* Legend */}
             <div className="hidden sm:flex items-center gap-3 mr-1 text-[11px] text-slate-400 font-medium">
               <span className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-sm inline-block" style={{ background: PALETTE[0].bg, outline: `1.5px solid ${PALETTE[0].pill}40` }} />
+                <span
+                  className="w-2.5 h-2.5 rounded-sm inline-block"
+                  style={{
+                    background: PALETTE[0].bg,
+                    outline: `1.5px solid ${PALETTE[0].pill}40`,
+                  }}
+                />
                 Confirmé
               </span>
               <span className="flex items-center gap-1.5">
@@ -251,16 +325,13 @@ export default function CalendrierPage() {
         </div>
 
         {/* ── Timeline container (fills remaining height) ─────────────────── */}
-        <div
-          className="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-slate-900 shadow-sm min-h-0"
-        >
+        <div className="flex-1 rounded-xl border border-slate-200 dark:border-slate-700 overflow-hidden bg-white dark:bg-slate-900 shadow-sm min-h-0">
           <div
             ref={scrollRef}
             className="h-full overflow-auto"
             style={{ scrollbarWidth: "thin" }}
           >
             <div style={{ minWidth: totalWidth, position: "relative" }}>
-
               {/* ── Date header (sticky top) ─────────────────────────────── */}
               <div
                 className="flex sticky top-0 z-30 border-b border-slate-200 dark:border-slate-700"
@@ -269,7 +340,10 @@ export default function CalendrierPage() {
                 {/* Corner cell — sticky left + top */}
                 <div
                   className="sticky left-0 z-40 flex items-end gap-1.5 px-4 pb-2.5 shrink-0 border-r-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950"
-                  style={{ width: W_PROP, boxShadow: "2px 0 8px rgba(0,0,0,0.06)" }}
+                  style={{
+                    width: W_PROP,
+                    boxShadow: "2px 0 8px rgba(0,0,0,0.06)",
+                  }}
                 >
                   <Home className="w-3.5 h-3.5 text-slate-400 mb-0.5" />
                   <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 tracking-wide">
@@ -279,9 +353,11 @@ export default function CalendrierPage() {
 
                 {/* Day columns */}
                 {days.map((day, i) => {
-                  const isToday   = isSameDay(day, today);
+                  const isToday = isSameDay(day, today);
                   const isWeekend = day.getDay() === 0 || day.getDay() === 6;
-                  const dayOfWeek = format(day, "EEEEE", { locale: fr }).toUpperCase();
+                  const dayOfWeek = format(day, "EEEEE", {
+                    locale: fr,
+                  }).toUpperCase();
 
                   return (
                     <div
@@ -293,7 +369,9 @@ export default function CalendrierPage() {
                           : isWeekend
                             ? "bg-slate-50/70 dark:bg-slate-950/50"
                             : "bg-white dark:bg-slate-900",
-                      ].filter(Boolean).join(" ")}
+                      ]
+                        .filter(Boolean)
+                        .join(" ")}
                       style={{ width: W_DAY }}
                     >
                       <span
@@ -329,7 +407,9 @@ export default function CalendrierPage() {
               {loading ? (
                 <div className="flex items-center justify-center py-20 gap-3">
                   <div className="w-5 h-5 border-2 border-primary border-t-transparent rounded-full animate-spin" />
-                  <span className="text-xs text-slate-400">Chargement du planning…</span>
+                  <span className="text-xs text-slate-400">
+                    Chargement du planning…
+                  </span>
                 </div>
               ) : propertyRows.length === 0 ? (
                 <div className="flex flex-col items-center justify-center py-20 text-center gap-3">
@@ -340,7 +420,9 @@ export default function CalendrierPage() {
                     <p className="text-sm font-semibold text-slate-800 dark:text-white mb-0.5">
                       Aucune réservation ce mois
                     </p>
-                    <p className="text-xs text-slate-400">Naviguez vers un autre mois.</p>
+                    <p className="text-xs text-slate-400">
+                      Naviguez vers un autre mois.
+                    </p>
                   </div>
                 </div>
               ) : (
@@ -353,7 +435,10 @@ export default function CalendrierPage() {
                     {/* ── Property label (sticky left) ───────────────────── */}
                     <div
                       className="sticky left-0 z-20 shrink-0 flex flex-col justify-center px-4 border-r-2 border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 transition-colors group-hover:bg-slate-100/80 dark:group-hover:bg-slate-900/80"
-                      style={{ width: W_PROP, boxShadow: "2px 0 8px rgba(0,0,0,0.05)" }}
+                      style={{
+                        width: W_PROP,
+                        boxShadow: "2px 0 8px rgba(0,0,0,0.05)",
+                      }}
                     >
                       <p className="text-xs font-semibold text-slate-800 dark:text-slate-100 truncate leading-snug">
                         {prop.titleFr}
@@ -374,8 +459,9 @@ export default function CalendrierPage() {
                       {/* Day backgrounds */}
                       <div className="absolute inset-0 flex pointer-events-none">
                         {days.map((day, di) => {
-                          const isToday   = isSameDay(day, today);
-                          const isWeekend = day.getDay() === 0 || day.getDay() === 6;
+                          const isToday = isSameDay(day, today);
+                          const isWeekend =
+                            day.getDay() === 0 || day.getDay() === 6;
                           return (
                             <div
                               key={di}
@@ -386,7 +472,9 @@ export default function CalendrierPage() {
                                   : isWeekend
                                     ? "bg-slate-50/50 dark:bg-slate-950/30"
                                     : "",
-                              ].filter(Boolean).join(" ")}
+                              ]
+                                .filter(Boolean)
+                                .join(" ")}
                               style={{ width: W_DAY }}
                             />
                           );
@@ -415,20 +503,24 @@ export default function CalendrierPage() {
                         const coDiff = differenceInDays(co, monthStart);
 
                         const startIdx = Math.max(0, ciDiff);
-                        const endIdx   = Math.min(days.length - 1, coDiff);
+                        const endIdx = Math.min(days.length - 1, coDiff);
 
-                        if (startIdx > days.length - 1 || endIdx < 0) return null;
+                        if (startIdx > days.length - 1 || endIdx < 0)
+                          return null;
 
                         const isBarStart = ciDiff >= 0;
-                        const isBarEnd   = coDiff < days.length;
-                        const barNights  = differenceInDays(co, ci);
-                        const barSpan    = (endIdx - startIdx + 1) * W_DAY;
+                        const isBarEnd = coDiff < days.length;
+                        const barNights = differenceInDays(co, ci);
+                        const barSpan = (endIdx - startIdx + 1) * W_DAY;
 
-                        const isActive  = booking.status !== "CANCELLED";
-                        const color     = isActive ? getColor(booking.id) : null;
+                        const isActive = booking.status !== "CANCELLED";
+                        const color = isActive ? getColor(booking.id) : null;
 
-                        const leftPx  = startIdx * W_DAY + (isBarStart ? INSET : 0);
-                        const rightPx = (days.length - 1 - endIdx) * W_DAY + (isBarEnd ? INSET : 0);
+                        const leftPx =
+                          startIdx * W_DAY + (isBarStart ? INSET : 0);
+                        const rightPx =
+                          (days.length - 1 - endIdx) * W_DAY +
+                          (isBarEnd ? INSET : 0);
 
                         return (
                           <button
@@ -442,17 +534,29 @@ export default function CalendrierPage() {
                               right: rightPx,
                               height: BAR_H,
                               zIndex: 15,
-                              background: isActive && color ? color.bg : "rgba(148,163,184,0.12)",
+                              background:
+                                isActive && color
+                                  ? color.bg
+                                  : "rgba(148,163,184,0.12)",
                               borderRadius: `${isBarStart ? 8 : 0}px ${isBarEnd ? 8 : 0}px ${isBarEnd ? 8 : 0}px ${isBarStart ? 8 : 0}px`,
-                              borderLeft:  isBarStart && color ? `3px solid ${color.pill}` : "none",
+                              borderLeft:
+                                isBarStart && color
+                                  ? `3px solid ${color.pill}`
+                                  : "none",
                               cursor: "pointer",
                               transition: "background 120ms",
                             }}
-                            onMouseEnter={e => {
-                              if (color) (e.currentTarget as HTMLElement).style.background = color.hover;
+                            onMouseEnter={(e) => {
+                              if (color)
+                                (
+                                  e.currentTarget as HTMLElement
+                                ).style.background = color.hover;
                             }}
-                            onMouseLeave={e => {
-                              if (color) (e.currentTarget as HTMLElement).style.background = color.bg;
+                            onMouseLeave={(e) => {
+                              if (color)
+                                (
+                                  e.currentTarget as HTMLElement
+                                ).style.background = color.bg;
                             }}
                             className="flex items-center gap-1.5 px-2 overflow-hidden"
                           >
@@ -467,7 +571,8 @@ export default function CalendrierPage() {
                                   className="text-[11px] font-semibold truncate"
                                   style={{ color: color.text }}
                                 >
-                                  {booking.guestFirstName} {booking.guestLastName[0]}.
+                                  {booking.guestFirstName}{" "}
+                                  {booking.guestLastName[0]}.
                                 </span>
                                 {barSpan >= W_DAY * 4 && (
                                   <span
@@ -482,7 +587,8 @@ export default function CalendrierPage() {
                             )}
                             {isBarStart && !isActive && (
                               <span className="text-[10px] font-medium text-slate-400 truncate">
-                                {booking.guestFirstName} {booking.guestLastName[0]}.
+                                {booking.guestFirstName}{" "}
+                                {booking.guestLastName[0]}.
                               </span>
                             )}
                           </button>
@@ -501,7 +607,9 @@ export default function CalendrierPage() {
       <DetailPanel
         isOpen={!!selected}
         onClose={() => setSelected(null)}
-        title={selected ? `${selected.guestFirstName} ${selected.guestLastName}` : ""}
+        title={
+          selected ? `${selected.guestFirstName} ${selected.guestLastName}` : ""
+        }
         subtitle={selected?.property.titleFr}
         footer={
           selected && (
@@ -532,7 +640,9 @@ export default function CalendrierPage() {
         {selected && sc && (
           <div className="p-5 space-y-5">
             {/* Status */}
-            <span className={`inline-flex px-2 py-0.5 rounded text-[10px] font-bold border ${sc.cls}`}>
+            <span
+              className={`inline-flex px-2 py-0.5 rounded text-[10px] font-bold border ${sc.cls}`}
+            >
               {sc.label}
             </span>
 
@@ -546,7 +656,9 @@ export default function CalendrierPage() {
                   {selected.guestFirstName} {selected.guestLastName}
                 </p>
                 {selected.guestEmail && (
-                  <p className="text-[11px] text-slate-400 truncate">{selected.guestEmail}</p>
+                  <p className="text-[11px] text-slate-400 truncate">
+                    {selected.guestEmail}
+                  </p>
                 )}
               </div>
             </div>
@@ -556,12 +668,16 @@ export default function CalendrierPage() {
               <div className="flex items-start gap-3">
                 <MapPin className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-[10px] font-medium text-slate-400 mb-0.5">Logement</p>
+                  <p className="text-[10px] font-medium text-slate-400 mb-0.5">
+                    Logement
+                  </p>
                   <p className="text-xs font-semibold text-slate-800 dark:text-slate-200">
                     {selected.property.titleFr}
                   </p>
                   {selected.property.city && (
-                    <p className="text-[10px] text-slate-400">{selected.property.city}</p>
+                    <p className="text-[10px] text-slate-400">
+                      {selected.property.city}
+                    </p>
                   )}
                 </div>
               </div>
@@ -569,14 +685,20 @@ export default function CalendrierPage() {
               <div className="flex items-start gap-3">
                 <CalendarDays className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
                 <div>
-                  <p className="text-[10px] font-medium text-slate-400 mb-1">Séjour</p>
+                  <p className="text-[10px] font-medium text-slate-400 mb-1">
+                    Séjour
+                  </p>
                   <div className="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200">
                     <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
-                      {format(parseISO(selected.checkIn), "dd MMM", { locale: fr })}
+                      {format(parseISO(selected.checkIn), "dd MMM", {
+                        locale: fr,
+                      })}
                     </span>
                     <span className="text-slate-300">→</span>
                     <span className="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 rounded">
-                      {format(parseISO(selected.checkOut), "dd MMM", { locale: fr })}
+                      {format(parseISO(selected.checkOut), "dd MMM", {
+                        locale: fr,
+                      })}
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-400 mt-1 flex items-center gap-1">
@@ -586,11 +708,14 @@ export default function CalendrierPage() {
                 </div>
               </div>
 
-              {(selected.totalAmountGross != null || selected.totalAmountNet != null) && (
+              {(selected.totalAmountGross != null ||
+                selected.totalAmountNet != null) && (
                 <div className="flex items-start gap-3">
                   <TrendingUp className="w-3.5 h-3.5 text-slate-400 mt-0.5 shrink-0" />
                   <div className="flex-1">
-                    <p className="text-[10px] font-medium text-slate-400 mb-2">Financier</p>
+                    <p className="text-[10px] font-medium text-slate-400 mb-2">
+                      Financier
+                    </p>
                     <div className="p-3 bg-slate-50 dark:bg-slate-950 rounded-lg border border-slate-100 dark:border-slate-800 space-y-1.5">
                       {selected.totalAmountGross != null && (
                         <div className="flex justify-between text-[11px]">
@@ -604,7 +729,9 @@ export default function CalendrierPage() {
                         <>
                           <div className="h-px bg-slate-200 dark:bg-slate-700" />
                           <div className="flex justify-between text-xs">
-                            <span className="font-semibold text-slate-700 dark:text-slate-300">Net propriétaire</span>
+                            <span className="font-semibold text-slate-700 dark:text-slate-300">
+                              Net propriétaire
+                            </span>
                             <span className="font-bold text-primary">
                               {selected.totalAmountNet.toFixed(2)} €
                             </span>

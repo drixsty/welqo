@@ -2,7 +2,14 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Home, MapPin, Users, AlertCircle, ExternalLink, BedDouble } from "lucide-react";
+import {
+  Home,
+  MapPin,
+  Users,
+  AlertCircle,
+  ExternalLink,
+  BedDouble,
+} from "lucide-react";
 import { fetchApi } from "../../../../lib/api";
 import { useAuthGuard } from "../../../../lib/useAuthGuard";
 import { Button } from "@welqo/ui";
@@ -66,7 +73,8 @@ export default function LogementsPage() {
             Mes logements
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            {properties.length} bien{properties.length !== 1 ? "s" : ""} sous gestion Welqo
+            {properties.length} bien{properties.length !== 1 ? "s" : ""} sous
+            gestion Welqo
           </p>
         </div>
         <div className="h-px bg-slate-100 dark:bg-slate-800/60" />
@@ -87,14 +95,16 @@ export default function LogementsPage() {
               Aucun logement configuré
             </h2>
             <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs">
-              Contactez votre city manager Welqo pour ajouter vos biens à la plateforme.
+              Contactez votre city manager Welqo pour ajouter vos biens à la
+              plateforme.
             </p>
           </div>
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
           {properties.map((p, i) => {
-            const cover = p.photos?.find((ph) => ph.isCover)?.url ?? p.photos?.[0]?.url;
+            const cover =
+              p.photos?.find((ph) => ph.isCover)?.url ?? p.photos?.[0]?.url;
             const status = STATUS_LABELS[p.status] ?? STATUS_LABELS.INACTIVE;
             return (
               <motion.div
@@ -118,7 +128,9 @@ export default function LogementsPage() {
                       </div>
                     )}
                     <div className="absolute top-3 right-3">
-                      <span className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border shadow-sm ${status.cls}`}>
+                      <span
+                        className={`px-2 py-0.5 rounded-lg text-[10px] font-bold border shadow-sm ${status.cls}`}
+                      >
                         {status.label}
                       </span>
                     </div>
@@ -130,7 +142,8 @@ export default function LogementsPage() {
                       {p.titleFr}
                     </h3>
                     <p className="text-[11px] text-slate-500 dark:text-slate-400 flex items-center gap-1 mb-4">
-                      <MapPin className="w-3 h-3 text-primary" /> {p.city}, France
+                      <MapPin className="w-3 h-3 text-primary" /> {p.city},
+                      France
                     </p>
 
                     <div className="flex items-center gap-4 text-[11px] text-slate-500 dark:text-slate-400 mb-4 pb-4 border-b border-slate-100 dark:border-slate-800">
@@ -142,7 +155,9 @@ export default function LogementsPage() {
                       </span>
                       <span className="ml-auto text-base font-bold text-slate-900 dark:text-white">
                         {p.basePricePerNight}€
-                        <span className="text-[10px] text-slate-400 font-medium ml-0.5">/nuit</span>
+                        <span className="text-[10px] text-slate-400 font-medium ml-0.5">
+                          /nuit
+                        </span>
                       </span>
                     </div>
 

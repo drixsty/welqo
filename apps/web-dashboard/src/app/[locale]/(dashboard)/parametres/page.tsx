@@ -23,7 +23,10 @@ export default function ParametresPage() {
       icon: User,
       primary: false,
       items: [
-        { label: "Nom complet", value: owner ? `${owner.firstName} ${owner.lastName}` : "—" },
+        {
+          label: "Nom complet",
+          value: owner ? `${owner.firstName} ${owner.lastName}` : "—",
+        },
         { label: "Email", value: owner?.email ?? "—" },
         { label: "Rôle", value: owner?.role ?? "Propriétaire" },
       ],
@@ -70,7 +73,9 @@ export default function ParametresPage() {
           </div>
           <div className="flex-1 text-center sm:text-left">
             <p className="text-sm font-semibold tracking-tight">
-              {owner ? `${owner.firstName} ${owner.lastName}` : "Utilisateur Welqo"}
+              {owner
+                ? `${owner.firstName} ${owner.lastName}`
+                : "Utilisateur Welqo"}
             </p>
             <div className="flex items-center justify-center sm:justify-start gap-1.5 text-slate-400 text-[11px] mt-0.5">
               <Mail className="w-3 h-3" />

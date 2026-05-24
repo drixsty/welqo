@@ -35,7 +35,13 @@ const item = {
   },
 };
 
-const StatCard = ({ label, value, icon: Icon, trend, trendType }: StatCardProps) => (
+const StatCard = ({
+  label,
+  value,
+  icon: Icon,
+  trend,
+  trendType,
+}: StatCardProps) => (
   <motion.div variants={item}>
     <div className="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-lg p-4">
       <div className="flex items-center justify-between mb-3">
@@ -94,11 +100,7 @@ export const KPIStats = ({ stats }: { stats: any }) => {
         trend="-2.1%"
         trendType="negative"
       />
-      <StatCard
-        label="Performance marché"
-        value="Top 5%"
-        icon={BarChart3}
-      />
+      <StatCard label="Performance marché" value="Top 5%" icon={BarChart3} />
     </motion.div>
   );
 };

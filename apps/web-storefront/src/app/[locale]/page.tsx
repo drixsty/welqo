@@ -728,10 +728,10 @@ export default async function HomePage({
       ══════════════════════════════════════════════════════ */}
       <section className="py-12 px-4 bg-white dark:bg-black overflow-hidden">
         <div className="max-w-5xl mx-auto">
-          <div className="relative rounded-lg overflow-hidden border border-slate-100 dark:border-slate-800 bg-slate-950 p-6 md:p-12 group/card">
+          <div className="relative rounded-2xl md:rounded-3xl overflow-hidden border border-slate-100 dark:border-slate-800 bg-slate-950 p-6 sm:p-10 lg:p-14 group/card">
             <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-welqo-terracotta/5 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/2 pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-            <div className="relative z-10 flex flex-col md:flex-row gap-12 items-center">
+            <div className="relative z-10 flex flex-col md:flex-row gap-10 md:gap-8 lg:gap-16 items-stretch md:items-center">
               <div className="flex-grow text-center md:text-left">
                 <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 bg-welqo-terracotta/10 border border-welqo-terracotta/20 text-welqo-terracotta rounded-full">
                   <span className="relative flex h-2 w-2">
@@ -742,17 +742,17 @@ export default async function HomePage({
                     {t("pricingBadge")}
                   </span>
                 </div>
-                <h2 className="text-white text-3xl md:text-5xl font-bold tracking-tighter mb-4 leading-[1.1]">
+                <h2 className="text-white text-2xl xs:text-3xl sm:text-4xl md:text-4xl lg:text-5xl font-bold tracking-tighter mb-4 leading-[1.1]">
                   {t("pricingTitle1")}
                   <br />
                   <span className="text-welqo-terracotta">
                     {t("pricingTitle2")}
                   </span>
                 </h2>
-                <p className="text-slate-400 font-medium leading-relaxed mb-10 text-sm max-w-md">
+                <p className="text-slate-400 font-medium leading-relaxed mb-10 text-sm max-w-md mx-auto md:mx-0">
                   {t("pricingSubtitle")}
                 </p>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-4">
+                <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-x-6 lg:gap-x-8 gap-y-3.5 lg:gap-y-4 max-w-md xs:max-w-none mx-auto md:mx-0">
                   {Array.from({ length: 8 }, (_, i) =>
                     t(`pricingFeature_${i}` as any),
                   ).map((f) => (
@@ -772,14 +772,14 @@ export default async function HomePage({
                           />
                         </svg>
                       </div>
-                      <span className="text-xs text-slate-300 font-medium">
+                      <span className="text-[13px] text-slate-300 font-medium">
                         {f}
                       </span>
                     </div>
                   ))}
                 </div>
               </div>
-              <div className="shrink-0 w-full md:w-72 bg-slate-900/40 border border-white/5 rounded-lg p-8 md:p-10 text-center relative overflow-hidden backdrop-blur-xl transition-all duration-700">
+              <div className="shrink-0 w-full md:w-72 lg:w-80 max-w-sm md:max-w-none mx-auto md:mx-0 bg-slate-900/40 border border-white/5 rounded-2xl p-6 sm:p-8 lg:p-10 text-center relative overflow-hidden backdrop-blur-xl transition-all duration-700">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-welqo-terracotta/40 to-transparent" />
                 <div className="relative z-10 mb-8">
                   <span className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em]">
@@ -807,7 +807,7 @@ export default async function HomePage({
                 <div className="relative z-10 w-full h-px bg-gradient-to-r from-transparent via-white/5 to-transparent mb-8" />
                 <a
                   href="#contact"
-                  className="relative z-10 block w-full py-4 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-lg font-bold text-sm shadow-xl shadow-welqo-terracotta/20 transition-all duration-300 hover:-translate-y-1 active:scale-95"
+                  className="relative z-10 block w-full py-4 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-lg font-bold text-sm shadow-xl shadow-welqo-terracotta/20 transition-all duration-300 hover:-translate-y-1 active:scale-95 animate-pulse-soft"
                 >
                   {t("pricingCta")}
                 </a>

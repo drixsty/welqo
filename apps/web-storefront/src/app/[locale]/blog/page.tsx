@@ -12,6 +12,12 @@ const CATEGORY_STYLE: Record<string, string> = {
   Stratégie: "bg-purple-500/10 text-purple-600 border-purple-500/20",
 };
 
+const CATEGORY_I18N_KEY: Record<string, string> = {
+  Rentabilité: "cat_Rentabilite",
+  Guide: "cat_Guide",
+  Stratégie: "cat_Strategie",
+};
+
 export async function generateMetadata({
   params: { locale },
 }: {
@@ -41,11 +47,12 @@ export async function generateMetadata({
             "airbnb revenue northern france",
           ],
     alternates: {
-      canonical: `${BASE_URL}/${locale}/blog`,
+      canonical:
+        locale === "fr" ? `${BASE_URL}/blog` : `${BASE_URL}/${locale}/blog`,
       languages: {
-        fr: `${BASE_URL}/fr/blog`,
+        fr: `${BASE_URL}/blog`,
         en: `${BASE_URL}/en/blog`,
-        "x-default": `${BASE_URL}/fr/blog`,
+        "x-default": `${BASE_URL}/blog`,
       },
     },
     openGraph: {
@@ -57,7 +64,7 @@ export async function generateMetadata({
         locale !== "en"
           ? "Guides et études de marché pour rentabiliser votre Airbnb en Hauts-de-France."
           : "Guides and market studies to maximise your Airbnb in Hauts-de-France.",
-      url: `${BASE_URL}/${locale}/blog`,
+      url: locale === "fr" ? `${BASE_URL}/blog` : `${BASE_URL}/${locale}/blog`,
       siteName: "Welqo",
       type: "website",
       images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630 }],
@@ -83,13 +90,14 @@ export default async function BlogPage({
         "@type": "ListItem",
         position: 1,
         name: "Accueil",
-        item: `${BASE_URL}/${locale}`,
+        item: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: `${BASE_URL}/${locale}/blog`,
+        item:
+          locale === "fr" ? `${BASE_URL}/blog` : `${BASE_URL}/${locale}/blog`,
       },
     ],
   };
@@ -101,12 +109,15 @@ export default async function BlogPage({
       locale !== "en"
         ? "Blog Welqo — Conseils Airbnb Hauts-de-France"
         : "Welqo Blog — Airbnb Hauts-de-France Tips",
-    url: `${BASE_URL}/${locale}/blog`,
+    url: locale === "fr" ? `${BASE_URL}/blog` : `${BASE_URL}/${locale}/blog`,
     publisher: { "@type": "Organization", name: "Welqo", url: BASE_URL },
     blogPost: BLOG_POSTS.map((p) => ({
       "@type": "BlogPosting",
       headline: locale !== "en" ? p.titleFr : p.titleEn,
-      url: `${BASE_URL}/${locale}/blog/${p.slug}`,
+      url:
+        locale === "fr"
+          ? `${BASE_URL}/blog/${p.slug}`
+          : `${BASE_URL}/${locale}/blog/${p.slug}`,
       datePublished: p.publishedAt,
       dateModified: p.updatedAt ?? p.publishedAt,
     })),
@@ -172,7 +183,7 @@ export default async function BlogPage({
                     key={cat}
                     className={`px-4 py-1 rounded-full text-[10px] font-bold border ${CATEGORY_STYLE[cat] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}
                   >
-                    {cat}
+                    {t(CATEGORY_I18N_KEY[cat] ?? cat)}
                   </span>
                 ))}
               </div>
@@ -197,7 +208,7 @@ export default async function BlogPage({
                     <span
                       className={`px-3 py-1 rounded-full text-[10px] font-bold border backdrop-blur-md ${CATEGORY_STYLE[featured.category] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}
                     >
-                      {featured.category}
+                      {t(CATEGORY_I18N_KEY[featured.category] ?? featured.category)}
                     </span>
                   </div>
                 </div>
@@ -269,7 +280,7 @@ export default async function BlogPage({
                         "bg-slate-100 text-slate-600 border-slate-200"
                       }`}
                     >
-                      {post.category}
+                      {t(CATEGORY_I18N_KEY[post.category] ?? post.category)}
                     </span>
                     <h3 className="text-lg font-bold text-slate-900 dark:text-white leading-tight tracking-tight group-hover:text-welqo-terracotta transition-colors line-clamp-2">
                       {locale !== "en" ? post.titleFr : post.titleEn}

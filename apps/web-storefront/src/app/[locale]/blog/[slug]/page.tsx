@@ -10,6 +10,7 @@ import { ArticleCombienRapporteAirbnbLille } from "../../../../components/blog/A
 import { ArticleChecklistLancerAirbnb } from "../../../../components/blog/ArticleChecklistLancerAirbnb";
 import { ArticleMeilleursQuartiers } from "../../../../components/blog/ArticleMeilleursQuartiers";
 import { ArticleConciergerieLensArras } from "../../../../components/blog/ArticleConciergerieLensArras";
+import { ArticleReglementationHautsDeFrance } from "../../../../components/blog/ArticleReglementationHautsDeFrance";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -51,6 +52,13 @@ const TOC_MAP: Record<string, TocItem[]> = {
     { id: "conciergerie", key: "toc_conciergerie_lens" },
     { id: "conclusion", key: "toc_conclusion" },
   ],
+  "reglementation-airbnb-lille-hauts-de-france": [
+    { id: "regles-120-jours", key: "toc_120_days" },
+    { id: "numero-enregistrement", key: "toc_registration" },
+    { id: "changement-usage", key: "toc_change_use" },
+    { id: "fiscalite-taxe", key: "toc_taxation" },
+    { id: "onboarding-welqo", key: "toc_compliance" },
+  ],
 };
 
 const ARTICLE_MAP: Record<string, React.ComponentType<{ locale: string }>> = {
@@ -58,6 +66,8 @@ const ARTICLE_MAP: Record<string, React.ComponentType<{ locale: string }>> = {
   "checklist-lancer-airbnb-lille": ArticleChecklistLancerAirbnb,
   "meilleurs-quartiers-airbnb-lille": ArticleMeilleursQuartiers,
   "conciergerie-airbnb-lens-arras-bassin-minier": ArticleConciergerieLensArras,
+  "reglementation-airbnb-lille-hauts-de-france":
+    ArticleReglementationHautsDeFrance,
 };
 
 export function generateStaticParams() {
@@ -78,11 +88,14 @@ export async function generateMetadata({
     keywords: locale !== "en" ? post.keywordsFr : post.keywordsEn,
     authors: [{ name: "Welqo" }],
     alternates: {
-      canonical: `${BASE_URL}/${locale}/blog/${slug}`,
+      canonical:
+        locale === "fr"
+          ? `${BASE_URL}/blog/${slug}`
+          : `${BASE_URL}/${locale}/blog/${slug}`,
       languages: {
-        fr: `${BASE_URL}/fr/blog/${slug}`,
+        fr: `${BASE_URL}/blog/${slug}`,
         en: `${BASE_URL}/en/blog/${slug}`,
-        "x-default": `${BASE_URL}/fr/blog/${slug}`,
+        "x-default": `${BASE_URL}/blog/${slug}`,
       },
     },
     openGraph: {
@@ -136,7 +149,10 @@ export default async function BlogPostPage({
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `${BASE_URL}/${locale}/blog/${slug}`,
+      "@id":
+        locale === "fr"
+          ? `${BASE_URL}/blog/${slug}`
+          : `${BASE_URL}/${locale}/blog/${slug}`,
     },
     keywords: (locale !== "en" ? post.keywordsFr : post.keywordsEn).join(", "),
   };
@@ -149,13 +165,14 @@ export default async function BlogPostPage({
         "@type": "ListItem",
         position: 1,
         name: t("home"),
-        item: `${BASE_URL}/${locale}`,
+        item: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Blog",
-        item: `${BASE_URL}/${locale}/blog`,
+        item:
+          locale === "fr" ? `${BASE_URL}/blog` : `${BASE_URL}/${locale}/blog`,
       },
       {
         "@type": "ListItem",

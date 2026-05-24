@@ -104,6 +104,35 @@ export const BLOG_POSTS: BlogPost[] = [
       "https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop",
     coverImageAlt: "Lens et Arras — opportunités Airbnb Hauts-de-France",
   },
+  {
+    slug: "reglementation-airbnb-lille-hauts-de-france",
+    titleFr:
+      "Réglementation Airbnb à Lille & Hauts-de-France : Le Guide Complet 2026",
+    titleEn:
+      "Airbnb Regulations in Lille & Northern France: The Complete 2026 Guide",
+    descriptionFr:
+      "Changement d'usage, limite de 120 jours, numéro d'enregistrement obligatoire, taxe de séjour… Tout pour louer votre Airbnb en toute légalité dans le Nord.",
+    descriptionEn:
+      "Change of use, 120-day limit, mandatory registration number, tourist tax... Everything to legally rent your Airbnb in Lille & Northern France.",
+    publishedAt: "2026-05-24",
+    readingMinutes: 7,
+    category: "Guide",
+    keywordsFr: [
+      "reglementation airbnb lille 2026",
+      "numero enregistrement airbnb lille",
+      "changement usage location courte duree lille",
+      "taxe de sejour airbnb lille",
+    ],
+    keywordsEn: [
+      "airbnb regulations lille",
+      "lille airbnb laws 2026",
+      "short term rental rules northern france",
+    ],
+    coverImage:
+      "https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2070&auto=format&fit=crop",
+    coverImageAlt:
+      "Réglementation location saisonnière Lille — Welqo Conciergerie",
+  },
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {

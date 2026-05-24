@@ -19,7 +19,7 @@ export default async function MentionsLegalesPage({
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations("MentionsLegales");
+  const t = await getTranslations({ locale, namespace: "MentionsLegales" });
   const base = `/${locale}`;
 
   const SECTIONS = [

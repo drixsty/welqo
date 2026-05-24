@@ -1,6 +1,6 @@
 import React from "react";
 
-const QUARTIERS = [
+const QUARTIERS_FR = [
   {
     rank: "01",
     name: "Vieux-Lille",
@@ -64,8 +64,106 @@ const QUARTIERS = [
   },
 ];
 
+const QUARTIERS_EN = [
+  {
+    rank: "01",
+    name: "Vieux-Lille",
+    score: 95,
+    prixMoyen: "135 €",
+    tauxOcc: "82 %",
+    revenuMois: "2,100 €",
+    profil: "Tourists, couples, cultural weekends",
+    atout: "Historic charm, Michelin-starred restaurants, luxury boutiques",
+    limite: "High acquisition price (€5,500–7,000/sqm)",
+    accentBg: "bg-blue-600",
+  },
+  {
+    rank: "02",
+    name: "Euralille / Centre",
+    score: 88,
+    prixMoyen: "120 €",
+    tauxOcc: "79 %",
+    revenuMois: "1,900 €",
+    profil: "Business travelers, short stays",
+    atout:
+      "Walking distance to Lille-Europe station, Eurostar, direct access Brussels/London",
+    limite: "Less picturesque environment than Vieux-Lille",
+    accentBg: "bg-indigo-600",
+  },
+  {
+    rank: "03",
+    name: "Wazemmes",
+    score: 80,
+    prixMoyen: "105 €",
+    tauxOcc: "74 %",
+    revenuMois: "1,650 €",
+    profil: "Young professionals, families, alternative stays",
+    atout: "Unique atmosphere, Sunday market, affordable acquisition prices",
+    limite: "Less premium demand than Vieux-Lille",
+    accentBg: "bg-violet-600",
+  },
+  {
+    rank: "04",
+    name: "Vauban",
+    score: 74,
+    prixMoyen: "95 €",
+    tauxOcc: "70 %",
+    revenuMois: "1,480 €",
+    profil: "Students, families, long term stays",
+    atout: "Quiet residential neighborhood, close to Lille University",
+    limite: "Vacancy peaks in summer (student departures)",
+    accentBg: "bg-purple-600",
+  },
+  {
+    rank: "05",
+    name: "Moulins",
+    score: 66,
+    prixMoyen: "88 €",
+    tauxOcc: "68 %",
+    revenuMois: "1,350 €",
+    profil: "Low budgets, utility stays",
+    atout:
+      "Very affordable acquisition prices, high potential for appreciation",
+    limite: "Lower occupancy rate, less premium image",
+    accentBg: "bg-slate-700",
+  },
+];
+
 export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
   const base = `/${locale}`;
+  const isEn = locale === "en";
+
+  const quartiers = isEn ? QUARTIERS_EN : QUARTIERS_FR;
+
+  const recCards = isEn
+    ? [
+        {
+          title: "Maximum yield",
+          icon: "🏆",
+          rec: "Vieux-Lille / Euralille",
+          detail: "High acquisition price, but record rental income.",
+        },
+        {
+          title: "Limited budget",
+          icon: "💡",
+          rec: "Wazemmes / Vauban",
+          detail: "Best purchase price / rental revenue ratio.",
+        },
+      ]
+    : [
+        {
+          title: "Rendement maximum",
+          icon: "🏆",
+          rec: "Vieux-Lille / Euralille",
+          detail: "Prix élevé, mais revenus records.",
+        },
+        {
+          title: "Budget limité",
+          icon: "💡",
+          rec: "Wazemmes / Vauban",
+          detail: "Meilleurs rapports prix d'achat / revenus.",
+        },
+      ];
 
   return (
     <article className="relative">
@@ -74,15 +172,18 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
         id="classement"
         className="text-3xl font-bold text-slate-900 dark:text-white tracking-tighter mt-16 mb-8 scroll-mt-28"
       >
-        Classement des quartiers les plus rentables
+        {isEn
+          ? "Ranking of the most profitable neighborhoods"
+          : "Classement des quartiers les plus rentables"}
       </h2>
       <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-10 text-[15px]">
-        Analyse basée sur les données AirDNA et les performances réelles des
-        biens gérés par Welqo à Lille (T1 2025).
+        {isEn
+          ? "Analysis based on AirDNA data and actual performance of properties managed by Welqo in Lille (Q1 2025)."
+          : "Analyse basée sur les données AirDNA et les performances réelles des biens gérés par Welqo à Lille (T1 2025)."}
       </p>
 
       <div className="space-y-6 mb-16">
-        {QUARTIERS.map((q) => (
+        {quartiers.map((q) => (
           <div
             key={q.name}
             className="rounded-xl border border-slate-100 dark:border-white/5 overflow-hidden bg-white dark:bg-slate-900 shadow-sm"
@@ -107,9 +208,18 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
             {/* Stats row */}
             <div className="grid grid-cols-3 divide-x divide-slate-100 dark:divide-white/5 border-b border-slate-100 dark:border-white/5">
               {[
-                { label: "Prix moyen / nuit", val: q.prixMoyen },
-                { label: "Taux d'occupation", val: q.tauxOcc },
-                { label: "Revenu brut / mois", val: q.revenuMois },
+                {
+                  label: isEn ? "Avg. price / night" : "Prix moyen / nuit",
+                  val: q.prixMoyen,
+                },
+                {
+                  label: isEn ? "Occupancy rate" : "Taux d'occupation",
+                  val: q.tauxOcc,
+                },
+                {
+                  label: isEn ? "Gross revenue / month" : "Revenu brut / mois",
+                  val: q.revenuMois,
+                },
               ].map(({ label, val }) => (
                 <div
                   key={label}
@@ -139,7 +249,7 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
                 </span>
               </div>
               <div className="sm:col-span-2 text-[10px] text-slate-400 italic pt-1 border-t border-slate-50 dark:border-white/5">
-                Profil cible : {q.profil}
+                {isEn ? "Target profile" : "Profil cible"} : {q.profil}
               </div>
             </div>
           </div>
@@ -151,24 +261,13 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
         id="choisir"
         className="text-xl font-bold text-slate-900 dark:text-white tracking-tighter mt-12 mb-6 scroll-mt-28"
       >
-        Choisir selon votre profil d'investisseur
+        {isEn
+          ? "Choose according to your investor profile"
+          : "Choisir selon votre profil d'investisseur"}
       </h2>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-12">
-        {[
-          {
-            title: "Rendement maximum",
-            icon: "🏆",
-            rec: "Vieux-Lille / Euralille",
-            detail: "Prix élevé, mais revenus records.",
-          },
-          {
-            title: "Budget limité",
-            icon: "💡",
-            rec: "Wazemmes / Vauban",
-            detail: "Meilleurs rapports prix d'achat / revenus.",
-          },
-        ].map(({ title, icon, rec, detail }) => (
+        {recCards.map(({ title, icon, rec, detail }) => (
           <div
             key={title}
             className="p-4 rounded-lg border border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-white/5"
@@ -194,13 +293,19 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
         id="gestion-pro"
         className="text-2xl font-bold text-slate-900 dark:text-white tracking-tighter mt-20 mb-8 scroll-mt-28"
       >
-        L'impact de la gestion professionnelle
+        {isEn
+          ? "The impact of professional management"
+          : "L'impact de la gestion professionnelle"}
       </h2>
 
       <div className="my-10 p-5 bg-slate-900 dark:bg-slate-950/50 rounded-lg border border-white/5">
         <div className="grid grid-cols-2 gap-3 mb-4">
           {[
-            { label: "Amateur", val: "-25 %", color: "text-slate-400" },
+            {
+              label: isEn ? "Self-managed" : "Amateur",
+              val: "-25 %",
+              color: "text-slate-400",
+            },
             { label: "Welqo", val: "+38 %", color: "text-welqo-terracotta" },
           ].map(({ label, val, color }) => (
             <div
@@ -217,19 +322,36 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
           ))}
         </div>
         <p className="text-slate-500 text-[11px] leading-relaxed text-center italic">
-          Gain moyen constaté lors d'une reprise de gestion.
+          {isEn
+            ? "Average gain observed when transferring management to Welqo."
+            : "Gain moyen constaté lors d'une reprise de gestion."}
         </p>
       </div>
 
       <p className="text-slate-600 dark:text-slate-400 text-[14px] leading-relaxed mt-10">
-        Quel que soit le quartier choisi, Welqo optimise chaque détail pour
-        transformer votre investissement en succès.{" "}
-        <a
-          href={`${base}/proprietaires`}
-          className="text-welqo-terracotta font-bold hover:underline"
-        >
-          Optimisez vos revenus en Hauts-de-France dès maintenant →
-        </a>
+        {isEn ? (
+          <>
+            Whichever district you choose, Welqo optimizes every detail to
+            transform your investment into a success.{" "}
+            <a
+              href={`${base}/proprietaires`}
+              className="text-welqo-terracotta font-bold hover:underline"
+            >
+              Optimize your Northern France income now →
+            </a>
+          </>
+        ) : (
+          <>
+            Quel que soit le quartier choisi, Welqo optimise chaque détail pour
+            transformer votre investissement en succès.{" "}
+            <a
+              href={`${base}/proprietaires`}
+              className="text-welqo-terracotta font-bold hover:underline"
+            >
+              Optimisez vos revenus en Hauts-de-France dès maintenant →
+            </a>
+          </>
+        )}
       </p>
     </article>
   );

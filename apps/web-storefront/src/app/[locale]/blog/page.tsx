@@ -70,7 +70,7 @@ export default async function BlogPage({
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations("Blog");
+  const t = await getTranslations({ locale, namespace: "Blog" });
   const base = `/${locale}`;
   const featured = BLOG_POSTS[0];
   const rest = BLOG_POSTS.slice(1);

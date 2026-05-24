@@ -21,35 +21,35 @@ const CATEGORY_STYLE: Record<string, string> = {
 
 interface TocItem {
   id: string;
-  title: string;
+  key: string;
 }
 
 const TOC_MAP: Record<string, TocItem[]> = {
   "combien-rapporte-airbnb-lille-2025": [
-    { id: "revenus-moyens", title: "Revenus moyens à Lille" },
-    { id: "par-quartier", title: "Données par quartier" },
-    { id: "facteurs", title: "Facteurs de rentabilité" },
-    { id: "conciergerie", title: "Faut-il une conciergerie ?" },
-    { id: "reglementation", title: "Réglementation 2025" },
-    { id: "conclusion", title: "Conclusion" },
+    { id: "revenus-moyens", key: "toc_revenus_moyens" },
+    { id: "par-quartier", key: "toc_par_quartier" },
+    { id: "facteurs", key: "toc_facteurs" },
+    { id: "conciergerie", key: "toc_conciergerie" },
+    { id: "reglementation", key: "toc_reglementation" },
+    { id: "conclusion", key: "toc_conclusion" },
   ],
   "checklist-lancer-airbnb-lille": [
-    { id: "etapes", title: "Les 6 étapes essentielles" },
-    { id: "erreurs", title: "Erreurs fréquentes" },
-    { id: "solo-vs-conciergerie", title: "Solo vs conciergerie" },
+    { id: "etapes", key: "toc_etapes" },
+    { id: "erreurs", key: "toc_erreurs" },
+    { id: "solo-vs-conciergerie", key: "toc_solo_vs_conciergerie" },
   ],
   "meilleurs-quartiers-airbnb-lille": [
-    { id: "classement", title: "Classement des quartiers" },
-    { id: "choisir", title: "Choisir selon son profil" },
-    { id: "gestion-pro", title: "Impact de la gestion pro" },
+    { id: "classement", key: "toc_classement" },
+    { id: "choisir", key: "toc_choisir" },
+    { id: "gestion-pro", key: "toc_gestion_pro" },
   ],
   "conciergerie-airbnb-lens-arras-bassin-minier": [
-    { id: "louvre-lens", title: "L'effet Louvre-Lens" },
-    { id: "rc-lens-matchs", title: "RC Lens : nuits de match" },
-    { id: "lens-vs-arras", title: "Lens vs Arras" },
-    { id: "rentabilite", title: "Rentabilité estimée 2025" },
-    { id: "conciergerie", title: "Pourquoi une conciergerie ?" },
-    { id: "conclusion", title: "Conclusion" },
+    { id: "louvre-lens", key: "toc_louvre_lens" },
+    { id: "rc-lens-matchs", key: "toc_rc_lens" },
+    { id: "lens-vs-arras", key: "toc_lens_vs_arras" },
+    { id: "rentabilite", key: "toc_rentabilite" },
+    { id: "conciergerie", key: "toc_conciergerie_lens" },
+    { id: "conclusion", key: "toc_conclusion" },
   ],
 };
 
@@ -113,7 +113,7 @@ export default async function BlogPostPage({
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
-  const t = await getTranslations("Blog");
+  const t = await getTranslations({ locale, namespace: "Blog" });
   const base = `/${locale}`;
   const Article = ARTICLE_MAP[slug];
   const toc = TOC_MAP[slug] ?? [];
@@ -148,7 +148,7 @@ export default async function BlogPostPage({
       {
         "@type": "ListItem",
         position: 1,
-        name: "Accueil",
+        name: t("home"),
         item: `${BASE_URL}/${locale}`,
       },
       {
@@ -360,7 +360,7 @@ export default async function BlogPostPage({
                     <span className="text-slate-300 dark:text-slate-700 mr-3">
                       0{i + 1}
                     </span>
-                    {item.title}
+                    {t(item.key as any)}
                   </a>
                 ))}
               </nav>

@@ -18,6 +18,12 @@ const PIECES_OPTIONS = [
   { label: "T3 / Maison", mult: 1.45 },
 ];
 
+const PIECES_OPTIONS_EN = [
+  { label: "Studio", mult: 0.72 },
+  { label: "T2 / Loft", mult: 1.0 },
+  { label: "T3 / House", mult: 1.45 },
+];
+
 const MONTHS_FR = [
   "Janvier",
   "Février",
@@ -33,6 +39,21 @@ const MONTHS_FR = [
   "Décembre",
 ];
 
+const MONTHS_EN = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 export const InteractiveHeroDashboard = ({
   locale: _locale = "fr",
 }: {
@@ -43,10 +64,14 @@ export const InteractiveHeroDashboard = ({
   const [piecesIdx, setPiecesIdx] = useState(1);
   const [selectedMonthIdx, setSelectedMonthIdx] = useState<number | null>(null);
 
+  const isEn = _locale === "en";
+  const monthsName = isEn ? MONTHS_EN : MONTHS_FR;
+  const piecesOptions = isEn ? PIECES_OPTIONS_EN : PIECES_OPTIONS;
+
   // Computations
   const { revenue, occupancy, note, monthlyData } = useMemo(() => {
     const v = VILLES[villeIdx];
-    const p = PIECES_OPTIONS[piecesIdx];
+    const p = piecesOptions[piecesIdx];
     const baseRevenue = Math.round(v.base * p.mult);
 
     // Generate 12 months simulated seasonal data
@@ -114,7 +139,7 @@ export const InteractiveHeroDashboard = ({
 
         {/* Type Select — Compact layout matching left side, separated by thin vertical line */}
         <div className="flex items-center justify-between gap-0.5 border-l border-white/10 pl-2 shrink-0">
-          {PIECES_OPTIONS.map((p, i) => (
+          {piecesOptions.map((p, i) => (
             <button
               key={p.label}
               onClick={() => {
@@ -152,7 +177,7 @@ export const InteractiveHeroDashboard = ({
                   className="text-slate-500 text-[9px] font-black uppercase tracking-[0.2em]"
                 >
                   {selectedMonthIdx !== null
-                    ? `${t("estimatedRevenue")} — ${MONTHS_FR[selectedMonthIdx]}`
+                    ? `${t("estimatedRevenue")} — ${monthsName[selectedMonthIdx]}`
                     : t("avgMonthlyRevenue")}
                 </motion.p>
               </AnimatePresence>

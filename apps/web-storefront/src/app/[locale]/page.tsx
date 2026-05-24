@@ -7,6 +7,8 @@ import { InteractiveHeroDashboard } from "../../components/InteractiveHeroDashbo
 import { ContactForm } from "../../components/ContactForm";
 import { ScrollReveal } from "../../components/ScrollReveal";
 import { ScrollToTop } from "../../components/ScrollToTop";
+import { HeroAnimated } from "../../components/HeroAnimated";
+import { AnimatedCounter } from "../../components/AnimatedCounter";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -67,7 +69,7 @@ export default async function HomePage({
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations("HomePage");
+  const t = await getTranslations({ locale, namespace: "HomePage" });
   const base = `/${locale}`;
 
   const BENTO_SERVICES = [
@@ -209,7 +211,7 @@ export default async function HomePage({
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
-    serviceType: "Conciergerie Airbnb",
+    serviceType: locale === "en" ? "Airbnb Concierge" : "Conciergerie Airbnb",
     provider: {
       "@type": "LocalBusiness",
       name: "Welqo",
@@ -231,12 +233,16 @@ export default async function HomePage({
       { "@type": "City", name: "Tourcoing" },
     ],
     description:
-      "Gestion locative courte durée complète pour propriétaires Airbnb en Hauts-de-France. Commission 15-20%, sans frais fixe.",
+      locale === "en"
+        ? "Complete short-term rental management for Airbnb owners in Hauts-de-France. Commission 15-20%, no fixed fees."
+        : "Gestion locative courte durée complète pour propriétaires Airbnb en Hauts-de-France. Commission 15-20%, sans frais fixe.",
     offers: {
       "@type": "Offer",
       priceCurrency: "EUR",
       description:
-        "Commission entre 15% et 20% des revenus bruts. Sans frais fixe.",
+        locale === "en"
+          ? "Commission between 15% and 20% of gross income. No fixed fees."
+          : "Commission entre 15% et 20% des revenus bruts. Sans frais fixe.",
     },
   };
 
@@ -264,72 +270,24 @@ export default async function HomePage({
 
         <div className="relative z-10 flex-grow flex items-center w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center w-full">
-            {/* Left — Copy */}
-            <div className="animate-fade-up">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-full">
-                <span className="w-1.5 h-1.5 bg-welqo-terracotta rounded-full animate-pulse-soft" />
-                <span className="text-welqo-terracotta text-[9px] font-bold tracking-[0.15em] uppercase">
-                  {t("heroBadge")}
-                </span>
-              </div>
-
-              <h1 className="text-3xl md:text-5xl font-bold text-white tracking-tighter leading-[0.95] mb-3">
-                {t("heroTitle1")}
-                <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-welqo-terracotta to-orange-400">
-                  {t("heroTitle2")}
-                </span>
-              </h1>
-
-              <p
-                className="text-[14px] text-slate-400 max-w-md mb-5 leading-relaxed font-medium"
-                dangerouslySetInnerHTML={{ __html: t.raw("heroDesc") }}
-              />
-
-              <div className="flex flex-col sm:flex-row gap-3 mb-6">
-                <a
-                  href="#contact"
-                  className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-lg font-bold text-sm transition-all duration-200"
-                >
-                  {t("heroCta1")}
-                  <svg
-                    className="w-4 h-4 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2.5"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </a>
-                <a
-                  href="#comment-ca-marche"
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-lg font-bold text-sm transition-all duration-200"
-                >
-                  {t("heroCta2")}
-                </a>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2">
-                {[
-                  { icon: "✨", text: t("heroBadgeLaunch") },
-                  { icon: "🏠", text: t("heroBadgeStandard") },
-                  { icon: "📍", text: "Hauts-de-France" },
-                  { icon: "🔓", text: t("heroBadgeNoContract") },
-                ].map((c) => (
-                  <span
-                    key={c.text}
-                    className="inline-flex items-center gap-1.5 px-2.5 py-1 bg-white/5 border border-white/10 text-slate-400 rounded-full text-[10px] font-bold"
-                  >
-                    <span>{c.icon}</span> {c.text}
-                  </span>
-                ))}
-              </div>
-            </div>
+            {/* Left — Copy (animated) */}
+            <HeroAnimated
+              badge={t("heroBadge")}
+              title1={t("heroTitle1")}
+              title2={t("heroTitle2")}
+              desc={t.raw("heroDesc")}
+              cta1Label={t("heroCta1")}
+              cta2Label={t("heroCta2")}
+              cta1Href="#contact"
+              cta2Href="#comment-ca-marche"
+              chips={[
+                { icon: "✨", text: t("heroBadgeLaunch") },
+                { icon: "🏠", text: t("heroBadgeStandard") },
+                { icon: "📍", text: "Hauts-de-France" },
+                { icon: "🔓", text: t("heroBadgeNoContract") },
+              ]}
+              scrollLabel={t("scrollDiscover")}
+            />
 
             {/* Right — Interactive Dashboard mockup */}
             <div className="hidden lg:flex items-center justify-center relative">
@@ -788,9 +746,11 @@ export default async function HomePage({
                 </div>
                 <div className="relative z-10 mb-8">
                   <div className="flex items-center justify-center">
-                    <span className="text-white text-8xl font-bold tracking-tighter leading-none">
-                      20
-                    </span>
+                    <AnimatedCounter
+                      to={20}
+                      duration={1.8}
+                      className="text-white text-8xl font-bold tracking-tighter leading-none"
+                    />
                     <span className="text-welqo-terracotta text-3xl font-bold ml-1 mt-[-20px]">
                       %
                     </span>
@@ -941,9 +901,15 @@ export default async function HomePage({
             {[
               {
                 slug: "combien-rapporte-airbnb-lille-2025",
-                title: "Rentabilité Lille 2025",
-                desc: "Étude complète des revenus par quartier.",
-                category: "Étude",
+                title:
+                  locale === "en"
+                    ? "Lille Yield 2025"
+                    : "Rentabilité Lille 2025",
+                desc:
+                  locale === "en"
+                    ? "Complete study of district-by-district revenues."
+                    : "Étude complète des revenus par quartier.",
+                category: locale === "en" ? "Study" : "Étude",
                 badgeClass:
                   "text-welqo-terracotta bg-welqo-terracotta/10 border-welqo-terracotta/20",
                 icon: (
@@ -964,8 +930,12 @@ export default async function HomePage({
               },
               {
                 slug: "checklist-lancer-airbnb-lille",
-                title: "Lancer son Airbnb",
-                desc: "La checklist juridique et pratique.",
+                title:
+                  locale === "en" ? "Launch Your Airbnb" : "Lancer son Airbnb",
+                desc:
+                  locale === "en"
+                    ? "The legal and practical step-by-step checklist."
+                    : "La checklist juridique et pratique.",
                 category: "Guide",
                 badgeClass: "text-blue-500 bg-blue-500/10 border-blue-500/20",
                 icon: (
@@ -986,9 +956,15 @@ export default async function HomePage({
               },
               {
                 slug: "meilleurs-quartiers-airbnb-lille",
-                title: "Meilleurs Quartiers",
-                desc: "Où investir pour maximiser son ROI.",
-                category: "Stratégie",
+                title:
+                  locale === "en"
+                    ? "Best Neighbourhoods"
+                    : "Meilleurs Quartiers",
+                desc:
+                  locale === "en"
+                    ? "Where to invest to maximize your ROI."
+                    : "Où investir pour maximiser son ROI.",
+                category: locale === "en" ? "Strategy" : "Stratégie",
                 badgeClass:
                   "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
                 icon: (
@@ -1009,9 +985,15 @@ export default async function HomePage({
               },
               {
                 slug: "conciergerie-airbnb-lens-arras-bassin-minier",
-                title: "Opportunité Hauts-de-France",
-                desc: "Lens & Arras : le nouvel eldorado.",
-                category: "Marché",
+                title:
+                  locale === "en"
+                    ? "Northern France Opportunity"
+                    : "Opportunité Hauts-de-France",
+                desc:
+                  locale === "en"
+                    ? "Lens & Arras: the new eldorado."
+                    : "Lens & Arras : le nouvel eldorado.",
+                category: locale === "en" ? "Market" : "Marché",
                 badgeClass:
                   "text-violet-500 bg-violet-500/10 border-violet-500/20",
                 icon: (

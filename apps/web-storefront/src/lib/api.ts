@@ -119,6 +119,7 @@ const MOCK_PROPERTIES: any[] = [
 
 export async function getProperties(
   filters: PropertySearchFilters = {},
+  locale?: string,
 ): Promise<{ properties: PropertySummary[]; distribution: number[] }> {
   try {
     const query = new URLSearchParams();
@@ -153,7 +154,7 @@ export async function getProperties(
     const properties: PropertySummary[] = MOCK_PROPERTIES.map((p) => ({
       id: p.id,
       slug: p.slug,
-      title: p.titleFr, // default fallback
+      title: locale === "en" ? p.titleEn : p.titleFr, // localized fallback
       location: {
         address: p.address,
         city: p.city,

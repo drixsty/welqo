@@ -21,7 +21,7 @@ export default async function PolitiqueConfidentialitePage({
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations("PrivacyPolicy");
+  const t = await getTranslations({ locale, namespace: "PrivacyPolicy" });
   const base = `/${locale}`;
   return (
     <main className="min-h-screen bg-white dark:bg-black overflow-hidden selection:bg-welqo-terracotta/20">

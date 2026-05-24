@@ -12,7 +12,7 @@ export default async function ConfirmationPage({
   params: { locale },
   searchParams,
 }: ConfirmationPageProps) {
-  const t = await getTranslations("Confirmation");
+  const t = await getTranslations({ locale, namespace: "Confirmation" });
   const base = `/${locale}`;
 
   return (

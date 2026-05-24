@@ -119,7 +119,7 @@ export default async function PropertyDetailsPage({
   const property = await getProperty(slug);
   if (!property) notFound();
 
-  const t = await getTranslations("PropertyPage");
+  const t = await getTranslations({ locale, namespace: "PropertyPage" });
   const p = property as any;
 
   // Normalize data

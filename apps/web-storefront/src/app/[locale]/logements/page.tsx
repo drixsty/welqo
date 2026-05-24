@@ -42,7 +42,7 @@ export default async function PropertyListingPage({
 }: {
   params: { locale: string };
 }) {
-  const t = await getTranslations("LogementsPage");
+  const t = await getTranslations({ locale, namespace: "LogementsPage" });
 
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950">

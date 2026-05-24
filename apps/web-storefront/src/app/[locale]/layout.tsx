@@ -10,6 +10,9 @@ import { CustomCursor } from "../../components/CustomCursor";
 import { StickyMobileCTA } from "../../components/StickyMobileCTA";
 import { JsonLd } from "../../components/JsonLd";
 import GoogleAnalytics from "../../components/GoogleAnalytics";
+import { SmoothScroll } from "../../components/SmoothScroll";
+import { PageTransition } from "../../components/PageTransition";
+import { GrainOverlay } from "../../components/GrainOverlay";
 import { Suspense } from "react";
 
 const inter = Inter({
@@ -118,7 +121,7 @@ export default async function LocaleLayout({
     notFound();
   }
 
-  const messages = await getMessages();
+  const messages = await getMessages({ locale });
 
   const fr = locale !== "en";
 
@@ -172,14 +175,18 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} className={`${inter.variable} scroll-smooth`}>
       <body className="font-sans antialiased bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-50">
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider locale={locale} messages={messages}>
           <Suspense fallback={null}>
             <GoogleAnalytics />
           </Suspense>
           <JsonLd data={localBusinessSchema} />
           <JsonLd data={websiteSchema} />
+          <SmoothScroll />
+          <GrainOverlay />
           <Navbar title="WELQO" locale={locale} />
-          <div className="pt-16">{children}</div>
+          <div className="pt-16">
+            <PageTransition>{children}</PageTransition>
+          </div>
           <Footer locale={locale} />
           <CustomCursor />
           <StickyMobileCTA locale={locale} />

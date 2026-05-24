@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { trackEvent } from "../../lib/tracking";
 import { useTranslations } from "next-intl";
 
-const VILLES = [
+const VILLES_FR = [
   { label: "Hauts-de-France (Lille / Métropole)", base: 2150 },
   { label: "Arras (Centre / Grand-Place)", base: 1650 },
   { label: "Lens (Stade Bollaert / Louvre)", base: 1480 },
@@ -14,18 +14,39 @@ const VILLES = [
   { label: "Douai (Beffroi)", base: 1250 },
 ];
 
-const PIECES_OPTIONS = [
+const VILLES_EN = [
+  { label: "Hauts-de-France (Lille / Metropole)", base: 2150 },
+  { label: "Arras (City Center / Grand-Place)", base: 1650 },
+  { label: "Lens (Bollaert Stadium / Louvre)", base: 1480 },
+  { label: "Béthune (City Center)", base: 1350 },
+  { label: "Douai (Belfry)", base: 1250 },
+];
+
+const PIECES_OPTIONS_FR = [
   { label: "Studio", value: 0, mult: 0.75 },
   { label: "T2", value: 1, mult: 1.0 },
   { label: "T3", value: 2, mult: 1.4 },
   { label: "T4+", value: 3, mult: 1.75 },
 ];
 
-function fmt(n: number) {
-  return n.toLocaleString("fr-FR");
+const PIECES_OPTIONS_EN = [
+  { label: "Studio", value: 0, mult: 0.75 },
+  { label: "1 Bed (T2)", value: 1, mult: 1.0 },
+  { label: "2 Beds (T3)", value: 2, mult: 1.4 },
+  { label: "3+ Beds (T4+)", value: 3, mult: 1.75 },
+];
+
+function fmt(n: number, isEn: boolean) {
+  return n.toLocaleString(isEn ? "en-US" : "fr-FR");
 }
 
-function AnimatedNumber({ value }: { value: number }) {
+function AnimatedNumber({
+  value,
+  isEn = false,
+}: {
+  value: number;
+  isEn?: boolean;
+}) {
   const [displayValue, setDisplayValue] = useState(value);
 
   useEffect(() => {
@@ -50,7 +71,7 @@ function AnimatedNumber({ value }: { value: number }) {
     window.requestAnimationFrame(step);
   }, [value]);
 
-  return <>{fmt(displayValue)}</>;
+  return <>{fmt(displayValue, isEn)}</>;
 }
 
 export function RevenueSimulator({
@@ -59,6 +80,10 @@ export function RevenueSimulator({
   locale?: string;
 }) {
   const t = useTranslations("RevenueSimulator");
+  const isEn = _locale === "en";
+  const villes = isEn ? VILLES_EN : VILLES_FR;
+  const piecesOptions = isEn ? PIECES_OPTIONS_EN : PIECES_OPTIONS_FR;
+
   const [villeIdx, setVilleIdx] = useState(0);
   const [piecesIdx, setPiecesIdx] = useState(1);
   const [surface, setSurface] = useState(45);
@@ -100,8 +125,8 @@ export function RevenueSimulator({
   };
 
   const { revenuSolo, revenuWelqo, gain, annual } = useMemo(() => {
-    const base = VILLES[villeIdx].base;
-    const piecesMult = PIECES_OPTIONS[piecesIdx].mult;
+    const base = villes[villeIdx].base;
+    const piecesMult = piecesOptions[piecesIdx].mult;
     const surfMult =
       surface < 30 ? 0.75 : surface < 55 ? 1 : surface < 80 ? 1.22 : 1.5;
     const raw = base * piecesMult * surfMult;
@@ -188,16 +213,16 @@ export function RevenueSimulator({
         <div className="flex items-center justify-between">
           <div>
             <p className="text-primary text-[10px] font-bold mb-0.5 tracking-widest">
-              Outil de simulation
+              {isEn ? "Simulation tool" : "Outil de simulation"}
             </p>
             <h3 className="text-white text-lg font-bold tracking-tight">
-              Estimation de revenus{" "}
+              {isEn ? "Revenue estimation " : "Estimation de revenus "}{" "}
               <span className="text-primary">Hauts-de-France</span>
             </h3>
           </div>
           <div className="hidden sm:block text-right">
             <span className="text-slate-500 text-[10px] font-medium italic">
-              Mise à jour : Avril 2026
+              {isEn ? "Updated: April 2026" : "Mise à jour : Avril 2026"}
             </span>
           </div>
         </div>
@@ -209,7 +234,7 @@ export function RevenueSimulator({
           <div className="space-y-5">
             <div className="space-y-2.5">
               <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider">
-                Localisation
+                {isEn ? "Location" : "Localisation"}
               </label>
               <div className="relative" ref={cityRef}>
                 <button
@@ -224,7 +249,7 @@ export function RevenueSimulator({
                   <div className="absolute left-4 top-1/2 -translate-y-1/2 text-primary">
                     <MapPin className="w-4 h-4" />
                   </div>
-                  <span className="truncate">{VILLES[villeIdx].label}</span>
+                  <span className="truncate">{villes[villeIdx].label}</span>
                   <div
                     className={`absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 transition-transform duration-200 ${isCityOpen ? "rotate-180" : ""}`}
                   >
@@ -248,7 +273,7 @@ export function RevenueSimulator({
                       } bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg shadow-2xl overflow-hidden z-[60]`}
                     >
                       <div className="p-1">
-                        {VILLES.map((v, i) => (
+                        {villes.map((v, i) => (
                           <button
                             key={v.label}
                             type="button"
@@ -274,10 +299,10 @@ export function RevenueSimulator({
 
             <div className="space-y-2.5">
               <label className="text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider">
-                Typologie du bien
+                {isEn ? "Property type" : "Typologie du bien"}
               </label>
               <div className="grid grid-cols-4 gap-1 bg-slate-50 dark:bg-slate-950 rounded-md p-1 border border-slate-200 dark:border-slate-800">
-                {PIECES_OPTIONS.map((p, i) => (
+                {piecesOptions.map((p, i) => (
                   <button
                     key={p.label}
                     onClick={() => setPiecesIdx(i)}
@@ -297,7 +322,7 @@ export function RevenueSimulator({
               <div className="bg-slate-50 dark:bg-slate-950/50 p-4 rounded-lg border border-slate-100 dark:border-slate-800/50">
                 <div className="flex justify-between items-end mb-2">
                   <span className="text-[10px] font-bold text-slate-500 tracking-wider">
-                    Surface estimée
+                    {isEn ? "Estimated size" : "Surface estimée"}
                   </span>
                   <span className="text-sm font-bold text-slate-900 dark:text-white">
                     {surface} m²
@@ -323,15 +348,17 @@ export function RevenueSimulator({
               <div className="px-4 py-3 bg-slate-50 dark:bg-slate-950/50 rounded-lg border border-slate-100 dark:border-slate-800 flex justify-between items-center opacity-80">
                 <div>
                   <p className="text-[9px] font-bold text-slate-500 tracking-wider mb-0.5">
-                    Gestion en solo
+                    {isEn ? "Solo management" : "Gestion en solo"}
                   </p>
                   <p className="text-xl font-bold text-slate-500 tracking-tighter">
-                    <AnimatedNumber value={revenuSolo} />€{" "}
-                    <span className="text-[10px] font-medium">/ mois</span>
+                    <AnimatedNumber value={revenuSolo} isEn={isEn} />€{" "}
+                    <span className="text-[10px] font-medium">
+                      {isEn ? "/ month" : "/ mois"}
+                    </span>
                   </p>
                 </div>
                 <div className="text-[10px] text-slate-400 font-medium">
-                  Standard
+                  {isEn ? "Standard" : "Standard"}
                 </div>
               </div>
 
@@ -348,9 +375,9 @@ export function RevenueSimulator({
                     </span>
                   </div>
                   <p className="text-3xl font-bold tracking-tighter">
-                    <AnimatedNumber value={revenuWelqo} />€{" "}
+                    <AnimatedNumber value={revenuWelqo} isEn={isEn} />€{" "}
                     <span className="text-xs text-slate-400 font-medium">
-                      / mois
+                      {isEn ? "/ month" : "/ mois"}
                     </span>
                   </p>
                 </div>
@@ -360,7 +387,7 @@ export function RevenueSimulator({
               <div className="bg-slate-50 dark:bg-slate-950/40 p-4 rounded-lg border border-slate-100 dark:border-slate-800 flex flex-col gap-2 relative overflow-hidden backdrop-blur-md">
                 <div className="flex items-center justify-between">
                   <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">
-                    Projection cumulative
+                    {isEn ? "Cumulative projection" : "Projection cumulative"}
                   </span>
                   <div className="flex gap-1">
                     {[1, 2, 3].map((y) => (
@@ -375,7 +402,7 @@ export function RevenueSimulator({
                             : "text-slate-400 hover:bg-slate-200 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white"
                         }`}
                       >
-                        An {y}
+                        {isEn ? `Yr ${y}` : `An ${y}`}
                       </button>
                     ))}
                   </div>
@@ -564,7 +591,11 @@ export function RevenueSimulator({
                       {t("soloManagement")}
                     </p>
                     <p className="text-xs font-bold text-slate-500 mt-0.5">
-                      <AnimatedNumber value={revenuSolo * 12 * hoveredYear} /> €
+                      <AnimatedNumber
+                        value={revenuSolo * 12 * hoveredYear}
+                        isEn={isEn}
+                      />{" "}
+                      €
                     </p>
                   </div>
                   <div className="text-center border-x border-slate-100 dark:border-slate-800">
@@ -572,7 +603,10 @@ export function RevenueSimulator({
                       {t("welqoManagement")}
                     </p>
                     <p className="text-xs font-extrabold text-slate-900 dark:text-white mt-0.5">
-                      <AnimatedNumber value={revenuWelqo * 12 * hoveredYear} />{" "}
+                      <AnimatedNumber
+                        value={revenuWelqo * 12 * hoveredYear}
+                        isEn={isEn}
+                      />{" "}
                       €
                     </p>
                   </div>
@@ -584,6 +618,7 @@ export function RevenueSimulator({
                       +
                       <AnimatedNumber
                         value={(revenuWelqo - revenuSolo) * 12 * hoveredYear}
+                        isEn={isEn}
                       />{" "}
                       €
                     </p>
@@ -595,7 +630,7 @@ export function RevenueSimulator({
               <div className="grid grid-cols-2 gap-3 py-1">
                 <div className="p-3 bg-emerald-500/5 border border-emerald-500/10 rounded-lg text-center">
                   <p className="text-sm font-bold text-emerald-500">
-                    +<AnimatedNumber value={gain} />€
+                    +<AnimatedNumber value={gain} isEn={isEn} />€
                   </p>
                   <p className="text-[8px] text-slate-500 font-bold tracking-tighter">
                     {t("monthlyNetGain")}
@@ -603,7 +638,7 @@ export function RevenueSimulator({
                 </div>
                 <div className="p-3 bg-primary/5 border border-primary/10 rounded-lg text-center">
                   <p className="text-sm font-bold text-primary">
-                    <AnimatedNumber value={annual} />€
+                    <AnimatedNumber value={annual} isEn={isEn} />€
                   </p>
                   <p className="text-[8px] text-slate-500 font-bold tracking-tighter">
                     {t("annualPotential")}
@@ -616,15 +651,15 @@ export function RevenueSimulator({
               <button
                 onClick={() => {
                   trackEvent("owner_simulator_complete", {
-                    city: VILLES[villeIdx].label,
+                    city: villes[villeIdx].label,
                     revenue: revenuWelqo,
-                    property_type: PIECES_OPTIONS[piecesIdx].label,
+                    property_type: piecesOptions[piecesIdx].label,
                   });
                   setIsLeadModalOpen(true);
                 }}
                 className="w-full py-3.5 bg-slate-900 text-white dark:bg-white dark:text-slate-900 rounded-xl font-bold text-sm hover:bg-welqo-terracotta hover:text-white transition-all shadow-lg flex items-center justify-center gap-2 group cursor-pointer"
               >
-                {t("secureRevenue", { amount: fmt(revenuWelqo) })}
+                {t("secureRevenue", { amount: fmt(revenuWelqo, isEn) })}
                 <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </button>
               <p className="mt-2.5 text-[8px] text-slate-400 text-center italic opacity-70 leading-tight">
@@ -709,8 +744,8 @@ export function RevenueSimulator({
                         body: JSON.stringify({
                           name: leadName,
                           phone: leadPhone,
-                          city: VILLES[villeIdx].label,
-                          message: `Simulation Simulator: ${PIECES_OPTIONS[piecesIdx].label}, ${surface}m², Estimé: ${revenuWelqo}€/mois (Email: ${leadEmail})`,
+                          city: villes[villeIdx].label,
+                          message: `Simulation Simulator: ${piecesOptions[piecesIdx].label}, ${surface}m², Estimé: ${revenuWelqo}€/mois (Email: ${leadEmail})`,
                         }),
                       });
                       if (!res.ok) throw new Error();
@@ -739,19 +774,19 @@ export function RevenueSimulator({
                     <div className="flex justify-between">
                       <span className="opacity-60">{t("location")}</span>
                       <span className="text-white font-bold">
-                        {VILLES[villeIdx].label.split(" (")[0]}
+                        {villes[villeIdx].label.split(" (")[0]}
                       </span>
                     </div>
                     <div className="flex justify-between">
                       <span className="opacity-60">{t("configuration")}</span>
                       <span className="text-white font-bold">
-                        {PIECES_OPTIONS[piecesIdx].label} · {surface} m²
+                        {piecesOptions[piecesIdx].label} · {surface} m²
                       </span>
                     </div>
                     <div className="flex justify-between border-t border-white/5 pt-1.5 mt-1.5 text-welqo-terracotta">
                       <span className="font-bold">{t("estimatedRevenue")}</span>
                       <span className="font-extrabold text-sm">
-                        {fmt(revenuWelqo)} € / mois
+                        {fmt(revenuWelqo, isEn)} € / {isEn ? "month" : "mois"}
                       </span>
                     </div>
                   </div>
@@ -796,8 +831,12 @@ export function RevenueSimulator({
                     className="w-full py-3.5 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-xs transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-welqo-terracotta/20 disabled:opacity-60"
                   >
                     {leadStatus === "loading"
-                      ? "Envoi en cours..."
-                      : "Obtenir mon rapport personnalisé →"}
+                      ? isEn
+                        ? "Sending..."
+                        : "Envoi en cours..."
+                      : isEn
+                        ? "Get my personalized report →"
+                        : "Obtenir mon rapport personnalisé →"}
                   </button>
                 </form>
               )}

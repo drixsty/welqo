@@ -122,13 +122,13 @@ export default async function MentionsLegalesPage({
                 {[
                   {
                     label: t("label_company"),
-                    value: "Welqo SAS",
+                    value: "Lonside Corp.",
                   },
                   {
                     label: t("label_headquarters"),
                     value: "Lille, France",
                   },
-                  { label: "SIRET", value: "894 562 123 00012" },
+                  { label: "SIRET", value: "999 912 173 00013" },
                   {
                     label: t("label_capital"),
                     value: "10 000 €",

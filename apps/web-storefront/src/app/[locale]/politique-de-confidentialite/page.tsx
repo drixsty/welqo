@@ -121,7 +121,7 @@ export default async function PolitiqueConfidentialitePage({
                     Entité
                   </p>
                   <p className="text-slate-900 dark:text-white font-bold">
-                    Welqo SAS
+                    Lonside Corp.
                   </p>
                   <p className="text-slate-500 text-xs mt-1">
                     Siège social à Lille, France

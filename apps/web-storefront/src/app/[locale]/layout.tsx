@@ -57,11 +57,11 @@ export async function generateMetadata({
     creator: "Welqo",
     metadataBase: new URL(BASE_URL),
     alternates: {
-      canonical: `${BASE_URL}/${locale}`,
+      canonical: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,
       languages: {
-        fr: `${BASE_URL}/fr`,
+        fr: BASE_URL,
         en: `${BASE_URL}/en`,
-        "x-default": `${BASE_URL}/fr`,
+        "x-default": BASE_URL,
       },
     },
     openGraph: {
@@ -71,7 +71,7 @@ export async function generateMetadata({
       description: fr
         ? "Gestion locative d'exception dans les Hauts-de-France. Expertise locale à Lille, Lens et Arras."
         : "Exceptional rental management in Northern France. Local expertise in Lille, Lens and Arras.",
-      url: `${BASE_URL}/${locale}`,
+      url: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,
       siteName: "Welqo",
       locale: fr ? "fr_FR" : "en_GB",
       type: "website",

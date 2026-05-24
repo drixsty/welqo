@@ -16,7 +16,7 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
   const t = useTranslations("CookieBanner");
   const [consent, setConsent] = useState<Consent>(null);
   const [visible, setVisible] = useState(false);
-  const base = `/${locale}`;
+  const base = locale === "fr" ? "" : "/en";
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -62,7 +62,7 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
           </h2>
         </div>
 
-        <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mb-6">
+        <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-6">
           {t("message")}{" "}
           <Link
             href={`${base}/politique-de-confidentialite`}
@@ -82,7 +82,7 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
           </button>
           <button
             onClick={decline}
-            className="flex-1 py-2.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 rounded-lg font-bold text-xs transition-all hover:bg-slate-100 dark:hover:bg-slate-700"
+            className="flex-1 py-2.5 bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-300 rounded-lg font-bold text-xs transition-all hover:bg-slate-100 dark:hover:bg-slate-700"
           >
             {t("decline")}
           </button>

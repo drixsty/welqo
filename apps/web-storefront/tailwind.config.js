@@ -61,10 +61,10 @@ module.exports = {
       },
       colors: {
         primary: {
-          DEFAULT: "#E67E22",
-          dark: "#d35400",
-          light: "#f39c12",
-          foreground: "#ffffff",
+          DEFAULT: "hsl(var(--primary) / <alpha-value>)",
+          dark: "hsl(var(--primary-dark, 28 80% 45%) / <alpha-value>)",
+          light: "hsl(var(--primary-light, 28 80% 60%) / <alpha-value>)",
+          foreground: "hsl(var(--primary-foreground, 0 0% 100%) / <alpha-value>)",
         },
         welqo: {
           anthracite: {
@@ -73,9 +73,9 @@ module.exports = {
             light: "#3e5871",
           },
           terracotta: {
-            DEFAULT: "#E67E22",
-            dark: "#d35400",
-            light: "#f39c12",
+            DEFAULT: "hsl(var(--welqo-terracotta) / <alpha-value>)",
+            dark: "hsl(var(--welqo-terracotta-dark, 28 80% 45%) / <alpha-value>)",
+            light: "hsl(var(--welqo-terracotta-light, 28 80% 60%) / <alpha-value>)",
           },
           cream: {
             DEFAULT: "#F9F7F2",

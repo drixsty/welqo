@@ -6,9 +6,9 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
       disallow: [
-        "/fr/reservation/",
+        "/reservation/",
         "/en/reservation/",
-        "/fr/proprietaires/",
+        "/proprietaires/",
         "/en/proprietaires/",
         "/api/",
       ],

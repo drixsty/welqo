@@ -9,7 +9,10 @@ type Locale = (typeof LOCALES)[number];
 function alternates(path: string) {
   return {
     languages: Object.fromEntries(
-      LOCALES.map((l) => [l, `${BASE_URL}/${l}${path}`]),
+      LOCALES.map((l) => [
+        l,
+        l === "fr" ? `${BASE_URL}${path}` : `${BASE_URL}/${l}${path}`,
+      ]),
     ) as Record<Locale, string>,
   };
 }
@@ -17,7 +20,12 @@ function alternates(path: string) {
 const STATIC_PAGES = [
   { path: "", priority: 1.0, freq: "weekly" as const },
   { path: "/blog", priority: 0.8, freq: "weekly" as const },
-  { path: "/logements", priority: 0.6, freq: "monthly" as const },
+  { path: "/logements", priority: 0.8, freq: "weekly" as const },
+  {
+    path: "/conciergerie-airbnb-lille",
+    priority: 0.9,
+    freq: "weekly" as const,
+  },
   { path: "/mentions-legales", priority: 0.1, freq: "yearly" as const },
 ] as const;
 
@@ -26,7 +34,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const staticEntries = LOCALES.flatMap((locale) =>
     STATIC_PAGES.map(({ path, priority, freq }) => ({
-      url: `${BASE_URL}/${locale}${path}`,
+      url:
+        locale === "fr" ? `${BASE_URL}${path}` : `${BASE_URL}/${locale}${path}`,
       lastModified: now,
       changeFrequency: freq,
       priority,
@@ -36,7 +45,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
   const blogEntries = LOCALES.flatMap((locale) =>
     BLOG_POSTS.map((post) => ({
-      url: `${BASE_URL}/${locale}/blog/${post.slug}`,
+      url:
+        locale === "fr"
+          ? `${BASE_URL}/blog/${post.slug}`
+          : `${BASE_URL}/${locale}/blog/${post.slug}`,
       lastModified: new Date(post.updatedAt ?? post.publishedAt),
       changeFrequency: "monthly" as const,
       priority: 0.75,

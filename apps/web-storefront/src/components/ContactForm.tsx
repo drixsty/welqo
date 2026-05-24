@@ -6,6 +6,7 @@ import { z } from "zod";
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
+import { submitContactForm } from "@/app/actions/contact";
 
 const CITIES_FR = [
   "Lille",
@@ -71,12 +72,8 @@ export function ContactForm({ locale }: { locale: string }) {
   const onSubmit = async (data: z.infer<typeof schema>) => {
     setStatus("loading");
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error();
+      const res = await submitContactForm(data);
+      if (!res.success) throw new Error();
       setStatus("success");
       reset();
     } catch {

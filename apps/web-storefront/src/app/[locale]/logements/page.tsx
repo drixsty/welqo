@@ -2,6 +2,7 @@ import React from "react";
 import { Metadata } from "next";
 import { ArrowRight, MapPin, Clock, Star } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { JsonLd } from "@/components/JsonLd";
 
 export async function generateMetadata({
   params: { locale },
@@ -19,11 +20,14 @@ export async function generateMetadata({
       ? "Welqo gère votre Airbnb à Lille, Lens, Arras, Béthune et Douai : annonces multi-plateformes, ménage, check-in, tarification dynamique. Audit gratuit, mise en ligne en 7 jours."
       : "Welqo manages your Airbnb in Lille, Lens, Arras and across Northern France: multi-platform listings, cleaning, check-in, dynamic pricing. Free audit, live in 7 days.",
     alternates: {
-      canonical: `${BASE_URL}/${locale}/logements`,
+      canonical:
+        locale === "fr"
+          ? `${BASE_URL}/logements`
+          : `${BASE_URL}/${locale}/logements`,
       languages: {
-        fr: `${BASE_URL}/fr/logements`,
+        fr: `${BASE_URL}/logements`,
         en: `${BASE_URL}/en/logements`,
-        "x-default": `${BASE_URL}/fr/logements`,
+        "x-default": `${BASE_URL}/logements`,
       },
     },
   };
@@ -43,6 +47,27 @@ export default async function PropertyListingPage({
   params: { locale: string };
 }) {
   const t = await getTranslations({ locale, namespace: "LogementsPage" });
+
+  const FAQS = [
+    { q: t("faq_0_q"), a: t("faq_0_a") },
+    { q: t("faq_1_q"), a: t("faq_1_a") },
+    { q: t("faq_2_q"), a: t("faq_2_a") },
+    { q: t("faq_3_q"), a: t("faq_3_a") },
+    { q: t("faq_4_q"), a: t("faq_4_a") },
+  ];
+
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQS.map(({ q, a }) => ({
+      "@type": "Question",
+      name: q,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: a,
+      },
+    })),
+  };
 
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950">
@@ -167,6 +192,52 @@ export default async function PropertyListingPage({
                 </p>
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* JSON-LD Schema */}
+      <JsonLd data={faqSchema} />
+
+      {/* FAQ Voyageurs Section */}
+      <section className="py-20 px-6 bg-slate-50 dark:bg-slate-900/30 border-t border-slate-100 dark:border-white/5">
+        <div className="max-w-3xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white">
+              {t("faqTitle")}
+            </h2>
+          </div>
+          <div className="space-y-4">
+            {FAQS.map(({ q, a }, i) => (
+              <details
+                key={i}
+                className="group bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 overflow-hidden hover:border-primary/20 transition-all duration-200"
+              >
+                <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none">
+                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">
+                    {q}
+                  </span>
+                  <div className="w-7 h-7 bg-slate-100 dark:bg-slate-800 group-open:bg-primary group-open:text-white rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-slate-500">
+                    <svg
+                      className="w-3.5 h-3.5 group-open:rotate-45 transition-transform duration-200"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 4v16m8-8H4"
+                      />
+                    </svg>
+                  </div>
+                </summary>
+                <p className="px-6 pb-5 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                  {a}
+                </p>
+              </details>
+            ))}
           </div>
         </div>
       </section>

@@ -94,11 +94,14 @@ export async function generateMetadata({
     title: `${title} | Conciergerie Welqo ${city}`,
     description: description?.substring(0, 160),
     alternates: {
-      canonical: `${BASE_URL}/${locale}/logements/${slug}`,
+      canonical:
+        locale === "fr"
+          ? `${BASE_URL}/logements/${slug}`
+          : `${BASE_URL}/${locale}/logements/${slug}`,
       languages: {
-        fr: `${BASE_URL}/fr/logements/${slug}`,
+        fr: `${BASE_URL}/logements/${slug}`,
         en: `${BASE_URL}/en/logements/${slug}`,
-        "x-default": `${BASE_URL}/fr/logements/${slug}`,
+        "x-default": `${BASE_URL}/logements/${slug}`,
       },
     },
     openGraph: {

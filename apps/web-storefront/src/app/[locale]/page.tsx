@@ -2,9 +2,28 @@ import React from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "../../components/JsonLd";
-import { RevenueSimulator } from "../../components/proprietaires/RevenueSimulator";
-import { InteractiveHeroDashboard } from "../../components/InteractiveHeroDashboard";
-import { ContactForm } from "../../components/ContactForm";
+import dynamic from "next/dynamic";
+
+const RevenueSimulator = dynamic(
+  () =>
+    import("../../components/proprietaires/RevenueSimulator").then(
+      (mod) => mod.RevenueSimulator,
+    ),
+  { ssr: false },
+);
+
+const InteractiveHeroDashboard = dynamic(
+  () =>
+    import("../../components/InteractiveHeroDashboard").then(
+      (mod) => mod.InteractiveHeroDashboard,
+    ),
+  { ssr: false },
+);
+
+const ContactForm = dynamic(
+  () => import("../../components/ContactForm").then((mod) => mod.ContactForm),
+  { ssr: false },
+);
 import { ScrollReveal } from "../../components/ScrollReveal";
 import { ScrollToTop } from "../../components/ScrollToTop";
 import { HeroAnimated } from "../../components/HeroAnimated";
@@ -41,11 +60,11 @@ export async function generateMetadata({
           "airbnb manager lille",
         ],
     alternates: {
-      canonical: `${BASE_URL}/${locale}`,
+      canonical: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,
       languages: {
-        fr: `${BASE_URL}/fr`,
+        fr: BASE_URL,
         en: `${BASE_URL}/en`,
-        "x-default": `${BASE_URL}/fr`,
+        "x-default": BASE_URL,
       },
     },
     openGraph: {
@@ -55,7 +74,7 @@ export async function generateMetadata({
       description: fr
         ? "Welqo gère votre bien Airbnb en Hauts-de-France : annonces, check-in/out, ménage, maintenance. Devis gratuit 24h."
         : "Welqo manages your Airbnb in Hauts-de-France. Free quote 24h.",
-      url: `${BASE_URL}/${locale}`,
+      url: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,
       siteName: "Welqo",
       type: "website",
     },
@@ -71,6 +90,7 @@ export default async function HomePage({
 }) {
   const t = await getTranslations({ locale, namespace: "HomePage" });
   const base = `/${locale}`;
+  const fr = locale !== "en";
 
   const BENTO_SERVICES = [
     {
@@ -279,7 +299,7 @@ export default async function HomePage({
               cta1Label={t("heroCta1")}
               cta2Label={t("heroCta2")}
               cta1Href="#contact"
-              cta2Href="#comment-ca-marche"
+              cta2Href={fr ? "#comment-ca-marche" : "#how-it-works"}
               chips={[
                 { icon: "✨", text: t("heroBadgeLaunch") },
                 { icon: "🏠", text: t("heroBadgeStandard") },
@@ -345,7 +365,7 @@ export default async function HomePage({
       <section className="py-12 px-4 bg-white dark:bg-black">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block px-3 py-1 mb-3 text-[9px] font-bold tracking-[0.15em] uppercase bg-red-50 dark:bg-red-950/30 text-red-500 rounded-full border border-red-100 dark:border-red-900">
+            <span className="inline-block px-3 py-1 mb-3 text-[9px] font-bold tracking-[0.15em] uppercase bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 rounded-full border border-red-100 dark:border-red-900">
               {t("painBadge")}
             </span>
             <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white mb-3">
@@ -378,12 +398,12 @@ export default async function HomePage({
           PROCESS
       ══════════════════════════════════════════════════════ */}
       <section
-        id="comment-ca-marche"
+        id={fr ? "comment-ca-marche" : "how-it-works"}
         className="py-16 px-4 bg-slate-50 dark:bg-slate-950"
       >
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] uppercase bg-welqo-terracotta/10 text-welqo-terracotta rounded-full">
+            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] uppercase bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-full border border-orange-100 dark:border-orange-900">
               {t("processBadge")}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
@@ -439,7 +459,7 @@ export default async function HomePage({
       >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] uppercase bg-welqo-terracotta/10 text-welqo-terracotta rounded-full">
+            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] uppercase bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-full border border-orange-100 dark:border-orange-900">
               {t("servicesBadge")}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
@@ -529,7 +549,7 @@ export default async function HomePage({
           COMPARISON TABLE
       ══════════════════════════════════════════════════════ */}
       <section
-        id="pourquoi-welqo"
+        id={fr ? "pourquoi-welqo" : "why-welqo"}
         className="py-12 px-4 bg-white dark:bg-black"
       >
         <ScrollReveal>
@@ -646,8 +666,8 @@ export default async function HomePage({
         />
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-10">
-            <div className="inline-flex items-center gap-2 px-2.5 py-1 mb-3 bg-welqo-terracotta/5 border border-welqo-terracotta/10 rounded-md">
-              <span className="text-welqo-terracotta text-[9px] font-bold tracking-[0.2em] uppercase">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 mb-3 bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900 rounded-md">
+              <span className="text-orange-800 dark:text-orange-400 text-[9px] font-bold tracking-[0.2em] uppercase">
                 {t("commitBadge")}
               </span>
             </div>
@@ -664,9 +684,9 @@ export default async function HomePage({
               <p>{t("commitP2")}</p>
               <div className="border-t border-slate-200 dark:border-white/10 pt-6 mt-6 flex flex-col sm:flex-row items-center justify-between gap-6">
                 <div>
-                  <h4 className="font-bold text-slate-900 dark:text-white text-base">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-base">
                     {t("commitFounder")}
-                  </h4>
+                  </h3>
                   <p className="text-xs text-slate-500 mt-1">
                     {t("commitFounderSub")}
                   </p>
@@ -742,7 +762,7 @@ export default async function HomePage({
               <div className="shrink-0 w-full md:w-72 lg:w-80 max-w-sm md:max-w-none mx-auto md:mx-0 bg-slate-900/40 border border-white/5 rounded-2xl p-6 sm:p-8 lg:p-10 text-center relative overflow-hidden backdrop-blur-xl transition-all duration-700">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-welqo-terracotta/40 to-transparent" />
                 <div className="relative z-10 mb-8">
-                  <span className="text-slate-500 text-[10px] font-bold uppercase tracking-[0.3em]">
+                  <span className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em]">
                     {t("pricingCommission")}
                   </span>
                 </div>
@@ -762,7 +782,7 @@ export default async function HomePage({
                   <p className="text-slate-300 text-[11px] font-bold uppercase tracking-[0.2em]">
                     {t("pricingOfGross")}
                   </p>
-                  <p className="text-slate-500 text-[10px] font-medium uppercase tracking-widest mt-1">
+                  <p className="text-slate-400 text-[10px] font-medium uppercase tracking-widest mt-1">
                     {t("pricingGenerated")}
                   </p>
                 </div>
@@ -778,7 +798,7 @@ export default async function HomePage({
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                     <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping opacity-40" />
                   </div>
-                  <p className="text-slate-500 text-[9px] font-bold uppercase tracking-widest">
+                  <p className="text-slate-400 text-[9px] font-bold uppercase tracking-widest">
                     {t("pricingNoCommit")}
                   </p>
                 </div>
@@ -913,10 +933,10 @@ export default async function HomePage({
                     : "Étude complète des revenus par quartier.",
                 category: locale === "en" ? "Study" : "Étude",
                 badgeClass:
-                  "text-welqo-terracotta bg-welqo-terracotta/10 border-welqo-terracotta/20",
+                  "text-orange-800 dark:text-orange-400 bg-orange-50 dark:bg-orange-950/30 border-orange-100 dark:border-orange-900",
                 icon: (
                   <svg
-                    className="w-5 h-5 text-welqo-terracotta"
+                    className="w-5 h-5 text-orange-600 dark:text-orange-400"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -939,10 +959,11 @@ export default async function HomePage({
                     ? "The legal and practical step-by-step checklist."
                     : "La checklist juridique et pratique.",
                 category: "Guide",
-                badgeClass: "text-blue-500 bg-blue-500/10 border-blue-500/20",
+                badgeClass:
+                  "text-blue-700 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30 border-blue-100 dark:border-blue-900",
                 icon: (
                   <svg
-                    className="w-5 h-5 text-blue-500"
+                    className="w-5 h-5 text-blue-600 dark:text-blue-400"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -968,10 +989,10 @@ export default async function HomePage({
                     : "Où investir pour maximiser son ROI.",
                 category: locale === "en" ? "Strategy" : "Stratégie",
                 badgeClass:
-                  "text-emerald-500 bg-emerald-500/10 border-emerald-500/20",
+                  "text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30 border-emerald-100 dark:border-emerald-900",
                 icon: (
                   <svg
-                    className="w-5 h-5 text-emerald-500"
+                    className="w-5 h-5 text-emerald-600 dark:text-emerald-400"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -997,10 +1018,10 @@ export default async function HomePage({
                     : "Lens & Arras : le nouvel eldorado.",
                 category: locale === "en" ? "Market" : "Marché",
                 badgeClass:
-                  "text-violet-500 bg-violet-500/10 border-violet-500/20",
+                  "text-violet-700 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/30 border-violet-100 dark:border-violet-900",
                 icon: (
                   <svg
-                    className="w-5 h-5 text-violet-500"
+                    className="w-5 h-5 text-violet-600 dark:text-violet-400"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
@@ -1046,7 +1067,7 @@ export default async function HomePage({
                   </p>
                 </div>
 
-                <span className="text-[10px] font-bold text-slate-400 group-hover:text-welqo-terracotta transition-colors flex items-center gap-1.5 mt-4">
+                <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400 group-hover:text-welqo-terracotta transition-colors flex items-center gap-1.5 mt-4">
                   {t("readPost")}
                   <svg
                     className="w-3 h-3 transition-transform group-hover:translate-x-1"

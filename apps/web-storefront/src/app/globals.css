@@ -6,16 +6,18 @@
 :root {
   --background: 210 40% 98%;
   --foreground: 222 47% 11%;
-  --primary: 28 80% 52%;
+  --primary: 24 85% 43%;
   --primary-foreground: 0 0% 100%;
   --welqo-anthracite: 222 47% 11%;
-  --welqo-terracotta: 28 80% 52%;
+  --welqo-terracotta: 24 85% 43%;
   --welqo-cream: 210 40% 98%;
 }
 
 .dark {
   --background: 222 47% 4%;
   --foreground: 210 40% 98%;
+  --primary: 28 80% 52%;
+  --welqo-terracotta: 28 80% 52%;
 }
 
 /* ─── Global base ────────────────────────────────────────────────────── */
@@ -171,12 +173,12 @@ h6 {
     background: #e67e22;
   }
 
-  * {
+  html, body {
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
   }
 
-  .dark * {
+  .dark html, .dark body {
     scrollbar-color: #334155 transparent;
   }
 }

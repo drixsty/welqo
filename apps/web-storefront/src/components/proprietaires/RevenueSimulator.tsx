@@ -335,6 +335,7 @@ export function RevenueSimulator({
                   step="5"
                   value={surface}
                   onChange={(e) => setSurface(parseInt(e.target.value))}
+                  aria-label={isEn ? "Estimated size" : "Surface estimée"}
                   className="w-full h-1.5 bg-slate-200 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-primary"
                 />
               </div>

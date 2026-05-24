@@ -23,7 +23,7 @@ export default async function ReservationPage({
   params: { locale },
   searchParams,
 }: ReservationPageProps) {
-  redirect(`/${locale}/proprietaires`);
+  redirect(locale === "fr" ? "/" : "/en");
 
   const { propertyId, checkIn, checkOut, guests } = searchParams;
 

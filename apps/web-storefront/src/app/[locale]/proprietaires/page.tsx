@@ -5,5 +5,5 @@ export default function ProprietairesPage({
 }: {
   params: { locale: string };
 }) {
-  redirect(`/${locale}`);
+  redirect(locale === "fr" ? "/" : "/en");
 }

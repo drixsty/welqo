@@ -863,14 +863,14 @@ export default async function HomePage({
       {/* ══════════════════════════════════════════════════════
           BLOG / RESOURCES
       ══════════════════════════════════════════════════════ */}
-      <section className="pt-24 pb-48 px-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
+      <section className="pt-16 pb-28 md:pt-24 md:pb-40 px-4 bg-slate-50 dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800">
         <div className="max-w-6xl mx-auto">
-          <div className="flex flex-col md:flex-row items-end justify-between mb-12 gap-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-6 items-start">
             <div className="max-w-xl">
               <span className="text-welqo-terracotta text-[10px] font-bold uppercase tracking-[0.2em] mb-3 block">
                 {t("expertiseBadge")}
               </span>
-              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white leading-none">
+              <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white leading-tight">
                 {t("guidesTitle1")}{" "}
                 <span className="text-welqo-terracotta">
                   {t("guidesTitle2")}
@@ -879,7 +879,7 @@ export default async function HomePage({
             </div>
             <a
               href={`${base}/blog`}
-              className="text-sm font-bold text-slate-500 hover:text-welqo-terracotta transition-colors flex items-center gap-2"
+              className="text-sm font-bold text-slate-500 hover:text-welqo-terracotta transition-colors flex items-center gap-2 mt-2 sm:mt-0"
             >
               {t("viewAllBlog")}
               <svg
@@ -1021,7 +1021,7 @@ export default async function HomePage({
               <a
                 key={resource.slug}
                 href={`${base}/blog/${resource.slug}`}
-                className="group relative flex flex-col justify-between p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-card hover:-translate-y-2 hover:border-welqo-terracotta/40 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 overflow-hidden"
+                className="group relative flex flex-col justify-between p-5 xs:p-6 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-slate-800 transition-all duration-300 hover:shadow-card hover:-translate-y-2 hover:border-welqo-terracotta/40 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 overflow-hidden"
               >
                 <div className="absolute top-0 right-0 w-20 h-20 bg-welqo-terracotta/5 dark:bg-welqo-terracotta/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
 

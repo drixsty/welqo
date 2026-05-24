@@ -18,7 +18,7 @@ const WELQO_PATH =
 export function WelqoMark({ className }: { className?: string }) {
   return (
     <svg
-      viewBox="0 0 1080 1080"
+      viewBox="325 440 395 185"
       fill="currentColor"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
@@ -35,49 +35,24 @@ export const BrandLogo = ({
   size = "md",
 }: BrandLogoProps) => {
   const markSizes = {
-    sm: "w-6 h-6",
-    md: "w-9 h-9",
-    lg: "w-14 h-14",
-    xl: "w-20 h-20",
+    sm: "w-8 h-8",
+    md: "w-12 h-12",
+    lg: "w-20 h-20",
+    xl: "w-32 h-32",
   };
-
-  const textSizes = {
-    sm: "text-xl",
-    md: "text-3xl",
-    lg: "text-5xl",
-    xl: "text-7xl",
-  };
-
-  if (variant === "cursive") {
-    return (
-      <div className={cn("flex items-center gap-2", className)}>
-        <WelqoMark
-          className={cn(markSizes[size], "text-welqo-terracotta shrink-0")}
-        />
-        <span
-          className={cn(
-            "font-serif tracking-tight transition-colors duration-300",
-            textSizes[size],
-          )}
-        >
-          wel<span className="text-welqo-terracotta">Qo</span>
-        </span>
-      </div>
-    );
-  }
 
   if (variant === "monogram") {
     return (
       <div
         className={cn(
-          "flex items-center justify-center rounded-xl bg-welqo-anthracite border border-white/10 shadow-lg",
+          "flex items-center justify-center rounded-xl bg-welqo-anthracite border border-white/10 shadow-lg p-2",
           size === "sm"
-            ? "w-8 h-8 p-1.5"
+            ? "w-10 h-10"
             : size === "md"
-              ? "w-10 h-10 p-2"
+              ? "w-12 h-12"
               : size === "lg"
-                ? "w-16 h-16 p-3"
-                : "w-24 h-24 p-4",
+                ? "w-18 h-18"
+                : "w-28 h-28",
           className,
         )}
       >
@@ -86,37 +61,10 @@ export const BrandLogo = ({
     );
   }
 
-  // full variant
+  // cursive & full: just the SVG mark, no text
   return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <div
-        className={cn(
-          "flex items-center justify-center rounded-xl bg-welqo-anthracite border border-white/10 shadow-md shrink-0",
-          size === "sm"
-            ? "w-6 h-6 p-1"
-            : size === "md"
-              ? "w-9 h-9 p-1.5"
-              : size === "lg"
-                ? "w-14 h-14 p-2.5"
-                : "w-20 h-20 p-3",
-        )}
-      >
-        <WelqoMark className="w-full h-full text-welqo-terracotta" />
-      </div>
-      <span
-        className={cn(
-          "font-serif tracking-tight text-welqo-anthracite dark:text-white",
-          size === "sm"
-            ? "text-lg"
-            : size === "md"
-              ? "text-2xl"
-              : size === "lg"
-                ? "text-4xl"
-                : "text-6xl",
-        )}
-      >
-        wel<span className="text-welqo-terracotta">Qo</span>
-      </span>
-    </div>
+    <WelqoMark
+      className={cn(markSizes[size], "text-welqo-terracotta", className)}
+    />
   );
 };

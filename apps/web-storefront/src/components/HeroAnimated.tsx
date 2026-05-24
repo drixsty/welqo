@@ -42,19 +42,16 @@ export function HeroAnimated({
   return (
     <div className="w-full flex flex-col items-center lg:items-start text-center lg:text-left">
       {/* Logo */}
-      <motion.div {...fadeUp(0)} className="mb-6 flex items-center gap-3">
+      <motion.div {...fadeUp(0)} className="mb-6">
         <svg
-          viewBox="0 0 1080 1080"
+          viewBox="325 440 395 185"
           fill="currentColor"
           xmlns="http://www.w3.org/2000/svg"
-          className="w-10 h-10 text-welqo-terracotta shrink-0"
-          aria-hidden="true"
+          className="h-10 w-auto text-welqo-terracotta"
+          aria-label="Welqo"
         >
           <path d={WELQO_PATH} />
         </svg>
-        <span className="font-serif text-2xl tracking-tight text-white">
-          wel<span className="text-welqo-terracotta">Qo</span>
-        </span>
       </motion.div>
 
       {/* Badge */}

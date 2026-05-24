@@ -300,7 +300,7 @@ export default async function HomePage({
         </div>
 
         {/* Kinetic Scroll Indicator */}
-        <div className="absolute bottom-20 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
+        <div className="absolute bottom-28 left-1/2 -translate-x-1/2 z-20 hidden md:flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
           <span className="text-[8px] font-black text-slate-500 uppercase tracking-[0.25em]">
             {t("scrollDiscover")}
           </span>

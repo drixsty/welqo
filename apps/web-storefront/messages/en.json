@@ -358,7 +358,8 @@
     "errorOccurred": "An error occurred. Try again or write to contact@welqo.fr",
     "submitButton": "Request my free quote →",
     "sending": "Sending...",
-    "disclaimer": "Free on-site visit · Response guaranteed within 24h · No commitment"
+    "disclaimer": "Free on-site visit · Response guaranteed within 24h · No commitment",
+    "bookCallSubtitle": "To validate your request and schedule a visit of your property, book your 15-minute evaluation call directly with our local City Manager:"
   },
   "FilterBar": {
     "filters": "Filters",
@@ -519,7 +520,20 @@
     "namePlaceholder": "Your first/last name *",
     "phonePlaceholder": "Phone *",
     "emailPlaceholder": "Email *",
-    "submitError": "An error occurred. Please try again."
+    "submitError": "An error occurred. Please try again.",
+    "step1": "Simulation",
+    "step2": "Coordinates",
+    "step3": "Booking",
+    "backToSimulation": "← Modify simulation",
+    "startOver": "Start new simulation",
+    "step2Title": "Finalize your estimation",
+    "step2Subtitle": "Leave your details to receive your personalized yield report.",
+    "simulationSummary": "Your personalized estimate",
+    "estimatedNetRevenue": "Estimated gross monthly income",
+    "monthlyGain": "Additional monthly gain (vs Solo)",
+    "annualIncomePotential": "Cumulative potential income",
+    "reassuringText": "Local 2026 estimation. Free audit, no commitment.",
+    "bookCallSubtitle": "To validate your estimation and schedule a free visit of your property, book your 15-minute evaluation call directly with our local City Manager:"
   },
   "ScrollToTop": {
     "backToTop": "Back to top"

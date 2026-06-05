@@ -358,7 +358,8 @@
     "errorOccurred": "Une erreur est survenue. Réessayez ou écrivez-nous à contact@welqo.fr",
     "submitButton": "Demander mon devis gratuit →",
     "sending": "Envoi en cours...",
-    "disclaimer": "Visite sur place offerte · Réponse garantie sous 24h · Sans engagement"
+    "disclaimer": "Visite sur place offerte · Réponse garantie sous 24h · Sans engagement",
+    "bookCallSubtitle": "Pour valider votre demande et planifier la visite de votre logement, réservez directement votre appel d'évaluation de 15 minutes avec notre City Manager local :"
   },
   "FilterBar": {
     "filters": "Filtres",
@@ -519,7 +520,20 @@
     "namePlaceholder": "Votre prénom / nom *",
     "phonePlaceholder": "Téléphone *",
     "emailPlaceholder": "Email *",
-    "submitError": "Une erreur s'est produite. Veuillez réessayer."
+    "submitError": "Une erreur s'est produite. Veuillez réessayer.",
+    "step1": "Simulation",
+    "step2": "Coordonnées",
+    "step3": "Appel Conseil",
+    "backToSimulation": "← Modifier ma simulation",
+    "startOver": "Recommencer une simulation",
+    "step2Title": "Finalisez votre estimation",
+    "step2Subtitle": "Renseignez vos coordonnées pour recevoir votre rapport personnalisé de rendement.",
+    "simulationSummary": "Votre estimation personnalisée",
+    "estimatedNetRevenue": "Revenu brut mensuel estimé",
+    "monthlyGain": "Gain supplémentaire (vs Solo)",
+    "annualIncomePotential": "Revus cumulés potentiels",
+    "reassuringText": "Estimation locale 2026. Audit gratuit et sans engagement.",
+    "bookCallSubtitle": "Pour valider votre estimation et planifier la visite gratuite de votre logement, réservez directement votre appel d'évaluation de 15 minutes avec notre City Manager local :"
   },
   "ScrollToTop": {
     "backToTop": "Retour en haut de page"

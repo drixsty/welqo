@@ -48,6 +48,7 @@ export function ContactForm({ locale }: { locale: string }) {
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
   >("idle");
+  const [submittedName, setSubmittedName] = useState("");
   const [isCityOpen, setIsCityOpen] = useState(false);
   const cityDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -83,6 +84,7 @@ export function ContactForm({ locale }: { locale: string }) {
     try {
       const res = await submitContactForm(data);
       if (!res.success) throw new Error();
+      setSubmittedName(data.name);
       setStatus("success");
       reset();
     } catch {
@@ -91,11 +93,16 @@ export function ContactForm({ locale }: { locale: string }) {
   };
 
   if (status === "success") {
+    const calendlyBaseUrl =
+      process.env.NEXT_PUBLIC_CALENDLY_URL ||
+      "https://calendly.com/welqo/15min";
+    const calendlyUrl = `${calendlyBaseUrl}?hide_landing_page_details=1&hide_gdpr_banner=1&name=${encodeURIComponent(submittedName)}`;
+
     return (
-      <div className="flex flex-col items-center justify-center gap-4 py-12 text-center">
-        <div className="w-14 h-14 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center">
+      <div className="flex flex-col items-center justify-center gap-4 py-6 text-center w-full">
+        <div className="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-full flex items-center justify-center">
           <svg
-            className="w-7 h-7 text-emerald-500"
+            className="w-6 h-6 text-emerald-500"
             fill="none"
             stroke="currentColor"
             strokeWidth="2.5"
@@ -108,10 +115,39 @@ export function ContactForm({ locale }: { locale: string }) {
             />
           </svg>
         </div>
-        <h3 className="text-xl font-bold text-white">{t("messageSent")}</h3>
-        <p className="text-slate-400 text-sm max-w-sm font-medium">
+        <h3 className="text-lg font-bold text-white">{t("messageSent")}</h3>
+        <p className="text-slate-400 text-xs max-w-sm font-medium leading-relaxed">
           {t("messageSentDesc")}
         </p>
+
+        <p className="text-slate-300 text-xs font-bold leading-relaxed mt-4 border-t border-white/5 pt-4">
+          {t("bookCallSubtitle")}
+        </p>
+
+        {/* Calendly Iframe widget in place */}
+        <div className="w-full h-[550px] rounded-xl overflow-hidden bg-slate-900 border border-white/5 relative mt-4 shadow-inner">
+          <iframe
+            src={calendlyUrl}
+            width="100%"
+            height="100%"
+            frameBorder="0"
+            className="w-full h-full bg-slate-900"
+          />
+        </div>
+
+        <button
+          type="button"
+          onClick={() => {
+            setStatus("idle");
+            setSubmittedName("");
+          }}
+          className="mt-4 px-5 py-2.5 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-lg font-bold text-xs transition-all cursor-pointer inline-flex items-center gap-1.5"
+        >
+          🔄{" "}
+          {locale === "en"
+            ? "Send another message"
+            : "Envoyer un autre message"}
+        </button>
       </div>
     );
   }

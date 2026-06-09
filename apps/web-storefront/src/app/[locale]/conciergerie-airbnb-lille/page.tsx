@@ -117,6 +117,8 @@ export default async function LilleLandingPage({
     { q: t("faq_0_q"), a: t("faq_0_a") },
     { q: t("faq_1_q"), a: t("faq_1_a") },
     { q: t("faq_2_q"), a: t("faq_2_a") },
+    { q: t("faq_3_q"), a: t("faq_3_a") },
+    { q: t("faq_4_q"), a: t("faq_4_a") },
   ];
 
   const faqSchema = {
@@ -156,6 +158,37 @@ export default async function LilleLandingPage({
       longitude: "3.057256",
     },
     priceRange: "20%",
+    image: `${BASE_URL}/og-image.jpg`,
+    sameAs: [
+      "https://www.facebook.com/welqo",
+      "https://www.instagram.com/welqo.conciergerie",
+    ],
+    openingHoursSpecification: {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      opens: "00:00",
+      closes: "23:59",
+    },
+    hasMap: "https://www.google.com/maps/search/Welqo+Conciergerie+Lille",
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: locale === "en" ? "Home" : "Accueil",
+        item: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: locale === "en" ? "Lille Airbnb Concierge" : "Conciergerie Airbnb Lille",
+        item: locale === "fr" ? `${BASE_URL}/conciergerie-airbnb-lille` : `${BASE_URL}/${locale}/conciergerie-airbnb-lille`,
+      },
+    ],
   };
 
   return (
@@ -163,6 +196,7 @@ export default async function LilleLandingPage({
       {/* Schemas JSON-LD */}
       <JsonLd data={faqSchema} />
       <JsonLd data={localBusinessSchema} />
+      <JsonLd data={breadcrumbSchema} />
 
       {/* ── HERO SECTION ───────────────────────────────────────────── */}
       <section className="relative py-28 md:py-36 px-6 bg-slate-950 overflow-hidden border-b border-white/5">
@@ -173,7 +207,7 @@ export default async function LilleLandingPage({
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-md">
-            <span className="text-welqo-terracotta text-[11px] font-bold uppercase tracking-wider">
+            <span className="text-welqo-terracotta text-[11px] font-bold tracking-wider">
               {t("heroBadge")}
             </span>
           </div>
@@ -211,7 +245,7 @@ export default async function LilleLandingPage({
       <section className="py-20 px-6 bg-slate-50 dark:bg-slate-900/30">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-welqo-terracotta text-[10px] font-bold uppercase tracking-[0.2em] mb-3 block">
+            <span className="text-welqo-terracotta text-[10px] font-bold tracking-[0.2em] mb-3 block">
               {t("statsBadge")}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white">
@@ -231,7 +265,7 @@ export default async function LilleLandingPage({
                 <span className="text-4xl font-black tracking-tight text-slate-900 dark:text-white">
                   {stat.value}
                 </span>
-                <span className="text-xs text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider max-w-[200px]">
+                <span className="text-xs text-slate-500 dark:text-slate-400 font-bold tracking-wider max-w-[200px]">
                   {stat.label}
                 </span>
               </div>
@@ -244,7 +278,7 @@ export default async function LilleLandingPage({
       <section className="py-20 px-6">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="text-welqo-terracotta text-[10px] font-bold uppercase tracking-[0.2em] mb-3 block">
+            <span className="text-welqo-terracotta text-[10px] font-bold tracking-[0.2em] mb-3 block">
               {t("districtsBadge")}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white">
@@ -281,7 +315,7 @@ export default async function LilleLandingPage({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(212,85,55,0.15),transparent)]" />
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <span className="px-2.5 py-1 bg-welqo-terracotta/20 border border-welqo-terracotta/30 text-welqo-terracotta text-[9px] font-bold rounded-full uppercase tracking-wider">
+            <span className="px-2.5 py-1 bg-welqo-terracotta/20 border border-welqo-terracotta/30 text-welqo-terracotta text-[9px] font-bold rounded-full tracking-wider">
               {locale === "en" ? "Yield Simulator" : "Simulateur local"}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mt-4">
@@ -332,6 +366,47 @@ export default async function LilleLandingPage({
                   {a}
                 </p>
               </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── ARTICLES LIÉS ──────────────────────────────────────────── */}
+      <section className="py-16 px-6 bg-slate-50 dark:bg-slate-900/30 border-t border-slate-100 dark:border-white/5">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-[10px] font-bold text-slate-400 tracking-[0.2em] mb-3 text-center">
+            {locale === "en" ? "Go further" : "Pour aller plus loin"}
+          </p>
+          <h2 className="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white text-center mb-8">
+            {locale === "en" ? "Useful resources on Lille Airbnb" : "Ressources utiles sur l'Airbnb à Lille"}
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            {[
+              {
+                title: locale === "en" ? "How Much Does an Airbnb in Lille Earn in 2025?" : "Combien rapporte un Airbnb à Lille en 2025 ?",
+                href: locale === "fr" ? "/blog/combien-rapporte-airbnb-lille-2025" : "/en/blog/combien-rapporte-airbnb-lille-2025",
+                category: locale === "en" ? "Profitability" : "Rentabilité",
+              },
+              {
+                title: locale === "en" ? "The 5 Best Neighbourhoods for Airbnb in Lille" : "Les 5 meilleurs quartiers pour louer sur Airbnb à Lille",
+                href: locale === "fr" ? "/blog/meilleurs-quartiers-airbnb-lille" : "/en/blog/meilleurs-quartiers-airbnb-lille",
+                category: locale === "en" ? "Strategy" : "Stratégie",
+              },
+              {
+                title: locale === "en" ? "The Complete Checklist to Launch Your Airbnb in Lille" : "La checklist complète pour lancer son Airbnb à Lille",
+                href: locale === "fr" ? "/blog/checklist-lancer-airbnb-lille" : "/en/blog/checklist-lancer-airbnb-lille",
+                category: "Guide",
+              },
+            ].map((article) => (
+              <a
+                key={article.href}
+                href={article.href}
+                className="flex flex-col gap-3 p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 hover:border-welqo-terracotta/30 hover:shadow-sm transition-all group"
+              >
+                <span className="text-[9px] font-bold tracking-widest text-welqo-terracotta">{article.category}</span>
+                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-snug">{article.title}</span>
+                <span className="text-xs text-slate-400 mt-auto">{locale === "en" ? "Read the article →" : "Lire l'article →"}</span>
+              </a>
             ))}
           </div>
         </div>

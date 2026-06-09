@@ -34,11 +34,11 @@ export async function generateMetadata({
 }
 
 const CITIES = [
-  { name: "Lille", region: "Métropole Lilloise" },
-  { name: "Lens", region: "Hauts-de-France" },
-  { name: "Arras", region: "Hauts-de-France" },
-  { name: "Béthune", region: "Hauts-de-France" },
-  { name: "Douai", region: "Hauts-de-France" },
+  { name: "Lille", region: "Métropole Lilloise", slug: "conciergerie-airbnb-lille" },
+  { name: "Lens", region: "Hauts-de-France", slug: "conciergerie-airbnb-lens" },
+  { name: "Arras", region: "Hauts-de-France", slug: "conciergerie-airbnb-arras" },
+  { name: "Béthune", region: "Hauts-de-France", slug: "conciergerie-airbnb-bethune" },
+  { name: "Douai", region: "Hauts-de-France", slug: null },
 ];
 
 export default async function PropertyListingPage({
@@ -56,6 +56,8 @@ export default async function PropertyListingPage({
     { q: t("faq_4_q"), a: t("faq_4_a") },
   ];
 
+  const BASE_URL = "https://welqo.fr";
+
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -69,13 +71,35 @@ export default async function PropertyListingPage({
     })),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Accueil",
+        item: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: locale === "en" ? "Our Cities" : "Nos Logements",
+        item:
+          locale === "fr"
+            ? `${BASE_URL}/logements`
+            : `${BASE_URL}/${locale}/logements`,
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950">
       {/* Hero */}
       <section className="py-24 px-6 border-b border-slate-100 dark:border-white/5">
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 bg-primary/10 border border-primary/20 rounded-md">
-            <span className="text-primary text-[11px] font-bold uppercase tracking-wider">
+            <span className="text-primary text-[11px] font-bold tracking-wider">
               {t("portfolioBadge")}
             </span>
           </div>
@@ -109,7 +133,7 @@ export default async function PropertyListingPage({
       <section className="py-20 px-6 bg-slate-50 dark:bg-slate-900/30">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.2em] mb-3">
+            <p className="text-[10px] font-bold text-slate-400 tracking-[0.2em] mb-3">
               {t("coverageTitle")}
             </p>
             <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white tracking-tighter">
@@ -117,20 +141,40 @@ export default async function PropertyListingPage({
             </h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
-            {CITIES.map((city) => (
-              <div
-                key={city.name}
-                className="flex flex-col items-center gap-2 p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 text-center"
-              >
-                <MapPin className="w-5 h-5 text-primary" />
-                <span className="font-bold text-slate-900 dark:text-white text-sm">
-                  {city.name}
-                </span>
-                <span className="text-[10px] text-slate-400 font-medium">
-                  {city.region}
-                </span>
-              </div>
-            ))}
+            {CITIES.map((city) => {
+              const href = city.slug
+                ? locale === "fr"
+                  ? `/${city.slug}`
+                  : `/en/${city.slug}`
+                : undefined;
+              const Inner = (
+                <>
+                  <MapPin className="w-5 h-5 text-primary" />
+                  <span className="font-bold text-slate-900 dark:text-white text-sm">
+                    {city.name}
+                  </span>
+                  <span className="text-[10px] text-slate-400 font-medium">
+                    {city.region}
+                  </span>
+                </>
+              );
+              return href ? (
+                <a
+                  key={city.name}
+                  href={href}
+                  className="flex flex-col items-center gap-2 p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 text-center hover:border-primary/30 transition-colors"
+                >
+                  {Inner}
+                </a>
+              ) : (
+                <div
+                  key={city.name}
+                  className="flex flex-col items-center gap-2 p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 text-center"
+                >
+                  {Inner}
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -140,7 +184,7 @@ export default async function PropertyListingPage({
         <div className="max-w-5xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
-              <p className="text-[10px] font-bold text-primary uppercase tracking-[0.2em] mb-4">
+              <p className="text-[10px] font-bold text-primary tracking-[0.2em] mb-4">
                 {t("qualityBadge")}
               </p>
               <h2 className="text-3xl font-bold text-slate-900 dark:text-white tracking-tighter mb-6">
@@ -171,7 +215,7 @@ export default async function PropertyListingPage({
             <div className="bg-slate-900 text-white rounded-2xl p-8 border border-white/10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-welqo-terracotta/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
               <div className="relative z-10">
-                <span className="px-2.5 py-1 bg-primary/20 border border-primary/30 text-primary text-[9px] font-bold rounded-full uppercase tracking-wider">
+                <span className="px-2.5 py-1 bg-primary/20 border border-primary/30 text-primary text-[9px] font-bold rounded-full tracking-wider">
                   {t("auditBadge")}
                 </span>
                 <h3 className="text-2xl font-bold mt-4 mb-3 tracking-tight">
@@ -198,6 +242,7 @@ export default async function PropertyListingPage({
 
       {/* JSON-LD Schema */}
       <JsonLd data={faqSchema} />
+      <JsonLd data={breadcrumbSchema} />
 
       {/* FAQ Voyageurs Section */}
       <section className="py-20 px-6 bg-slate-50 dark:bg-slate-900/30 border-t border-slate-100 dark:border-white/5">

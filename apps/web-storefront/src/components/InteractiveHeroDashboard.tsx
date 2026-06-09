@@ -126,7 +126,7 @@ export const InteractiveHeroDashboard = ({
                 setVilleIdx(i);
                 setSelectedMonthIdx(null); // Reset month select when city changes
               }}
-              className={`flex-grow py-1.5 px-2 rounded-lg font-black tracking-wider uppercase transition-all duration-300 text-center ${
+              className={`flex-grow py-1.5 px-2 rounded-lg font-black tracking-wider transition-all duration-300 text-center ${
                 villeIdx === i
                   ? "bg-welqo-terracotta text-white shadow-lg shadow-welqo-terracotta/25"
                   : "text-slate-400 hover:text-white hover:bg-white/5"
@@ -146,7 +146,7 @@ export const InteractiveHeroDashboard = ({
                 setPiecesIdx(i);
                 setSelectedMonthIdx(null); // Reset month select when pieces changes
               }}
-              className={`py-1.5 px-2 rounded-lg font-black tracking-wider uppercase transition-all duration-300 text-center ${
+              className={`py-1.5 px-2 rounded-lg font-black tracking-wider transition-all duration-300 text-center ${
                 piecesIdx === i
                   ? "bg-white text-slate-950 shadow-lg shadow-white/10"
                   : "text-slate-400 hover:text-white hover:bg-white/5"
@@ -174,7 +174,7 @@ export const InteractiveHeroDashboard = ({
                   initial={{ opacity: 0, y: 5 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -5 }}
-                  className="text-slate-500 text-[9px] font-black uppercase tracking-[0.2em]"
+                  className="text-slate-500 text-[9px] font-black tracking-[0.2em]"
                 >
                   {selectedMonthIdx !== null
                     ? `${t("estimatedRevenue")} — ${monthsName[selectedMonthIdx]}`
@@ -210,7 +210,7 @@ export const InteractiveHeroDashboard = ({
 
           {/* 12-Month Interactive Sparkline/Bar Chart */}
           <div className="space-y-2">
-            <div className="flex justify-between items-center text-[8px] font-black text-slate-500 uppercase tracking-widest">
+            <div className="flex justify-between items-center text-[8px] font-black text-slate-500 tracking-widest">
               <span>{t("seasonality")}</span>
               <span className="text-primary tracking-[0.15em]">
                 Hauts-de-France / Métropole
@@ -295,7 +295,7 @@ export const InteractiveHeroDashboard = ({
                 <Star className="w-4 h-4 fill-current" />
               </div>
               <div>
-                <p className="text-slate-500 text-[8px] font-black uppercase tracking-widest leading-none">
+                <p className="text-slate-500 text-[8px] font-black tracking-widest leading-none">
                   {t("clientRating")}
                 </p>
                 <p className="text-white text-sm font-bold mt-1 leading-none">
@@ -309,7 +309,7 @@ export const InteractiveHeroDashboard = ({
                 <Home className="w-4 h-4" />
               </div>
               <div>
-                <p className="text-slate-500 text-[8px] font-black uppercase tracking-widest leading-none">
+                <p className="text-slate-500 text-[8px] font-black tracking-widest leading-none">
                   {t("occupancyRate")}
                 </p>
                 <p className="text-white text-sm font-bold mt-1 leading-none">
@@ -321,7 +321,7 @@ export const InteractiveHeroDashboard = ({
         </div>
 
         {/* Interactive Badge indicator */}
-        <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 px-2 py-0.5 rounded-full text-[7px] font-black tracking-widest uppercase animate-pulse-soft">
+        <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 px-2 py-0.5 rounded-full text-[7px] font-black tracking-widest animate-pulse-soft">
           <span className="w-1 h-1 rounded-full bg-emerald-400" />
           {t("interactiveSimulator")}
         </div>

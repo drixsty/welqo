@@ -33,7 +33,7 @@ export function ArticleToc({
 
   return (
     <nav>
-      <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-4">
+      <p className="text-[10px] font-black tracking-[0.2em] text-slate-400 mb-4">
         Sommaire
       </p>
       <ul className="space-y-0.5">
@@ -54,7 +54,7 @@ export function ArticleToc({
       </ul>
 
       <div className="mt-8 p-4 bg-blue-50 dark:bg-blue-950/30 rounded-xl border border-blue-100 dark:border-blue-900/50">
-        <p className="text-[10px] font-black uppercase tracking-widest text-blue-600 mb-2">
+        <p className="text-[10px] font-black tracking-widest text-blue-600 mb-2">
           Déléguer votre Airbnb
         </p>
         <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed mb-3">

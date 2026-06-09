@@ -57,8 +57,11 @@ export async function generateMetadata({
     creator: "Welqo",
     metadataBase: new URL(BASE_URL),
     icons: {
-      icon: "/icons/favicon.svg",
-      shortcut: "/icons/favicon.svg",
+      icon: [
+        { url: "/icons/favicon.svg", type: "image/svg+xml" },
+        { url: "/favicon.ico", sizes: "any" },
+      ],
+      shortcut: "/favicon.ico",
       apple: "/icons/favicon.svg",
     },
     alternates: {
@@ -148,8 +151,6 @@ export default async function LocaleLayout({
       { "@type": "City", name: "Arras" },
       { "@type": "City", name: "Béthune" },
       { "@type": "City", name: "Douai" },
-      { "@type": "City", name: "Roubaix" },
-      { "@type": "City", name: "Tourcoing" },
     ],
     serviceType: fr
       ? [
@@ -175,6 +176,39 @@ export default async function LocaleLayout({
     name: "Welqo",
     url: BASE_URL,
     inLanguage: fr ? "fr-FR" : "en-GB",
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${BASE_URL}/blog?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "@id": `${BASE_URL}/#organization`,
+    name: "Welqo",
+    url: BASE_URL,
+    logo: `${BASE_URL}/logo.png`,
+    telephone: "+33999912173",
+    email: "contact@welqo.fr",
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+33999912173",
+      contactType: "customer service",
+      availableLanguage: ["French", "English"],
+    },
+    areaServed: [
+      { "@type": "City", name: "Lille" },
+      { "@type": "City", name: "Lens" },
+      { "@type": "City", name: "Arras" },
+      { "@type": "City", name: "Béthune" },
+      { "@type": "City", name: "Douai" },
+    ],
+    sameAs: [
+      "https://www.facebook.com/welqo",
+      "https://www.instagram.com/welqo.conciergerie",
+    ],
   };
 
   return (
@@ -186,6 +220,7 @@ export default async function LocaleLayout({
           </Suspense>
           <JsonLd data={localBusinessSchema} />
           <JsonLd data={websiteSchema} />
+          <JsonLd data={organizationSchema} />
           <SmoothScroll />
           <GrainOverlay />
           <Navbar title="WELQO" locale={locale} />

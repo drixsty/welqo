@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
+import Image from "next/image";
 import { PropertySummary } from "@welqo/types";
 import { useTranslations } from "next-intl";
 
@@ -155,23 +156,27 @@ export const PropertyMap = ({
             >
               <Popup>
                 <div className="p-1 max-w-[200px]">
-                  <img
-                    src={p.coverPhoto}
-                    alt={p.title}
-                    className="w-full h-24 object-cover rounded-md mb-2"
-                  />
+                  <div className="relative w-full h-24 mb-2">
+                    <Image
+                      src={p.coverPhoto}
+                      alt={p.title}
+                      fill
+                      sizes="200px"
+                      className="object-cover rounded-md"
+                    />
+                  </div>
                   <h4 className="font-bold text-sm leading-tight mb-1">
                     {p.title}
                   </h4>
                   <p className="text-welqo-terracotta font-mono font-bold text-sm">
                     {p.price.base}€{" "}
-                    <span className="text-[10px] text-slate-400 uppercase">
+                    <span className="text-[10px] text-slate-400">
                       {t("perNight")}
                     </span>
                   </p>
                   <a
                     href={`/logements/${p.slug}`}
-                    className="mt-2 block text-center py-1.5 bg-slate-900 text-white text-[10px] font-bold uppercase rounded hover:bg-welqo-terracotta transition-colors"
+                    className="mt-2 block text-center py-1.5 bg-slate-900 text-white text-[10px] font-bold rounded hover:bg-welqo-terracotta transition-colors"
                   >
                     {t("viewDetail")}
                   </a>

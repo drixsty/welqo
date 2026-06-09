@@ -1,6 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { getPostBySlug, BLOG_POSTS } from "../../../../lib/blog";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "../../../../components/JsonLd";
@@ -11,6 +12,17 @@ import { ArticleChecklistLancerAirbnb } from "../../../../components/blog/Articl
 import { ArticleMeilleursQuartiers } from "../../../../components/blog/ArticleMeilleursQuartiers";
 import { ArticleConciergerieLensArras } from "../../../../components/blog/ArticleConciergerieLensArras";
 import { ArticleReglementationHautsDeFrance } from "../../../../components/blog/ArticleReglementationHautsDeFrance";
+import { ArticleCombienRapporteAirbnbLens } from "../../../../components/blog/ArticleCombienRapporteAirbnbLens";
+import { ArticleCombienRapporteAirbnbArras } from "../../../../components/blog/ArticleCombienRapporteAirbnbArras";
+import { ArticleGestionDelegueeAirbnb } from "../../../../components/blog/ArticleGestionDelegueeAirbnb";
+import { ArticleConciergerieBethune } from "../../../../components/blog/ArticleConciergerieBethune";
+import { ArticleMeilleursQuartiersLens } from "../../../../components/blog/ArticleMeilleursQuartiersLens";
+import { ArticleInvestirBassinMinier } from "../../../../components/blog/ArticleInvestirBassinMinier";
+import { ArticleCommissionAirbnbBookingVrbo } from "../../../../components/blog/ArticleCommissionAirbnbBookingVrbo";
+import { ArticleCalculerRendementAirbnb } from "../../../../components/blog/ArticleCalculerRendementAirbnb";
+import { ArticleConciergerieDDouai } from "../../../../components/blog/ArticleConciergerieDDouai";
+import { ArticleLcdVsLongueDuree } from "../../../../components/blog/ArticleLcdVsLongueDuree";
+import { ArticleFiscaliteAirbnbLmnp } from "../../../../components/blog/ArticleFiscaliteAirbnbLmnp";
 
 const BASE_URL = "https://welqo.fr";
 
@@ -59,6 +71,72 @@ const TOC_MAP: Record<string, TocItem[]> = {
     { id: "fiscalite-taxe", key: "toc_taxation" },
     { id: "onboarding-welqo", key: "toc_compliance" },
   ],
+  "combien-rapporte-airbnb-lens-2025": [
+    { id: "revenus-moyens", key: "toc_revenus_lens" },
+    { id: "effet-rc-lens", key: "toc_effet_rc_lens" },
+    { id: "effet-louvre-lens", key: "toc_effet_louvre_lens" },
+    { id: "secteurs-performants", key: "toc_secteurs_performants" },
+    { id: "maximiser-revenus", key: "toc_maximiser_revenus" },
+  ],
+  "combien-rapporte-airbnb-arras-2025": [
+    { id: "revenus-moyens", key: "toc_revenus_arras" },
+    { id: "tourisme-memoriel", key: "toc_tourisme_memoriel" },
+    { id: "marche-noel", key: "toc_marche_noel" },
+    { id: "comparaison-lille", key: "toc_comparaison_lille" },
+  ],
+  "gestion-deleguee-airbnb-guide-complet": [
+    { id: "quest-ce-que", key: "toc_quest_ce_que" },
+    { id: "types-gestion", key: "toc_types_gestion" },
+    { id: "choisir-partenaire", key: "toc_choisir_partenaire" },
+    { id: "welqo-modele", key: "toc_welqo_modele" },
+  ],
+  "conciergerie-airbnb-bethune-guide": [
+    { id: "marche-bethune", key: "toc_marche_bethune" },
+    { id: "moteurs-demande", key: "toc_moteurs_demande" },
+    { id: "secteurs-recommandes", key: "toc_secteurs_bethune" },
+    { id: "reglementation", key: "toc_reglementation" },
+  ],
+  "meilleurs-quartiers-airbnb-lens": [
+    { id: "classement", key: "toc_classement" },
+    { id: "choisir", key: "toc_choisir" },
+  ],
+  "investir-lcd-bassin-minier-hauts-de-france": [
+    { id: "pourquoi-bassin-minier", key: "toc_pourquoi_bassin_minier" },
+    { id: "rendement-calcul", key: "toc_rendement_calcul" },
+    { id: "risques", key: "toc_risques" },
+  ],
+  "commission-airbnb-booking-vrbo-comparatif": [
+    { id: "comprendre-commissions", key: "toc_comprendre_commissions" },
+    { id: "comparatif", key: "toc_comparatif_plateformes" },
+    { id: "multi-plateforme", key: "toc_multi_plateforme" },
+    { id: "welqo-gestion", key: "toc_welqo_gestion" },
+  ],
+  "calculer-rendement-locatif-airbnb": [
+    { id: "rendement-brut", key: "toc_rendement_brut" },
+    { id: "rendement-net", key: "toc_rendement_net" },
+    { id: "cash-flow", key: "toc_cash_flow" },
+    { id: "erreurs-courantes", key: "toc_erreurs_courantes" },
+  ],
+  "conciergerie-airbnb-douai-guide": [
+    { id: "marche-douai", key: "toc_marche_douai" },
+    { id: "moteurs-demande", key: "toc_moteurs_demande" },
+    { id: "secteurs-douai", key: "toc_secteurs_douai" },
+    { id: "reglementation", key: "toc_reglementation" },
+  ],
+  "lcd-vs-longue-duree-hauts-de-france": [
+    { id: "lcd-avantages", key: "toc_lcd_avantages" },
+    { id: "ld-avantages", key: "toc_ld_avantages" },
+    { id: "comparaison-fiscale", key: "toc_comparaison_fiscale" },
+    { id: "cas-pratiques", key: "toc_cas_pratiques" },
+    { id: "notre-recommandation", key: "toc_notre_recommandation" },
+  ],
+  "fiscalite-airbnb-lmnp-micro-bic-guide": [
+    { id: "statut-lmnp", key: "toc_statut_lmnp" },
+    { id: "micro-bic", key: "toc_micro_bic" },
+    { id: "regime-reel", key: "toc_regime_reel" },
+    { id: "comparaison", key: "toc_comparaison_fiscale" },
+    { id: "optimiser-fiscalite", key: "toc_optimiser_fiscalite" },
+  ],
 };
 
 const ARTICLE_MAP: Record<string, React.ComponentType<{ locale: string }>> = {
@@ -68,6 +146,17 @@ const ARTICLE_MAP: Record<string, React.ComponentType<{ locale: string }>> = {
   "conciergerie-airbnb-lens-arras-bassin-minier": ArticleConciergerieLensArras,
   "reglementation-airbnb-lille-hauts-de-france":
     ArticleReglementationHautsDeFrance,
+  "combien-rapporte-airbnb-lens-2025": ArticleCombienRapporteAirbnbLens,
+  "combien-rapporte-airbnb-arras-2025": ArticleCombienRapporteAirbnbArras,
+  "gestion-deleguee-airbnb-guide-complet": ArticleGestionDelegueeAirbnb,
+  "conciergerie-airbnb-bethune-guide": ArticleConciergerieBethune,
+  "meilleurs-quartiers-airbnb-lens": ArticleMeilleursQuartiersLens,
+  "investir-lcd-bassin-minier-hauts-de-france": ArticleInvestirBassinMinier,
+  "commission-airbnb-booking-vrbo-comparatif": ArticleCommissionAirbnbBookingVrbo,
+  "calculer-rendement-locatif-airbnb": ArticleCalculerRendementAirbnb,
+  "conciergerie-airbnb-douai-guide": ArticleConciergerieDDouai,
+  "lcd-vs-longue-duree-hauts-de-france": ArticleLcdVsLongueDuree,
+  "fiscalite-airbnb-lmnp-micro-bic-guide": ArticleFiscaliteAirbnbLmnp,
 };
 
 export function generateStaticParams() {
@@ -190,10 +279,13 @@ export default async function BlogPostPage({
 
       {/* ── COVER HERO ─────────────────────────────────────────────── */}
       <div className="relative h-[50vh] md:h-[60vh] w-full overflow-hidden bg-slate-950">
-        <img
+        <Image
           src={post.coverImage}
           alt={post.coverImageAlt}
-          className="w-full h-full object-cover opacity-60 scale-105"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover opacity-60 scale-105"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
 
@@ -210,13 +302,13 @@ export default async function BlogPostPage({
               >
                 {post.category}
               </span>
-              <span className="text-white/80 text-[9px] font-bold uppercase tracking-widest bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full border border-white/5">
+              <span className="text-white/80 text-[9px] font-bold tracking-widest bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full border border-white/5">
                 {post.readingMinutes} min {t("deRead").toLowerCase()}
               </span>
             </div>
 
             {/* 2. Breadcrumb (Integrated) */}
-            <nav className="flex items-center gap-3 text-[10px] font-bold text-white/60 mb-6 uppercase tracking-wider">
+            <nav className="flex items-center gap-3 text-[10px] font-bold text-white/60 mb-6 tracking-wider">
               <a
                 href={base}
                 className="hover:text-welqo-terracotta transition-colors"
@@ -258,7 +350,7 @@ export default async function BlogPostPage({
               <p className="text-sm font-bold text-slate-900 dark:text-white leading-none">
                 Welqo
               </p>
-              <p className="text-[10px] font-bold text-slate-400 leading-none mt-1 uppercase tracking-wider">
+              <p className="text-[10px] font-bold text-slate-400 leading-none mt-1 tracking-wider">
                 {new Date(
                   post.updatedAt ?? post.publishedAt,
                 ).toLocaleDateString(locale !== "en" ? "fr-FR" : "en-GB", {
@@ -304,7 +396,7 @@ export default async function BlogPostPage({
           <div className="mt-12 p-10 md:p-12 bg-slate-950 rounded-xl text-white text-center relative overflow-hidden border border-white/5 max-w-3xl">
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(212,85,55,0.15),transparent_60%)] pointer-events-none" />
             <div className="relative z-10">
-              <p className="text-welqo-terracotta text-[10px] font-bold tracking-[0.3em] mb-6 uppercase">
+              <p className="text-welqo-terracotta text-[10px] font-bold tracking-[0.3em] mb-6">
                 {t("takeAction")}
               </p>
               <h2 className="text-3xl md:text-5xl font-bold tracking-tighter mb-6 leading-tight">
@@ -339,11 +431,13 @@ export default async function BlogPostPage({
                     href={`${base}/blog/${p.slug}`}
                     className="group flex flex-col gap-4 p-4 bg-slate-50/50 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-white/5 hover:bg-white dark:hover:bg-slate-900 hover:border-welqo-terracotta/20 transition-all duration-500"
                   >
-                    <div className="aspect-[16/9] rounded-lg overflow-hidden shrink-0 bg-slate-200 dark:bg-slate-800">
-                      <img
+                    <div className="relative aspect-[16/9] rounded-lg overflow-hidden shrink-0 bg-slate-200 dark:bg-slate-800">
+                      <Image
                         src={p.coverImage}
                         alt={p.coverImageAlt}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        fill
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                        className="object-cover group-hover:scale-105 transition-transform duration-700"
                       />
                     </div>
                     <div className="px-1">
@@ -364,7 +458,7 @@ export default async function BlogPostPage({
         {toc.length > 0 && (
           <aside className="hidden xl:block xl:sticky xl:top-28 xl:self-start">
             <div className="p-6 rounded-2xl border border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-sm">
-              <p className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-400 mb-6">
+              <p className="text-[10px] font-black tracking-[0.2em] text-slate-400 mb-6">
                 {t("summaryLabel")}
               </p>
               <nav className="space-y-5">

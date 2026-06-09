@@ -226,7 +226,7 @@ export function ArticleConciergerieLensArras({ locale }: { locale: string }) {
       {/* Calendrier */}
       <div className="my-6 rounded-xl border border-slate-200 dark:border-white/10 overflow-hidden not-prose">
         <div className="bg-slate-50 dark:bg-slate-900 px-5 py-3 border-b border-slate-200 dark:border-white/10">
-          <p className="text-xs font-bold text-slate-700 dark:text-slate-300 tracking-wider uppercase">
+          <p className="text-xs font-bold text-slate-700 dark:text-slate-300 tracking-wider">
             {isEn ? "Demand Calendar — Lens" : "Calendrier de demande — Lens"}
           </p>
         </div>
@@ -344,7 +344,7 @@ export function ArticleConciergerieLensArras({ locale }: { locale: string }) {
                 <p className="text-lg font-bold text-slate-900 dark:text-white">
                   {v.prixMoyen}
                 </p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                <p className="text-[10px] text-slate-500 font-bold tracking-wider">
                   {isEn ? "Price / night" : "Prix / nuit"}
                 </p>
               </div>
@@ -352,7 +352,7 @@ export function ArticleConciergerieLensArras({ locale }: { locale: string }) {
                 <p className="text-lg font-bold text-slate-900 dark:text-white">
                   {v.tauxOcc}
                 </p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                <p className="text-[10px] text-slate-500 font-bold tracking-wider">
                   {isEn ? "Occup. rate" : "Taux occ."}
                 </p>
               </div>
@@ -360,7 +360,7 @@ export function ArticleConciergerieLensArras({ locale }: { locale: string }) {
                 <p className="text-lg font-bold text-slate-900 dark:text-white">
                   {v.revenuMois}
                 </p>
-                <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">
+                <p className="text-[10px] text-slate-500 font-bold tracking-wider">
                   {isEn ? "Revenue / month" : "Revenu / mois"}
                 </p>
               </div>
@@ -400,7 +400,7 @@ export function ArticleConciergerieLensArras({ locale }: { locale: string }) {
       </p>
 
       <div className="my-6 not-prose rounded-xl bg-slate-950 text-white p-6 border border-white/10">
-        <p className="text-xs font-bold tracking-[0.2em] text-slate-400 mb-4 uppercase">
+        <p className="text-xs font-bold tracking-[0.2em] text-slate-400 mb-4">
           {isEn
             ? "Simulation — 1-bed 40sqm in Lens (Welqo managed)"
             : "Simulation — T2 40m² à Lens (gestion Welqo)"}
@@ -569,6 +569,54 @@ export function ArticleConciergerieLensArras({ locale }: { locale: string }) {
           </>
         )}
       </p>
+
+      {/* ── CTA MAILLAGE INTERNE ── */}
+      <div className="not-prose mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <a
+          href={
+            locale === "en"
+              ? "/en/conciergerie-airbnb-lens"
+              : "/conciergerie-airbnb-lens"
+          }
+          className="flex flex-col gap-2 p-5 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
+        >
+          <span className="text-xs font-bold text-welqo-terracotta tracking-wider">
+            {isEn ? "Our Lens service" : "Notre service à Lens"}
+          </span>
+          <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors">
+            {isEn
+              ? "Airbnb Concierge Lens →"
+              : "Conciergerie Airbnb Lens →"}
+          </span>
+          <span className="text-xs text-slate-400">
+            {isEn
+              ? "Discover our Lens management offer"
+              : "Découvrez notre offre de gestion à Lens"}
+          </span>
+        </a>
+        <a
+          href={
+            locale === "en"
+              ? "/en/conciergerie-airbnb-arras"
+              : "/conciergerie-airbnb-arras"
+          }
+          className="flex flex-col gap-2 p-5 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
+        >
+          <span className="text-xs font-bold text-welqo-terracotta tracking-wider">
+            {isEn ? "Our Arras service" : "Notre service à Arras"}
+          </span>
+          <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors">
+            {isEn
+              ? "Airbnb Concierge Arras →"
+              : "Conciergerie Airbnb Arras →"}
+          </span>
+          <span className="text-xs text-slate-400">
+            {isEn
+              ? "Discover our Arras management offer"
+              : "Découvrez notre offre de gestion à Arras"}
+          </span>
+        </a>
+      </div>
     </div>
   );
 }

@@ -173,7 +173,7 @@ export const PropertyCard = ({
           </div>
         ) : (
           <div className="absolute top-4 left-4 px-3 py-1.5 bg-slate-900/90 text-white backdrop-blur-md shadow-sm rounded-2xl border border-white/10 flex items-center gap-1.5 z-20">
-            <span className="text-[9px] font-bold uppercase tracking-widest text-primary">
+            <span className="text-[9px] font-bold tracking-widest text-primary">
               {t("standard5star")}
             </span>
           </div>
@@ -189,10 +189,10 @@ export const PropertyCard = ({
           <div className="flex flex-col items-end shrink-0">
             {property.rating === 0 ? (
               <>
-                <span className="text-xs font-black text-welqo-terracotta uppercase tracking-wider">
+                <span className="text-xs font-black text-welqo-terracotta tracking-wider">
                   Inspiration
                 </span>
-                <span className="text-[8px] font-bold text-slate-400 uppercase tracking-widest text-right">
+                <span className="text-[8px] font-bold text-slate-400 tracking-widest text-right">
                   Staging
                 </span>
               </>

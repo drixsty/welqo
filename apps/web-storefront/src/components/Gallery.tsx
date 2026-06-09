@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { motion, AnimatePresence } from "framer-motion";
 import {
@@ -52,10 +53,12 @@ export const Gallery = ({ images }: { images: string[] }) => {
               setIsOpen(true);
             }}
           >
-            <img
+            <Image
               src={images[0]}
               alt="Main view"
-              className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover transition-transform duration-1000 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
           </div>
@@ -80,10 +83,12 @@ export const Gallery = ({ images }: { images: string[] }) => {
                     setIsOpen(true);
                   }}
                 >
-                  <img
+                  <Image
                     src={img}
                     alt={`View ${actualIdx}`}
-                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105"
+                    fill
+                    sizes="25vw"
+                    className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500" />
                 </div>
@@ -196,9 +201,11 @@ export const Gallery = ({ images }: { images: string[] }) => {
                       : "border-transparent opacity-40 hover:opacity-100",
                   )}
                 >
-                  <img
+                  <Image
                     src={img}
-                    className="w-full h-full object-cover select-none pointer-events-none"
+                    fill
+                    sizes="80px"
+                    className="object-cover select-none pointer-events-none"
                     alt="Thumbnail"
                   />
                 </button>

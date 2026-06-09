@@ -84,7 +84,7 @@ export default async function PolitiqueConfidentialitePage({
           {/* Sommaire — Desktop only */}
           <aside className="hidden lg:block lg:col-span-4 sticky top-12 h-fit">
             <div className="p-8 rounded-lg border border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/50">
-              <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-400 mb-6">
+              <p className="text-[10px] font-bold tracking-[0.2em] text-slate-400 mb-6">
                 Sommaire
               </p>
               <nav className="space-y-4">
@@ -117,7 +117,7 @@ export default async function PolitiqueConfidentialitePage({
               </h2>
               <div className="p-8 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-100 dark:border-slate-800 flex flex-col md:flex-row gap-8">
                 <div className="flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">
+                  <p className="text-[10px] font-bold tracking-widest text-slate-400 mb-1">
                     Entité
                   </p>
                   <p className="text-slate-900 dark:text-white font-bold">
@@ -128,7 +128,7 @@ export default async function PolitiqueConfidentialitePage({
                   </p>
                 </div>
                 <div className="flex-1">
-                  <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-1">
+                  <p className="text-[10px] font-bold tracking-widest text-slate-400 mb-1">
                     Email DPO
                   </p>
                   <p className="text-welqo-terracotta font-bold">

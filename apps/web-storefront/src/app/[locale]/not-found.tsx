@@ -43,7 +43,7 @@ export default async function NotFound() {
         </div>
 
         <div className="pt-10 border-t border-slate-100 dark:border-white/5">
-          <p className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">
+          <p className="text-xs font-bold text-slate-400 tracking-widest mb-4">
             {t("popularLinks")}
           </p>
           <div className="flex flex-wrap justify-center gap-6">

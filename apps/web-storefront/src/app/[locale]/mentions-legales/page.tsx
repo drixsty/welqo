@@ -168,7 +168,7 @@ export default async function MentionsLegalesPage({
               <div className="p-8 bg-slate-50 dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-white/5">
                 <div className="flex flex-col md:flex-row gap-12">
                   <div className="flex-1">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">
+                    <p className="text-[10px] font-black tracking-widest text-slate-400 mb-2">
                       {t("label_provider")}
                     </p>
                     <p className="text-slate-900 dark:text-white font-bold text-lg">
@@ -181,7 +181,7 @@ export default async function MentionsLegalesPage({
                     </p>
                   </div>
                   <div className="flex-1">
-                    <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-2">
+                    <p className="text-[10px] font-black tracking-widest text-slate-400 mb-2">
                       {t("label_jurisdiction")}
                     </p>
                     <p className="text-slate-900 dark:text-white font-bold text-lg">

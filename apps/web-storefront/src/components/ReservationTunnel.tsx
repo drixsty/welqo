@@ -154,7 +154,7 @@ export const ReservationTunnel = ({
               >
                 <s.icon className="w-4.5 h-4.5" />
               </div>
-              <span className="text-[9px] font-black tracking-[0.15em] uppercase text-slate-500 dark:text-slate-400">
+              <span className="text-[9px] font-black tracking-[0.15em] text-slate-500 dark:text-slate-400">
                 {s.label}
               </span>
             </div>
@@ -185,7 +185,7 @@ export const ReservationTunnel = ({
                 className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-white/5 p-6 sm:p-8 rounded-3xl shadow-xl shadow-slate-900/5 dark:shadow-none space-y-6"
               >
                 <div className="space-y-1">
-                  <span className="text-[8px] font-black text-primary uppercase tracking-[0.25em]">
+                  <span className="text-[8px] font-black text-primary tracking-[0.25em]">
                     {t("step1Label")}
                   </span>
                   <h2 className="text-2xl font-bold tracking-tight">
@@ -199,7 +199,7 @@ export const ReservationTunnel = ({
                 <div className="bg-slate-50 dark:bg-white/[0.02] border border-slate-100 dark:border-white/5 p-6 rounded-2xl space-y-5">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <span className="text-[8px] font-black tracking-widest text-slate-400 uppercase">
+                      <span className="text-[8px] font-black tracking-widest text-slate-400">
                         {t("checkIn")}
                       </span>
                       <p className="font-bold text-base">
@@ -210,7 +210,7 @@ export const ReservationTunnel = ({
                       </p>
                     </div>
                     <div className="space-y-1">
-                      <span className="text-[8px] font-black tracking-widest text-slate-400 uppercase">
+                      <span className="text-[8px] font-black tracking-widest text-slate-400">
                         {t("checkOut")}
                       </span>
                       <p className="font-bold text-base">
@@ -258,7 +258,7 @@ export const ReservationTunnel = ({
                 className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-white/5 p-6 sm:p-8 rounded-3xl shadow-xl shadow-slate-900/5 dark:shadow-none space-y-6"
               >
                 <div className="space-y-1">
-                  <span className="text-[8px] font-black text-primary uppercase tracking-[0.25em]">
+                  <span className="text-[8px] font-black text-primary tracking-[0.25em]">
                     {t("step2Label")}
                   </span>
                   <h2 className="text-2xl font-bold tracking-tight">
@@ -272,7 +272,7 @@ export const ReservationTunnel = ({
                 <div className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-1">
-                      <label className="text-[8px] font-black tracking-widest text-slate-500 uppercase ml-1">
+                      <label className="text-[8px] font-black tracking-widest text-slate-500 ml-1">
                         {t("firstName")}
                       </label>
                       <input
@@ -292,7 +292,7 @@ export const ReservationTunnel = ({
                       )}
                     </div>
                     <div className="space-y-1">
-                      <label className="text-[8px] font-black tracking-widest text-slate-500 uppercase ml-1">
+                      <label className="text-[8px] font-black tracking-widest text-slate-500 ml-1">
                         {t("lastName")}
                       </label>
                       <input
@@ -314,7 +314,7 @@ export const ReservationTunnel = ({
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[8px] font-black tracking-widest text-slate-500 uppercase ml-1">
+                    <label className="text-[8px] font-black tracking-widest text-slate-500 ml-1">
                       Email
                     </label>
                     <input
@@ -336,7 +336,7 @@ export const ReservationTunnel = ({
                   </div>
 
                   <div className="space-y-1">
-                    <label className="text-[8px] font-black tracking-widest text-slate-500 uppercase ml-1">
+                    <label className="text-[8px] font-black tracking-widest text-slate-500 ml-1">
                       {t("phone")}
                     </label>
                     <input
@@ -385,7 +385,7 @@ export const ReservationTunnel = ({
                 className="bg-white dark:bg-slate-900 border border-slate-200/50 dark:border-white/5 p-6 sm:p-8 rounded-3xl shadow-xl shadow-slate-900/5 dark:shadow-none space-y-6"
               >
                 <div className="space-y-1">
-                  <span className="text-[8px] font-black text-primary uppercase tracking-[0.25em]">
+                  <span className="text-[8px] font-black text-primary tracking-[0.25em]">
                     {t("step3Label")}
                   </span>
                   <h2 className="text-2xl font-bold tracking-tight">
@@ -492,7 +492,7 @@ export const ReservationTunnel = ({
                 </div>
               </div>
 
-              <div className="pt-4 flex items-center justify-center gap-2 text-[8px] font-black tracking-[0.15em] text-white/30 border-t border-white/5 uppercase">
+              <div className="pt-4 flex items-center justify-center gap-2 text-[8px] font-black tracking-[0.15em] text-white/30 border-t border-white/5">
                 <ShieldCheck className="w-3.5 h-3.5 text-emerald-500/80" />
                 {t("securedStripe")}
               </div>

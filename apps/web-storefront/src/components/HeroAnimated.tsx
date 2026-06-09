@@ -42,7 +42,7 @@ export function HeroAnimated({
       <motion.div {...fadeUp(0.05)} className="mb-5">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-full">
           <span className="w-1.5 h-1.5 bg-welqo-terracotta rounded-full animate-pulse-soft" />
-          <span className="text-welqo-terracotta text-[9px] font-bold tracking-[0.15em] uppercase">
+          <span className="text-welqo-terracotta text-[9px] font-bold tracking-[0.15em]">
             {badge}
           </span>
         </div>

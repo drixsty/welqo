@@ -234,7 +234,7 @@ export function ArticleReglementationHautsDeFrance({
       <div className="my-12 p-8 bg-slate-900 dark:bg-slate-950/50 rounded-3xl border border-white/10 text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_50%,rgba(212,85,55,0.1),transparent)]" />
         <div className="relative z-10 max-w-xl mx-auto">
-          <span className="px-2 py-0.5 bg-welqo-terracotta/20 border border-welqo-terracotta/30 text-welqo-terracotta text-[9px] font-bold rounded uppercase tracking-wider">
+          <span className="px-2 py-0.5 bg-welqo-terracotta/20 border border-welqo-terracotta/30 text-welqo-terracotta text-[9px] font-bold rounded tracking-wider">
             {isEn ? "Compliant Onboarding" : "Accompagnement légal"}
           </span>
           <h3 className="text-2xl font-bold text-white mt-4 mb-4 tracking-tight leading-tight">

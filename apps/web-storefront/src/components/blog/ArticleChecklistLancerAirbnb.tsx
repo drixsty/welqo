@@ -291,13 +291,13 @@ export function ArticleChecklistLancerAirbnb({ locale }: { locale: string }) {
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr className="bg-slate-900 dark:bg-slate-800 text-white">
-              <th className="text-left px-4 py-2.5 font-bold rounded-tl-xl text-[10px] uppercase tracking-wider">
+              <th className="text-left px-4 py-2.5 font-bold rounded-tl-xl text-[10px] tracking-wider">
                 {isEn ? "Criteria" : "Critère"}
               </th>
-              <th className="text-center px-4 py-2.5 font-bold text-[10px] uppercase tracking-wider">
+              <th className="text-center px-4 py-2.5 font-bold text-[10px] tracking-wider">
                 {isEn ? "Solo management" : "Gestion solo"}
               </th>
-              <th className="text-center px-4 py-2.5 font-bold rounded-tr-xl text-[10px] uppercase tracking-wider text-welqo-terracotta">
+              <th className="text-center px-4 py-2.5 font-bold rounded-tr-xl text-[10px] tracking-wider text-welqo-terracotta">
                 {isEn ? "With Welqo" : "Avec Welqo"}
               </th>
             </tr>

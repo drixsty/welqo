@@ -76,7 +76,7 @@ export function OwnerPropertyShowcaseSidebar({
 
         <div className="relative z-10 space-y-6">
           <div>
-            <span className="px-2.5 py-1 bg-primary/20 border border-primary/30 text-primary text-[9px] font-black rounded-full uppercase tracking-widest inline-flex items-center gap-1.5 shadow-sm">
+            <span className="px-2.5 py-1 bg-primary/20 border border-primary/30 text-primary text-[9px] font-black rounded-full tracking-widest inline-flex items-center gap-1.5 shadow-sm">
               <Sparkles className="w-3 h-3 text-primary" />
               {t("ownerPerformance")}
             </span>
@@ -91,7 +91,7 @@ export function OwnerPropertyShowcaseSidebar({
           {/* Interactive Slider Box */}
           <div className="p-4 bg-white/[0.02] border border-white/5 rounded-2xl space-y-3">
             <div className="flex justify-between items-end">
-              <span className="text-[9px] font-black text-slate-500 uppercase tracking-widest">
+              <span className="text-[9px] font-black text-slate-500 tracking-widest">
                 {t("occupancyRate")}
               </span>
               <span className="text-xs font-bold text-primary">
@@ -112,7 +112,7 @@ export function OwnerPropertyShowcaseSidebar({
           {/* Revenue Display Box */}
           <div className="p-5 bg-white/5 rounded-2xl border border-white/5 space-y-4">
             <div>
-              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest leading-none">
+              <p className="text-[10px] font-bold text-slate-400 tracking-widest leading-none">
                 {t("estimatedRentalRevenue")}
               </p>
               <div className="flex items-baseline gap-2 mt-2 leading-none">
@@ -143,7 +143,7 @@ export function OwnerPropertyShowcaseSidebar({
             ].map((item, index) => (
               <div
                 key={index}
-                className="flex justify-between items-center text-[10px] border-b border-white/5 pb-2 font-bold uppercase tracking-wider"
+                className="flex justify-between items-center text-[10px] border-b border-white/5 pb-2 font-bold tracking-wider"
               >
                 <span className="text-slate-500">{item.label}</span>
                 <span className="text-slate-300">{item.value}</span>
@@ -153,7 +153,7 @@ export function OwnerPropertyShowcaseSidebar({
 
           {/* Welqo Added Value Checklist */}
           <div className="space-y-2.5 pt-2">
-            <p className="text-[9px] font-black text-slate-500 uppercase tracking-widest mb-1.5">
+            <p className="text-[9px] font-black text-slate-500 tracking-widest mb-1.5">
               {t("welqoHandles")}
             </p>
             {[t("benefit0"), t("benefit1"), t("benefit2")].map(
@@ -222,7 +222,7 @@ export function OwnerPropertyShowcaseSidebar({
                     className="space-y-5"
                   >
                     <div>
-                      <span className="text-[8px] font-black text-primary uppercase tracking-[0.25em]">
+                      <span className="text-[8px] font-black text-primary tracking-[0.25em]">
                         {t("freeAudit")}
                       </span>
                       <h4 className="text-xl font-bold tracking-tight mt-1">
@@ -235,7 +235,7 @@ export function OwnerPropertyShowcaseSidebar({
 
                     <form onSubmit={handleSubmit} className="space-y-4">
                       <div className="space-y-1.5">
-                        <label className="text-[8px] font-black text-slate-500 uppercase tracking-widest">
+                        <label className="text-[8px] font-black text-slate-500 tracking-widest">
                           {t("fullName")}
                         </label>
                         <input
@@ -249,7 +249,7 @@ export function OwnerPropertyShowcaseSidebar({
                       </div>
 
                       <div className="space-y-1.5">
-                        <label className="text-[8px] font-black text-slate-500 uppercase tracking-widest">
+                        <label className="text-[8px] font-black text-slate-500 tracking-widest">
                           {t("emailAddress")}
                         </label>
                         <input
@@ -263,7 +263,7 @@ export function OwnerPropertyShowcaseSidebar({
                       </div>
 
                       <div className="space-y-1.5">
-                        <label className="text-[8px] font-black text-slate-500 uppercase tracking-widest">
+                        <label className="text-[8px] font-black text-slate-500 tracking-widest">
                           {t("phoneNumber")}
                         </label>
                         <input

@@ -67,7 +67,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
         {/* Filters Label */}
         <div className="flex items-center gap-2 text-slate-400 mr-2">
           <SlidersHorizontal className="w-3.5 h-3.5" />
-          <span className="text-[10px] font-bold uppercase tracking-widest">
+          <span className="text-[10px] font-bold tracking-widest">
             {t("filters")}
           </span>
         </div>
@@ -154,7 +154,7 @@ export const FilterBar = ({ locale }: FilterBarProps) => {
           {(minPrice || maxPrice || city) && (
             <button
               onClick={handleClear}
-              className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-primary transition-colors uppercase tracking-widest px-2"
+              className="flex items-center gap-1.5 text-[10px] font-bold text-slate-400 hover:text-primary transition-colors tracking-widest px-2"
             >
               <X className="w-3 h-3" />
               {t("clear")}

@@ -224,7 +224,7 @@ export default async function PropertyDetailsPage({
                 <span className="px-2 py-0.5 bg-slate-100 dark:bg-white/5 text-slate-500 text-[10px] font-bold rounded">
                   {normalized.location.city}
                 </span>
-                <div className="flex items-center gap-1.5 px-2.5 py-0.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-extrabold rounded uppercase tracking-wider">
+                <div className="flex items-center gap-1.5 px-2.5 py-0.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 text-[10px] font-extrabold rounded tracking-wider">
                   <Star className="w-3 h-3 fill-current text-primary" />
                   {t("standard5star")}
                 </div>

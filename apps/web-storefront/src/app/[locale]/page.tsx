@@ -228,6 +228,19 @@ export default async function HomePage({
     })),
   };
 
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Welqo",
+        item: locale === "fr" ? BASE_URL : `${BASE_URL}/${locale}`,
+      },
+    ],
+  };
+
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -270,6 +283,7 @@ export default async function HomePage({
     <main className="min-h-screen bg-white dark:bg-black overflow-x-hidden">
       <JsonLd data={faqSchema} />
       <JsonLd data={serviceSchema} />
+      <JsonLd data={breadcrumbSchema} />
 
       {/* ══════════════════════════════════════════════════════
           HERO
@@ -322,7 +336,7 @@ export default async function HomePage({
         {/* Kinetic Scroll Indicator — in-flow to avoid overlap with chips */}
         <div className="relative z-20 hidden md:flex justify-center py-3">
           <div className="flex flex-col items-center gap-1 opacity-60 hover:opacity-100 transition-opacity">
-            <span className="text-[8px] font-black text-slate-500 uppercase tracking-[0.25em]">
+            <span className="text-[8px] font-black text-slate-500 tracking-[0.25em]">
               {t("scrollDiscover")}
             </span>
             <div className="w-5 h-8 rounded-full border border-slate-700 flex justify-center p-1.5 relative overflow-hidden bg-slate-950/20 backdrop-blur-sm">
@@ -339,7 +353,7 @@ export default async function HomePage({
           <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4">
             <div className="flex items-center gap-2">
               <div className="w-1.5 h-1.5 rounded-full bg-welqo-terracotta" />
-              <p className="text-slate-500 text-[9px] font-bold uppercase tracking-[0.2em]">
+              <p className="text-slate-500 text-[9px] font-bold tracking-[0.2em]">
                 {t("heroPlatformsLabel")}
               </p>
             </div>
@@ -365,7 +379,7 @@ export default async function HomePage({
       <section className="py-12 px-4 bg-white dark:bg-black">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block px-3 py-1 mb-3 text-[9px] font-bold tracking-[0.15em] uppercase bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 rounded-full border border-red-100 dark:border-red-900">
+            <span className="inline-block px-3 py-1 mb-3 text-[9px] font-bold tracking-[0.15em] bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 rounded-full border border-red-100 dark:border-red-900">
               {t("painBadge")}
             </span>
             <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white mb-3">
@@ -403,7 +417,7 @@ export default async function HomePage({
       >
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] uppercase bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-full border border-orange-100 dark:border-orange-900">
+            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-full border border-orange-100 dark:border-orange-900">
               {t("processBadge")}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
@@ -435,7 +449,7 @@ export default async function HomePage({
                     <div className="absolute inset-0 bg-welqo-terracotta rounded-lg animate-ping opacity-20" />
                   )}
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-welqo-terracotta mb-2">
+                <span className="text-[10px] font-bold tracking-[0.2em] text-welqo-terracotta mb-2">
                   {step.duration}
                 </span>
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white tracking-tight mb-3">
@@ -459,7 +473,7 @@ export default async function HomePage({
       >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] uppercase bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-full border border-orange-100 dark:border-orange-900">
+            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-full border border-orange-100 dark:border-orange-900">
               {t("servicesBadge")}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
@@ -504,7 +518,7 @@ export default async function HomePage({
                             />
                           </svg>
                         </div>
-                        <span className="px-2.5 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 rounded-full text-[9px] font-bold uppercase tracking-wider">
+                        <span className="px-2.5 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 rounded-full text-[9px] font-bold tracking-wider">
                           {svc.tag}
                         </span>
                       </div>
@@ -518,7 +532,7 @@ export default async function HomePage({
                         className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-lg border ${accentClass} bg-opacity-10`}
                       >
                         <span className="font-bold text-sm">{svc.stat}</span>
-                        <span className="text-[10px] opacity-70 font-medium uppercase tracking-widest">
+                        <span className="text-[10px] opacity-70 font-medium tracking-widest">
                           {svc.statLabel}
                         </span>
                       </div>
@@ -571,7 +585,7 @@ export default async function HomePage({
                   </h3>
                   <div className="grid grid-cols-3 gap-2 text-center text-[10px]">
                     <div className="bg-white dark:bg-slate-950 p-2.5 rounded-lg border border-slate-100 dark:border-slate-850 flex flex-col justify-between min-h-[52px]">
-                      <p className="text-[7.5px] font-bold text-slate-400 uppercase tracking-widest mb-1 leading-none">
+                      <p className="text-[7.5px] font-bold text-slate-400 tracking-widest mb-1 leading-none">
                         {t("compareSolo")}
                       </p>
                       <p className="font-semibold text-slate-600 dark:text-slate-300 leading-tight break-words">
@@ -580,7 +594,7 @@ export default async function HomePage({
                     </div>
                     <div className="bg-welqo-terracotta/5 dark:bg-welqo-terracotta/10 border border-welqo-terracotta/20 p-2.5 rounded-lg relative overflow-hidden flex flex-col justify-between min-h-[52px]">
                       <div className="absolute top-0 right-0 w-8 h-8 bg-welqo-terracotta/5 rounded-full blur-sm" />
-                      <p className="text-[7.5px] font-black text-welqo-terracotta uppercase tracking-widest mb-1 leading-none relative z-10">
+                      <p className="text-[7.5px] font-black text-welqo-terracotta tracking-widest mb-1 leading-none relative z-10">
                         WELQO
                       </p>
                       <p className="font-extrabold text-welqo-terracotta leading-tight break-words relative z-10">
@@ -588,7 +602,7 @@ export default async function HomePage({
                       </p>
                     </div>
                     <div className="bg-white dark:bg-slate-950 p-2.5 rounded-lg border border-slate-100 dark:border-slate-850 flex flex-col justify-between min-h-[52px]">
-                      <p className="text-[7.5px] font-bold text-slate-400 uppercase tracking-widest mb-1 leading-none">
+                      <p className="text-[7.5px] font-bold text-slate-400 tracking-widest mb-1 leading-none">
                         {t("compareAgency")}
                       </p>
                       <p className="font-semibold text-slate-500 leading-tight break-words">
@@ -605,10 +619,10 @@ export default async function HomePage({
               <table className="w-full text-xs">
                 <thead>
                   <tr className="border-b border-slate-100 dark:border-slate-800">
-                    <th className="text-left px-5 py-4 font-bold text-slate-400 text-[9px] uppercase tracking-widest w-1/3">
+                    <th className="text-left px-5 py-4 font-bold text-slate-400 text-[9px] tracking-widest w-1/3">
                       {t("compareCriteria")}
                     </th>
-                    <th className="px-5 py-4 font-bold text-slate-500 text-[9px] uppercase tracking-widest text-center">
+                    <th className="px-5 py-4 font-bold text-slate-500 text-[9px] tracking-widest text-center">
                       {t("compareSolo")}
                     </th>
                     <th className="px-5 py-4 bg-welqo-terracotta/5 dark:bg-welqo-terracotta/10 text-center">
@@ -616,7 +630,7 @@ export default async function HomePage({
                         WELQO
                       </span>
                     </th>
-                    <th className="hidden sm:table-cell px-5 py-4 font-bold text-slate-500 text-[9px] uppercase tracking-widest text-center">
+                    <th className="hidden sm:table-cell px-5 py-4 font-bold text-slate-500 text-[9px] tracking-widest text-center">
                       {t("compareAgency")}
                     </th>
                   </tr>
@@ -667,7 +681,7 @@ export default async function HomePage({
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-10">
             <div className="inline-flex items-center gap-2 px-2.5 py-1 mb-3 bg-orange-50 dark:bg-orange-950/30 border border-orange-100 dark:border-orange-900 rounded-md">
-              <span className="text-orange-800 dark:text-orange-400 text-[9px] font-bold tracking-[0.2em] uppercase">
+              <span className="text-orange-800 dark:text-orange-400 text-[9px] font-bold tracking-[0.2em]">
                 {t("commitBadge")}
               </span>
             </div>
@@ -718,7 +732,7 @@ export default async function HomePage({
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-welqo-terracotta opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-welqo-terracotta" />
                   </span>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em]">
+                  <span className="text-[10px] font-bold tracking-[0.2em]">
                     {t("pricingBadge")}
                   </span>
                 </div>
@@ -762,7 +776,7 @@ export default async function HomePage({
               <div className="shrink-0 w-full md:w-72 lg:w-80 max-w-sm md:max-w-none mx-auto md:mx-0 bg-slate-900/40 border border-white/5 rounded-2xl p-6 sm:p-8 lg:p-10 text-center relative overflow-hidden backdrop-blur-xl transition-all duration-700">
                 <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-welqo-terracotta/40 to-transparent" />
                 <div className="relative z-10 mb-8">
-                  <span className="text-slate-400 text-[10px] font-bold uppercase tracking-[0.3em]">
+                  <span className="text-slate-400 text-[10px] font-bold tracking-[0.3em]">
                     {t("pricingCommission")}
                   </span>
                 </div>
@@ -779,10 +793,10 @@ export default async function HomePage({
                   </div>
                 </div>
                 <div className="relative z-10 mb-8">
-                  <p className="text-slate-300 text-[11px] font-bold uppercase tracking-[0.2em]">
+                  <p className="text-slate-300 text-[11px] font-bold tracking-[0.2em]">
                     {t("pricingOfGross")}
                   </p>
-                  <p className="text-slate-400 text-[10px] font-medium uppercase tracking-widest mt-1">
+                  <p className="text-slate-400 text-[10px] font-medium tracking-widest mt-1">
                     {t("pricingGenerated")}
                   </p>
                 </div>
@@ -798,7 +812,7 @@ export default async function HomePage({
                     <div className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                     <div className="absolute inset-0 w-1.5 h-1.5 rounded-full bg-emerald-500 animate-ping opacity-40" />
                   </div>
-                  <p className="text-slate-400 text-[9px] font-bold uppercase tracking-widest">
+                  <p className="text-slate-400 text-[9px] font-bold tracking-widest">
                     {t("pricingNoCommit")}
                   </p>
                 </div>
@@ -863,7 +877,7 @@ export default async function HomePage({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(212,85,55,0.1),transparent)]" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-welqo-terracotta/40 to-transparent" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <span className="inline-block px-4 py-2 mb-8 bg-welqo-terracotta/10 border border-welqo-terracotta/20 text-welqo-terracotta rounded-full text-[10px] font-bold tracking-[0.15em] uppercase">
+          <span className="inline-block px-4 py-2 mb-8 bg-welqo-terracotta/10 border border-welqo-terracotta/20 text-welqo-terracotta rounded-full text-[10px] font-bold tracking-[0.15em]">
             {t("readyToDelegate")}
           </span>
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-6 leading-[0.9]">
@@ -889,7 +903,7 @@ export default async function HomePage({
         <div className="max-w-6xl mx-auto">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-6 items-start">
             <div className="max-w-xl">
-              <span className="text-welqo-terracotta text-[10px] font-bold uppercase tracking-[0.2em] mb-3 block">
+              <span className="text-welqo-terracotta text-[10px] font-bold tracking-[0.2em] mb-3 block">
                 {t("expertiseBadge")}
               </span>
               <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white leading-tight">
@@ -1051,7 +1065,7 @@ export default async function HomePage({
                 <div>
                   <div className="flex items-center justify-between mb-4">
                     <span
-                      className={`px-2.5 py-0.5 border text-[9px] font-bold uppercase tracking-wider rounded-md ${resource.badgeClass}`}
+                      className={`px-2.5 py-0.5 border text-[9px] font-bold tracking-wider rounded-md ${resource.badgeClass}`}
                     >
                       {resource.category}
                     </span>

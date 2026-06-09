@@ -1,4 +1,5 @@
 import React from "react";
+import Image from "next/image";
 import { getTranslations } from "next-intl/server";
 import { Sparkles, ArrowRight } from "lucide-react";
 
@@ -13,14 +14,17 @@ export const Hero = async ({ locale = "fr" }: HeroProps) => {
   return (
     <section className="relative h-[calc(100vh-64px)] w-full flex items-center justify-center bg-slate-950">
       <div className="absolute inset-0 bg-slate-950/65 z-10" />
-      <img
+      <Image
         src="https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070&auto=format&fit=crop"
         alt="Welqo Professional Management"
-        className="absolute inset-0 w-full h-full object-cover grayscale-[0.1]"
+        fill
+        priority
+        sizes="100vw"
+        className="object-cover grayscale-[0.1]"
       />
 
       <div className="relative z-20 text-center px-6 w-full max-w-5xl mx-auto">
-        <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-[9px] font-black tracking-[0.2em] uppercase bg-slate-950/40 backdrop-blur-md border border-white/10 text-white rounded-md shadow-2xl">
+        <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 text-[9px] font-black tracking-[0.2em] bg-slate-950/40 backdrop-blur-md border border-white/10 text-white rounded-md shadow-2xl">
           <Sparkles className="w-3 h-3 text-primary" />
           {t("badge")}
         </div>
@@ -38,13 +42,13 @@ export const Hero = async ({ locale = "fr" }: HeroProps) => {
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-lg mx-auto">
           <a
             href={`${base}/proprietaires#simulator`}
-            className="w-full sm:w-auto px-8 py-4 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-xl text-center active:scale-95"
+            className="w-full sm:w-auto px-8 py-4 bg-welqo-terracotta hover:bg-welqo-terracotta-dark text-white rounded-xl font-bold text-xs tracking-wider transition-all duration-300 shadow-xl text-center active:scale-95"
           >
             {t("simulateIncome")}
           </a>
           <a
             href={`mailto:contact@welqo.fr?subject=Demande d'audit gratuit&body=Bonjour, je souhaite obtenir un audit gratuit de mon bien.`}
-            className="w-full sm:w-auto px-8 py-4 bg-slate-900/80 hover:bg-slate-800 backdrop-blur border border-white/10 text-white rounded-xl font-bold text-xs uppercase tracking-wider transition-all duration-300 shadow-xl text-center active:scale-95"
+            className="w-full sm:w-auto px-8 py-4 bg-slate-900/80 hover:bg-slate-800 backdrop-blur border border-white/10 text-white rounded-xl font-bold text-xs tracking-wider transition-all duration-300 shadow-xl text-center active:scale-95"
           >
             {t("requestFreeAudit")}
           </a>
@@ -53,7 +57,7 @@ export const Hero = async ({ locale = "fr" }: HeroProps) => {
         <div className="mt-12 flex items-center justify-center">
           <a
             href={`${base}/proprietaires`}
-            className="text-[10px] font-black tracking-[0.2em] text-white/50 hover:text-primary transition-colors flex items-center gap-2 uppercase"
+            className="text-[10px] font-black tracking-[0.2em] text-white/50 hover:text-primary transition-colors flex items-center gap-2"
           >
             {t("discoverMethod")}
             <ArrowRight className="w-3 h-3" />

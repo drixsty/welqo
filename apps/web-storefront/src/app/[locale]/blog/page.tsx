@@ -1,5 +1,6 @@
 import React from "react";
 import type { Metadata } from "next";
+import Image from "next/image";
 import { BLOG_POSTS } from "../../../lib/blog";
 import { JsonLd } from "../../../components/JsonLd";
 import { getTranslations } from "next-intl/server";
@@ -149,12 +150,12 @@ export default async function BlogPage({
           <nav className="flex items-center gap-3 text-[9px] font-bold text-white mb-4">
             <a
               href={base}
-              className="hover:text-welqo-terracotta transition-colors uppercase"
+              className="hover:text-welqo-terracotta transition-colors"
             >
               {t("home")}
             </a>
             <span className="text-welqo-terracotta">/</span>
-            <span className="text-slate-300 uppercase">Blog</span>
+            <span className="text-slate-300">Blog</span>
           </nav>
 
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
@@ -197,10 +198,12 @@ export default async function BlogPage({
               >
                 {/* Cover image */}
                 <div className="relative aspect-video overflow-hidden">
-                  <img
+                  <Image
                     src={featured.coverImage}
                     alt={featured.coverImageAlt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 42vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
 
@@ -267,11 +270,13 @@ export default async function BlogPage({
                 className="group flex flex-col sm:flex-row gap-5 p-4 bg-slate-50/50 dark:bg-slate-900/50 rounded-xl border border-slate-100 dark:border-white/5 hover:bg-white dark:hover:bg-slate-900 hover:border-welqo-terracotta/20 transition-all duration-500"
               >
                 {/* Thumb */}
-                <div className="w-full sm:w-32 aspect-[4/3] rounded-lg overflow-hidden shrink-0 bg-slate-200 dark:bg-slate-800">
-                  <img
+                <div className="relative w-full sm:w-32 aspect-[4/3] rounded-lg overflow-hidden shrink-0 bg-slate-200 dark:bg-slate-800">
+                  <Image
                     src={post.coverImage}
                     alt={post.coverImageAlt}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    fill
+                    sizes="(max-width: 640px) 100vw, 128px"
+                    className="object-cover group-hover:scale-105 transition-transform duration-700"
                   />
                 </div>
 

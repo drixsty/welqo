@@ -8,8 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: [
         "/reservation/",
         "/en/reservation/",
-        "/proprietaires/",
-        "/en/proprietaires/",
         "/api/",
       ],
     },

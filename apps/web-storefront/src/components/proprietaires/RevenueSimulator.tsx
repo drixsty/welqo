@@ -450,7 +450,7 @@ export function RevenueSimulator({
                   {/* Interactive SVG Projection Card */}
                   <div className="bg-slate-50 dark:bg-slate-950/40 p-4 rounded-lg border border-slate-100 dark:border-slate-800 flex flex-col gap-2 relative overflow-hidden backdrop-blur-md">
                     <div className="flex items-center justify-between">
-                      <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">
+                      <span className="text-[9px] font-bold text-slate-500 tracking-widest">
                         {isEn
                           ? "Cumulative projection"
                           : "Projection cumulative"}
@@ -651,7 +651,7 @@ export function RevenueSimulator({
                       </svg>
 
                       {/* X Axis Labels */}
-                      <div className="absolute bottom-[-10px] left-0 right-0 flex justify-between px-6 text-[8px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">
+                      <div className="absolute bottom-[-10px] left-0 right-0 flex justify-between px-6 text-[8px] font-black text-slate-400 dark:text-slate-500 tracking-widest">
                         <span>{t("year1")}</span>
                         <span>{t("year2")}</span>
                         <span>{t("year3")}</span>
@@ -661,7 +661,7 @@ export function RevenueSimulator({
                     {/* Tooltip detail values */}
                     <div className="grid grid-cols-3 gap-2 mt-4 pt-2 border-t border-slate-100 dark:border-slate-800">
                       <div className="text-center">
-                        <p className="text-[7.5px] font-bold text-slate-400 uppercase tracking-wider">
+                        <p className="text-[7.5px] font-bold text-slate-400 tracking-wider">
                           {t("soloManagement")}
                         </p>
                         <p className="text-xs font-bold text-slate-500 mt-0.5">
@@ -673,7 +673,7 @@ export function RevenueSimulator({
                         </p>
                       </div>
                       <div className="text-center border-x border-slate-100 dark:border-slate-800">
-                        <p className="text-[7.5px] font-black text-primary uppercase tracking-wider">
+                        <p className="text-[7.5px] font-black text-primary tracking-wider">
                           {t("welqoManagement")}
                         </p>
                         <p className="text-xs font-extrabold text-slate-900 dark:text-white mt-0.5">
@@ -685,7 +685,7 @@ export function RevenueSimulator({
                         </p>
                       </div>
                       <div className="text-center">
-                        <p className="text-[7.5px] font-bold text-emerald-500 uppercase tracking-wider">
+                        <p className="text-[7.5px] font-bold text-emerald-500 tracking-wider">
                           {t("welqoNetGain")}
                         </p>
                         <p className="text-xs font-extrabold text-emerald-500 mt-0.5">
@@ -760,7 +760,7 @@ export function RevenueSimulator({
                 <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-full blur-3xl pointer-events-none" />
 
                 <div>
-                  <span className="text-[9px] font-bold text-primary tracking-widest uppercase block mb-1">
+                  <span className="text-[9px] font-bold text-primary tracking-widest block mb-1">
                     {t("simulationSummary")}
                   </span>
                   <h4 className="text-slate-900 dark:text-white text-lg font-bold tracking-tight">

@@ -39,6 +39,7 @@ function defaultLinks(locale: string): NavLink[] {
           href: `${homePath}#simulator`,
           sectionId: "simulator",
         },
+        { label: "Propriétaires", href: `${base}/proprietaires` },
         { label: "Blog", href: `${base}/blog` },
       ]
     : [
@@ -57,6 +58,7 @@ function defaultLinks(locale: string): NavLink[] {
           href: `${homePath}#simulator`,
           sectionId: "simulator",
         },
+        { label: "For owners", href: `${base}/proprietaires` },
         { label: "Blog", href: `${base}/blog` },
       ];
 }

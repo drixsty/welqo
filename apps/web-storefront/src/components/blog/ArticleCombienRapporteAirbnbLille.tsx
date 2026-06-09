@@ -239,16 +239,16 @@ export function ArticleCombienRapporteAirbnbLille({
         <table className="w-full text-sm border-collapse">
           <thead>
             <tr className="bg-slate-900 dark:bg-slate-800 text-white">
-              <th className="text-left px-3 py-1.5 font-bold rounded-tl-lg text-[10px] uppercase tracking-wider">
+              <th className="text-left px-3 py-1.5 font-bold rounded-tl-lg text-[10px] tracking-wider">
                 {isEn ? "District" : "Quartier"}
               </th>
-              <th className="text-right px-3 py-1.5 font-bold text-[10px] uppercase tracking-wider">
+              <th className="text-right px-3 py-1.5 font-bold text-[10px] tracking-wider">
                 {isEn ? "Gross revenue / month" : "Revenu brut / mois"}
               </th>
-              <th className="text-right px-3 py-1.5 font-bold hidden sm:table-cell text-[10px] uppercase tracking-wider">
+              <th className="text-right px-3 py-1.5 font-bold hidden sm:table-cell text-[10px] tracking-wider">
                 {isEn ? "Occupancy rate" : "Taux d'occupation"}
               </th>
-              <th className="text-right px-3 py-1.5 font-bold rounded-tr-lg text-[10px] uppercase tracking-wider">
+              <th className="text-right px-3 py-1.5 font-bold rounded-tr-lg text-[10px] tracking-wider">
                 {isEn ? "Price / night" : "Prix / nuit"}
               </th>
             </tr>
@@ -575,6 +575,29 @@ export function ArticleCombienRapporteAirbnbLille({
               className="text-welqo-terracotta font-bold hover:underline"
             >
               Découvrez comment Welqo gère votre bien en Hauts-de-France →
+            </a>
+          </>
+        )}
+      </p>
+      <p>
+        {locale === "en" ? (
+          <>
+            Ready to list your Lille property?{" "}
+            <a
+              href={`/en/conciergerie-airbnb-lille`}
+              className="text-welqo-terracotta font-bold hover:underline"
+            >
+              Discover our Lille Airbnb concierge service →
+            </a>
+          </>
+        ) : (
+          <>
+            Prêt à mettre votre bien lillois en location ?{" "}
+            <a
+              href={`/conciergerie-airbnb-lille`}
+              className="text-welqo-terracotta font-bold hover:underline"
+            >
+              Découvrez notre service de conciergerie Airbnb à Lille →
             </a>
           </>
         )}

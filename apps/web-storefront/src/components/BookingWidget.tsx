@@ -109,11 +109,11 @@ export const BookingWidget = ({
           <span className="text-2xl font-black text-slate-900 dark:text-white tracking-tighter">
             €{basePrice}
           </span>
-          <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">
+          <span className="text-[10px] text-slate-400 font-bold tracking-wider">
             {t("perNight")}
           </span>
         </div>
-        <div className="flex items-center gap-1.5 text-emerald-500 text-[9px] font-black uppercase tracking-widest bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+        <div className="flex items-center gap-1.5 text-emerald-500 text-[9px] font-black tracking-widest bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
           <Zap className="w-2.5 h-2.5 fill-current" />
           {t("bestPrice")}
         </div>
@@ -130,7 +130,7 @@ export const BookingWidget = ({
               }}
               className="p-3 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group focus:outline-none"
             >
-              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">
+              <span className="text-[8px] font-black text-slate-400 tracking-widest block mb-0.5">
                 {t("checkIn")}
               </span>
               <span className="text-[11px] font-bold text-slate-800 dark:text-white truncate block">
@@ -146,7 +146,7 @@ export const BookingWidget = ({
               }}
               className="p-3 text-left hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group focus:outline-none"
             >
-              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">
+              <span className="text-[8px] font-black text-slate-400 tracking-widest block mb-0.5">
                 {t("checkOut")}
               </span>
               <span className="text-[11px] font-bold text-slate-800 dark:text-white truncate block">
@@ -191,7 +191,7 @@ export const BookingWidget = ({
                     month_grid: "w-full border-collapse",
                     weeks: "flex flex-col",
                     weekday:
-                      "text-slate-400 rounded-md w-7 font-black text-[9px] uppercase tracking-wider text-center py-1",
+                      "text-slate-400 rounded-md w-7 font-black text-[9px] tracking-wider text-center py-1",
                     week: "flex w-full mt-0.5",
                     day: "h-7 w-7 sm:h-8 sm:w-8 p-0 text-[10px] font-bold flex items-center justify-center aria-selected:opacity-100 hover:bg-slate-100 dark:hover:bg-white/5 rounded-lg transition-all relative",
                     selected:
@@ -218,7 +218,7 @@ export const BookingWidget = ({
                 <div className="mt-3 pt-2.5 border-t border-slate-50 dark:border-white/5 flex items-center justify-between">
                   <button
                     onClick={() => setRange(undefined)}
-                    className="text-[9px] font-black uppercase tracking-wider text-slate-400 hover:text-primary transition-colors flex items-center gap-1 focus:outline-none"
+                    className="text-[9px] font-black tracking-wider text-slate-400 hover:text-primary transition-colors flex items-center gap-1 focus:outline-none"
                   >
                     <X className="w-2.5 h-2.5" />
                     {t("clear")}
@@ -244,7 +244,7 @@ export const BookingWidget = ({
             className="w-full p-3 bg-slate-50 dark:bg-white/[0.02] rounded-2xl border border-slate-100 dark:border-white/5 flex items-center justify-between hover:bg-slate-100 dark:hover:bg-white/5 transition-colors group focus:outline-none shadow-sm"
           >
             <div className="text-left">
-              <span className="text-[8px] font-black text-slate-400 uppercase tracking-widest block mb-0.5">
+              <span className="text-[8px] font-black text-slate-400 tracking-widest block mb-0.5">
                 {t("guests")}
               </span>
               <span className="text-[11px] font-bold text-slate-800 dark:text-white">
@@ -270,7 +270,7 @@ export const BookingWidget = ({
                     <p className="text-xs font-bold text-slate-800 dark:text-white">
                       {t("adults")}
                     </p>
-                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-wider mt-0.5">
+                    <p className="text-[9px] text-slate-400 font-bold tracking-wider mt-0.5">
                       {t("maxGuests", { max: maxGuests })}
                     </p>
                   </div>
@@ -323,7 +323,7 @@ export const BookingWidget = ({
           </span>
         </div>
         <div className="pt-3 border-t border-slate-100 dark:border-white/5 flex justify-between items-baseline">
-          <span className="text-slate-500 uppercase tracking-widest text-[9px] font-black">
+          <span className="text-slate-500 tracking-widest text-[9px] font-black">
             {t("total")}
           </span>
           <motion.span
@@ -346,7 +346,7 @@ export const BookingWidget = ({
         <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
       </motion.button>
 
-      <p className="mt-3.5 text-center text-[9px] font-bold text-slate-400 uppercase tracking-widest flex items-center justify-center gap-1.5">
+      <p className="mt-3.5 text-center text-[9px] font-bold text-slate-400 tracking-widest flex items-center justify-center gap-1.5">
         <span className="w-1 h-1 rounded-full bg-emerald-500" />
         {t("securePayment")}
       </p>

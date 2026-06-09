@@ -15,8 +15,28 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
     title: isFr ? "L'Univers Welqo" : "Welqo Universe",
     links: [
       {
-        label: isFr ? "Conciergerie Lens & Arras" : "Lens & Arras Concierge",
-        href: `${base}/blog/conciergerie-airbnb-lens-arras-bassin-minier`,
+        label: isFr ? "Propriétaires — Confier son Airbnb" : "For owners — Hand over your Airbnb",
+        href: `${base}/proprietaires`,
+      },
+      {
+        label: isFr ? "Tarifs — Commission 20%" : "Pricing — 20% Commission",
+        href: `${base}/tarifs`,
+      },
+      {
+        label: isFr ? "Calculateur de rentabilité" : "Yield calculator",
+        href: `${base}/calculateur-rentabilite-airbnb`,
+      },
+      {
+        label: isFr ? "Nos logements" : "Our properties",
+        href: `${base}/logements`,
+      },
+      {
+        label: "Blog",
+        href: `${base}/blog`,
+      },
+      {
+        label: isFr ? "À propos de Welqo" : "About Welqo",
+        href: `${base}/a-propos`,
       },
       ...(dashboardUrl
         ? [
@@ -26,17 +46,43 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
             },
           ]
         : []),
+    ],
+  };
+
+  const colVilles = {
+    title: isFr ? "Nos villes" : "Our cities",
+    links: [
       {
-        label: isFr ? "Nos Logements" : "Our Properties",
-        href: `${base}/logements`,
+        label: isFr ? "Conciergerie Airbnb Lille" : "Airbnb Concierge Lille",
+        href: `${base}/conciergerie-airbnb-lille`,
       },
       {
-        label: isFr ? "Estimer mes revenus" : "Estimate my income",
-        href: `${homePath}#simulator`,
+        label: isFr ? "Conciergerie Airbnb Lens" : "Airbnb Concierge Lens",
+        href: `${base}/conciergerie-airbnb-lens`,
       },
       {
-        label: "Blog",
-        href: `${base}/blog`,
+        label: isFr ? "Conciergerie Airbnb Arras" : "Airbnb Concierge Arras",
+        href: `${base}/conciergerie-airbnb-arras`,
+      },
+      {
+        label: isFr ? "Conciergerie Airbnb Béthune" : "Airbnb Concierge Béthune",
+        href: `${base}/conciergerie-airbnb-bethune`,
+      },
+      {
+        label: "Vieux-Lille",
+        href: `${base}/conciergerie-airbnb-vieux-lille`,
+      },
+      {
+        label: "Wazemmes",
+        href: `${base}/conciergerie-airbnb-wazemmes`,
+      },
+      {
+        label: "Euralille",
+        href: `${base}/conciergerie-airbnb-euralille`,
+      },
+      {
+        label: isFr ? "Conciergerie Airbnb Douai" : "Airbnb Concierge Douai",
+        href: `${base}/conciergerie-airbnb-douai`,
       },
     ],
   };
@@ -59,7 +105,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
     <footer className="w-full bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-900">
       {/* Main grid */}
       <div className="max-w-7xl mx-auto px-6 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-12">
           {/* Brand */}
           <div className="md:col-span-2 space-y-4">
             <a href={base || "/"} className="block w-fit">
@@ -78,7 +124,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
 
           {/* Column 1 */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-6">
+            <h3 className="text-xs font-bold tracking-widest text-slate-900 dark:text-white mb-6">
               {col1.title}
             </h3>
             <ul className="space-y-3">
@@ -95,9 +141,28 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
             </ul>
           </div>
 
+          {/* Column Villes */}
+          <div>
+            <h3 className="text-xs font-bold tracking-widest text-slate-900 dark:text-white mb-6">
+              {colVilles.title}
+            </h3>
+            <ul className="space-y-3">
+              {colVilles.links.map((l) => (
+                <li key={l.label}>
+                  <a
+                    href={l.href}
+                    className="text-sm text-slate-600 dark:text-slate-400 hover:text-welqo-terracotta transition-colors"
+                  >
+                    {l.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
           {/* Column 2 */}
           <div>
-            <h3 className="text-xs font-bold uppercase tracking-widest text-slate-900 dark:text-white mb-6">
+            <h3 className="text-xs font-bold tracking-widest text-slate-900 dark:text-white mb-6">
               {col2.title}
             </h3>
             <ul className="space-y-3">
@@ -138,7 +203,7 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
             >
               {isFr ? "Confidentialité" : "Privacy"}
             </a>
-            <span className="text-welqo-terracotta font-bold uppercase tracking-tighter">
+            <span className="text-welqo-terracotta font-bold tracking-tighter">
               Hauts-de-France
             </span>
           </div>

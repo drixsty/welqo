@@ -338,9 +338,7 @@ export default async function AboutPage({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(212,85,55,0.1),transparent)]" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-6 leading-none">
-            {fr
-              ? "Travaillons ensemble"
-              : "Let's work together"}
+            {fr ? "Travaillons ensemble" : "Let's work together"}
           </h2>
           <p className="text-slate-400 font-medium max-w-xl mx-auto mb-10 text-base leading-relaxed">
             {fr

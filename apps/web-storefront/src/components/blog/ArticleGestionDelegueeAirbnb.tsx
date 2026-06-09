@@ -8,10 +8,10 @@ export function ArticleGestionDelegueeAirbnb({ locale }: { locale: string }) {
       {isEn ? (
         <p>
           You have an Airbnb property but don't want to spend your evenings
-          managing guest messages, coordinating cleaning between two back-to-back
-          bookings or handling a broken boiler at midnight? Delegated management
-          is the answer — but navigating the different options available can be
-          confusing. This guide explains everything.
+          managing guest messages, coordinating cleaning between two
+          back-to-back bookings or handling a broken boiler at midnight?
+          Delegated management is the answer — but navigating the different
+          options available can be confusing. This guide explains everything.
         </p>
       ) : (
         <p>
@@ -42,9 +42,9 @@ export function ArticleGestionDelegueeAirbnb({ locale }: { locale: string }) {
           La gestion déléguée consiste à confier tout ou partie des opérations
           de votre Airbnb à un professionnel tiers. Cela couvre : la
           communication voyageurs, les check-in/out, le ménage professionnel, la
-          tarification dynamique, la maintenance et le reporting. Le propriétaire
-          conserve la propriété et perçoit les revenus mensuels déduction faite
-          des frais de gestion.
+          tarification dynamique, la maintenance et le reporting. Le
+          propriétaire conserve la propriété et perçoit les revenus mensuels
+          déduction faite des frais de gestion.
         </p>
       )}
 
@@ -54,9 +54,7 @@ export function ArticleGestionDelegueeAirbnb({ locale }: { locale: string }) {
           : "Les 3 types de gestion locative"}
       </h2>
 
-      <h3>
-        {isEn ? "1. The Airbnb Concierge" : "1. La conciergerie Airbnb"}
-      </h3>
+      <h3>{isEn ? "1. The Airbnb Concierge" : "1. La conciergerie Airbnb"}</h3>
       {isEn ? (
         <>
           <p>
@@ -171,8 +169,8 @@ export function ArticleGestionDelegueeAirbnb({ locale }: { locale: string }) {
       ) : (
         <>
           <p>
-            Un particulier qui gère plusieurs biens Airbnb de façon indépendante,
-            généralement dans son quartier.
+            Un particulier qui gère plusieurs biens Airbnb de façon
+            indépendante, généralement dans son quartier.
           </p>
           <ul>
             <li>
@@ -193,9 +191,7 @@ export function ArticleGestionDelegueeAirbnb({ locale }: { locale: string }) {
       </h2>
       {isEn ? (
         <>
-          <p>
-            Five questions to ask before signing with a property manager:
-          </p>
+          <p>Five questions to ask before signing with a property manager:</p>
           <ol>
             <li>
               <strong>On which platforms do you list?</strong> A good concierge
@@ -221,17 +217,15 @@ export function ArticleGestionDelegueeAirbnb({ locale }: { locale: string }) {
         </>
       ) : (
         <>
-          <p>
-            Cinq questions à poser avant de signer avec un gestionnaire :
-          </p>
+          <p>Cinq questions à poser avant de signer avec un gestionnaire :</p>
           <ol>
             <li>
               <strong>Sur quelles plateformes publiez-vous ?</strong> Un bon
               gestionnaire diffuse au minimum sur Airbnb, Booking.com et Vrbo.
             </li>
             <li>
-              <strong>Quel est votre modèle de rémunération ?</strong> Évitez les
-              frais fixes — la commission seule aligne les intérêts.
+              <strong>Quel est votre modèle de rémunération ?</strong> Évitez
+              les frais fixes — la commission seule aligne les intérêts.
             </li>
             <li>
               <strong>Quelle est votre note moyenne ?</strong> Demandez la note
@@ -250,14 +244,16 @@ export function ArticleGestionDelegueeAirbnb({ locale }: { locale: string }) {
       )}
 
       <h2 id="welqo-modele">
-        {isEn ? "The Welqo Model in Northern France" : "Le modèle Welqo en Hauts-de-France"}
+        {isEn
+          ? "The Welqo Model in Northern France"
+          : "Le modèle Welqo en Hauts-de-France"}
       </h2>
       {isEn ? (
         <p>
           Welqo operates on a <strong>commission-only model (20%)</strong> with
           no fixed fees, covering Lille, Lens, Arras and Béthune. This means our
-          interests are perfectly aligned with yours: we only earn money when you
-          do.
+          interests are perfectly aligned with yours: we only earn money when
+          you do.
         </p>
       ) : (
         <p>
@@ -283,7 +279,10 @@ export function ArticleGestionDelegueeAirbnb({ locale }: { locale: string }) {
             className="flex items-center justify-between gap-2 p-4 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
           >
             <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors text-sm">
-              {isEn ? `Airbnb Concierge ${item.city}` : `Conciergerie Airbnb ${item.city}`} →
+              {isEn
+                ? `Airbnb Concierge ${item.city}`
+                : `Conciergerie Airbnb ${item.city}`}{" "}
+              →
             </span>
           </a>
         ))}

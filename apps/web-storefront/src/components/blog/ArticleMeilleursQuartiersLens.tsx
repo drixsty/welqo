@@ -112,10 +112,10 @@ export function ArticleMeilleursQuartiersLens({ locale }: { locale: string }) {
       ) : (
         <p>
           Le Bassin Minier n'est pas un marché homogène. Entre Avion (le voisin
-          du Stade Bollaert), le centre de Lens (les visiteurs du Louvre-Lens) et
-          Liévin (les primo-investisseurs), chaque secteur a son propre profil,
-          ses moteurs de demande et son potentiel de rendement. Voici notre
-          classement détaillé.
+          du Stade Bollaert), le centre de Lens (les visiteurs du Louvre-Lens)
+          et Liévin (les primo-investisseurs), chaque secteur a son propre
+          profil, ses moteurs de demande et son potentiel de rendement. Voici
+          notre classement détaillé.
         </p>
       )}
 
@@ -126,7 +126,10 @@ export function ArticleMeilleursQuartiersLens({ locale }: { locale: string }) {
       </h2>
 
       {data.map((q) => (
-        <div key={q.rank} className="not-prose mb-6 p-5 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5">
+        <div
+          key={q.rank}
+          className="not-prose mb-6 p-5 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5"
+        >
           <div className="flex items-start gap-4">
             <span className="text-3xl font-black text-slate-200 dark:text-slate-700 leading-none shrink-0">
               {q.rank}
@@ -148,7 +151,9 @@ export function ArticleMeilleursQuartiersLens({ locale }: { locale: string }) {
                   {isEn ? "/night" : "/nuit"}
                 </span>
               </div>
-              <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">{q.desc}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                {q.desc}
+              </p>
               <p className="text-xs font-bold text-welqo-terracotta">
                 💡 {isEn ? "Expert tip:" : "Conseil expert :"} {q.tips}
               </p>
@@ -173,8 +178,8 @@ export function ArticleMeilleursQuartiersLens({ locale }: { locale: string }) {
             night rates but lower off-season occupancy.
           </li>
           <li>
-            <strong>Best year-round balance:</strong> Lens city centre. Consistent
-            performance across all seasons and visitor types.
+            <strong>Best year-round balance:</strong> Lens city centre.
+            Consistent performance across all seasons and visitor types.
           </li>
           <li>
             <strong>Differentiation and niche:</strong> Loos-en-Gohelle. Higher
@@ -207,11 +212,15 @@ export function ArticleMeilleursQuartiersLens({ locale }: { locale: string }) {
       {/* ── CTA ── */}
       <div className="not-prose mt-8">
         <a
-          href={isEn ? "/en/conciergerie-airbnb-lens" : "/conciergerie-airbnb-lens"}
+          href={
+            isEn ? "/en/conciergerie-airbnb-lens" : "/conciergerie-airbnb-lens"
+          }
           className="flex flex-col gap-2 p-5 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
         >
           <span className="text-xs font-bold text-welqo-terracotta tracking-wider">
-            {isEn ? "Delegate your Lens Airbnb" : "Déléguez votre Airbnb à Lens"}
+            {isEn
+              ? "Delegate your Lens Airbnb"
+              : "Déléguez votre Airbnb à Lens"}
           </span>
           <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors">
             {isEn

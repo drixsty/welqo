@@ -34,10 +34,22 @@ export async function generateMetadata({
 }
 
 const CITIES = [
-  { name: "Lille", region: "Métropole Lilloise", slug: "conciergerie-airbnb-lille" },
+  {
+    name: "Lille",
+    region: "Métropole Lilloise",
+    slug: "conciergerie-airbnb-lille",
+  },
   { name: "Lens", region: "Hauts-de-France", slug: "conciergerie-airbnb-lens" },
-  { name: "Arras", region: "Hauts-de-France", slug: "conciergerie-airbnb-arras" },
-  { name: "Béthune", region: "Hauts-de-France", slug: "conciergerie-airbnb-bethune" },
+  {
+    name: "Arras",
+    region: "Hauts-de-France",
+    slug: "conciergerie-airbnb-arras",
+  },
+  {
+    name: "Béthune",
+    region: "Hauts-de-France",
+    slug: "conciergerie-airbnb-bethune",
+  },
   { name: "Douai", region: "Hauts-de-France", slug: null },
 ];
 

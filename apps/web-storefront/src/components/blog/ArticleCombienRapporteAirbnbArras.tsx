@@ -1,6 +1,10 @@
 import React from "react";
 
-export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }) {
+export function ArticleCombienRapporteAirbnbArras({
+  locale,
+}: {
+  locale: string;
+}) {
   const isEn = locale === "en";
 
   return (
@@ -15,17 +19,19 @@ export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }
         </p>
       ) : (
         <p>
-          Arras est l'un des secrets les mieux gardés de l'investissement locatif
-          courte durée en France. Avec sa Grand-Place classée UNESCO, son tourisme
-          mémoriel (Carrière Wellington, Mémorial de Vimy) et son célèbre marché
-          de Noël, la ville attire un flux régulier et annuel de visiteurs — mais
-          son offre Airbnb reste significativement sous-développée par rapport à
-          la demande.
+          Arras est l'un des secrets les mieux gardés de l'investissement
+          locatif courte durée en France. Avec sa Grand-Place classée UNESCO,
+          son tourisme mémoriel (Carrière Wellington, Mémorial de Vimy) et son
+          célèbre marché de Noël, la ville attire un flux régulier et annuel de
+          visiteurs — mais son offre Airbnb reste significativement
+          sous-développée par rapport à la demande.
         </p>
       )}
 
       <h2 id="revenus-moyens">
-        {isEn ? "Average Airbnb Revenue in Arras" : "Revenus Airbnb moyens à Arras"}
+        {isEn
+          ? "Average Airbnb Revenue in Arras"
+          : "Revenus Airbnb moyens à Arras"}
       </h2>
       {isEn ? (
         <ul>
@@ -48,15 +54,15 @@ export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }
       ) : (
         <ul>
           <li>
-            <strong>Revenu brut mensuel moyen :</strong> 1 050 € (appartement
-            T2 standard, centre-ville)
+            <strong>Revenu brut mensuel moyen :</strong> 1 050 € (appartement T2
+            standard, centre-ville)
           </li>
           <li>
             <strong>Taux d'occupation moyen :</strong> 68 %
           </li>
           <li>
-            <strong>Tarif moyen par nuit :</strong> 70 € hors saison / 110 à
-            160 € pendant le marché de Noël et les commémorations
+            <strong>Tarif moyen par nuit :</strong> 70 € hors saison / 110 à 160
+            € pendant le marché de Noël et les commémorations
           </li>
           <li>
             <strong>Meilleures périodes :</strong> novembre (marché de Noël),
@@ -74,7 +80,8 @@ export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }
         <>
           <p>
             Arras sits at the heart of the Western Front and the Great War
-            memorial circuit. Three major sites generate continuous visitor flows:
+            memorial circuit. Three major sites generate continuous visitor
+            flows:
           </p>
           <ul>
             <li>
@@ -95,16 +102,16 @@ export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }
           <p>
             This memorial tourism is particularly valuable because it is{" "}
             <strong>distributed throughout the year</strong> and generates
-            mid-week stays (school groups, guided tours), complementing
-            weekend leisure tourism.
+            mid-week stays (school groups, guided tours), complementing weekend
+            leisure tourism.
           </p>
         </>
       ) : (
         <>
           <p>
-            Arras se situe au cœur du Front de l'Ouest et du circuit mémoriel
-            de la Grande Guerre. Trois sites majeurs génèrent des flux de
-            visiteurs continus :
+            Arras se situe au cœur du Front de l'Ouest et du circuit mémoriel de
+            la Grande Guerre. Trois sites majeurs génèrent des flux de visiteurs
+            continus :
           </p>
           <ul>
             <li>
@@ -115,8 +122,8 @@ export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }
             </li>
             <li>
               <strong>Mémorial de Vimy (20 km d'Arras) :</strong> 400 000
-              visiteurs/an, notamment des touristes canadiens en pèlerinage
-              sur la crête de Vimy. Beaucoup se logent à Arras.
+              visiteurs/an, notamment des touristes canadiens en pèlerinage sur
+              la crête de Vimy. Beaucoup se logent à Arras.
             </li>
             <li>
               <strong>Anneau de la Mémoire, Notre-Dame-de-Lorette :</strong> Le
@@ -125,9 +132,9 @@ export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }
           </ul>
           <p>
             Ce tourisme mémoriel est particulièrement précieux car il est{" "}
-            <strong>réparti tout au long de l'année</strong> et génère des séjours
-            en semaine (groupes scolaires, circuits guidés), complémentaires du
-            tourisme loisir du week-end.
+            <strong>réparti tout au long de l'année</strong> et génère des
+            séjours en semaine (groupes scolaires, circuits guidés),
+            complémentaires du tourisme loisir du week-end.
           </p>
         </>
       )}
@@ -165,15 +172,13 @@ export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }
           </p>
           <ul>
             <li>
-              Les tarifs par nuit sur la Grand-Place peuvent atteindre 130 à
-              180 € pour un T2
+              Les tarifs par nuit sur la Grand-Place peuvent atteindre 130 à 180
+              € pour un T2
             </li>
+            <li>Les taux d'occupation dépassent 90 % les week-ends</li>
             <li>
-              Les taux d'occupation dépassent 90 % les week-ends
-            </li>
-            <li>
-              Un bien optimisé peut générer l'équivalent de 3 à 4 mois de revenus
-              standards en ces seules 5 semaines
+              Un bien optimisé peut générer l'équivalent de 3 à 4 mois de
+              revenus standards en ces seules 5 semaines
             </li>
           </ul>
         </>
@@ -189,16 +194,16 @@ export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }
           Arras offers a key advantage over Lille:{" "}
           <strong>acquisition prices are 40–50% lower</strong> (€1,600–2,600/sqm
           in Arras vs €3,000–5,000/sqm in Lille), while Airbnb revenues are only
-          20–25% lower. This translates into a significantly higher gross yield in
-          Arras for an equivalent investment.
+          20–25% lower. This translates into a significantly higher gross yield
+          in Arras for an equivalent investment.
         </p>
       ) : (
         <p>
           Arras offre un avantage clé par rapport à Lille :{" "}
-          <strong>les prix d'acquisition sont 40 à 50 % plus bas</strong> (1 600 à
-          2 600 €/m² à Arras contre 3 000 à 5 000 €/m² à Lille), alors que les
-          revenus Airbnb ne sont inférieurs que de 20 à 25 %. Cela se traduit par
-          un rendement brut significativement plus élevé à Arras pour un
+          <strong>les prix d'acquisition sont 40 à 50 % plus bas</strong> (1 600
+          à 2 600 €/m² à Arras contre 3 000 à 5 000 €/m² à Lille), alors que les
+          revenus Airbnb ne sont inférieurs que de 20 à 25 %. Cela se traduit
+          par un rendement brut significativement plus élevé à Arras pour un
           investissement équivalent.
         </p>
       )}
@@ -206,11 +211,17 @@ export function ArticleCombienRapporteAirbnbArras({ locale }: { locale: string }
       {/* ── CTA ── */}
       <div className="not-prose mt-8">
         <a
-          href={isEn ? "/en/conciergerie-airbnb-arras" : "/conciergerie-airbnb-arras"}
+          href={
+            isEn
+              ? "/en/conciergerie-airbnb-arras"
+              : "/conciergerie-airbnb-arras"
+          }
           className="flex flex-col gap-2 p-5 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
         >
           <span className="text-xs font-bold text-welqo-terracotta tracking-wider">
-            {isEn ? "Ready to get started in Arras?" : "Prêt à vous lancer à Arras ?"}
+            {isEn
+              ? "Ready to get started in Arras?"
+              : "Prêt à vous lancer à Arras ?"}
           </span>
           <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors">
             {isEn

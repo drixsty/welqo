@@ -78,7 +78,14 @@ export async function generateMetadata({
           ? `${BASE_URL}/conciergerie-airbnb-douai`
           : `${BASE_URL}/${locale}/conciergerie-airbnb-douai`,
       type: "website",
-      images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Conciergerie Airbnb Douai — Welqo" }],
+      images: [
+        {
+          url: `${BASE_URL}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: "Conciergerie Airbnb Douai — Welqo",
+        },
+      ],
     },
   };
 }
@@ -92,7 +99,11 @@ export default async function DouaiLandingPage({
 
   const STATS = [
     { icon: TrendingUp, value: t("statRevenue"), label: t("statRevenueLabel") },
-    { icon: Calendar, value: t("statOccupancy"), label: t("statOccupancyLabel") },
+    {
+      icon: Calendar,
+      value: t("statOccupancy"),
+      label: t("statOccupancyLabel"),
+    },
     { icon: ShieldCheck, value: t("statPrice"), label: t("statPriceLabel") },
   ];
 
@@ -153,7 +164,15 @@ export default async function DouaiLandingPage({
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
       opens: "00:00",
       closes: "23:59",
     },
@@ -173,8 +192,14 @@ export default async function DouaiLandingPage({
       {
         "@type": "ListItem",
         position: 2,
-        name: locale === "en" ? "Douai Airbnb Concierge" : "Conciergerie Airbnb Douai",
-        item: locale === "fr" ? `${BASE_URL}/conciergerie-airbnb-douai` : `${BASE_URL}/${locale}/conciergerie-airbnb-douai`,
+        name:
+          locale === "en"
+            ? "Douai Airbnb Concierge"
+            : "Conciergerie Airbnb Douai",
+        item:
+          locale === "fr"
+            ? `${BASE_URL}/conciergerie-airbnb-douai`
+            : `${BASE_URL}/${locale}/conciergerie-airbnb-douai`,
       },
     ],
   };
@@ -213,7 +238,9 @@ export default async function DouaiLandingPage({
               href="#contact"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-950 rounded-xl font-bold text-sm transition-all hover:bg-welqo-terracotta hover:text-white shadow-sm active:scale-95"
             >
-              {locale === "en" ? "Get my free quote" : "Obtenir mon devis gratuit"}
+              {locale === "en"
+                ? "Get my free quote"
+                : "Obtenir mon devis gratuit"}
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
@@ -277,9 +304,13 @@ export default async function DouaiLandingPage({
               >
                 <div className="flex items-center gap-2">
                   <MapPin className="w-4 h-4 text-welqo-terracotta shrink-0" />
-                  <span className="font-bold text-slate-900 dark:text-white text-base">{dist.name}</span>
+                  <span className="font-bold text-slate-900 dark:text-white text-base">
+                    {dist.name}
+                  </span>
                 </div>
-                <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{dist.desc}</p>
+                <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">
+                  {dist.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -287,7 +318,10 @@ export default async function DouaiLandingPage({
       </section>
 
       {/* ── SIMULATEUR DE REVENUS DOUAI ─────────────────────────────── */}
-      <section id="simulator" className="py-20 px-6 bg-slate-900 text-white relative overflow-hidden">
+      <section
+        id="simulator"
+        className="py-20 px-6 bg-slate-900 text-white relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(212,85,55,0.15),transparent)]" />
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-12">
@@ -319,14 +353,28 @@ export default async function DouaiLandingPage({
                 className="group bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 overflow-hidden hover:border-welqo-terracotta/20 transition-all duration-200"
               >
                 <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none">
-                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">{q}</span>
+                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">
+                    {q}
+                  </span>
                   <div className="w-7 h-7 bg-slate-200 dark:bg-slate-800 group-open:bg-welqo-terracotta group-open:text-white rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-slate-500">
-                    <svg className="w-3.5 h-3.5 group-open:rotate-45 transition-transform duration-200" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                    <svg
+                      className="w-3.5 h-3.5 group-open:rotate-45 transition-transform duration-200"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 4v16m8-8H4"
+                      />
                     </svg>
                   </div>
                 </summary>
-                <p className="px-6 pb-5 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
+                <p className="px-6 pb-5 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                  {a}
+                </p>
               </details>
             ))}
           </div>
@@ -340,18 +388,32 @@ export default async function DouaiLandingPage({
             {locale === "en" ? "Go further" : "Pour aller plus loin"}
           </p>
           <h2 className="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white text-center mb-8">
-            {locale === "en" ? "Useful resources on Douai Airbnb" : "Ressources utiles sur l'Airbnb à Douai"}
+            {locale === "en"
+              ? "Useful resources on Douai Airbnb"
+              : "Ressources utiles sur l'Airbnb à Douai"}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {[
               {
-                title: locale === "en" ? "Douai Airbnb Concierge: Everything About Property Management" : "Conciergerie Airbnb Douai : tout savoir sur la gestion locative",
-                href: locale === "fr" ? "/blog/conciergerie-airbnb-douai-guide" : "/en/blog/conciergerie-airbnb-douai-guide",
+                title:
+                  locale === "en"
+                    ? "Douai Airbnb Concierge: Everything About Property Management"
+                    : "Conciergerie Airbnb Douai : tout savoir sur la gestion locative",
+                href:
+                  locale === "fr"
+                    ? "/blog/conciergerie-airbnb-douai-guide"
+                    : "/en/blog/conciergerie-airbnb-douai-guide",
                 category: locale === "en" ? "Strategy" : "Stratégie",
               },
               {
-                title: locale === "en" ? "Delegated Airbnb Management: Complete Guide 2025" : "Gestion déléguée Airbnb : guide complet 2025",
-                href: locale === "fr" ? "/blog/gestion-deleguee-airbnb-guide-complet" : "/en/blog/gestion-deleguee-airbnb-guide-complet",
+                title:
+                  locale === "en"
+                    ? "Delegated Airbnb Management: Complete Guide 2025"
+                    : "Gestion déléguée Airbnb : guide complet 2025",
+                href:
+                  locale === "fr"
+                    ? "/blog/gestion-deleguee-airbnb-guide-complet"
+                    : "/en/blog/gestion-deleguee-airbnb-guide-complet",
                 category: "Guide",
               },
             ].map((article) => (
@@ -360,9 +422,15 @@ export default async function DouaiLandingPage({
                 href={article.href}
                 className="flex flex-col gap-3 p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 hover:border-welqo-terracotta/30 hover:shadow-sm transition-all group"
               >
-                <span className="text-[9px] font-bold tracking-widest text-welqo-terracotta">{article.category}</span>
-                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-snug">{article.title}</span>
-                <span className="text-xs text-slate-400 mt-auto">{locale === "en" ? "Read the article →" : "Lire l'article →"}</span>
+                <span className="text-[9px] font-bold tracking-widest text-welqo-terracotta">
+                  {article.category}
+                </span>
+                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-snug">
+                  {article.title}
+                </span>
+                <span className="text-xs text-slate-400 mt-auto">
+                  {locale === "en" ? "Read the article →" : "Lire l'article →"}
+                </span>
               </a>
             ))}
           </div>
@@ -370,7 +438,10 @@ export default async function DouaiLandingPage({
       </section>
 
       {/* ── CONTACT ────────────────────────────────────────────────── */}
-      <section id="contact" className="py-20 px-6 bg-slate-950 relative overflow-hidden">
+      <section
+        id="contact"
+        className="py-20 px-6 bg-slate-950 relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(212,85,55,0.1),transparent)]" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-6 leading-none">

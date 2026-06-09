@@ -152,7 +152,8 @@ const ARTICLE_MAP: Record<string, React.ComponentType<{ locale: string }>> = {
   "conciergerie-airbnb-bethune-guide": ArticleConciergerieBethune,
   "meilleurs-quartiers-airbnb-lens": ArticleMeilleursQuartiersLens,
   "investir-lcd-bassin-minier-hauts-de-france": ArticleInvestirBassinMinier,
-  "commission-airbnb-booking-vrbo-comparatif": ArticleCommissionAirbnbBookingVrbo,
+  "commission-airbnb-booking-vrbo-comparatif":
+    ArticleCommissionAirbnbBookingVrbo,
   "calculer-rendement-locatif-airbnb": ArticleCalculerRendementAirbnb,
   "conciergerie-airbnb-douai-guide": ArticleConciergerieDDouai,
   "lcd-vs-longue-duree-hauts-de-france": ArticleLcdVsLongueDuree,

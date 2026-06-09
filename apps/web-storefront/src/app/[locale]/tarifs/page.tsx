@@ -40,9 +40,7 @@ export async function generateMetadata({
         ],
     alternates: {
       canonical:
-        locale === "fr"
-          ? `${BASE_URL}/tarifs`
-          : `${BASE_URL}/${locale}/tarifs`,
+        locale === "fr" ? `${BASE_URL}/tarifs` : `${BASE_URL}/${locale}/tarifs`,
       languages: {
         fr: `${BASE_URL}/tarifs`,
         en: `${BASE_URL}/en/tarifs`,
@@ -56,9 +54,17 @@ export async function generateMetadata({
       description: fr
         ? "Commission 20% sur vos revenus Airbnb. Zéro frais fixe, zéro engagement. Gestion complète en Hauts-de-France."
         : "20% commission on your Airbnb revenue. Zero fixed fees, zero commitment. Full management in Hauts-de-France.",
-      url: locale === "fr" ? `${BASE_URL}/tarifs` : `${BASE_URL}/${locale}/tarifs`,
+      url:
+        locale === "fr" ? `${BASE_URL}/tarifs` : `${BASE_URL}/${locale}/tarifs`,
       type: "website",
-      images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Tarifs Welqo Conciergerie Airbnb" }],
+      images: [
+        {
+          url: `${BASE_URL}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: "Tarifs Welqo Conciergerie Airbnb",
+        },
+      ],
     },
   };
 }
@@ -279,7 +285,9 @@ export default async function TarifsPage({
               {fr ? "Notre modèle" : "Our model"}
             </p>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white">
-              {fr ? "Simple, juste, aligné sur votre succès" : "Simple, fair, aligned with your success"}
+              {fr
+                ? "Simple, juste, aligné sur votre succès"
+                : "Simple, fair, aligned with your success"}
             </h2>
             <p className="mt-4 text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">
               {fr
@@ -293,27 +301,43 @@ export default async function TarifsPage({
             {[
               {
                 value: "20%",
-                label: fr ? "Commission sur vos revenus" : "Commission on your revenue",
-                desc: fr ? "Calculée sur les revenus bruts perçus via les plateformes." : "Calculated on gross revenue received via platforms.",
+                label: fr
+                  ? "Commission sur vos revenus"
+                  : "Commission on your revenue",
+                desc: fr
+                  ? "Calculée sur les revenus bruts perçus via les plateformes."
+                  : "Calculated on gross revenue received via platforms.",
               },
               {
                 value: "0€",
                 label: fr ? "Frais fixes mensuels" : "Monthly fixed fees",
-                desc: fr ? "Aucun abonnement, aucun frais de mise en service, aucun frais cachés." : "No subscription, no setup fee, no hidden costs.",
+                desc: fr
+                  ? "Aucun abonnement, aucun frais de mise en service, aucun frais cachés."
+                  : "No subscription, no setup fee, no hidden costs.",
               },
               {
                 value: "0",
-                label: fr ? "Mois d'engagement minimum" : "Minimum commitment months",
-                desc: fr ? "Arrêtez quand vous voulez avec un préavis de 30 jours." : "Stop whenever you want with 30 days' notice.",
+                label: fr
+                  ? "Mois d'engagement minimum"
+                  : "Minimum commitment months",
+                desc: fr
+                  ? "Arrêtez quand vous voulez avec un préavis de 30 jours."
+                  : "Stop whenever you want with 30 days' notice.",
               },
             ].map((card) => (
               <div
                 key={card.value}
                 className="text-center p-8 bg-slate-50 dark:bg-slate-900 rounded-2xl border border-slate-100 dark:border-white/5"
               >
-                <div className="text-5xl font-bold text-welqo-terracotta mb-3 tracking-tighter">{card.value}</div>
-                <div className="font-bold text-slate-900 dark:text-white mb-2">{card.label}</div>
-                <p className="text-sm text-slate-500 dark:text-slate-400">{card.desc}</p>
+                <div className="text-5xl font-bold text-welqo-terracotta mb-3 tracking-tighter">
+                  {card.value}
+                </div>
+                <div className="font-bold text-slate-900 dark:text-white mb-2">
+                  {card.label}
+                </div>
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  {card.desc}
+                </p>
               </div>
             ))}
           </div>
@@ -323,13 +347,17 @@ export default async function TarifsPage({
             <div className="absolute top-0 right-0 w-64 h-64 bg-welqo-terracotta/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
             <div className="relative z-10">
               <h3 className="text-2xl font-bold text-white tracking-tight mb-8">
-                {fr ? "Ce qui est inclus dans les 20%" : "What's included in the 20%"}
+                {fr
+                  ? "Ce qui est inclus dans les 20%"
+                  : "What's included in the 20%"}
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {INCLUDED.map((item) => (
                   <div key={item} className="flex items-start gap-3">
                     <CheckCircle2 className="w-4 h-4 text-welqo-terracotta mt-0.5 shrink-0" />
-                    <span className="text-slate-300 text-sm font-medium">{item}</span>
+                    <span className="text-slate-300 text-sm font-medium">
+                      {item}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -346,7 +374,9 @@ export default async function TarifsPage({
               {fr ? "Comparatif" : "Comparison"}
             </p>
             <h2 className="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white">
-              {fr ? "Welqo vs vos autres options" : "Welqo vs your other options"}
+              {fr
+                ? "Welqo vs vos autres options"
+                : "Welqo vs your other options"}
             </h2>
           </div>
           <div className="overflow-x-auto rounded-2xl border border-slate-200 dark:border-white/5">
@@ -404,14 +434,28 @@ export default async function TarifsPage({
                 className="group bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 overflow-hidden hover:border-welqo-terracotta/20 transition-all duration-200"
               >
                 <summary className="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none">
-                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">{q}</span>
+                  <span className="font-bold text-slate-900 dark:text-white text-sm md:text-base">
+                    {q}
+                  </span>
                   <div className="w-7 h-7 bg-slate-200 dark:bg-slate-800 group-open:bg-welqo-terracotta group-open:text-white rounded-full flex items-center justify-center shrink-0 transition-all duration-200 text-slate-500">
-                    <svg className="w-3.5 h-3.5 group-open:rotate-45 transition-transform duration-200" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+                    <svg
+                      className="w-3.5 h-3.5 group-open:rotate-45 transition-transform duration-200"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.5"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M12 4v16m8-8H4"
+                      />
                     </svg>
                   </div>
                 </summary>
-                <p className="px-6 pb-5 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">{a}</p>
+                <p className="px-6 pb-5 text-slate-500 dark:text-slate-400 text-sm leading-relaxed">
+                  {a}
+                </p>
               </details>
             ))}
           </div>
@@ -419,7 +463,10 @@ export default async function TarifsPage({
       </section>
 
       {/* ── CONTACT ────────────────────────────────────────────────── */}
-      <section id="contact" className="py-20 px-6 bg-slate-950 relative overflow-hidden">
+      <section
+        id="contact"
+        className="py-20 px-6 bg-slate-950 relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(212,85,55,0.1),transparent)]" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
           <h2 className="text-4xl md:text-5xl font-bold tracking-tighter text-white mb-6 leading-none">

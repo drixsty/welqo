@@ -127,8 +127,9 @@ export function ArticleCommissionAirbnbBookingVrbo({
           Quand vous publiez votre logement sur Airbnb, Booking.com ou Vrbo, la
           plateforme prélève une commission. Mais ces commissions sont loin
           d'être égales — et la plateforme "la moins chère" pour vous n'est pas
-          nécessairement celle qui génère le plus de revenus. Voici un comparatif
-          objectif pour vous aider à décider quelle(s) plateforme(s) utiliser.
+          nécessairement celle qui génère le plus de revenus. Voici un
+          comparatif objectif pour vous aider à décider quelle(s) plateforme(s)
+          utiliser.
         </p>
       )}
 
@@ -195,7 +196,10 @@ export function ArticleCommissionAirbnbBookingVrbo({
               </p>
               <ul className="space-y-0.5">
                 {p.avantages.map((a, i) => (
-                  <li key={i} className="text-xs text-slate-600 dark:text-slate-400">
+                  <li
+                    key={i}
+                    className="text-xs text-slate-600 dark:text-slate-400"
+                  >
                     ✓ {a}
                   </li>
                 ))}
@@ -207,7 +211,10 @@ export function ArticleCommissionAirbnbBookingVrbo({
               </p>
               <ul className="space-y-0.5">
                 {p.inconvenients.map((i, idx) => (
-                  <li key={idx} className="text-xs text-slate-600 dark:text-slate-400">
+                  <li
+                    key={idx}
+                    className="text-xs text-slate-600 dark:text-slate-400"
+                  >
                     ✗ {i}
                   </li>
                 ))}
@@ -238,7 +245,9 @@ export function ArticleCommissionAirbnbBookingVrbo({
             <li>
               <strong>+8 percentage points</strong> in occupancy rate
             </li>
-            <li>Better seasonal smoothing (Booking.com fills low-season gaps)</li>
+            <li>
+              Better seasonal smoothing (Booking.com fills low-season gaps)
+            </li>
           </ul>
           <p>
             Add Vrbo if your property is a 2-bedroom or larger and targets
@@ -252,8 +261,8 @@ export function ArticleCommissionAirbnbBookingVrbo({
             Plutôt que de choisir une seule plateforme, l'approche la plus
             efficace consiste à publier sur{" "}
             <strong>Airbnb + Booking.com simultanément</strong>, avec un channel
-            manager pour synchroniser votre calendrier et éviter les
-            doublons. Résultats observés sur les biens gérés par Welqo :
+            manager pour synchroniser votre calendrier et éviter les doublons.
+            Résultats observés sur les biens gérés par Welqo :
           </p>
           <ul>
             <li>
@@ -269,8 +278,8 @@ export function ArticleCommissionAirbnbBookingVrbo({
             </li>
           </ul>
           <p>
-            Ajoutez Vrbo si votre bien est un T3 ou plus et cible les familles
-            — l'audience de la plateforme est spécifiquement adaptée à ces
+            Ajoutez Vrbo si votre bien est un T3 ou plus et cible les familles —
+            l'audience de la plateforme est spécifiquement adaptée à ces
             typologies.
           </p>
         </>

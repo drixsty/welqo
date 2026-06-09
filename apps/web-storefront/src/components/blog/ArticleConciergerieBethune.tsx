@@ -8,18 +8,18 @@ export function ArticleConciergerieBethune({ locale }: { locale: string }) {
       {isEn ? (
         <p>
           Béthune is not the first city that comes to mind for Airbnb investment
-          in the Hauts-de-France. Yet its strategic position at the crossroads of
-          Lille (30 min), Lens (20 min) and Arras (40 min), combined with a still
-          underdeveloped Airbnb offer, makes it one of the region's most
+          in the Hauts-de-France. Yet its strategic position at the crossroads
+          of Lille (30 min), Lens (20 min) and Arras (40 min), combined with a
+          still underdeveloped Airbnb offer, makes it one of the region's most
           interesting emerging markets.
         </p>
       ) : (
         <p>
           Béthune n'est pas la première ville qui vient à l'esprit pour
           l'investissement Airbnb en Hauts-de-France. Pourtant, sa position
-          stratégique au carrefour de Lille (30 min), Lens (20 min) et Arras
-          (40 min), combinée à une offre Airbnb encore peu développée, en fait
-          l'un des marchés émergents les plus intéressants de la région.
+          stratégique au carrefour de Lille (30 min), Lens (20 min) et Arras (40
+          min), combinée à une offre Airbnb encore peu développée, en fait l'un
+          des marchés émergents les plus intéressants de la région.
         </p>
       )}
 
@@ -58,18 +58,19 @@ export function ArticleConciergerieBethune({ locale }: { locale: string }) {
           <p>Chiffres actuels du marché béthunois (2024-2025) :</p>
           <ul>
             <li>
-              <strong>Revenu brut mensuel moyen :</strong> 800 € (T2 centre-ville)
+              <strong>Revenu brut mensuel moyen :</strong> 800 € (T2
+              centre-ville)
             </li>
             <li>
               <strong>Taux d'occupation moyen :</strong> 65 %
             </li>
             <li>
-              <strong>Tarif moyen par nuit :</strong> 58 € hors événement /
-              85 à 110 € les week-ends de match du RC Lens
+              <strong>Tarif moyen par nuit :</strong> 58 € hors événement / 85 à
+              110 € les week-ends de match du RC Lens
             </li>
             <li>
-              <strong>Prix d'acquisition :</strong> 1 200 à 2 000 €/m²
-              (50 à 60 % moins qu'à Lille)
+              <strong>Prix d'acquisition :</strong> 1 200 à 2 000 €/m² (50 à 60
+              % moins qu'à Lille)
             </li>
             <li>
               <strong>Rendement brut estimé :</strong> 8 à 12 % pour les biens
@@ -80,7 +81,9 @@ export function ArticleConciergerieBethune({ locale }: { locale: string }) {
       )}
 
       <h2 id="moteurs-demande">
-        {isEn ? "Demand Drivers in Béthune" : "Les moteurs de demande à Béthune"}
+        {isEn
+          ? "Demand Drivers in Béthune"
+          : "Les moteurs de demande à Béthune"}
       </h2>
       {isEn ? (
         <ul>
@@ -107,12 +110,12 @@ export function ArticleConciergerieBethune({ locale }: { locale: string }) {
       ) : (
         <ul>
           <li>
-            <strong>Beffroi UNESCO :</strong> Centre historique attractif pour les
-            excursionnistes et les visiteurs du week-end.
+            <strong>Beffroi UNESCO :</strong> Centre historique attractif pour
+            les excursionnistes et les visiteurs du week-end.
           </li>
           <li>
-            <strong>Clientèle professionnelle :</strong> Grands chantiers BTP
-            et projets industriels dans l'Artois génèrent des séjours prolongés
+            <strong>Clientèle professionnelle :</strong> Grands chantiers BTP et
+            projets industriels dans l'Artois génèrent des séjours prolongés
             d'équipes en mission plusieurs semaines.
           </li>
           <li>
@@ -160,8 +163,8 @@ export function ArticleConciergerieBethune({ locale }: { locale: string }) {
           </li>
           <li>
             <strong>Bruay-la-Buissière :</strong> Forte demande professionnelle
-            (patrimoine minier + zone industrielle). Prix d'acquisition plus bas,
-            occupation stable toute l'année.
+            (patrimoine minier + zone industrielle). Prix d'acquisition plus
+            bas, occupation stable toute l'année.
           </li>
           <li>
             <strong>Noeux-les-Mines :</strong> Commune active avec son stade,
@@ -177,20 +180,20 @@ export function ArticleConciergerieBethune({ locale }: { locale: string }) {
       </h2>
       {isEn ? (
         <p>
-          Béthune does not currently apply the 120-day limit reserved for primary
-          residences in the same way as Lille. However, you must:{" "}
+          Béthune does not currently apply the 120-day limit reserved for
+          primary residences in the same way as Lille. However, you must:{" "}
           <strong>
             declare your activity to the town hall and collect tourist tax from
             guests
           </strong>{" "}
-          (€0.80–1.50/night/person depending on property category). Welqo handles
-          all administrative formalities for you.
+          (€0.80–1.50/night/person depending on property category). Welqo
+          handles all administrative formalities for you.
         </p>
       ) : (
         <p>
-          Béthune n'applique pas actuellement la limite de 120 jours réservée aux
-          résidences principales de la même façon que Lille. En revanche, vous
-          devez{" "}
+          Béthune n'applique pas actuellement la limite de 120 jours réservée
+          aux résidences principales de la même façon que Lille. En revanche,
+          vous devez{" "}
           <strong>
             déclarer votre activité en mairie et collecter la taxe de séjour
             auprès de vos voyageurs

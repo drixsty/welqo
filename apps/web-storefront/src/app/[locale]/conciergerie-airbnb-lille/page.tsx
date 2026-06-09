@@ -165,7 +165,15 @@ export default async function LilleLandingPage({
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
       opens: "00:00",
       closes: "23:59",
     },
@@ -185,8 +193,14 @@ export default async function LilleLandingPage({
       {
         "@type": "ListItem",
         position: 2,
-        name: locale === "en" ? "Lille Airbnb Concierge" : "Conciergerie Airbnb Lille",
-        item: locale === "fr" ? `${BASE_URL}/conciergerie-airbnb-lille` : `${BASE_URL}/${locale}/conciergerie-airbnb-lille`,
+        name:
+          locale === "en"
+            ? "Lille Airbnb Concierge"
+            : "Conciergerie Airbnb Lille",
+        item:
+          locale === "fr"
+            ? `${BASE_URL}/conciergerie-airbnb-lille`
+            : `${BASE_URL}/${locale}/conciergerie-airbnb-lille`,
       },
     ],
   };
@@ -378,23 +392,43 @@ export default async function LilleLandingPage({
             {locale === "en" ? "Go further" : "Pour aller plus loin"}
           </p>
           <h2 className="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white text-center mb-8">
-            {locale === "en" ? "Useful resources on Lille Airbnb" : "Ressources utiles sur l'Airbnb à Lille"}
+            {locale === "en"
+              ? "Useful resources on Lille Airbnb"
+              : "Ressources utiles sur l'Airbnb à Lille"}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               {
-                title: locale === "en" ? "How Much Does an Airbnb in Lille Earn in 2025?" : "Combien rapporte un Airbnb à Lille en 2025 ?",
-                href: locale === "fr" ? "/blog/combien-rapporte-airbnb-lille-2025" : "/en/blog/combien-rapporte-airbnb-lille-2025",
+                title:
+                  locale === "en"
+                    ? "How Much Does an Airbnb in Lille Earn in 2025?"
+                    : "Combien rapporte un Airbnb à Lille en 2025 ?",
+                href:
+                  locale === "fr"
+                    ? "/blog/combien-rapporte-airbnb-lille-2025"
+                    : "/en/blog/combien-rapporte-airbnb-lille-2025",
                 category: locale === "en" ? "Profitability" : "Rentabilité",
               },
               {
-                title: locale === "en" ? "The 5 Best Neighbourhoods for Airbnb in Lille" : "Les 5 meilleurs quartiers pour louer sur Airbnb à Lille",
-                href: locale === "fr" ? "/blog/meilleurs-quartiers-airbnb-lille" : "/en/blog/meilleurs-quartiers-airbnb-lille",
+                title:
+                  locale === "en"
+                    ? "The 5 Best Neighbourhoods for Airbnb in Lille"
+                    : "Les 5 meilleurs quartiers pour louer sur Airbnb à Lille",
+                href:
+                  locale === "fr"
+                    ? "/blog/meilleurs-quartiers-airbnb-lille"
+                    : "/en/blog/meilleurs-quartiers-airbnb-lille",
                 category: locale === "en" ? "Strategy" : "Stratégie",
               },
               {
-                title: locale === "en" ? "The Complete Checklist to Launch Your Airbnb in Lille" : "La checklist complète pour lancer son Airbnb à Lille",
-                href: locale === "fr" ? "/blog/checklist-lancer-airbnb-lille" : "/en/blog/checklist-lancer-airbnb-lille",
+                title:
+                  locale === "en"
+                    ? "The Complete Checklist to Launch Your Airbnb in Lille"
+                    : "La checklist complète pour lancer son Airbnb à Lille",
+                href:
+                  locale === "fr"
+                    ? "/blog/checklist-lancer-airbnb-lille"
+                    : "/en/blog/checklist-lancer-airbnb-lille",
                 category: "Guide",
               },
             ].map((article) => (
@@ -403,9 +437,15 @@ export default async function LilleLandingPage({
                 href={article.href}
                 className="flex flex-col gap-3 p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 hover:border-welqo-terracotta/30 hover:shadow-sm transition-all group"
               >
-                <span className="text-[9px] font-bold tracking-widest text-welqo-terracotta">{article.category}</span>
-                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-snug">{article.title}</span>
-                <span className="text-xs text-slate-400 mt-auto">{locale === "en" ? "Read the article →" : "Lire l'article →"}</span>
+                <span className="text-[9px] font-bold tracking-widest text-welqo-terracotta">
+                  {article.category}
+                </span>
+                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-snug">
+                  {article.title}
+                </span>
+                <span className="text-xs text-slate-400 mt-auto">
+                  {locale === "en" ? "Read the article →" : "Lire l'article →"}
+                </span>
               </a>
             ))}
           </div>

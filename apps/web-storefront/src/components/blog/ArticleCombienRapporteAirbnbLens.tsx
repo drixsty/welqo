@@ -1,6 +1,10 @@
 import React from "react";
 
-export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string }) {
+export function ArticleCombienRapporteAirbnbLens({
+  locale,
+}: {
+  locale: string;
+}) {
   const isEn = locale === "en";
 
   return (
@@ -8,26 +12,28 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
       {/* ── INTRO ── */}
       {isEn ? (
         <p>
-          Lens is no longer just the city of the RC Lens football club. Since the
-          opening of the Louvre-Lens in 2012, the city has transformed into a
-          genuine tourist destination attracting over 700,000 visitors a year.
-          For Airbnb property owners, this creates a unique revenue opportunity —
-          especially since local hotel capacity remains limited and Airbnb
+          Lens is no longer just the city of the RC Lens football club. Since
+          the opening of the Louvre-Lens in 2012, the city has transformed into
+          a genuine tourist destination attracting over 700,000 visitors a year.
+          For Airbnb property owners, this creates a unique revenue opportunity
+          — especially since local hotel capacity remains limited and Airbnb
           competition is still low.
         </p>
       ) : (
         <p>
           Lens n'est plus seulement la ville du Racing Club de Lens. Depuis
           l'ouverture du Louvre-Lens en 2012, la ville s'est transformée en une
-          véritable destination touristique attirant plus de 700 000 visiteurs par
-          an. Pour les propriétaires Airbnb, cela crée une opportunité de revenus
-          unique — d'autant plus que la capacité hôtelière locale reste limitée et
-          que la concurrence Airbnb est encore faible.
+          véritable destination touristique attirant plus de 700 000 visiteurs
+          par an. Pour les propriétaires Airbnb, cela crée une opportunité de
+          revenus unique — d'autant plus que la capacité hôtelière locale reste
+          limitée et que la concurrence Airbnb est encore faible.
         </p>
       )}
 
       <h2 id="revenus-moyens">
-        {isEn ? "Average Airbnb Revenue in Lens" : "Revenus Airbnb moyens à Lens"}
+        {isEn
+          ? "Average Airbnb Revenue in Lens"
+          : "Revenus Airbnb moyens à Lens"}
       </h2>
       {isEn ? (
         <>
@@ -62,8 +68,8 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
       ) : (
         <>
           <p>
-            Sur la base des données de marché 2024-2025, voici les indicateurs de
-            performance moyens pour un Airbnb à Lens :
+            Sur la base des données de marché 2024-2025, voici les indicateurs
+            de performance moyens pour un Airbnb à Lens :
           </p>
           <ul>
             <li>
@@ -75,8 +81,8 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
               Lille)
             </li>
             <li>
-              <strong>Tarif moyen par nuit :</strong> 65 € hors événement / 150 à
-              200 € les week-ends de match
+              <strong>Tarif moyen par nuit :</strong> 65 € hors événement / 150
+              à 200 € les week-ends de match
             </li>
             <li>
               <strong>Mois les plus performants :</strong> septembre à mai
@@ -105,15 +111,9 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
             multiplies nightly rates by 2 to 3 times:
           </p>
           <ul>
-            <li>
-              Standard nightly rate: €60–80
-            </li>
-            <li>
-              Match weekend rate: €150–200
-            </li>
-            <li>
-              Potential additional revenue per match: €90–120
-            </li>
+            <li>Standard nightly rate: €60–80</li>
+            <li>Match weekend rate: €150–200</li>
+            <li>Potential additional revenue per match: €90–120</li>
             <li>
               Annual impact of the football season: +€1,700–2,280 in additional
               revenue
@@ -134,25 +134,19 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
             de demande qui multiplie les tarifs par nuit par 2 à 3 fois :
           </p>
           <ul>
-            <li>
-              Tarif standard par nuit : 60–80 €
-            </li>
-            <li>
-              Tarif week-end de match : 150–200 €
-            </li>
-            <li>
-              Revenu supplémentaire par match : 90–120 €
-            </li>
+            <li>Tarif standard par nuit : 60–80 €</li>
+            <li>Tarif week-end de match : 150–200 €</li>
+            <li>Revenu supplémentaire par match : 90–120 €</li>
             <li>
               Impact annuel de la saison football : +1 700 à 2 280 € de revenus
               additionnels
             </li>
           </ul>
           <p>
-            Les biens proches du Stade Bollaert (Avion, centre de Lens) affichent
-            complet des semaines à l'avance pour les grands matchs. Une
-            tarification dynamique optimisée autour du calendrier RC Lens est
-            donc indispensable pour maximiser ces revenus.
+            Les biens proches du Stade Bollaert (Avion, centre de Lens)
+            affichent complet des semaines à l'avance pour les grands matchs.
+            Une tarification dynamique optimisée autour du calendrier RC Lens
+            est donc indispensable pour maximiser ces revenus.
           </p>
         </>
       )}
@@ -168,8 +162,8 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
             With 700,000 visitors per year, the Louvre-Lens is the second
             most-visited museum in France outside Paris. It attracts a diverse
             international audience (France, Belgium, Netherlands, UK) who need
-            accommodation — and hotels are often full or overpriced for this type
-            of stay.
+            accommodation — and hotels are often full or overpriced for this
+            type of stay.
           </p>
           <p>
             Key Louvre-Lens events that generate accommodation demand peaks:
@@ -203,7 +197,8 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
             <li>Vacances scolaires (françaises + belges)</li>
             <li>Ponts et jours fériés</li>
             <li>
-              Événements nocturnes : concerts, visites nocturnes, soirées privées
+              Événements nocturnes : concerts, visites nocturnes, soirées
+              privées
             </li>
           </ul>
         </>
@@ -221,8 +216,8 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
             highest match-day rates. Average €1,050/month gross.
           </li>
           <li>
-            <strong>Lens city centre:</strong> Walking distance from Louvre-Lens,
-            stations, restaurants. Best all-year performance.
+            <strong>Lens city centre:</strong> Walking distance from
+            Louvre-Lens, stations, restaurants. Best all-year performance.
           </li>
           <li>
             <strong>Liévin:</strong> 5 minutes from Lens, lower acquisition
@@ -273,9 +268,9 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
               visitor segments better.
             </li>
             <li>
-              <strong>Professional photography:</strong> The average Lens listing
-              quality is lower than Lille — a professional shoot alone can
-              increase your booking rate by 30–40%.
+              <strong>Professional photography:</strong> The average Lens
+              listing quality is lower than Lille — a professional shoot alone
+              can increase your booking rate by 30–40%.
             </li>
           </ol>
         </>
@@ -298,7 +293,8 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
             <li>
               <strong>Photos professionnelles :</strong> Le niveau moyen des
               annonces lensoises est inférieur à Lille — une séance photo pro
-              peut à elle seule augmenter votre taux de réservation de 30 à 40 %.
+              peut à elle seule augmenter votre taux de réservation de 30 à 40
+              %.
             </li>
           </ol>
         </>
@@ -307,11 +303,15 @@ export function ArticleCombienRapporteAirbnbLens({ locale }: { locale: string })
       {/* ── CTA MAILLAGE INTERNE ── */}
       <div className="not-prose mt-8">
         <a
-          href={isEn ? "/en/conciergerie-airbnb-lens" : "/conciergerie-airbnb-lens"}
+          href={
+            isEn ? "/en/conciergerie-airbnb-lens" : "/conciergerie-airbnb-lens"
+          }
           className="flex flex-col gap-2 p-5 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
         >
           <span className="text-xs font-bold text-welqo-terracotta tracking-wider">
-            {isEn ? "Ready to get started in Lens?" : "Prêt à vous lancer à Lens ?"}
+            {isEn
+              ? "Ready to get started in Lens?"
+              : "Prêt à vous lancer à Lens ?"}
           </span>
           <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors">
             {isEn

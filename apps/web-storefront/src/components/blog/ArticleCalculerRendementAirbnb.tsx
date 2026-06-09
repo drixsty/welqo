@@ -1,10 +1,6 @@
 import React from "react";
 
-export function ArticleCalculerRendementAirbnb({
-  locale,
-}: {
-  locale: string;
-}) {
+export function ArticleCalculerRendementAirbnb({ locale }: { locale: string }) {
   const isEn = locale === "en";
 
   return (
@@ -23,8 +19,8 @@ export function ArticleCalculerRendementAirbnb({
           question prime sur toutes les autres : combien va-t-il vraiment
           rapporter ? La réponse tient en trois calculs — rendement brut,
           rendement net et cash-flow — que la plupart des investisseurs
-          confondent ou ignorent. Ce guide vous explique chacun avec des exemples
-          concrets sur le marché des Hauts-de-France.
+          confondent ou ignorent. Ce guide vous explique chacun avec des
+          exemples concrets sur le marché des Hauts-de-France.
         </p>
       )}
 
@@ -43,14 +39,16 @@ export function ArticleCalculerRendementAirbnb({
           <ul>
             <li>Monthly gross revenue: €950</li>
             <li>Annual gross revenue: €11,400</li>
-            <li>Total acquisition cost: €65,000 + €6,000 notary fees = €71,000</li>
+            <li>
+              Total acquisition cost: €65,000 + €6,000 notary fees = €71,000
+            </li>
             <li>
               <strong>Gross yield: 11,400 ÷ 71,000 × 100 = 16.1%</strong>
             </li>
           </ul>
           <p>
-            Gross yield is a quick filter to compare properties. Aim for 8%+
-            in Hauts-de-France. Anything below 6% warrants serious scrutiny.
+            Gross yield is a quick filter to compare properties. Aim for 8%+ in
+            Hauts-de-France. Anything below 6% warrants serious scrutiny.
           </p>
         </>
       ) : (
@@ -106,21 +104,19 @@ export function ArticleCalculerRendementAirbnb({
               <strong>PNO insurance (non-owner occupancy):</strong> ~€200/year
             </li>
             <li>
-              <strong>Maintenance reserve (1% of value/year):</strong> ~€650/year
+              <strong>Maintenance reserve (1% of value/year):</strong>{" "}
+              ~€650/year
             </li>
             <li>
               <strong>Total annual costs:</strong> ~€4,330
             </li>
           </ul>
           <p>
-            <strong>
-              Net yield: (11,400 − 4,330) ÷ 71,000 × 100 = 9.9%
-            </strong>
+            <strong>Net yield: (11,400 − 4,330) ÷ 71,000 × 100 = 9.9%</strong>
           </p>
           <p>
-            A net yield above 7% in the Hauts-de-France market is excellent.
-            For reference, long-term rental in the same area averages 4–5%
-            net.
+            A net yield above 7% in the Hauts-de-France market is excellent. For
+            reference, long-term rental in the same area averages 4–5% net.
           </p>
         </>
       ) : (
@@ -141,8 +137,8 @@ export function ArticleCalculerRendementAirbnb({
               <strong>Charges de copropriété :</strong> ~600 €/an
             </li>
             <li>
-              <strong>Assurance PNO (propriétaire non-occupant) :</strong>{" "}
-              ~200 €/an
+              <strong>Assurance PNO (propriétaire non-occupant) :</strong> ~200
+              €/an
             </li>
             <li>
               <strong>Provision maintenance (1 % de la valeur/an) :</strong>{" "}
@@ -197,17 +193,15 @@ export function ArticleCalculerRendementAirbnb({
       ) : (
         <>
           <p>
-            Si vous financez l'achat à crédit, le cash-flow est l'indicateur
-            qui compte le plus au quotidien.
+            Si vous financez l'achat à crédit, le cash-flow est l'indicateur qui
+            compte le plus au quotidien.
           </p>
           <p>
             <strong>Formule :</strong> Revenus bruts mensuels − Charges
             mensuelles − Mensualité de crédit
           </p>
           <p>
-            <strong>
-              Exemple (71 000 € financés à 3,5 % sur 20 ans) :
-            </strong>
+            <strong>Exemple (71 000 € financés à 3,5 % sur 20 ans) :</strong>
           </p>
           <ul>
             <li>Revenu brut mensuel : 950 €</li>
@@ -252,8 +246,8 @@ export function ArticleCalculerRendementAirbnb({
         <ol>
           <li>
             <strong>Utiliser des projections de revenus optimistes :</strong>{" "}
-            Basez votre estimation sur un taux d'occupation de 65 à 70 %, pas
-            90 %. Utilisez les tarifs hors événement, pas les pics.
+            Basez votre estimation sur un taux d'occupation de 65 à 70 %, pas 90
+            %. Utilisez les tarifs hors événement, pas les pics.
           </li>
           <li>
             <strong>Oublier la fiscalité :</strong> Les revenus Airbnb sont
@@ -274,7 +268,9 @@ export function ArticleCalculerRendementAirbnb({
       {/* ── CTA ── */}
       <div className="not-prose mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <a
-          href={isEn ? "/en/conciergerie-airbnb-lens" : "/conciergerie-airbnb-lens"}
+          href={
+            isEn ? "/en/conciergerie-airbnb-lens" : "/conciergerie-airbnb-lens"
+          }
           className="flex flex-col gap-2 p-4 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
         >
           <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors text-sm">
@@ -282,7 +278,11 @@ export function ArticleCalculerRendementAirbnb({
           </span>
         </a>
         <a
-          href={isEn ? "/en/conciergerie-airbnb-arras" : "/conciergerie-airbnb-arras"}
+          href={
+            isEn
+              ? "/en/conciergerie-airbnb-arras"
+              : "/conciergerie-airbnb-arras"
+          }
           className="flex flex-col gap-2 p-4 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
         >
           <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors text-sm">

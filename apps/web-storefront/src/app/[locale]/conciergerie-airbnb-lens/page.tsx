@@ -167,7 +167,15 @@ export default async function LensLandingPage({
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
       opens: "00:00",
       closes: "23:59",
     },
@@ -187,8 +195,14 @@ export default async function LensLandingPage({
       {
         "@type": "ListItem",
         position: 2,
-        name: locale === "en" ? "Lens Airbnb Concierge" : "Conciergerie Airbnb Lens",
-        item: locale === "fr" ? `${BASE_URL}/conciergerie-airbnb-lens` : `${BASE_URL}/${locale}/conciergerie-airbnb-lens`,
+        name:
+          locale === "en"
+            ? "Lens Airbnb Concierge"
+            : "Conciergerie Airbnb Lens",
+        item:
+          locale === "fr"
+            ? `${BASE_URL}/conciergerie-airbnb-lens`
+            : `${BASE_URL}/${locale}/conciergerie-airbnb-lens`,
       },
     ],
   };
@@ -380,23 +394,43 @@ export default async function LensLandingPage({
             {locale === "en" ? "Go further" : "Pour aller plus loin"}
           </p>
           <h2 className="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white text-center mb-8">
-            {locale === "en" ? "Useful resources on Lens Airbnb" : "Ressources utiles sur l'Airbnb à Lens"}
+            {locale === "en"
+              ? "Useful resources on Lens Airbnb"
+              : "Ressources utiles sur l'Airbnb à Lens"}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {[
               {
-                title: locale === "en" ? "How Much Does an Airbnb in Lens Earn in 2025?" : "Combien rapporte un Airbnb à Lens en 2025 ?",
-                href: locale === "fr" ? "/blog/combien-rapporte-airbnb-lens-2025" : "/en/blog/combien-rapporte-airbnb-lens-2025",
+                title:
+                  locale === "en"
+                    ? "How Much Does an Airbnb in Lens Earn in 2025?"
+                    : "Combien rapporte un Airbnb à Lens en 2025 ?",
+                href:
+                  locale === "fr"
+                    ? "/blog/combien-rapporte-airbnb-lens-2025"
+                    : "/en/blog/combien-rapporte-airbnb-lens-2025",
                 category: locale === "en" ? "Profitability" : "Rentabilité",
               },
               {
-                title: locale === "en" ? "The 5 Best Neighbourhoods for Airbnb in Lens" : "Les 5 meilleurs quartiers pour louer sur Airbnb à Lens",
-                href: locale === "fr" ? "/blog/meilleurs-quartiers-airbnb-lens" : "/en/blog/meilleurs-quartiers-airbnb-lens",
+                title:
+                  locale === "en"
+                    ? "The 5 Best Neighbourhoods for Airbnb in Lens"
+                    : "Les 5 meilleurs quartiers pour louer sur Airbnb à Lens",
+                href:
+                  locale === "fr"
+                    ? "/blog/meilleurs-quartiers-airbnb-lens"
+                    : "/en/blog/meilleurs-quartiers-airbnb-lens",
                 category: locale === "en" ? "Strategy" : "Stratégie",
               },
               {
-                title: locale === "en" ? "Investing in Short-Term Rentals in the Bassin Minier" : "Investir en LCD dans le Bassin Minier en 2025",
-                href: locale === "fr" ? "/blog/investir-lcd-bassin-minier-hauts-de-france" : "/en/blog/investir-lcd-bassin-minier-hauts-de-france",
+                title:
+                  locale === "en"
+                    ? "Investing in Short-Term Rentals in the Bassin Minier"
+                    : "Investir en LCD dans le Bassin Minier en 2025",
+                href:
+                  locale === "fr"
+                    ? "/blog/investir-lcd-bassin-minier-hauts-de-france"
+                    : "/en/blog/investir-lcd-bassin-minier-hauts-de-france",
                 category: locale === "en" ? "Strategy" : "Stratégie",
               },
             ].map((article) => (
@@ -405,9 +439,15 @@ export default async function LensLandingPage({
                 href={article.href}
                 className="flex flex-col gap-3 p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 hover:border-welqo-terracotta/30 hover:shadow-sm transition-all group"
               >
-                <span className="text-[9px] font-bold tracking-widest text-welqo-terracotta">{article.category}</span>
-                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-snug">{article.title}</span>
-                <span className="text-xs text-slate-400 mt-auto">{locale === "en" ? "Read the article →" : "Lire l'article →"}</span>
+                <span className="text-[9px] font-bold tracking-widest text-welqo-terracotta">
+                  {article.category}
+                </span>
+                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-snug">
+                  {article.title}
+                </span>
+                <span className="text-xs text-slate-400 mt-auto">
+                  {locale === "en" ? "Read the article →" : "Lire l'article →"}
+                </span>
               </a>
             ))}
           </div>

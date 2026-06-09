@@ -75,7 +75,14 @@ export async function generateMetadata({
           ? `${BASE_URL}/conciergerie-airbnb-wazemmes`
           : `${BASE_URL}/${locale}/conciergerie-airbnb-wazemmes`,
       type: "website",
-      images: [{ url: `${BASE_URL}/og-image.jpg`, width: 1200, height: 630, alt: "Conciergerie Airbnb Wazemmes — Welqo" }],
+      images: [
+        {
+          url: `${BASE_URL}/og-image.jpg`,
+          width: 1200,
+          height: 630,
+          alt: "Conciergerie Airbnb Wazemmes — Welqo",
+        },
+      ],
     },
   };
 }
@@ -92,7 +99,11 @@ export default async function WazemmeesLandingPage({
 
   const STATS = [
     { icon: TrendingUp, value: t("statRevenue"), label: t("statRevenueLabel") },
-    { icon: Calendar, value: t("statOccupancy"), label: t("statOccupancyLabel") },
+    {
+      icon: Calendar,
+      value: t("statOccupancy"),
+      label: t("statOccupancyLabel"),
+    },
     { icon: ShieldCheck, value: t("statPrice"), label: t("statPriceLabel") },
   ];
 
@@ -151,7 +162,15 @@ export default async function WazemmeesLandingPage({
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
       opens: "00:00",
       closes: "23:59",
     },
@@ -176,7 +195,10 @@ export default async function WazemmeesLandingPage({
       {
         "@type": "ListItem",
         position: 2,
-        name: locale === "en" ? "Lille Airbnb Concierge" : "Conciergerie Airbnb Lille",
+        name:
+          locale === "en"
+            ? "Lille Airbnb Concierge"
+            : "Conciergerie Airbnb Lille",
         item:
           locale === "fr"
             ? `${BASE_URL}/conciergerie-airbnb-lille`
@@ -185,7 +207,10 @@ export default async function WazemmeesLandingPage({
       {
         "@type": "ListItem",
         position: 3,
-        name: locale === "en" ? "Wazemmes Airbnb Concierge" : "Conciergerie Airbnb Wazemmes",
+        name:
+          locale === "en"
+            ? "Wazemmes Airbnb Concierge"
+            : "Conciergerie Airbnb Wazemmes",
         item:
           locale === "fr"
             ? `${BASE_URL}/conciergerie-airbnb-wazemmes`
@@ -209,7 +234,11 @@ export default async function WazemmeesLandingPage({
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <nav className="flex items-center justify-center gap-2 text-[10px] font-bold text-white/50 mb-6 tracking-wider">
             <a
-              href={locale === "en" ? "/en/conciergerie-airbnb-lille" : "/conciergerie-airbnb-lille"}
+              href={
+                locale === "en"
+                  ? "/en/conciergerie-airbnb-lille"
+                  : "/conciergerie-airbnb-lille"
+              }
               className="hover:text-welqo-terracotta transition-colors"
             >
               {locale === "en" ? "Lille Concierge" : "Conciergerie Lille"}
@@ -237,7 +266,9 @@ export default async function WazemmeesLandingPage({
               href="#contact"
               className="inline-flex items-center gap-2 px-8 py-4 bg-white text-slate-950 rounded-xl font-bold text-sm transition-all hover:bg-welqo-terracotta hover:text-white shadow-sm active:scale-95"
             >
-              {locale === "en" ? "Get my free quote" : "Obtenir mon devis gratuit"}
+              {locale === "en"
+                ? "Get my free quote"
+                : "Obtenir mon devis gratuit"}
               <ArrowRight className="w-4 h-4" />
             </a>
             <a
@@ -323,7 +354,11 @@ export default async function WazemmeesLandingPage({
               : "Vous cherchez une conciergerie Airbnb sur l'ensemble de Lille ?"}
           </p>
           <a
-            href={locale === "en" ? "/en/conciergerie-airbnb-lille" : "/conciergerie-airbnb-lille"}
+            href={
+              locale === "en"
+                ? "/en/conciergerie-airbnb-lille"
+                : "/conciergerie-airbnb-lille"
+            }
             className="inline-flex items-center gap-2 text-welqo-terracotta font-bold text-sm hover:underline"
           >
             {locale === "en"

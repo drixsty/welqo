@@ -167,7 +167,15 @@ export default async function BethuneLandingPage({
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
       opens: "00:00",
       closes: "23:59",
     },
@@ -187,8 +195,14 @@ export default async function BethuneLandingPage({
       {
         "@type": "ListItem",
         position: 2,
-        name: locale === "en" ? "Béthune Airbnb Concierge" : "Conciergerie Airbnb Béthune",
-        item: locale === "fr" ? `${BASE_URL}/conciergerie-airbnb-bethune` : `${BASE_URL}/${locale}/conciergerie-airbnb-bethune`,
+        name:
+          locale === "en"
+            ? "Béthune Airbnb Concierge"
+            : "Conciergerie Airbnb Béthune",
+        item:
+          locale === "fr"
+            ? `${BASE_URL}/conciergerie-airbnb-bethune`
+            : `${BASE_URL}/${locale}/conciergerie-airbnb-bethune`,
       },
     ],
   };
@@ -380,18 +394,32 @@ export default async function BethuneLandingPage({
             {locale === "en" ? "Go further" : "Pour aller plus loin"}
           </p>
           <h2 className="text-2xl font-bold tracking-tighter text-slate-900 dark:text-white text-center mb-8">
-            {locale === "en" ? "Useful resources on Béthune Airbnb" : "Ressources utiles sur l'Airbnb à Béthune"}
+            {locale === "en"
+              ? "Useful resources on Béthune Airbnb"
+              : "Ressources utiles sur l'Airbnb à Béthune"}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl mx-auto">
             {[
               {
-                title: locale === "en" ? "Béthune Airbnb Concierge: Everything About Property Management" : "Conciergerie Airbnb Béthune : tout savoir sur la gestion locative",
-                href: locale === "fr" ? "/blog/conciergerie-airbnb-bethune-guide" : "/en/blog/conciergerie-airbnb-bethune-guide",
+                title:
+                  locale === "en"
+                    ? "Béthune Airbnb Concierge: Everything About Property Management"
+                    : "Conciergerie Airbnb Béthune : tout savoir sur la gestion locative",
+                href:
+                  locale === "fr"
+                    ? "/blog/conciergerie-airbnb-bethune-guide"
+                    : "/en/blog/conciergerie-airbnb-bethune-guide",
                 category: locale === "en" ? "Strategy" : "Stratégie",
               },
               {
-                title: locale === "en" ? "Delegated Airbnb Management: Complete Guide 2025" : "Gestion déléguée Airbnb : guide complet 2025",
-                href: locale === "fr" ? "/blog/gestion-deleguee-airbnb-guide-complet" : "/en/blog/gestion-deleguee-airbnb-guide-complet",
+                title:
+                  locale === "en"
+                    ? "Delegated Airbnb Management: Complete Guide 2025"
+                    : "Gestion déléguée Airbnb : guide complet 2025",
+                href:
+                  locale === "fr"
+                    ? "/blog/gestion-deleguee-airbnb-guide-complet"
+                    : "/en/blog/gestion-deleguee-airbnb-guide-complet",
                 category: "Guide",
               },
             ].map((article) => (
@@ -400,9 +428,15 @@ export default async function BethuneLandingPage({
                 href={article.href}
                 className="flex flex-col gap-3 p-5 bg-white dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 hover:border-welqo-terracotta/30 hover:shadow-sm transition-all group"
               >
-                <span className="text-[9px] font-bold tracking-widest text-welqo-terracotta">{article.category}</span>
-                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-snug">{article.title}</span>
-                <span className="text-xs text-slate-400 mt-auto">{locale === "en" ? "Read the article →" : "Lire l'article →"}</span>
+                <span className="text-[9px] font-bold tracking-widest text-welqo-terracotta">
+                  {article.category}
+                </span>
+                <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-welqo-terracotta transition-colors leading-snug">
+                  {article.title}
+                </span>
+                <span className="text-xs text-slate-400 mt-auto">
+                  {locale === "en" ? "Read the article →" : "Lire l'article →"}
+                </span>
               </a>
             ))}
           </div>

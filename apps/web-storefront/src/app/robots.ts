@@ -5,11 +5,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: [
-        "/reservation/",
-        "/en/reservation/",
-        "/api/",
-      ],
+      disallow: ["/reservation/", "/en/reservation/", "/api/"],
     },
     sitemap: "https://welqo.fr/sitemap.xml",
   };

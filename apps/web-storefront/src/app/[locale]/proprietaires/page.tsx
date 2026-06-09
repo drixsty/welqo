@@ -194,7 +194,10 @@ export default async function ProprietairesPage({
         "@type": "ListItem",
         position: 2,
         name: locale === "en" ? "For Owners" : "Propriétaires",
-        item: locale === "fr" ? `${BASE_URL}/proprietaires` : `${BASE_URL}/${locale}/proprietaires`,
+        item:
+          locale === "fr"
+            ? `${BASE_URL}/proprietaires`
+            : `${BASE_URL}/${locale}/proprietaires`,
       },
     ],
   };
@@ -204,9 +207,10 @@ export default async function ProprietairesPage({
     "@type": "LocalBusiness",
     "@id": `${BASE_URL}/#business-proprietaires`,
     name: "Welqo — Conciergerie Airbnb Hauts-de-France",
-    description: locale === "en"
-      ? "Delegate your Airbnb management to Welqo. Dynamic pricing, 5★ cleaning, 24/7 guest reception. 20% commission, no fixed fees."
-      : "Confiez la gestion de votre Airbnb à Welqo. Pricing dynamique, ménage 5★, accueil 24h/24. Commission 20%, sans frais fixe.",
+    description:
+      locale === "en"
+        ? "Delegate your Airbnb management to Welqo. Dynamic pricing, 5★ cleaning, 24/7 guest reception. 20% commission, no fixed fees."
+        : "Confiez la gestion de votre Airbnb à Welqo. Pricing dynamique, ménage 5★, accueil 24h/24. Commission 20%, sans frais fixe.",
     url: `${BASE_URL}/proprietaires`,
     telephone: "+33999912173",
     email: "contact@welqo.fr",
@@ -225,7 +229,15 @@ export default async function ProprietairesPage({
     ],
     openingHoursSpecification: {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+      dayOfWeek: [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday",
+      ],
       opens: "00:00",
       closes: "23:59",
     },

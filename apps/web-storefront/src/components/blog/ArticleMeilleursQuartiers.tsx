@@ -380,25 +380,37 @@ export function ArticleMeilleursQuartiers({ locale }: { locale: string }) {
       {/* Liens quartiers spécifiques */}
       <div className="not-prose mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <a
-          href={locale === "en" ? "/en/conciergerie-airbnb-vieux-lille" : "/conciergerie-airbnb-vieux-lille"}
+          href={
+            locale === "en"
+              ? "/en/conciergerie-airbnb-vieux-lille"
+              : "/conciergerie-airbnb-vieux-lille"
+          }
           className="flex flex-col gap-1 p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 hover:border-welqo-terracotta/30 transition-colors group"
         >
           <span className="text-xs font-bold text-welqo-terracotta tracking-wider">
             {locale === "en" ? "Neighbourhood guide" : "Guide quartier"}
           </span>
           <span className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-welqo-terracotta transition-colors">
-            {locale === "en" ? "Airbnb Concierge Vieux-Lille →" : "Conciergerie Airbnb Vieux-Lille →"}
+            {locale === "en"
+              ? "Airbnb Concierge Vieux-Lille →"
+              : "Conciergerie Airbnb Vieux-Lille →"}
           </span>
         </a>
         <a
-          href={locale === "en" ? "/en/conciergerie-airbnb-wazemmes" : "/conciergerie-airbnb-wazemmes"}
+          href={
+            locale === "en"
+              ? "/en/conciergerie-airbnb-wazemmes"
+              : "/conciergerie-airbnb-wazemmes"
+          }
           className="flex flex-col gap-1 p-4 bg-slate-50 dark:bg-slate-900 rounded-xl border border-slate-100 dark:border-white/5 hover:border-welqo-terracotta/30 transition-colors group"
         >
           <span className="text-xs font-bold text-welqo-terracotta tracking-wider">
             {locale === "en" ? "Neighbourhood guide" : "Guide quartier"}
           </span>
           <span className="font-bold text-slate-900 dark:text-white text-sm group-hover:text-welqo-terracotta transition-colors">
-            {locale === "en" ? "Airbnb Concierge Wazemmes →" : "Conciergerie Airbnb Wazemmes →"}
+            {locale === "en"
+              ? "Airbnb Concierge Wazemmes →"
+              : "Conciergerie Airbnb Wazemmes →"}
           </span>
         </a>
       </div>

@@ -584,9 +584,7 @@ export function ArticleConciergerieLensArras({ locale }: { locale: string }) {
             {isEn ? "Our Lens service" : "Notre service à Lens"}
           </span>
           <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors">
-            {isEn
-              ? "Airbnb Concierge Lens →"
-              : "Conciergerie Airbnb Lens →"}
+            {isEn ? "Airbnb Concierge Lens →" : "Conciergerie Airbnb Lens →"}
           </span>
           <span className="text-xs text-slate-400">
             {isEn
@@ -606,9 +604,7 @@ export function ArticleConciergerieLensArras({ locale }: { locale: string }) {
             {isEn ? "Our Arras service" : "Notre service à Arras"}
           </span>
           <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors">
-            {isEn
-              ? "Airbnb Concierge Arras →"
-              : "Conciergerie Airbnb Arras →"}
+            {isEn ? "Airbnb Concierge Arras →" : "Conciergerie Airbnb Arras →"}
           </span>
           <span className="text-xs text-slate-400">
             {isEn

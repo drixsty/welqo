@@ -8,18 +8,18 @@ export function ArticleInvestirBassinMinier({ locale }: { locale: string }) {
       {isEn ? (
         <p>
           In 2025, many investors are turning away from saturated markets like
-          Paris or Lyon and looking for emerging opportunities. The Bassin Minier
-          — and particularly Lens and Arras — ticks all the boxes: low acquisition
-          prices, growing tourist demand and still-limited Airbnb competition.
-          Here is a complete analysis.
+          Paris or Lyon and looking for emerging opportunities. The Bassin
+          Minier — and particularly Lens and Arras — ticks all the boxes: low
+          acquisition prices, growing tourist demand and still-limited Airbnb
+          competition. Here is a complete analysis.
         </p>
       ) : (
         <p>
           En 2025, de nombreux investisseurs se détournent des marchés saturés
-          comme Paris ou Lyon et cherchent des opportunités émergentes. Le Bassin
-          Minier — et notamment Lens et Arras — coche toutes les cases : prix
-          d'acquisition bas, demande touristique croissante et concurrence Airbnb
-          encore limitée. Voici une analyse complète.
+          comme Paris ou Lyon et cherchent des opportunités émergentes. Le
+          Bassin Minier — et notamment Lens et Arras — coche toutes les cases :
+          prix d'acquisition bas, demande touristique croissante et concurrence
+          Airbnb encore limitée. Voici une analyse complète.
         </p>
       )}
 
@@ -48,20 +48,20 @@ export function ArticleInvestirBassinMinier({ locale }: { locale: string }) {
             than in Lille for a comparable tourist flow
           </li>
           <li>
-            <strong>Good transport links:</strong> TGV Paris–Lens in 1h10, direct
-            connection to Brussels in 1h30
+            <strong>Good transport links:</strong> TGV Paris–Lens in 1h10,
+            direct connection to Brussels in 1h30
           </li>
         </ul>
       ) : (
         <ul>
           <li>
-            <strong>Prix d'acquisition bas :</strong> 1 400 à 2 600 €/m²
-            (contre 3 000 à 5 000 € à Lille et 8 000 €+ à Paris)
+            <strong>Prix d'acquisition bas :</strong> 1 400 à 2 600 €/m² (contre
+            3 000 à 5 000 € à Lille et 8 000 €+ à Paris)
           </li>
           <li>
-            <strong>Tourisme en plein essor :</strong> +700 000 visiteurs/an
-            au Louvre-Lens, 400 000 au Mémorial de Vimy, 600 000 à l'Anneau de
-            la Mémoire
+            <strong>Tourisme en plein essor :</strong> +700 000 visiteurs/an au
+            Louvre-Lens, 400 000 au Mémorial de Vimy, 600 000 à l'Anneau de la
+            Mémoire
           </li>
           <li>
             <strong>Effet RC Lens :</strong> 19 matchs à domicile/saison
@@ -79,9 +79,7 @@ export function ArticleInvestirBassinMinier({ locale }: { locale: string }) {
       )}
 
       <h2 id="rendement-calcul">
-        {isEn
-          ? "Estimated Yield Calculation"
-          : "Calcul de rendement estimé"}
+        {isEn ? "Estimated Yield Calculation" : "Calcul de rendement estimé"}
       </h2>
       {isEn ? (
         <>
@@ -92,7 +90,9 @@ export function ArticleInvestirBassinMinier({ locale }: { locale: string }) {
           <ul>
             <li>Gross monthly revenue: €950</li>
             <li>Annual gross revenue: €11,400</li>
-            <li>Annual costs (charges, insurance, Welqo commission): ~€3,200</li>
+            <li>
+              Annual costs (charges, insurance, Welqo commission): ~€3,200
+            </li>
             <li>Annual net revenue: ~€8,200</li>
             <li>
               <strong>Estimated net yield: 12.6%</strong>
@@ -107,15 +107,15 @@ export function ArticleInvestirBassinMinier({ locale }: { locale: string }) {
       ) : (
         <>
           <p>
-            Exemple pour un appartement de 35 m² en centre de Lens, acheté
-            65 000 € (1 860 €/m²) :
+            Exemple pour un appartement de 35 m² en centre de Lens, acheté 65
+            000 € (1 860 €/m²) :
           </p>
           <ul>
             <li>Revenu brut mensuel : 950 €</li>
             <li>Revenu brut annuel : 11 400 €</li>
             <li>
-              Charges annuelles (charges, assurance, commission Welqo) :
-              ~3 200 €
+              Charges annuelles (charges, assurance, commission Welqo) : ~3 200
+              €
             </li>
             <li>Revenu net annuel : ~8 200 €</li>
             <li>
@@ -142,8 +142,8 @@ export function ArticleInvestirBassinMinier({ locale }: { locale: string }) {
           </li>
           <li>
             <strong>Football season dependency:</strong> Without RC Lens, Lens
-            Airbnb revenue would fall by 15–20%. Diversify your marketing towards
-            cultural and business visitors.
+            Airbnb revenue would fall by 15–20%. Diversify your marketing
+            towards cultural and business visitors.
           </li>
           <li>
             <strong>Property condition:</strong> Bassin Minier housing stock is
@@ -175,7 +175,9 @@ export function ArticleInvestirBassinMinier({ locale }: { locale: string }) {
       {/* ── CTA ── */}
       <div className="not-prose mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
         <a
-          href={isEn ? "/en/conciergerie-airbnb-lens" : "/conciergerie-airbnb-lens"}
+          href={
+            isEn ? "/en/conciergerie-airbnb-lens" : "/conciergerie-airbnb-lens"
+          }
           className="flex flex-col gap-2 p-4 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
         >
           <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors text-sm">
@@ -183,7 +185,11 @@ export function ArticleInvestirBassinMinier({ locale }: { locale: string }) {
           </span>
         </a>
         <a
-          href={isEn ? "/en/conciergerie-airbnb-arras" : "/conciergerie-airbnb-arras"}
+          href={
+            isEn
+              ? "/en/conciergerie-airbnb-arras"
+              : "/conciergerie-airbnb-arras"
+          }
           className="flex flex-col gap-2 p-4 bg-slate-900 rounded-xl border border-white/10 hover:border-welqo-terracotta/40 transition-colors group"
         >
           <span className="font-bold text-white group-hover:text-welqo-terracotta transition-colors text-sm">

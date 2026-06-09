@@ -172,11 +172,13 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     coverImage:
       "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=2070&auto=format&fit=crop",
-    coverImageAlt: "Gestion déléguée Airbnb — Welqo Conciergerie Hauts-de-France",
+    coverImageAlt:
+      "Gestion déléguée Airbnb — Welqo Conciergerie Hauts-de-France",
   },
   {
     slug: "conciergerie-airbnb-bethune-guide",
-    titleFr: "Conciergerie Airbnb Béthune : tout savoir sur la gestion locative",
+    titleFr:
+      "Conciergerie Airbnb Béthune : tout savoir sur la gestion locative",
     titleEn: "Béthune Airbnb Concierge: Everything About Property Management",
     descriptionFr:
       "Béthune, au carrefour de Lille, Lens et Arras : pourquoi c'est un marché porteur pour la location courte durée. Guide complet sur la conciergerie Airbnb à Béthune.",
@@ -302,8 +304,10 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "lcd-vs-longue-duree-hauts-de-france",
-    titleFr: "Location Courte Durée vs Longue Durée : Quel Choix pour Votre Bien en 2025 ?",
-    titleEn: "Short-Term vs Long-Term Rental: Which Is Right for Your Property in 2025?",
+    titleFr:
+      "Location Courte Durée vs Longue Durée : Quel Choix pour Votre Bien en 2025 ?",
+    titleEn:
+      "Short-Term vs Long-Term Rental: Which Is Right for Your Property in 2025?",
     descriptionFr:
       "Revenus, fiscalité, flexibilité, risques… Comparatif complet entre Airbnb (location courte durée) et bail classique pour les propriétaires des Hauts-de-France.",
     descriptionEn:
@@ -324,7 +328,8 @@ export const BLOG_POSTS: BlogPost[] = [
     ],
     coverImage:
       "https://images.unsplash.com/photo-1450101499163-c8848c66ca85?q=80&w=2070&auto=format&fit=crop",
-    coverImageAlt: "Comparatif location courte durée vs longue durée — Welqo Hauts-de-France",
+    coverImageAlt:
+      "Comparatif location courte durée vs longue durée — Welqo Hauts-de-France",
   },
   {
     slug: "fiscalite-airbnb-lmnp-micro-bic-guide",
@@ -354,8 +359,10 @@ export const BLOG_POSTS: BlogPost[] = [
   },
   {
     slug: "conciergerie-airbnb-douai-guide",
-    titleFr: "Conciergerie Airbnb Douai : Tout Savoir sur la Gestion Locative en 2025",
-    titleEn: "Douai Airbnb Concierge: Everything About Property Management in 2025",
+    titleFr:
+      "Conciergerie Airbnb Douai : Tout Savoir sur la Gestion Locative en 2025",
+    titleEn:
+      "Douai Airbnb Concierge: Everything About Property Management in 2025",
     descriptionFr:
       "Beffroi UNESCO, festival de Gayant, proximité du Louvre-Lens… Découvrez pourquoi Douai est un marché Airbnb sous-estimé en Hauts-de-France et comment en tirer le meilleur parti.",
     descriptionEn:

@@ -7,10 +7,14 @@ export default config({
   collections: {
     posts: collection({
       label: "Articles de Blog",
-      slugField: "titleFr", // slug is auto-generated from titleFr
+      slugField: "slug",
       path: "content/posts/*",
       format: { data: "json" },
       schema: {
+        slug: fields.text({
+          label: "Slug (URL de l'article)",
+          validation: { length: { min: 1 } },
+        }),
         titleFr: fields.text({
           label: "Titre (FR)",
           validation: { length: { min: 1 } },

@@ -84,8 +84,8 @@ export default async function BlogPage({
   const rawPosts = await reader.collections.posts.all();
   const posts = rawPosts
     .map((p) => ({
-      slug: p.slug,
       ...p.entry,
+      slug: p.slug,
     }))
     .sort(
       (a, b) =>

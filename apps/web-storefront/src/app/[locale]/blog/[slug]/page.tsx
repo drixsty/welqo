@@ -21,7 +21,13 @@ const CATEGORY_STYLE: Record<string, string> = {
 
 export async function generateStaticParams() {
   const posts = await reader.collections.posts.list();
-  return posts.map((slug) => ({ slug }));
+  const locales = ["en", "fr"];
+  return locales.flatMap((locale) =>
+    posts.map((slug) => ({
+      slug,
+      locale,
+    }))
+  );
 }
 
 function slugify(text: string): string {

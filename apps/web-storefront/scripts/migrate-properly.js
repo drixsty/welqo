@@ -593,6 +593,16 @@ function parseTsxFile(filePath) {
         }
         return blocks;
       }
+
+      // Wrap top-level inline tags (a, strong, span) into paragraphs to prevent skipping
+      if (tagName === "a" || tagName === "strong" || tagName === "span") {
+        const inlineNodes = parseInlineChildren([node], isEnglishBranch);
+        blocks.push({
+          type: "paragraph",
+          children: inlineNodes
+        });
+        return blocks;
+      }
     }
 
     return blocks;

@@ -1,0 +1,612 @@
+{
+  "titleFr": "Gestion déléguée Airbnb : guide complet 2026",
+  "titleEn": "Delegated Airbnb Management: Complete Guide 2026",
+  "descriptionFr": "Conciergerie, agence ou gestionnaire indépendant ? Comprenez les différences, les coûts et comment choisir le bon partenaire pour déléguer votre gestion Airbnb.",
+  "descriptionEn": "Concierge, agency or independent manager? Understand the differences, costs and how to choose the right partner to delegate your Airbnb management.",
+  "category": "Guide",
+  "publishedAt": "2026-03-05",
+  "updatedAt": "2026-06-16",
+  "readingMinutes": 9,
+  "keywordsFr": [
+    "gestion déléguée airbnb",
+    "déléguer gestion airbnb",
+    "conciergerie airbnb hauts-de-france",
+    "gestionnaire airbnb"
+  ],
+  "keywordsEn": [
+    "delegated airbnb management",
+    "airbnb property manager",
+    "airbnb concierge northern france"
+  ],
+  "coverImage": null,
+  "coverImageUrl": "https://images.unsplash.com/photo-1551836022-d5d88e9218df?q=80&w=2070&auto=format&fit=crop",
+  "coverImageAltFr": "Gestion déléguée Airbnb — Welqo Conciergerie Hauts-de-France",
+  "coverImageAltEn": "Delegated Airbnb management — Welqo Concierge",
+  "contentFr": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Vous avez un bien Airbnb mais vous ne souhaitez pas passer vos soirées\r\n          à gérer les messages voyageurs, coordonner le ménage entre deux\r\n          réservations enchaînées ou gérer une chaudière en panne à minuit ? La\r\n          gestion déléguée est la solution — mais s'y retrouver parmi les\r\n          différentes options disponibles peut être complexe. Ce guide vous\r\n          explique tout."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Qu'est-ce que la gestion déléguée Airbnb ?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "La gestion déléguée consiste à confier tout ou partie des opérations\r\n          de votre Airbnb à un professionnel tiers. Cela couvre : la\r\n          communication voyageurs, les check-in/out, le ménage professionnel, la\r\n          tarification dynamique, la maintenance et le reporting. Le propriétaire\r\n          conserve la propriété et perçoit les revenus mensuels déduction faite\r\n          des frais de gestion."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Les 3 types de gestion locative"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "1. La conciergerie Airbnb"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Une conciergerie est spécialisée exclusivement dans la gestion\r\n            locative courte durée. Elle prend en charge l'expérience voyageur\r\n            complète : accueil, ménage, tarification, annonces multi-plateformes\r\n            et reporting propriétaire."
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Commission :",
+              "bold": true
+            },
+            {
+              "text": "15 à 25 % du revenu brut (aucun\r\n              frais fixe)"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Idéal pour :",
+              "bold": true
+            },
+            {
+              "text": "les propriétaires qui souhaitent une\r\n              gestion totalement déléguée"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Résultat typique :",
+              "bold": true
+            },
+            {
+              "text": "+30 à 40 % de revenus par\r\n              rapport à la gestion en solo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "2. L'agence immobilière traditionnelle"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Certaines agences immobilières se sont diversifiées dans la gestion\r\n            locative courte durée, mais il s'agit souvent d'une activité\r\n            secondaire à côté de leur cœur de métier (location longue durée,\r\n            transaction)."
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Frais fixes :",
+              "bold": true
+            },
+            {
+              "text": "250 à 400 €/mois + commission 25 à\r\n              30 %"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Inconvénient :",
+              "bold": true
+            },
+            {
+              "text": "Moins spécialisée, souvent limitée\r\n              à une plateforme, moins réactive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "3. Le gestionnaire indépendant (freelance)"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Un particulier qui gère plusieurs biens Airbnb de façon indépendante,\r\n            généralement dans son quartier."
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Commission :",
+              "bold": true
+            },
+            {
+              "text": "10 à 18 % (souvent plus basse)"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Risque :",
+              "bold": true
+            },
+            {
+              "text": "Pas d'assurance professionnelle, pas de\r\n              garanties juridiques, qualité de service variable"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Comment choisir le bon partenaire"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Cinq questions à poser avant de signer avec un gestionnaire :"
+        }
+      ]
+    },
+    {
+      "type": "ordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Sur quelles plateformes publiez-vous ?",
+              "bold": true
+            },
+            {
+              "text": "Un bon\r\n              gestionnaire diffuse au minimum sur Airbnb, Booking.com et Vrbo."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Quel est votre modèle de rémunération ?",
+              "bold": true
+            },
+            {
+              "text": "Évitez les\r\n              frais fixes — la commission seule aligne les intérêts."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Quelle est votre note moyenne ?",
+              "bold": true
+            },
+            {
+              "text": "Demandez la note\r\n              moyenne sur l'ensemble des biens gérés (visez 4,7+/5)."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Comment gérez-vous les urgences maintenance ?",
+              "bold": true
+            },
+            {
+              "text": "Une\r\n              équipe locale est indispensable pour une réactivité maximale."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Que contient le dashboard propriétaire ?",
+              "bold": true
+            },
+            {
+              "text": "Revenus\r\n              en temps réel, taux d'occupation, avis — tout doit être visible."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Le modèle Welqo en Hauts-de-France"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Welqo fonctionne sur un"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "modèle à la commission uniquement (20 %)",
+          "bold": true
+        },
+        {
+          "text": ", sans frais\r\n          fixe, couvrant Lille, Lens, Arras et Béthune. Cela signifie que nos\r\n          intérêts sont parfaitement alignés avec les vôtres : nous ne gagnons\r\n          de l'argent que lorsque vous en gagnez."
+        }
+      ]
+    }
+  ],
+  "contentEn": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "You have an Airbnb property but don't want to spend your evenings\r\n          managing guest messages, coordinating cleaning between two back-to-back\r\n          bookings or handling a broken boiler at midnight? Delegated management\r\n          is the answer — but navigating the different options available can be\r\n          confusing. This guide explains everything."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "What Is Delegated Airbnb Management?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Delegated management means entrusting all or part of your Airbnb\r\n          operations to a professional third party. This covers: guest\r\n          communication, check-in/out, professional cleaning, dynamic pricing,\r\n          maintenance and reporting. The property owner keeps ownership and\r\n          receives monthly revenues minus the management fee."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "The 3 Types of Property Management"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "1. The Airbnb Concierge"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "A concierge specialises exclusively in short-term rental management.\r\n            It handles the full guest experience: welcome, cleaning, pricing,\r\n            multi-platform listings and owner reporting."
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Commission:",
+              "bold": true
+            },
+            {
+              "text": "15–25% of gross revenue (no fixed\r\n              fees)"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Best for:",
+              "bold": true
+            },
+            {
+              "text": "Owners who want complete hands-off\r\n              management"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Typical result:",
+              "bold": true
+            },
+            {
+              "text": "+30–40% more revenue than\r\n              self-management"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "2. The Traditional Agency"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Some real estate agencies have diversified into short-term rental\r\n            management, but this is often a secondary activity alongside their\r\n            main long-term letting and sales business."
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Fixed fees:",
+              "bold": true
+            },
+            {
+              "text": "€250–400/month + 25–30% commission"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Disadvantage:",
+              "bold": true
+            },
+            {
+              "text": "Less specialised, often limited to\r\n              a single platform, less reactive"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "3. The Independent Manager (Freelance)"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "An individual who manages several Airbnb properties independently,\r\n            usually located within their neighbourhood."
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Commission:",
+              "bold": true
+            },
+            {
+              "text": "10–18% (often lower)"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Risk:",
+              "bold": true
+            },
+            {
+              "text": "No professional insurance, no legal\r\n              guarantees, variable service quality"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "How to Choose the Right Partner"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Five questions to ask before signing with a property manager:"
+        }
+      ]
+    },
+    {
+      "type": "ordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "On which platforms do you list?",
+              "bold": true
+            },
+            {
+              "text": "A good concierge\r\n              should list on Airbnb, Booking.com and Vrbo as a minimum."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "What is your pricing model?",
+              "bold": true
+            },
+            {
+              "text": "Avoid fixed fees —\r\n              commission only ensures alignment of interests."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "What is your average rating?",
+              "bold": true
+            },
+            {
+              "text": "Ask for the average\r\n              rating across all managed properties (aim for 4.7+/5)."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "How do you handle maintenance emergencies?",
+              "bold": true
+            },
+            {
+              "text": "A\r\n              local team is essential for rapid response."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "What does the owner dashboard include?",
+              "bold": true
+            },
+            {
+              "text": "Real-time\r\n              revenue, occupancy, reviews — everything should be visible."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "The Welqo Model in Northern France"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Welqo operates on a"
+        },
+        {
+          "text": "commission-only model (20%)",
+          "bold": true
+        },
+        {
+          "text": "with\r\n          no fixed fees, covering Lille, Lens, Arras and Béthune. This means our\r\n          interests are perfectly aligned with yours: we only earn money when you\r\n          do."
+        }
+      ]
+    }
+  ]
+}

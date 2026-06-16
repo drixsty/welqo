@@ -1,5 +1,5 @@
 import { MetadataRoute } from "next";
-import { BLOG_POSTS } from "../lib/blog";
+import { reader } from "../lib/reader";
 
 const BASE_URL = "https://welqo.fr";
 const LOCALES = ["fr", "en"] as const;
@@ -74,6 +74,12 @@ const STATIC_PAGES = [
     freq: "weekly" as const,
   },
   { path: "/mentions-legales", priority: 0.1, freq: "yearly" as const },
+  {
+    path: "/politique-de-confidentialite",
+    priority: 0.1,
+    freq: "yearly" as const,
+  },
+  { path: "/politique-de-cookies", priority: 0.1, freq: "yearly" as const },
 ] as const;
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
@@ -90,16 +96,17 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     })),
   );
 
+  const posts = await reader.collections.posts.all();
   const blogEntries = LOCALES.flatMap((locale) =>
-    BLOG_POSTS.map((post) => ({
+    posts.map(({ slug, entry }) => ({
       url:
         locale === "fr"
-          ? `${BASE_URL}/blog/${post.slug}`
-          : `${BASE_URL}/${locale}/blog/${post.slug}`,
-      lastModified: new Date(post.updatedAt ?? post.publishedAt),
+          ? `${BASE_URL}/blog/${slug}`
+          : `${BASE_URL}/${locale}/blog/${slug}`,
+      lastModified: new Date(entry.updatedAt ?? entry.publishedAt),
       changeFrequency: "monthly" as const,
       priority: 0.75,
-      alternates: alternates(`/blog/${post.slug}`),
+      alternates: alternates(`/blog/${slug}`),
     })),
   );
 

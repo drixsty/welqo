@@ -403,19 +403,19 @@ export default async function ArrasLandingPage({
               {
                 title:
                   locale === "en"
-                    ? "How Much Does an Airbnb in Arras Earn in 2025?"
-                    : "Combien rapporte un Airbnb à Arras en 2025 ?",
+                    ? "How Much Does an Airbnb in Arras Earn in 2026?"
+                    : "Combien rapporte un Airbnb à Arras en 2026 ?",
                 href:
                   locale === "fr"
-                    ? "/blog/combien-rapporte-airbnb-arras-2025"
-                    : "/en/blog/combien-rapporte-airbnb-arras-2025",
+                    ? "/blog/combien-rapporte-airbnb-arras-2026"
+                    : "/en/blog/combien-rapporte-airbnb-arras-2026",
                 category: locale === "en" ? "Profitability" : "Rentabilité",
               },
               {
                 title:
                   locale === "en"
                     ? "Investing in Short-Term Rentals in the Bassin Minier"
-                    : "Investir en LCD dans le Bassin Minier en 2025",
+                    : "Investir en LCD dans le Bassin Minier en 2026",
                 href:
                   locale === "fr"
                     ? "/blog/investir-lcd-bassin-minier-hauts-de-france"

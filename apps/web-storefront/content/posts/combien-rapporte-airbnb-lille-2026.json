@@ -1,0 +1,560 @@
+{
+  "titleFr": "Combien rapporte un Airbnb à Lille en 2026 ? (Étude de marché)",
+  "titleEn": "How Much Does an Airbnb in Lille Earn in 2026? (Market Study)",
+  "descriptionFr": "Revenus moyens, taux d'occupation, saisonnalité, quartiers les plus rentables… Tout ce que vous devez savoir avant de louer votre appartement à Lille sur Airbnb.",
+  "descriptionEn": "Average revenue, occupancy rates, seasonality, most profitable neighbourhoods — everything you need to know before listing your Lille property on Airbnb.",
+  "category": "Rentabilité",
+  "publishedAt": "2026-02-15",
+  "updatedAt": "2026-06-16",
+  "readingMinutes": 8,
+  "keywordsFr": [
+    "combien rapporte airbnb lille",
+    "revenus airbnb lille",
+    "rentabilité airbnb lille",
+    "taux occupation airbnb lille 2026"
+  ],
+  "keywordsEn": [
+    "airbnb income lille",
+    "airbnb revenue lille 2026"
+  ],
+  "coverImage": null,
+  "coverImageUrl": "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?q=80&w=2070&auto=format&fit=crop",
+  "coverImageAltFr": "Appartement Airbnb à Lille — Welqo Conciergerie",
+  "coverImageAltEn": "Airbnb apartment in Lille — Welqo Concierge",
+  "contentFr": [
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Les revenus moyens d'un Airbnb à Lille"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Un appartement bien situé et correctement optimisé à Lille génère en\r\n            moyenne entre"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "1 200 € et 2 200 € de revenus bruts par mois",
+          "bold": true
+        },
+        {
+          "text": ", selon le quartier, la surface et la qualité de l'annonce. À titre\r\n            de comparaison, une location longue durée du même bien rapporterait\r\n            700 à 900 € / mois — soit un différentiel de"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "+50 à +80 %",
+          "bold": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "en faveur de la courte durée."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Ces chiffres s'entendent hors charges de gestion. Avec une\r\n            conciergerie comme Welqo (commission de 15 à 20 %), le revenu net\r\n            propriétaire reste significativement supérieur à celui d'une\r\n            location meublée classique."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Revenus par quartier à Lille (données 2026)"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Les performances varient fortement selon la localisation. Le Vieux-Lille reste le quartier le plus rentable grâce à son attractivité touristique, tandis que des quartiers comme Wazemmes ou Vauban offrent un excellent rapport qualité/prix d'acquisition."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "children": [
+        {
+          "type": "table-row",
+          "children": [
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Quartier"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Revenu brut / mois"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Taux d'occupation"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Prix / nuit"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Source : Welqo / AirDNA — données moyennes T1 2026, appartements 2 pièces."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Les facteurs qui influencent la rentabilité"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "1. La saisonnalité lilloise"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Contrairement à des villes balnéaires, Lille bénéficie d'un{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              flux de voyageurs d'affaires constant\r\n            </strong>{\" \"}\r\n            toute l'année grâce à Euratechnologies, la MEL et les grands comptes\r\n            nordistes. Les pics de demande sont concentrés sur :\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "2. La qualité de l'annonce"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Les annonces Airbnb avec des photos professionnelles et un titre\r\n            optimisé obtiennent en moyenne{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              35 % de revenus supplémentaires\r\n            </strong>{\" \"}\r\n            par rapport aux annonces amateures, toutes choses égales par\r\n            ailleurs. C'est l'un des premiers leviers d'optimisation que Welqo\r\n            active lors de la prise en charge d'un nouveau bien.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "3. La réactivité et la note voyageurs"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            L'algorithme Airbnb favorise les hôtes avec un taux de réponse\r\n            supérieur à 90 % et une note globale supérieure à 4,8/5. Les biens\r\n            gérés par Welqo maintiennent une moyenne de{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              4,9/5\r\n            </strong>{\" \"}\r\n            grâce à notre protocole d'accueil et notre suivi qualité\r\n            post-séjour.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Bon à savoir"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n                <>\r\n                  Les propriétaires qui confient leur bien à Welqo gagnent en\r\n                  moyenne{\" \"}\r\n                  <strong className=\"text-emerald-900 dark:text-emerald-300\">\r\n                    38 % de revenus supplémentaires\r\n                  </strong>\r\n                  .\r\n                </>\r\n              )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Faut-il confier son bien à une conciergerie ?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            La gestion en solo d'un Airbnb représente en moyenne{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              8 à 12 heures de travail par semaine\r\n            </strong>{\" \"}\r\n            : messages voyageurs, coordination ménage, check-in, suivi des avis,\r\n            mise à jour des calendriers… Pour la majorité des propriétaires\r\n            actifs, cette charge est incompatible avec une vie professionnelle\r\n            normale.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Une conciergerie comme Welqo prend en charge l'intégralité de ces\r\n            tâches moyennant une commission de 15 à 20 % sur les revenus bruts.\r\n            Compte tenu de l'optimisation des annonces et de la tarification\r\n            dynamique, les propriétaires qui nous confient leur bien gagnent en\r\n            moyenne{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              38 % de revenus supplémentaires\r\n            </strong>{\" \"}\r\n            — tout en récupérant leur temps libre.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "La réglementation Airbnb à Lille en 2026"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Avant de vous lancer, quelques points réglementaires à connaître pour Lille :"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Conclusion : est-ce rentable de louer sur Airbnb à Lille ?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Oui — à condition d'optimiser votre annonce, votre tarification et\r\n            votre gestion. Un appartement 2 pièces bien situé (Vieux-Lille,\r\n            Euralille, Wazemmes) peut générer entre{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              15 000 € et 25 000 € de revenus bruts annuels\r\n            </strong>\r\n            , contre 8 000 à 10 000 € en location longue durée.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            La clé pour maximiser ce potentiel sans y consacrer vos week-ends ?\r\n            Déléguer la gestion à une conciergerie locale qui connaît le marché\r\n            lillois.{\" \"}\r\n            <a\r\n              href={`${base}/proprietaires`}\r\n              className=\"text-welqo-terracotta font-bold hover:underline\"\r\n            >\r\n              Découvrez comment Welqo gère votre bien en Hauts-de-France →\r\n            </a>\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Prêt à mettre votre bien lillois en location ?{\" \"}\r\n            <a\r\n              href={`/conciergerie-airbnb-lille`}\r\n              className=\"text-welqo-terracotta font-bold hover:underline\"\r\n            >\r\n              Découvrez notre service de conciergerie Airbnb à Lille →\r\n            </a>\r\n          </>\r\n        )"
+        }
+      ]
+    }
+  ],
+  "contentEn": [
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Average income of an Airbnb in Lille"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "A well-located and properly optimized apartment in Lille generates\r\n            an average of"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "€1,200 to €2,200 in gross monthly revenue",
+          "bold": true
+        },
+        {
+          "text": ", depending on the district, surface area, and quality of the\r\n            listing. By comparison, a traditional long-term rental of the same\r\n            property would bring in €700 to €900 per month — showing a\r\n            differential of"
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "+50% to +80%",
+          "bold": true
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "in favor of short-term rentals."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "These figures are calculated net of management fees. With a\r\n            concierge service like Welqo (commission of 15% to 20%), the owner's\r\n            net income remains significantly higher than that of a classic\r\n            furnished rental."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Revenue by district in Lille (2026 data)"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Performance varies greatly by location. Vieux-Lille remains the most profitable area due to its high tourist appeal, while districts like Wazemmes or Vauban offer an excellent acquisition price-to-yield ratio."
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "children": [
+        {
+          "type": "table-row",
+          "children": [
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "District"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Gross revenue / month"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Occupancy rate"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Price / night"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Source: Welqo / AirDNA — Q1 2026 average data, 2-room apartments."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Factors influencing profitability"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "1. Lille's Seasonality"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Unlike coastal resorts, Lille enjoys a{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              steady flow of business travelers\r\n            </strong>{\" \"}\r\n            year-round thanks to Euratechnologies, the MEL, and major Northern\r\n            corporate accounts. Peak demand focuses on:\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "2. Quality of the listing"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Airbnb listings with professional photos and optimized copy secure\r\n            an average of{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              35% more revenue\r\n            </strong>{\" \"}\r\n            compared to amateur listings. This is one of the key optimization\r\n            levers that Welqo activates when onboarding new properties.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 3,
+      "children": [
+        {
+          "text": "3. Responsiveness and guest rating"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            The Airbnb algorithm favors hosts with response rates above 90% and\r\n            average guest ratings above 4.8/5. Welqo-managed properties maintain\r\n            an average rating of{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              4.9/5\r\n            </strong>{\" \"}\r\n            thanks to our dynamic guest greeting protocols and post-stay quality\r\n            checks.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Good to know"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n                <>\r\n                  Property owners who entrust their property to Welqo earn an\r\n                  average of{\" \"}\r\n                  <strong className=\"text-emerald-900 dark:text-emerald-300\">\r\n                    38% more revenue\r\n                  </strong>\r\n                  .\r\n                </>\r\n              )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Should you entrust your property to a concierge?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Managing an Airbnb yourself takes an average of{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              8 to 12 hours of work per week\r\n            </strong>\r\n            : guest messaging, cleaning coordination, check-ins, review\r\n            follow-up, calendar updates... For most busy property owners, this\r\n            workload is incompatible with a regular professional life.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            A concierge service like Welqo takes care of all these tasks for a\r\n            commission of 15% to 20% on gross revenue. Given the listings\r\n            optimization and dynamic pricing, owners who partner with us earn an\r\n            average of{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              38% more revenue\r\n            </strong>{\" \"}\r\n            — while completely reclaiming their free time.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Airbnb regulations in Lille in 2026"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Before getting started, here are a few regulatory points to know for Lille:"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Conclusion: is renting on Airbnb in Lille profitable?"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Yes — provided you optimize your listing, your pricing, and your\r\n            management. A well-located 2-room apartment (Vieux-Lille, Euralille,\r\n            Wazemmes) can generate between{\" \"}\r\n            <strong className=\"text-slate-900 dark:text-white font-bold\">\r\n              €15,000 and €25,000 in gross annual revenue\r\n            </strong>\r\n            , compared to €8,000 to €10,000 in a traditional long-term lease.\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            The key to maximizing this potential without dedicating your\r\n            weekends? Delegate the management to a local concierge service that\r\n            knows the Lille market.{\" \"}\r\n            <a\r\n              href={`${base}/proprietaires`}\r\n              className=\"text-welqo-terracotta font-bold hover:underline\"\r\n            >\r\n              Discover how Welqo manages your property in Northern France →\r\n            </a>\r\n          </>\r\n        )"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Ready to list your Lille property?{\" \"}\r\n            <a\r\n              href={`/en/conciergerie-airbnb-lille`}\r\n              className=\"text-welqo-terracotta font-bold hover:underline\"\r\n            >\r\n              Discover our Lille Airbnb concierge service →\r\n            </a>\r\n          </>\r\n        )"
+        }
+      ]
+    }
+  ]
+}

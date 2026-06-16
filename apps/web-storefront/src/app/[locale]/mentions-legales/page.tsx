@@ -1,17 +1,50 @@
 import React from "react";
 import Link from "next/link";
+import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
+import { reader } from "../../../lib/reader";
+import {
+  DocumentRenderer,
+  DocumentRendererProps,
+} from "@keystatic/core/renderer";
+
+const BASE_URL = "https://welqo.fr";
 
 export async function generateMetadata({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
+  const page = await reader.collections.pages.read("mentions-legales");
+  if (!page) return {};
+
+  const title = locale !== "en" ? page.titleFr : page.titleEn;
+  const description = locale !== "en" ? page.descriptionFr : page.descriptionEn;
+
   return {
-    title:
-      locale !== "en" ? "Mentions légales — Welqo" : "Legal Notice — Welqo",
+    title,
+    description,
     robots: { index: false },
   };
+}
+
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "");
+}
+
+function getTextFromReactNode(node: any): string {
+  if (!node) return "";
+  if (typeof node === "string") return node;
+  if (typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(getTextFromReactNode).join("");
+  if (node.props && node.props.children)
+    return getTextFromReactNode(node.props.children);
+  return "";
 }
 
 export default async function MentionsLegalesPage({
@@ -19,17 +52,43 @@ export default async function MentionsLegalesPage({
 }: {
   params: { locale: string };
 }) {
+  const page = await reader.collections.pages.read("mentions-legales");
+  if (!page) notFound();
+
   const t = await getTranslations({ locale, namespace: "MentionsLegales" });
   const base = `/${locale}`;
 
-  const SECTIONS = [
-    { id: "editeur", label: t("section_editeur") },
-    { id: "hebergement", label: t("section_hebergement") },
-    { id: "propriete", label: t("section_propriete") },
-    { id: "responsabilite", label: t("section_responsabilite") },
-    { id: "donnees", label: t("section_donnees") },
-    { id: "cookies", label: t("section_cookies") },
-  ];
+  const title = locale !== "en" ? page.titleFr : page.titleEn;
+  const description = locale !== "en" ? page.descriptionFr : page.descriptionEn;
+  const contentNodes = await (locale !== "en"
+    ? page.contentFr()
+    : page.contentEn());
+
+  // Dynamically generate the TOC from H2 headings
+  const toc = contentNodes
+    .filter((node: any) => node.type === "heading" && node.level === 2)
+    .map((node: any) => {
+      const text = node.children.map((c: any) => c.text || "").join("");
+      return {
+        id: slugify(text),
+        text,
+      };
+    });
+
+  const renderers: DocumentRendererProps["renderers"] = {
+    block: {
+      heading: ({ level, children }) => {
+        const textContent = getTextFromReactNode(children);
+        const id = slugify(textContent);
+        const Heading = `h${level}` as any;
+        return (
+          <Heading id={id} className="scroll-mt-28">
+            {children}
+          </Heading>
+        );
+      },
+    },
+  };
 
   return (
     <main className="min-h-screen bg-white dark:bg-black overflow-hidden selection:bg-welqo-terracotta/20">
@@ -70,9 +129,11 @@ export default async function MentionsLegalesPage({
           </Link>
 
           <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tighter leading-[0.95] mb-8">
-            {t("title1")}
+            {locale !== "en" ? "Mentions" : "Legal"}
             <br />
-            <span className="text-welqo-terracotta">{t("title2")}</span>
+            <span className="text-welqo-terracotta">
+              {locale !== "en" ? "légales." : "notice."}
+            </span>
           </h1>
 
           <div className="flex items-center gap-4 text-slate-500">
@@ -80,7 +141,7 @@ export default async function MentionsLegalesPage({
               {t("transparency")}
             </span>
             <span className="text-[10px] font-bold tracking-widest">
-              Dernière mise à jour : {new Date().getFullYear()}
+              Dernière mise à jour : {new Date(page.updatedAt).getFullYear()}
             </span>
           </div>
         </div>
@@ -89,164 +150,37 @@ export default async function MentionsLegalesPage({
       <div className="max-w-5xl mx-auto px-4 py-24">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-20">
           {/* Sommaire — Desktop only */}
-          <aside className="hidden lg:block lg:col-span-4 sticky top-12 h-fit">
-            <div className="p-8 rounded-3xl border border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-sm">
-              <p className="text-[10px] font-black tracking-[0.2em] text-slate-400 mb-8">
-                {t("summary")}
-              </p>
-              <nav className="space-y-5">
-                {SECTIONS.map((section, i) => (
-                  <a
-                    key={section.id}
-                    href={`#${section.id}`}
-                    className="block text-xs font-bold text-slate-500 hover:text-welqo-terracotta transition-colors"
-                  >
-                    <span className="text-slate-300 dark:text-slate-700 mr-3">
-                      0{i + 1}
-                    </span>
-                    {section.label}
-                  </a>
-                ))}
-              </nav>
-            </div>
-          </aside>
+          {toc.length > 0 && (
+            <aside className="hidden lg:block lg:col-span-4 sticky top-12 h-fit">
+              <div className="p-8 rounded-3xl border border-slate-100 dark:border-white/5 bg-slate-50/50 dark:bg-slate-900/50 backdrop-blur-sm">
+                <p className="text-[10px] font-black tracking-[0.2em] text-slate-400 mb-8">
+                  {t("summary")}
+                </p>
+                <nav className="space-y-5">
+                  {toc.map((section, i) => (
+                    <a
+                      key={section.id}
+                      href={`#${section.id}`}
+                      className="block text-xs font-bold text-slate-500 hover:text-welqo-terracotta transition-colors"
+                    >
+                      <span className="text-slate-300 dark:text-slate-700 mr-3">
+                        0{i + 1}
+                      </span>
+                      {section.text}
+                    </a>
+                  ))}
+                </nav>
+              </div>
+            </aside>
+          )}
 
           {/* Contenu principal */}
-          <div className="lg:col-span-8 space-y-24">
-            {/* 1. Éditeur */}
-            <section id="editeur" className="scroll-mt-12">
-              <h2 className="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white mb-8">
-                1. {t("sectionTitle1")}
-              </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-slate-100 dark:bg-white/5 border border-slate-100 dark:border-white/5 rounded-3xl overflow-hidden shadow-2xl shadow-slate-900/5">
-                {[
-                  {
-                    label: t("label_company"),
-                    value: "Lonside Corp.",
-                  },
-                  {
-                    label: t("label_headquarters"),
-                    value: "Lille, France",
-                  },
-                  { label: "SIRET", value: "999 912 173 00013" },
-                  {
-                    label: t("label_capital"),
-                    value: "10 000 €",
-                  },
-                  {
-                    label: "Email",
-                    value: "contact@welqo.fr",
-                    color: "text-welqo-terracotta",
-                  },
-                  {
-                    label: t("label_publisher"),
-                    value: "Kevin Tsague",
-                  },
-                ].map((item) => (
-                  <div
-                    key={item.label}
-                    className="bg-white dark:bg-slate-950 p-8"
-                  >
-                    <p className="text-[10px] font-black tracking-widest text-slate-400 mb-2">
-                      {item.label}
-                    </p>
-                    <p
-                      className={`font-bold text-sm ${item.color || "text-slate-900 dark:text-white"}`}
-                    >
-                      {item.value}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </section>
-
-            {/* 2. Hébergement */}
-            <section id="hebergement" className="scroll-mt-12">
-              <h2 className="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white mb-8">
-                2. {t("sectionTitle2")}
-              </h2>
-              <div className="p-8 bg-slate-50 dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-white/5">
-                <div className="flex flex-col md:flex-row gap-12">
-                  <div className="flex-1">
-                    <p className="text-[10px] font-black tracking-widest text-slate-400 mb-2">
-                      {t("label_provider")}
-                    </p>
-                    <p className="text-slate-900 dark:text-white font-bold text-lg">
-                      Vercel Inc.
-                    </p>
-                    <p className="text-slate-500 text-xs mt-2 leading-relaxed">
-                      440 N Barranca Ave #4133
-                      <br />
-                      Covina, CA 91723
-                    </p>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-[10px] font-black tracking-widest text-slate-400 mb-2">
-                      {t("label_jurisdiction")}
-                    </p>
-                    <p className="text-slate-900 dark:text-white font-bold text-lg">
-                      {t("jurisdictionValue")}
-                    </p>
-                    <p className="text-slate-500 text-xs mt-2 leading-relaxed">
-                      {t("jurisdictionDesc")}
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* 3. Propriété */}
-            <section id="propriete" className="scroll-mt-12">
-              <h2 className="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white mb-8">
-                3. {t("sectionTitle3")}
-              </h2>
-              <div className="prose prose-slate dark:prose-invert max-w-none">
-                <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-[15px]">
-                  {t("proprieteText")}
-                </p>
-              </div>
-            </section>
-
-            {/* 4. Responsabilité */}
-            <section id="responsabilite" className="scroll-mt-12">
-              <h2 className="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white mb-8">
-                4. {t("sectionTitle4")}
-              </h2>
-              <div className="p-8 bg-welqo-terracotta/5 border border-welqo-terracotta/10 rounded-3xl">
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed text-[15px]">
-                  {t("responsabiliteText")}
-                </p>
-              </div>
-            </section>
-
-            {/* 5. Données */}
-            <section id="donnees" className="scroll-mt-12">
-              <h2 className="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white mb-8">
-                5. {t("sectionTitle5")}
-              </h2>
-              <div className="flex items-center justify-between p-8 bg-slate-900 rounded-3xl group">
-                <div className="space-y-1">
-                  <p className="text-white font-bold">{t("donneesTitle")}</p>
-                  <p className="text-slate-400 text-xs">{t("donneesDesc")}</p>
-                </div>
-                <Link
-                  href={`${base}/politique-de-confidentialite`}
-                  className="px-6 py-3 bg-white text-slate-900 rounded-xl text-xs font-bold hover:bg-welqo-terracotta hover:text-white transition-all shadow-xl"
-                >
-                  {t("viewPolicy")}
-                </Link>
-              </div>
-            </section>
-
-            {/* 6. Cookies */}
-            <section id="cookies" className="scroll-mt-12">
-              <h2 className="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white mb-8">
-                6. {t("sectionTitle6")}
-              </h2>
-              <p className="text-slate-500 dark:text-slate-400 leading-relaxed text-[15px]">
-                {t("cookiesText")}
-              </p>
-            </section>
+          <div
+            className={`${toc.length > 0 ? "lg:col-span-8" : "lg:col-span-12"} space-y-24`}
+          >
+            <div className="prose prose-slate dark:prose-invert max-w-none prose-p:text-[15px] prose-p:leading-relaxed prose-p:text-slate-500 dark:prose-p:text-slate-400 prose-headings:text-slate-900 dark:prose-headings:text-white prose-h2:text-3xl prose-h2:font-bold prose-h2:tracking-tighter prose-h2:mb-8 prose-h2:mt-16 first:prose-h2:mt-0">
+              <DocumentRenderer document={contentNodes} renderers={renderers} />
+            </div>
           </div>
         </div>
       </div>

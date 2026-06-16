@@ -1,7 +1,7 @@
 import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
-import { BLOG_POSTS } from "../../../lib/blog";
+import { reader } from "../../../lib/reader";
 import { JsonLd } from "../../../components/JsonLd";
 import { getTranslations } from "next-intl/server";
 
@@ -80,8 +80,36 @@ export default async function BlogPage({
 }) {
   const t = await getTranslations({ locale, namespace: "Blog" });
   const base = `/${locale}`;
-  const featured = BLOG_POSTS[0];
-  const rest = BLOG_POSTS.slice(1);
+
+  const rawPosts = await reader.collections.posts.all();
+  const posts = rawPosts
+    .map((p) => ({
+      slug: p.slug,
+      ...p.entry,
+    }))
+    .sort(
+      (a, b) =>
+        new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
+
+  if (posts.length === 0) {
+    return (
+      <main className="min-h-screen bg-white dark:bg-black flex items-center justify-center">
+        <p className="text-slate-500">{t("articleComingSoon")}</p>
+      </main>
+    );
+  }
+
+  const featured = posts[0];
+  const rest = posts.slice(1);
+
+  const getCoverImage = (post: typeof featured) => {
+    return post.coverImage || post.coverImageUrl || "";
+  };
+
+  const getCoverImageAlt = (post: typeof featured) => {
+    return locale !== "en" ? post.coverImageAltFr : post.coverImageAltEn;
+  };
 
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -112,7 +140,7 @@ export default async function BlogPage({
         : "Welqo Blog — Airbnb Hauts-de-France Tips",
     url: locale === "fr" ? `${BASE_URL}/blog` : `${BASE_URL}/${locale}/blog`,
     publisher: { "@type": "Organization", name: "Welqo", url: BASE_URL },
-    blogPost: BLOG_POSTS.map((p) => ({
+    blogPost: posts.map((p) => ({
       "@type": "BlogPosting",
       headline: locale !== "en" ? p.titleFr : p.titleEn,
       url:
@@ -199,8 +227,8 @@ export default async function BlogPage({
                 {/* Cover image */}
                 <div className="relative aspect-video overflow-hidden">
                   <Image
-                    src={featured.coverImage}
-                    alt={featured.coverImageAlt}
+                    src={getCoverImage(featured)}
+                    alt={getCoverImageAlt(featured) || ""}
                     fill
                     sizes="(max-width: 1024px) 100vw, 42vw"
                     className="object-cover group-hover:scale-105 transition-transform duration-700"
@@ -272,8 +300,8 @@ export default async function BlogPage({
                 {/* Thumb */}
                 <div className="relative w-full sm:w-32 aspect-[4/3] rounded-lg overflow-hidden shrink-0 bg-slate-200 dark:bg-slate-800">
                   <Image
-                    src={post.coverImage}
-                    alt={post.coverImageAlt}
+                    src={getCoverImage(post)}
+                    alt={getCoverImageAlt(post) || ""}
                     fill
                     sizes="(max-width: 640px) 100vw, 128px"
                     className="object-cover group-hover:scale-105 transition-transform duration-700"

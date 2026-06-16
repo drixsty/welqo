@@ -15,9 +15,7 @@ export async function generateMetadata({
 }: {
   params: { locale: string };
 }) {
-  const page = await reader.collections.pages.read(
-    "politique-de-confidentialite",
-  );
+  const page = await reader.collections.pages.read("politique-de-cookies");
   if (!page) return {};
 
   const title = locale !== "en" ? page.titleFr : page.titleEn;
@@ -49,17 +47,15 @@ function getTextFromReactNode(node: any): string {
   return "";
 }
 
-export default async function PolitiqueConfidentialitePage({
+export default async function PolitiqueCookiesPage({
   params: { locale },
 }: {
   params: { locale: string };
 }) {
-  const page = await reader.collections.pages.read(
-    "politique-de-confidentialite",
-  );
+  const page = await reader.collections.pages.read("politique-de-cookies");
   if (!page) notFound();
 
-  const t = await getTranslations({ locale, namespace: "PrivacyPolicy" });
+  const t = await getTranslations({ locale, namespace: "PrivacyPolicy" }); // fallback namespace for common translated keys
   const base = `/${locale}`;
 
   const title = locale !== "en" ? page.titleFr : page.titleEn;
@@ -133,17 +129,17 @@ export default async function PolitiqueConfidentialitePage({
           </Link>
 
           <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-[0.95] mb-6">
-            {locale !== "en" ? "Votre vie privée," : "Your privacy,"}
+            {locale !== "en" ? "Politique de" : "Cookies"}
             <br />
             <span className="text-welqo-terracotta">
-              {locale !== "en" ? "notre priorité." : "our priority."}
+              {locale !== "en" ? "Cookies." : "Policy."}
             </span>
           </h1>
 
           <div className="flex flex-wrap items-center gap-4 text-slate-500">
             <span className="flex items-center gap-2 px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold">
               <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              {t("gdprCompliant")}
+              {locale !== "en" ? "Gestion des cookies" : "Cookies Management"}
             </span>
             <span className="text-[10px] font-bold">
               Dernière mise à jour : {new Date(page.updatedAt).getFullYear()}

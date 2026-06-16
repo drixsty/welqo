@@ -936,11 +936,11 @@ export default async function HomePage({
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {[
               {
-                slug: "combien-rapporte-airbnb-lille-2025",
+                slug: "combien-rapporte-airbnb-lille-2026",
                 title:
                   locale === "en"
-                    ? "Lille Yield 2025"
-                    : "Rentabilité Lille 2025",
+                    ? "Lille Yield 2026"
+                    : "Rentabilité Lille 2026",
                 desc:
                   locale === "en"
                     ? "Complete study of district-by-district revenues."

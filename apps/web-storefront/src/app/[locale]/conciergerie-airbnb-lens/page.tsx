@@ -403,12 +403,12 @@ export default async function LensLandingPage({
               {
                 title:
                   locale === "en"
-                    ? "How Much Does an Airbnb in Lens Earn in 2025?"
-                    : "Combien rapporte un Airbnb à Lens en 2025 ?",
+                    ? "How Much Does an Airbnb in Lens Earn in 2026?"
+                    : "Combien rapporte un Airbnb à Lens en 2026 ?",
                 href:
                   locale === "fr"
-                    ? "/blog/combien-rapporte-airbnb-lens-2025"
-                    : "/en/blog/combien-rapporte-airbnb-lens-2025",
+                    ? "/blog/combien-rapporte-airbnb-lens-2026"
+                    : "/en/blog/combien-rapporte-airbnb-lens-2026",
                 category: locale === "en" ? "Profitability" : "Rentabilité",
               },
               {
@@ -426,7 +426,7 @@ export default async function LensLandingPage({
                 title:
                   locale === "en"
                     ? "Investing in Short-Term Rentals in the Bassin Minier"
-                    : "Investir en LCD dans le Bassin Minier en 2025",
+                    : "Investir en LCD dans le Bassin Minier en 2026",
                 href:
                   locale === "fr"
                     ? "/blog/investir-lcd-bassin-minier-hauts-de-france"

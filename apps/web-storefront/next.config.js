@@ -25,6 +25,40 @@ const nextConfig = {
       },
     ];
   },
+  async redirects() {
+    return [
+      {
+        source: "/blog/combien-rapporte-airbnb-lille-2025",
+        destination: "/blog/combien-rapporte-airbnb-lille-2026",
+        permanent: true,
+      },
+      {
+        source: "/:locale(fr|en)/blog/combien-rapporte-airbnb-lille-2025",
+        destination: "/:locale/blog/combien-rapporte-airbnb-lille-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/combien-rapporte-airbnb-lens-2025",
+        destination: "/blog/combien-rapporte-airbnb-lens-2026",
+        permanent: true,
+      },
+      {
+        source: "/:locale(fr|en)/blog/combien-rapporte-airbnb-lens-2025",
+        destination: "/:locale/blog/combien-rapporte-airbnb-lens-2026",
+        permanent: true,
+      },
+      {
+        source: "/blog/combien-rapporte-airbnb-arras-2025",
+        destination: "/blog/combien-rapporte-airbnb-arras-2026",
+        permanent: true,
+      },
+      {
+        source: "/:locale(fr|en)/blog/combien-rapporte-airbnb-arras-2025",
+        destination: "/:locale/blog/combien-rapporte-airbnb-arras-2026",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [
       {

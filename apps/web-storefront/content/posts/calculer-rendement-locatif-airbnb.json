@@ -1,0 +1,723 @@
+{
+  "titleFr": "Comment calculer le rendement locatif de son Airbnb en 2026",
+  "titleEn": "How to Calculate Your Airbnb Rental Yield in 2026",
+  "descriptionFr": "Rendement brut, rendement net, cash-flow… Apprenez à calculer la vraie rentabilité de votre Airbnb avec notre méthode et notre simulateur.",
+  "descriptionEn": "Gross yield, net yield, cash flow — learn to calculate your Airbnb's true profitability with our method and simulator.",
+  "category": "Guide",
+  "publishedAt": "2026-05-15",
+  "updatedAt": "2026-06-16",
+  "readingMinutes": 8,
+  "keywordsFr": [
+    "calculer rendement airbnb",
+    "rentabilité airbnb calcul",
+    "rendement locatif courte durée",
+    "simulateur rentabilité airbnb"
+  ],
+  "keywordsEn": [
+    "calculate airbnb yield",
+    "airbnb rental return calculation",
+    "short term rental profitability"
+  ],
+  "coverImage": null,
+  "coverImageUrl": "https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop",
+  "coverImageAltFr": "Calcul rendement locatif Airbnb — Welqo Hauts-de-France",
+  "coverImageAltEn": "Calculate rental yield Airbnb — Welqo Northern France",
+  "contentFr": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Avant d'investir dans un logement en location courte durée, une\r\n          question prime sur toutes les autres : combien va-t-il vraiment\r\n          rapporter ? La réponse tient en trois calculs — rendement brut,\r\n          rendement net et cash-flow — que la plupart des investisseurs\r\n          confondent ou ignorent. Ce guide vous explique chacun avec des exemples\r\n          concrets sur le marché des Hauts-de-France."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Étape 1 : Le rendement brut"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Formule :",
+          "bold": true
+        },
+        {
+          "text": "(Revenus bruts annuels ÷ Coût total\r\n            d'acquisition) × 100"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Exemple — Lens (35 m², acheté 65 000 €) :",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Revenu brut mensuel : 950 €"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Revenu brut annuel : 11 400 €"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Coût total d'acquisition : 65 000 € + 6 000 € de frais de notaire\r\n              = 71 000 €"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Rendement brut : 11 400 ÷ 71 000 × 100 = 16,1 %",
+              "bold": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Le rendement brut est un filtre rapide pour comparer les biens.\r\n            Visez 8 %+ en Hauts-de-France. En dessous de 6 %, l'investissement\r\n            mérite un examen sérieux."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Étape 2 : Le rendement net"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Formule :",
+          "bold": true
+        },
+        {
+          "text": "((Revenus bruts annuels − Charges\r\n            annuelles) ÷ Coût total d'acquisition) × 100"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Charges annuelles à inclure :"
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Commission de gestion Welqo (20 %) :",
+              "bold": true
+            },
+            {
+              "text": "2 280 €/an"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Taxe foncière :",
+              "bold": true
+            },
+            {
+              "text": "~600 €/an (estimation Lens)"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Charges de copropriété :",
+              "bold": true
+            },
+            {
+              "text": "~600 €/an"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Assurance PNO (propriétaire non-occupant) :",
+              "bold": true
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "~200 €/an"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Provision maintenance (1 % de la valeur/an) :",
+              "bold": true
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "~650 €/an"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Total charges annuelles :",
+              "bold": true
+            },
+            {
+              "text": "~4 330 €"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Rendement net : (11 400 − 4 330) ÷ 71 000 × 100 = 9,9 %",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Un rendement net supérieur à 7 % sur le marché des Hauts-de-France\r\n            est excellent. À titre de comparaison, la location longue durée sur\r\n            le même secteur affiche en moyenne 4 à 5 % net."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Étape 3 : Le cash-flow mensuel"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Si vous financez l'achat à crédit, le cash-flow est l'indicateur\r\n            qui compte le plus au quotidien."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Formule :",
+          "bold": true
+        },
+        {
+          "text": "Revenus bruts mensuels − Charges\r\n            mensuelles − Mensualité de crédit"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Exemple (71 000 € financés à 3,5 % sur 20 ans) :",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Revenu brut mensuel : 950 €"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Charges mensuelles : 4 330 € ÷ 12 = 361 €"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Mensualité de crédit : ~410 €"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Cash-flow mensuel : 950 − 361 − 410 = +179 €",
+              "bold": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Un cash-flow positif dès la première année est atteignable en\r\n            Hauts-de-France avec le bon bien et une gestion professionnelle."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "3 erreurs à éviter dans vos calculs"
+        }
+      ]
+    },
+    {
+      "type": "ordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Utiliser des projections de revenus optimistes :",
+              "bold": true
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "Basez votre estimation sur un taux d'occupation de 65 à 70 %, pas\r\n            90 %. Utilisez les tarifs hors événement, pas les pics."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Oublier la fiscalité :",
+              "bold": true
+            },
+            {
+              "text": "Les revenus Airbnb sont\r\n            imposables. Sous le régime micro-BIC (recommandé pour des revenus\r\n            inférieurs à 77 700 €/an), 50 % du revenu brut est exonéré. Tenez\r\n            compte de votre taux marginal sur les 50 % restants."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Exclure les travaux de rénovation du calcul de rendement :",
+              "bold": true
+            },
+            {
+              "text": " "
+            },
+            {
+              "text": "Si vous dépensez 10 000 € en rénovation, ajoutez-les à votre coût\r\n            d'acquisition avant de calculer le rendement."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "contentEn": [
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Before investing in a short-term rental property, one question matters\r\n          above all others: how much will it actually earn? The answer lies in\r\n          three calculations — gross yield, net yield and cash flow — that most\r\n          investors confuse or skip. This guide explains each one with concrete\r\n          examples from the Hauts-de-France market."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Step 1: Gross Yield"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Formula:",
+          "bold": true
+        },
+        {
+          "text": "(Annual gross revenue ÷ Total acquisition\r\n            cost) × 100"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Example — Lens (35 sqm, purchased for €65,000):",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Monthly gross revenue: €950"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Annual gross revenue: €11,400"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Total acquisition cost: €65,000 + €6,000 notary fees = €71,000"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Gross yield: 11,400 ÷ 71,000 × 100 = 16.1%",
+              "bold": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Gross yield is a quick filter to compare properties. Aim for 8%+\r\n            in Hauts-de-France. Anything below 6% warrants serious scrutiny."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Step 2: Net Yield"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Formula:",
+          "bold": true
+        },
+        {
+          "text": "((Annual gross revenue − Annual costs) ÷\r\n            Total acquisition cost) × 100"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Annual costs to include:"
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Welqo management commission (20%):",
+              "bold": true
+            },
+            {
+              "text": "€2,280/year"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Property tax (taxe foncière):",
+              "bold": true
+            },
+            {
+              "text": "~€600/year (Lens\r\n              estimate)"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Co-ownership charges:",
+              "bold": true
+            },
+            {
+              "text": "~€600/year"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "PNO insurance (non-owner occupancy):",
+              "bold": true
+            },
+            {
+              "text": "~€200/year"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Maintenance reserve (1% of value/year):",
+              "bold": true
+            },
+            {
+              "text": "~€650/year"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Total annual costs:",
+              "bold": true
+            },
+            {
+              "text": "~€4,330"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Net yield: (11,400 − 4,330) ÷ 71,000 × 100 = 9.9%",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "A net yield above 7% in the Hauts-de-France market is excellent.\r\n            For reference, long-term rental in the same area averages 4–5%\r\n            net."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Step 3: Monthly Cash Flow"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "If you finance the purchase with a mortgage, cash flow is the\r\n            indicator that matters most day-to-day."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Formula:",
+          "bold": true
+        },
+        {
+          "text": "Monthly gross revenue − Monthly costs −\r\n            Monthly loan repayment"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Example (€71,000 financed at 3.5% over 20 years):",
+          "bold": true
+        }
+      ]
+    },
+    {
+      "type": "unordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Monthly gross revenue: €950"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Monthly costs: €4,330 ÷ 12 = €361"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Monthly loan repayment: ~€410"
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Monthly cash flow: 950 − 361 − 410 = +€179",
+              "bold": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "A positive cash flow from day one is achievable in Hauts-de-France\r\n            with the right property and professional management."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "3 Errors to Avoid in Your Calculations"
+        }
+      ]
+    },
+    {
+      "type": "ordered-list",
+      "children": [
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Using best-case revenue projections:",
+              "bold": true
+            },
+            {
+              "text": "Base your\r\n            estimate on an occupancy rate of 65–70%, not 90%. Use low-season\r\n            nightly rates, not event peaks."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Forgetting income tax:",
+              "bold": true
+            },
+            {
+              "text": "Airbnb revenue is taxable.\r\n            Under the micro-BIC regime (recommended for revenues below\r\n            €77,700/year), 50% of gross revenue is tax-exempt. Factor in your\r\n            marginal rate on the remaining 50%."
+            }
+          ]
+        },
+        {
+          "type": "list-item",
+          "children": [
+            {
+              "text": "Excluding refurbishment costs from the yield:",
+              "bold": true
+            },
+            {
+              "text": "If\r\n            you spend €10,000 renovating the property, add that to your\r\n            acquisition cost before calculating the yield."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

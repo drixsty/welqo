@@ -401,12 +401,12 @@ export default async function LilleLandingPage({
               {
                 title:
                   locale === "en"
-                    ? "How Much Does an Airbnb in Lille Earn in 2025?"
-                    : "Combien rapporte un Airbnb à Lille en 2025 ?",
+                    ? "How Much Does an Airbnb in Lille Earn in 2026?"
+                    : "Combien rapporte un Airbnb à Lille en 2026 ?",
                 href:
                   locale === "fr"
-                    ? "/blog/combien-rapporte-airbnb-lille-2025"
-                    : "/en/blog/combien-rapporte-airbnb-lille-2025",
+                    ? "/blog/combien-rapporte-airbnb-lille-2026"
+                    : "/en/blog/combien-rapporte-airbnb-lille-2026",
                 category: locale === "en" ? "Profitability" : "Rentabilité",
               },
               {

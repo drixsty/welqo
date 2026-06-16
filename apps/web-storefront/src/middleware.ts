@@ -14,6 +14,6 @@ export default createMiddleware({
 export const config = {
   // Match all pathnames except for API, internals, and static files
   matcher: [
-    "/((?!api|_next/static|_next/image|_next/data|_vercel|images|favicon.ico|robots.txt|sitemap.xml|manifest.webmanifest|googleaf5c4f2d1757e220.html).*)",
+    "/((?!api|keystatic|_next/static|_next/image|_next/data|_vercel|images|favicon.ico|robots.txt|sitemap.xml|manifest.webmanifest|googleaf5c4f2d1757e220.html).*)",
   ],
 };

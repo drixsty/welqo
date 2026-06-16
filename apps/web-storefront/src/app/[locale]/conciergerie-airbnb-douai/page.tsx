@@ -408,8 +408,8 @@ export default async function DouaiLandingPage({
               {
                 title:
                   locale === "en"
-                    ? "Delegated Airbnb Management: Complete Guide 2025"
-                    : "Gestion déléguée Airbnb : guide complet 2025",
+                    ? "Delegated Airbnb Management: Complete Guide 2026"
+                    : "Gestion déléguée Airbnb : guide complet 2026",
                 href:
                   locale === "fr"
                     ? "/blog/gestion-deleguee-airbnb-guide-complet"

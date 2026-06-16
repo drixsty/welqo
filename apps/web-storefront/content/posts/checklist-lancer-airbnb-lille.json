@@ -1,0 +1,213 @@
+{
+  "titleFr": "La checklist complète pour lancer son Airbnb à Lille en 2026",
+  "titleEn": "The Complete Checklist to Launch Your Airbnb in Lille in 2026",
+  "descriptionFr": "Réglementation, équipements obligatoires, photos, prix d'entrée… Le guide pas-à-pas pour mettre votre bien en location courte durée à Lille sans stress.",
+  "descriptionEn": "Regulations, required equipment, photos, pricing — the step-by-step guide to list your Lille property on short-term rental platforms, stress-free.",
+  "category": "Guide",
+  "publishedAt": "2026-03-10",
+  "updatedAt": "2026-06-16",
+  "readingMinutes": 6,
+  "keywordsFr": [
+    "lancer airbnb lille",
+    "ouvrir location courte durée lille",
+    "réglementation airbnb lille"
+  ],
+  "keywordsEn": [
+    "start airbnb lille",
+    "airbnb regulations lille"
+  ],
+  "coverImage": null,
+  "coverImageUrl": "https://images.unsplash.com/photo-1560448204-61dc36dc98c8?q=80&w=2070&auto=format&fit=crop",
+  "coverImageAltFr": "Checklist pour lancer un Airbnb à Lille",
+  "coverImageAltEn": "Checklist to launch an Airbnb in Lille",
+  "contentFr": [
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Les 6 étapes incontournables avant de publier"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Chaque étape est indispensable pour garantir des avis 5 étoiles et des revenus optimisés dès le premier mois."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Temps estimé pour lancer votre Airbnb"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n                <>\r\n                  En solo : <strong>2 à 4 semaines</strong>. Avec Welqo :{\" \"}\r\n                  <strong>72h</strong> après signature du contrat. Nous gérons\r\n                  tout de A à Z.\r\n                </>\r\n              )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Les erreurs les plus fréquentes"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Gérer soi-même ou confier à Welqo ?"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "children": [
+        {
+          "type": "table-row",
+          "children": [
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Critère"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Gestion solo"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Avec Welqo"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            Si vous avez le temps et l'envie de vous impliquer, la gestion en\r\n            solo est tout à fait possible. Mais si vous souhaitez maximiser vos\r\n            revenus sans y consacrer vos soirées et week-ends, Welqo s'avère\r\n            rapidement rentable.{\" \"}\r\n            <a\r\n              href={`${base}/proprietaires`}\r\n              className=\"text-welqo-terracotta font-bold hover:underline\"\r\n            >\r\n              Découvrez nos services en Hauts-de-France →\r\n            </a>\r\n          </>\r\n        )"
+        }
+      ]
+    }
+  ],
+  "contentEn": [
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "The 6 essential steps before publishing"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Each step is vital to ensure 5-star reviews and optimized rental income from the very first month."
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "Estimated time to launch your Airbnb"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n                <>\r\n                  On your own: <strong>2 to 4 weeks</strong>. With Welqo:{\" \"}\r\n                  <strong>72h</strong> after signing the contract. We handle\r\n                  everything from A to Z.\r\n                </>\r\n              )"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "The most common mistakes"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "level": 2,
+      "children": [
+        {
+          "text": "Manage on your own or entrust to Welqo?"
+        }
+      ]
+    },
+    {
+      "type": "table",
+      "children": [
+        {
+          "type": "table-row",
+          "children": [
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Criteria"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "Solo management"
+                }
+              ]
+            },
+            {
+              "type": "table-header-cell",
+              "children": [
+                {
+                  "text": "With Welqo"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "text": "(\r\n          <>\r\n            If you have the time and desire to get involved, managing on your\r\n            own is entirely possible. But if you want to maximize your income\r\n            without spending your evenings and weekends, Welqo quickly pays for\r\n            itself.{\" \"}\r\n            <a\r\n              href={`${base}/proprietaires`}\r\n              className=\"text-welqo-terracotta font-bold hover:underline\"\r\n            >\r\n              Discover our services in Northern France →\r\n            </a>\r\n          </>\r\n        )"
+        }
+      ]
+    }
+  ]
+}

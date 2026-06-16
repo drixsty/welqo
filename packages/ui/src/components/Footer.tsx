@@ -15,7 +15,9 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
     title: isFr ? "L'Univers Welqo" : "Welqo Universe",
     links: [
       {
-        label: isFr ? "Propriétaires — Confier son Airbnb" : "For owners — Hand over your Airbnb",
+        label: isFr
+          ? "Propriétaires — Confier son Airbnb"
+          : "For owners — Hand over your Airbnb",
         href: `${base}/proprietaires`,
       },
       {
@@ -65,7 +67,9 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
         href: `${base}/conciergerie-airbnb-arras`,
       },
       {
-        label: isFr ? "Conciergerie Airbnb Béthune" : "Airbnb Concierge Béthune",
+        label: isFr
+          ? "Conciergerie Airbnb Béthune"
+          : "Airbnb Concierge Béthune",
         href: `${base}/conciergerie-airbnb-bethune`,
       },
       {
@@ -97,6 +101,10 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
       {
         label: isFr ? "Politique de confidentialité" : "Privacy policy",
         href: `${base}/politique-de-confidentialite`,
+      },
+      {
+        label: isFr ? "Politique de cookies" : "Cookies policy",
+        href: `${base}/politique-de-cookies`,
       },
     ],
   };
@@ -202,6 +210,12 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
               className="hover:text-welqo-terracotta transition-colors"
             >
               {isFr ? "Confidentialité" : "Privacy"}
+            </a>
+            <a
+              href={`${base}/politique-de-cookies`}
+              className="hover:text-welqo-terracotta transition-colors"
+            >
+              {isFr ? "Cookies" : "Cookies"}
             </a>
             <span className="text-welqo-terracotta font-bold tracking-tighter">
               Hauts-de-France

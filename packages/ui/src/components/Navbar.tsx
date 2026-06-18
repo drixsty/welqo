@@ -30,14 +30,14 @@ function defaultLinks(locale: string): NavLink[] {
           sectionId: "comment-ca-marche",
         },
         {
-          label: "Pourquoi Welqo",
-          href: `${homePath}#pourquoi-welqo`,
-          sectionId: "pourquoi-welqo",
-        },
-        {
           label: "Estimer mes revenus",
           href: `${homePath}#simulator`,
           sectionId: "simulator",
+        },
+        {
+          label: "Pourquoi Welqo",
+          href: `${homePath}#pourquoi-welqo`,
+          sectionId: "pourquoi-welqo",
         },
         { label: "Propriétaires", href: `${base}/proprietaires` },
         { label: "Blog", href: `${base}/blog` },
@@ -49,14 +49,14 @@ function defaultLinks(locale: string): NavLink[] {
           sectionId: "how-it-works",
         },
         {
-          label: "Why Welqo",
-          href: `${homePath}#why-welqo`,
-          sectionId: "why-welqo",
-        },
-        {
           label: "Estimate my income",
           href: `${homePath}#simulator`,
           sectionId: "simulator",
+        },
+        {
+          label: "Why Welqo",
+          href: `${homePath}#why-welqo`,
+          sectionId: "why-welqo",
         },
         { label: "For owners", href: `${base}/proprietaires` },
         { label: "Blog", href: `${base}/blog` },
@@ -174,9 +174,9 @@ export const Navbar = ({
             {navLinks.map((link, i) => {
               const active = isLinkActive(link);
               const showSep =
-                i === navLinks.length - 1 &&
                 !link.sectionId &&
-                navLinks.length > 1;
+                i > 0 &&
+                !!navLinks[i - 1]?.sectionId;
               return (
                 <div key={link.label} className="flex items-center">
                   {showSep && (

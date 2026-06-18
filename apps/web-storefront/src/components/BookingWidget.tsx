@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useRef, useEffect } from "react";
 import {
@@ -113,7 +113,7 @@ export const BookingWidget = ({
             {t("perNight")}
           </span>
         </div>
-        <div className="flex items-center gap-1.5 text-emerald-500 text-[9px] font-black tracking-widest bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+        <div className="flex items-center gap-1.5 text-emerald-500 text-[9px] font-black tracking-widest bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-lg">
           <Zap className="w-2.5 h-2.5 fill-current" />
           {t("bestPrice")}
         </div>

@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useState, useMemo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -321,7 +321,7 @@ export const InteractiveHeroDashboard = ({
         </div>
 
         {/* Interactive Badge indicator */}
-        <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 px-2 py-0.5 rounded-full text-[7px] font-black tracking-widest animate-pulse-soft">
+        <div className="absolute top-3 right-3 flex items-center gap-1.5 bg-emerald-500/10 text-emerald-400 border border-emerald-500/25 px-2 py-0.5 rounded-lg text-[7px] font-black tracking-widest animate-pulse-soft">
           <span className="w-1 h-1 rounded-full bg-emerald-400" />
           {t("interactiveSimulator")}
         </div>

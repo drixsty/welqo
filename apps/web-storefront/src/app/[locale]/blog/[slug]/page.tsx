@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
@@ -228,14 +228,14 @@ export default async function BlogPostPage({
             {/* 1. Metadata Badges */}
             <div className="flex items-center gap-3 mb-6">
               <span
-                className={`px-3 py-1 rounded-full text-[9px] font-bold border backdrop-blur-md ${
+                className={`px-3 py-1 rounded-lg text-[9px] font-bold border backdrop-blur-md ${
                   CATEGORY_STYLE[post.category] ??
                   "bg-white/10 text-white border-white/20"
                 }`}
               >
                 {post.category}
               </span>
-              <span className="text-white/80 text-[9px] font-bold tracking-widest bg-black/20 backdrop-blur-sm px-3 py-1 rounded-full border border-white/5">
+              <span className="text-white/80 text-[9px] font-bold tracking-widest bg-black/20 backdrop-blur-sm px-3 py-1 rounded-lg border border-white/5">
                 {post.readingMinutes} min {t("deRead").toLowerCase()}
               </span>
             </div>

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "@/components/JsonLd";
@@ -171,20 +171,22 @@ export default async function CalculateurPage({
       <JsonLd data={breadcrumbSchema} />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative py-28 md:py-36 px-6 bg-slate-950 overflow-hidden border-b border-white/5">
+      <section className="relative min-h-[calc(100dvh-4rem)] flex flex-col items-center justify-center bg-slate-950 overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(212,85,55,0.25),transparent)]" />
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
         </div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-md">
-            <span className="text-welqo-terracotta text-[11px] font-bold tracking-wider">
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-lg">
+            <span className="w-1.5 h-1.5 bg-welqo-terracotta rounded-full animate-pulse-soft" />
+            <span className="text-welqo-terracotta text-[9px] font-bold tracking-[0.15em]">
               {t("heroBadge")}
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl font-bold text-white tracking-tighter leading-[0.95] mb-6">
+          <h1 className="text-[2rem] sm:text-4xl md:text-5xl font-bold text-white tracking-tighter leading-[1.05] mb-5">
             {t("heroTitle")}
           </h1>
-          <p className="text-lg text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed mb-10">
+          <p className="text-[13px] sm:text-sm text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed mb-10">
             {t("heroSubtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "@/components/JsonLd";
@@ -226,12 +226,13 @@ export default async function EuralilleLandingPage({
       <JsonLd data={breadcrumbSchema} />
 
       {/* ── HERO ─────────────────────────────────────────────────────── */}
-      <section className="relative py-28 md:py-36 px-6 bg-slate-950 overflow-hidden border-b border-white/5">
+      <section className="relative min-h-[calc(100dvh-4rem)] flex flex-col items-center justify-center bg-slate-950 overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(212,85,55,0.25),transparent)]" />
+          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_20%_80%,rgba(15,23,42,0.5),transparent)]" />
         </div>
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-10">
           <nav className="flex items-center justify-center gap-2 text-[10px] font-bold text-white/50 mb-6 tracking-wider">
             <a
               href={
@@ -246,19 +247,20 @@ export default async function EuralilleLandingPage({
             <span className="text-welqo-terracotta/40">/</span>
             <span className="text-white/30">Euralille</span>
           </nav>
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-md">
-            <span className="text-welqo-terracotta text-[11px] font-bold tracking-wider">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-lg">
+            <span className="w-1.5 h-1.5 bg-welqo-terracotta rounded-full animate-pulse-soft" />
+            <span className="text-welqo-terracotta text-[9px] font-bold tracking-[0.15em]">
               {t("heroBadge")}
             </span>
           </div>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white tracking-tighter leading-[0.95] mb-6">
+          <h1 className="text-[2rem] sm:text-4xl md:text-5xl font-bold text-white tracking-tighter leading-[1.05] mb-5">
             {t("heroTitle1")}
             <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-welqo-terracotta to-orange-400">
               {t("heroTitle2")}
             </span>
           </h1>
-          <p className="text-lg text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed mb-10">
+          <p className="text-[13px] sm:text-sm text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed mb-10">
             {t("heroSubtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -376,7 +378,7 @@ export default async function EuralilleLandingPage({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_80%_80%,rgba(212,85,55,0.15),transparent)]" />
         <div className="max-w-4xl mx-auto relative z-10">
           <div className="text-center mb-12">
-            <span className="px-2.5 py-1 bg-welqo-terracotta/20 border border-welqo-terracotta/30 text-welqo-terracotta text-[9px] font-bold rounded-full tracking-wider">
+            <span className="px-2.5 py-1 bg-welqo-terracotta/20 border border-welqo-terracotta/30 text-welqo-terracotta text-[9px] font-bold rounded-lg tracking-wider">
               {locale === "en" ? "Yield Simulator" : "Simulateur local"}
             </span>
             <h2 className="text-3xl md:text-4xl font-bold tracking-tighter mt-4">

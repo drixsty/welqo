@@ -1,6 +1,26 @@
-"use client";
+﻿"use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useCallback } from "react";
+
+function formatPhone(value: string): string {
+  const hasPlus = value.trimStart().startsWith("+");
+  const digits = value.replace(/\D/g, "");
+  if (hasPlus) {
+    const d = digits.slice(0, 11);
+    let r = "+";
+    if (d.length > 0) r += d.slice(0, 2);
+    if (d.length > 2) r += " " + d[2];
+    if (d.length > 3) r += " " + d.slice(3, 5);
+    if (d.length > 5) r += " " + d.slice(5, 7);
+    if (d.length > 7) r += " " + d.slice(7, 9);
+    if (d.length > 9) r += " " + d.slice(9, 11);
+    return r;
+  }
+  const d = digits.slice(0, 10);
+  const groups: string[] = [];
+  for (let i = 0; i < d.length; i += 2) groups.push(d.slice(i, i + 2));
+  return groups.join(" ");
+}
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import {
@@ -38,6 +58,10 @@ export function OwnerPropertyShowcaseSidebar({
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const handlePhoneChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => setPhone(formatPhone(e.target.value)),
+    [],
+  );
 
   const { monthlyRevenue, yearlyRevenue } = useMemo(() => {
     const monthly = Math.round(basePrice * occupancyDays);
@@ -76,7 +100,7 @@ export function OwnerPropertyShowcaseSidebar({
 
         <div className="relative z-10 space-y-6">
           <div>
-            <span className="px-2.5 py-1 bg-primary/20 border border-primary/30 text-primary text-[9px] font-black rounded-full tracking-widest inline-flex items-center gap-1.5 shadow-sm">
+            <span className="px-2.5 py-1 bg-primary/20 border border-primary/30 text-primary text-[9px] font-black rounded-lg tracking-widest inline-flex items-center gap-1.5 shadow-sm">
               <Sparkles className="w-3 h-3 text-primary" />
               {t("ownerPerformance")}
             </span>
@@ -268,10 +292,12 @@ export function OwnerPropertyShowcaseSidebar({
                         </label>
                         <input
                           type="tel"
+                          inputMode="tel"
                           required
                           value={phone}
-                          onChange={(e) => setPhone(e.target.value)}
+                          onChange={handlePhoneChange}
                           placeholder="06 12 34 56 78"
+                          autoComplete="tel"
                           className="w-full bg-white/[0.03] border border-white/10 focus:border-primary rounded-xl px-4 py-3 text-xs outline-none transition-colors"
                         />
                       </div>

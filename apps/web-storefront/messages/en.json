@@ -285,7 +285,7 @@
     "errorFirstName": "First name is too short",
     "errorLastName": "Last name is too short",
     "errorEmail": "Invalid email",
-    "errorPhone": "Invalid phone number"
+    "errorPhone": "Invalid number — e.g. 06 12 34 56 78 or +33 6 12 34 56 78"
   },
   "Reservation": {
     "missingInfoTitle": "Missing information",
@@ -385,11 +385,13 @@
   },
   "ContactForm": {
     "errorName": "First name required (min. 2 characters)",
-    "errorPhone": "Phone number required",
+    "errorEmail": "Invalid email address",
+    "errorPhone": "Invalid number — e.g. 06 12 34 56 78 or +33 6 12 34 56 78",
     "errorCity": "City required",
     "messageSent": "Message sent!",
     "messageSentDesc": "We'll get back to you within 24h to schedule a free visit of your property.",
     "namePlaceholder": "Your first name *",
+    "emailPlaceholder": "Your email *",
     "phonePlaceholder": "Phone *",
     "cityPlaceholder": "Your city *",
     "messagePlaceholder": "Describe your property (optional)",
@@ -397,7 +399,13 @@
     "submitButton": "Request my free quote →",
     "sending": "Sending...",
     "disclaimer": "Free on-site visit · Response guaranteed within 24h · No commitment",
-    "bookCallSubtitle": "To validate your request and schedule a visit of your property, book your 15-minute evaluation call directly with our local City Manager:"
+    "bookCallSubtitle": "To validate your request and schedule a visit of your property, book your 15-minute evaluation call directly with our local City Manager:",
+    "consentLabel": "I agree to be contacted by Welqo regarding my quote request. My data is processed in accordance with our privacy policy."
+  },
+  "Newsletter": {
+    "placeholder": "Your email address",
+    "cta": "Subscribe",
+    "success": "Thank you! You are now subscribed to the Welqo newsletter."
   },
   "FilterBar": {
     "filters": "Filters",

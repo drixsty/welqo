@@ -55,6 +55,13 @@ export class BookingController {
     );
   }
 
+  @Get("confirmation")
+  @ApiOperation({ summary: "Get public booking info by Stripe session ID" })
+  async getConfirmation(@Query("session_id") sessionId: string) {
+    if (!sessionId) throw new BadRequestException("session_id is required");
+    return this.bookingService.getBookingBySessionId(sessionId);
+  }
+
   @Post("cancel")
   @ApiOperation({ summary: "Cancel a booking via cancellation token (public)" })
   @ApiResponse({ status: 200, description: "Booking cancelled" })

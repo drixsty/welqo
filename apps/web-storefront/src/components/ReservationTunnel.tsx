@@ -1,6 +1,26 @@
-"use client";
+﻿"use client";
 
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
+
+function formatPhone(value: string): string {
+  const hasPlus = value.trimStart().startsWith("+");
+  const digits = value.replace(/\D/g, "");
+  if (hasPlus) {
+    const d = digits.slice(0, 11);
+    let r = "+";
+    if (d.length > 0) r += d.slice(0, 2);
+    if (d.length > 2) r += " " + d[2];
+    if (d.length > 3) r += " " + d.slice(3, 5);
+    if (d.length > 5) r += " " + d.slice(5, 7);
+    if (d.length > 7) r += " " + d.slice(7, 9);
+    if (d.length > 9) r += " " + d.slice(9, 11);
+    return r;
+  }
+  const d = digits.slice(0, 10);
+  const groups: string[] = [];
+  for (let i = 0; i < d.length; i += 2) groups.push(d.slice(i, i + 2));
+  return groups.join(" ");
+}
 import { motion, AnimatePresence } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -44,7 +64,15 @@ export const ReservationTunnel = ({
     firstName: z.string().min(2, t("errorFirstName")),
     lastName: z.string().min(2, t("errorLastName")),
     email: z.string().email(t("errorEmail")),
-    phone: z.string().min(10, t("errorPhone")),
+    phone: z
+      .string()
+      .refine(
+        (v) =>
+          /^(?:(?:\+33|0033)\s?[1-9](?:\s?\d{2}){4}|0[1-9](?:\s?\d{2}){4})$/.test(
+            v,
+          ),
+        t("errorPhone"),
+      ),
   });
 
   React.useEffect(() => {
@@ -64,12 +92,21 @@ export const ReservationTunnel = ({
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
     trigger,
   } = useForm<BookingFormData>({
     resolver: zodResolver(bookingSchema),
     mode: "onChange",
   });
+
+  const handlePhoneChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const formatted = formatPhone(e.target.value);
+      setValue("phone", formatted, { shouldValidate: true });
+    },
+    [setValue],
+  );
 
   const nextStep = async () => {
     if (step === 2) {
@@ -231,7 +268,7 @@ export const ReservationTunnel = ({
                         {quote.guests > 1 ? t("guestPlural") : t("guest")}
                       </span>
                     </div>
-                    <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-full">
+                    <span className="text-[10px] font-bold text-emerald-500 bg-emerald-500/10 px-3 py-1 rounded-lg">
                       {t("flexibleCancel")}
                     </span>
                   </div>
@@ -341,13 +378,17 @@ export const ReservationTunnel = ({
                     </label>
                     <input
                       {...register("phone")}
+                      onChange={handlePhoneChange}
+                      type="tel"
+                      inputMode="tel"
                       className={cn(
                         "w-full bg-slate-50 dark:bg-white/[0.02] border rounded-xl px-4 py-3.5 text-xs outline-none transition-all focus:ring-4 focus:ring-welqo-terracotta/5",
                         errors.phone
                           ? "border-red-500"
                           : "border-slate-100 dark:border-white/10 focus:border-welqo-terracotta",
                       )}
-                      placeholder="+33 6 12 34 56 78"
+                      placeholder="06 12 34 56 78"
+                      autoComplete="tel"
                     />
                     {errors.phone && (
                       <p className="text-[9px] text-red-500 font-bold ml-1">

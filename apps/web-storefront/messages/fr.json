@@ -285,7 +285,7 @@
     "errorFirstName": "Le prénom est trop court",
     "errorLastName": "Le nom est trop court",
     "errorEmail": "Email invalide",
-    "errorPhone": "Numéro de téléphone invalide"
+    "errorPhone": "Numéro invalide — ex : 06 12 34 56 78 ou +33 6 12 34 56 78"
   },
   "Reservation": {
     "missingInfoTitle": "Informations manquantes",
@@ -385,11 +385,13 @@
   },
   "ContactForm": {
     "errorName": "Prénom requis (2 caractères min.)",
-    "errorPhone": "Numéro de téléphone requis",
+    "errorEmail": "Adresse email invalide",
+    "errorPhone": "Numéro invalide — ex : 06 12 34 56 78 ou +33 6 12 34 56 78",
     "errorCity": "Ville requise",
     "messageSent": "Message envoyé !",
     "messageSentDesc": "Nous vous recontactons sous 24h pour organiser la visite gratuite de votre bien.",
     "namePlaceholder": "Votre prénom *",
+    "emailPlaceholder": "Votre email *",
     "phonePlaceholder": "Téléphone *",
     "cityPlaceholder": "Votre ville *",
     "messagePlaceholder": "Décrivez votre bien (optionnel)",
@@ -397,7 +399,13 @@
     "submitButton": "Demander mon devis gratuit →",
     "sending": "Envoi en cours...",
     "disclaimer": "Visite sur place offerte · Réponse garantie sous 24h · Sans engagement",
-    "bookCallSubtitle": "Pour valider votre demande et planifier la visite de votre logement, réservez directement votre appel d'évaluation de 15 minutes avec notre City Manager local :"
+    "bookCallSubtitle": "Pour valider votre demande et planifier la visite de votre logement, réservez directement votre appel d'évaluation de 15 minutes avec notre City Manager local :",
+    "consentLabel": "J'accepte d'être contacté(e) par Welqo concernant ma demande de devis. Mes données sont traitées conformément à notre politique de confidentialité."
+  },
+  "Newsletter": {
+    "placeholder": "Votre adresse email",
+    "cta": "S'inscrire",
+    "success": "Merci ! Vous êtes inscrit(e) à la newsletter Welqo."
   },
   "FilterBar": {
     "filters": "Filtres",

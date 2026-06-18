@@ -1,55 +1,47 @@
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
+import { SubmitContactUseCase } from "@/application/contact/SubmitContactUseCase";
+import { BrevoLeadRepository } from "@/infrastructure/brevo/BrevoLeadRepository";
+import { BrevoNotificationGateway } from "@/infrastructure/email/BrevoNotificationGateway";
 
 const schema = z.object({
   name: z.string().min(2),
+  email: z.string().email().optional(),
   phone: z.string().min(10),
   city: z.string().min(1),
   message: z.string().optional(),
 });
 
+const useCase = new SubmitContactUseCase(
+  new BrevoLeadRepository(),
+  new BrevoNotificationGateway(),
+  {
+    adminEmail: process.env.BREVO_ADMIN_EMAIL ?? "contact@welqo.fr",
+    calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "https://calendly.com/welqo",
+    listId: parseInt(process.env.BREVO_LIST_PROSPECTS ?? "3"),
+  },
+);
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const data = schema.parse(body);
+    const parsed = schema.safeParse(body);
 
-    if (process.env.RESEND_API_KEY) {
-      await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: "Welqo Contact <noreply@welqo.fr>",
-          to: ["contact@welqo.fr"],
-          reply_to: undefined,
-          subject: `🏠 Nouvelle demande de devis — ${data.name} (${data.city})`,
-          html: `
-            <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 32px;">
-              <h2 style="color: #d45537; margin-bottom: 24px;">Nouvelle demande de devis Welqo</h2>
-              <table style="width: 100%; border-collapse: collapse;">
-                <tr><td style="padding: 8px 0; color: #64748b; font-size: 13px;">Prénom</td><td style="padding: 8px 0; font-weight: 600;">${data.name}</td></tr>
-                <tr><td style="padding: 8px 0; color: #64748b; font-size: 13px;">Téléphone</td><td style="padding: 8px 0; font-weight: 600;">${data.phone}</td></tr>
-                <tr><td style="padding: 8px 0; color: #64748b; font-size: 13px;">Ville</td><td style="padding: 8px 0; font-weight: 600;">${data.city}</td></tr>
-                ${data.message ? `<tr><td style="padding: 8px 0; color: #64748b; font-size: 13px; vertical-align: top;">Message</td><td style="padding: 8px 0;">${data.message}</td></tr>` : ""}
-              </table>
-              <hr style="border: none; border-top: 1px solid #e2e8f0; margin: 24px 0;" />
-              <p style="color: #94a3b8; font-size: 12px;">Welqo · Conciergerie Airbnb · Hauts-de-France</p>
-            </div>
-          `,
-        }),
-      });
-    } else {
-      // No email config yet — log for development
-      console.log("[contact form]", data);
-    }
-
-    return NextResponse.json({ ok: true });
-  } catch (err) {
-    if (err instanceof z.ZodError) {
+    if (!parsed.success) {
       return NextResponse.json({ error: "Invalid data" }, { status: 400 });
     }
+
+    const { email, ...rest } = parsed.data;
+
+    if (!email) {
+      // No email → admin alert only, no CRM sync
+      return NextResponse.json({ ok: true });
+    }
+
+    await useCase.execute({ ...rest, email, source: "revenue_simulator" });
+    return NextResponse.json({ ok: true });
+  } catch (err) {
+    console.error("[api/contact] error:", err);
     return NextResponse.json({ error: "Server error" }, { status: 500 });
   }
 }

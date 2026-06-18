@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import type { Metadata } from "next";
 import { getTranslations } from "next-intl/server";
 import { JsonLd } from "../../components/JsonLd";
@@ -379,7 +379,7 @@ export default async function HomePage({
       <section className="py-12 px-4 bg-white dark:bg-black">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
-            <span className="inline-block px-3 py-1 mb-3 text-[9px] font-bold tracking-[0.15em] bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 rounded-full border border-red-100 dark:border-red-900">
+            <span className="inline-block px-3 py-1 mb-3 text-[9px] font-bold tracking-[0.15em] bg-red-50 dark:bg-red-950/30 text-red-700 dark:text-red-400 rounded-lg border border-red-100 dark:border-red-900">
               {t("painBadge")}
             </span>
             <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white mb-3">
@@ -417,7 +417,7 @@ export default async function HomePage({
       >
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-16">
-            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-full border border-orange-100 dark:border-orange-900">
+            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-lg border border-orange-100 dark:border-orange-900">
               {t("processBadge")}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
@@ -473,7 +473,7 @@ export default async function HomePage({
       >
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
-            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-full border border-orange-100 dark:border-orange-900">
+            <span className="inline-block px-3 py-1 mb-4 text-[9px] font-bold tracking-[0.15em] bg-orange-50 dark:bg-orange-950/30 text-orange-800 dark:text-orange-400 rounded-lg border border-orange-100 dark:border-orange-900">
               {t("servicesBadge")}
             </span>
             <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-slate-900 dark:text-white">
@@ -518,7 +518,7 @@ export default async function HomePage({
                             />
                           </svg>
                         </div>
-                        <span className="px-2.5 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 rounded-full text-[9px] font-bold tracking-wider">
+                        <span className="px-2.5 py-0.5 bg-slate-50 dark:bg-slate-800 border border-slate-100 dark:border-slate-700 text-slate-500 dark:text-slate-400 rounded-lg text-[9px] font-bold tracking-wider">
                           {svc.tag}
                         </span>
                       </div>
@@ -727,7 +727,7 @@ export default async function HomePage({
             <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-blue-500/5 rounded-full blur-[100px] translate-y-1/2 -translate-x-1/2 pointer-events-none" />
             <div className="relative z-10 flex flex-col md:flex-row gap-10 md:gap-8 lg:gap-16 items-stretch md:items-center">
               <div className="flex-grow text-center md:text-left">
-                <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 bg-welqo-terracotta/10 border border-welqo-terracotta/20 text-welqo-terracotta rounded-full">
+                <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 bg-welqo-terracotta/10 border border-welqo-terracotta/20 text-welqo-terracotta rounded-lg">
                   <span className="relative flex h-2 w-2">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-welqo-terracotta opacity-75" />
                     <span className="relative inline-flex rounded-full h-2 w-2 bg-welqo-terracotta" />
@@ -877,7 +877,7 @@ export default async function HomePage({
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(212,85,55,0.1),transparent)]" />
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-px h-24 bg-gradient-to-b from-transparent via-welqo-terracotta/40 to-transparent" />
         <div className="relative z-10 max-w-3xl mx-auto text-center">
-          <span className="inline-block px-4 py-2 mb-8 bg-welqo-terracotta/10 border border-welqo-terracotta/20 text-welqo-terracotta rounded-full text-[10px] font-bold tracking-[0.15em]">
+          <span className="inline-block px-4 py-2 mb-8 bg-welqo-terracotta/10 border border-welqo-terracotta/20 text-welqo-terracotta rounded-lg text-[10px] font-bold tracking-[0.15em]">
             {t("readyToDelegate")}
           </span>
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-6 leading-[0.9]">

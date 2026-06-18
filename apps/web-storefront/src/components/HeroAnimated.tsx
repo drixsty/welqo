@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { motion } from "framer-motion";
 
@@ -40,7 +40,7 @@ export function HeroAnimated({
     <div className="w-full flex flex-col items-center lg:items-start text-center lg:text-left">
       {/* Badge */}
       <motion.div {...fadeUp(0.05)} className="mb-5">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-full">
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-lg">
           <span className="w-1.5 h-1.5 bg-welqo-terracotta rounded-full animate-pulse-soft" />
           <span className="text-welqo-terracotta text-[9px] font-bold tracking-[0.15em]">
             {badge}
@@ -108,7 +108,7 @@ export function HeroAnimated({
         {chips.map((c) => (
           <span
             key={c.text}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/8 text-slate-400 rounded-full text-[10px] font-semibold"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-white/5 border border-white/8 text-slate-400 rounded-lg text-[10px] font-semibold"
           >
             <span>{c.icon}</span> {c.text}
           </span>

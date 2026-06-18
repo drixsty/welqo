@@ -3,7 +3,27 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState, useRef, useEffect, useMemo } from "react";
+import { useState, useRef, useEffect, useMemo, useCallback } from "react";
+
+function formatPhone(value: string): string {
+  const hasPlus = value.trimStart().startsWith("+");
+  const digits = value.replace(/\D/g, "");
+  if (hasPlus) {
+    const d = digits.slice(0, 11);
+    let r = "+";
+    if (d.length > 0) r += d.slice(0, 2);
+    if (d.length > 2) r += " " + d[2];
+    if (d.length > 3) r += " " + d.slice(3, 5);
+    if (d.length > 5) r += " " + d.slice(5, 7);
+    if (d.length > 7) r += " " + d.slice(7, 9);
+    if (d.length > 9) r += " " + d.slice(9, 11);
+    return r;
+  }
+  const d = digits.slice(0, 10);
+  const groups: string[] = [];
+  for (let i = 0; i < d.length; i += 2) groups.push(d.slice(i, i + 2));
+  return groups.join(" ");
+}
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
 import { submitContactForm } from "@/app/actions/contact";
@@ -36,9 +56,19 @@ export function ContactForm({ locale }: { locale: string }) {
     () =>
       z.object({
         name: z.string().min(2, t("errorName")),
-        phone: z.string().min(10, t("errorPhone")),
+        email: z.string().email(t("errorEmail")),
+        phone: z
+          .string()
+          .refine(
+            (v) =>
+              /^(?:(?:\+33|0033)\s?[1-9](?:\s?\d{2}){4}|0[1-9](?:\s?\d{2}){4})$/.test(
+                v,
+              ),
+            t("errorPhone"),
+          ),
         city: z.string().min(1, t("errorCity")),
         message: z.string().optional(),
+        consent: z.boolean().optional(),
       }),
     [t],
   );
@@ -49,6 +79,8 @@ export function ContactForm({ locale }: { locale: string }) {
     "idle" | "loading" | "success" | "error"
   >("idle");
   const [submittedName, setSubmittedName] = useState("");
+  const [submittedEmail, setSubmittedEmail] = useState("");
+  const [submittedPhone, setSubmittedPhone] = useState("");
   const [isCityOpen, setIsCityOpen] = useState(false);
   const cityDropdownRef = useRef<HTMLDivElement>(null);
 
@@ -63,6 +95,14 @@ export function ContactForm({ locale }: { locale: string }) {
     resolver: zodResolver(schema),
     mode: "onTouched",
   });
+
+  const handlePhoneChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const formatted = formatPhone(e.target.value);
+      setValue("phone", formatted, { shouldValidate: true });
+    },
+    [setValue],
+  );
 
   const selectedCity = watch("city");
 
@@ -85,6 +125,8 @@ export function ContactForm({ locale }: { locale: string }) {
       const res = await submitContactForm(data);
       if (!res.success) throw new Error();
       setSubmittedName(data.name);
+      setSubmittedEmail(data.email);
+      setSubmittedPhone(data.phone.replace(/\s/g, ""));
       setStatus("success");
       reset();
     } catch {
@@ -96,7 +138,14 @@ export function ContactForm({ locale }: { locale: string }) {
     const calendlyBaseUrl =
       process.env.NEXT_PUBLIC_CALENDLY_URL ||
       "https://calendly.com/welqo/15min";
-    const calendlyUrl = `${calendlyBaseUrl}?hide_landing_page_details=1&hide_gdpr_banner=1&name=${encodeURIComponent(submittedName)}`;
+    const calendlyParams = new URLSearchParams({
+      hide_landing_page_details: "1",
+      hide_gdpr_banner: "1",
+      name: submittedName,
+      email: submittedEmail,
+      a1: submittedPhone,
+    });
+    const calendlyUrl = `${calendlyBaseUrl}?${calendlyParams.toString()}`;
 
     return (
       <div className="flex flex-col items-center justify-center gap-4 py-6 text-center w-full">
@@ -140,6 +189,8 @@ export function ContactForm({ locale }: { locale: string }) {
           onClick={() => {
             setStatus("idle");
             setSubmittedName("");
+            setSubmittedEmail("");
+            setSubmittedPhone("");
           }}
           className="mt-4 px-5 py-2.5 bg-white/5 hover:bg-white/10 text-slate-400 hover:text-white rounded-lg font-bold text-xs transition-all cursor-pointer inline-flex items-center gap-1.5"
         >
@@ -170,14 +221,27 @@ export function ContactForm({ locale }: { locale: string }) {
         </div>
         <div>
           <input
-            {...register("phone")}
-            placeholder={t("phonePlaceholder")}
-            type="tel"
+            {...register("email")}
+            placeholder={t("emailPlaceholder")}
+            type="email"
             className={inputClass}
-            autoComplete="tel"
+            autoComplete="email"
           />
-          {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
+          {errors.email && <p className={errorClass}>{errors.email.message}</p>}
         </div>
+      </div>
+
+      <div>
+        <input
+          {...register("phone")}
+          onChange={handlePhoneChange}
+          placeholder={t("phonePlaceholder")}
+          type="tel"
+          inputMode="tel"
+          className={inputClass}
+          autoComplete="tel"
+        />
+        {errors.phone && <p className={errorClass}>{errors.phone.message}</p>}
       </div>
 
       <div className="relative animate-fade-in" ref={cityDropdownRef}>
@@ -259,6 +323,17 @@ export function ContactForm({ locale }: { locale: string }) {
           className={`${inputClass} resize-none`}
         />
       </div>
+
+      <label className="flex items-start gap-2.5 cursor-pointer group">
+        <input
+          {...register("consent")}
+          type="checkbox"
+          className="mt-0.5 h-4 w-4 shrink-0 rounded border-white/20 bg-white/5 text-welqo-terracotta accent-welqo-terracotta cursor-pointer"
+        />
+        <span className="text-[11px] text-slate-500 group-hover:text-slate-400 leading-relaxed transition-colors">
+          {t("consentLabel")}
+        </span>
+      </label>
 
       {status === "error" && (
         <p className="text-sm text-red-400 font-medium text-center">

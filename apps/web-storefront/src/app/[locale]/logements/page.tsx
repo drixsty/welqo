@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Metadata } from "next";
 import { ArrowRight, MapPin, Clock, Star } from "lucide-react";
 import { getTranslations } from "next-intl/server";
@@ -108,19 +108,19 @@ export default async function PropertyListingPage({
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950">
       {/* Hero */}
-      <section className="py-24 px-6 border-b border-slate-100 dark:border-white/5">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 bg-primary/10 border border-primary/20 rounded-md">
-            <span className="text-primary text-[11px] font-bold tracking-wider">
+      <section className="min-h-[calc(100dvh-4rem)] flex flex-col items-center justify-center border-b border-slate-100 dark:border-white/5">
+        <div className="max-w-4xl mx-auto text-center px-6 py-10">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 bg-primary/10 border border-primary/20 rounded-lg">
+            <span className="text-primary text-[9px] font-bold tracking-[0.15em]">
               {t("portfolioBadge")}
             </span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-slate-900 dark:text-white tracking-tighter leading-[0.95] mb-6">
+          <h1 className="text-[2rem] sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white tracking-tighter leading-[1.05] mb-5">
             {t("heroTitle1")}
             <br />
             <span className="text-primary">{t("heroTitle2")}</span>
           </h1>
-          <p className="text-lg text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed mb-10">
+          <p className="text-[13px] sm:text-sm text-slate-500 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed mb-10">
             {t("heroSubtitle")}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -227,7 +227,7 @@ export default async function PropertyListingPage({
             <div className="bg-slate-900 text-white rounded-2xl p-8 border border-white/10 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-welqo-terracotta/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
               <div className="relative z-10">
-                <span className="px-2.5 py-1 bg-primary/20 border border-primary/30 text-primary text-[9px] font-bold rounded-full tracking-wider">
+                <span className="px-2.5 py-1 bg-primary/20 border border-primary/30 text-primary text-[9px] font-bold rounded-lg tracking-wider">
                   {t("auditBadge")}
                 </span>
                 <h3 className="text-2xl font-bold mt-4 mb-3 tracking-tight">

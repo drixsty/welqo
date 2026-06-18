@@ -837,9 +837,10 @@ export function RevenueSimulator({
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                           name: leadName,
+                          email: leadEmail,
                           phone: leadPhone,
                           city: villes[villeIdx].label,
-                          message: `Simulation: ${piecesOptions[piecesIdx].label}, ${surface}m², Estimé: ${revenuWelqo}€/mois (Email: ${leadEmail})`,
+                          message: `Simulation: ${piecesOptions[piecesIdx].label}, ${surface}m², Estimé: ${revenuWelqo}€/mois`,
                         }),
                       });
                       if (!res.ok) throw new Error();

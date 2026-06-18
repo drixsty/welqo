@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import type { Metadata } from "next";
 import Image from "next/image";
 import { reader } from "../../../lib/reader";
@@ -210,7 +210,7 @@ export default async function BlogPage({
                 {(["Rentabilité", "Guide", "Stratégie"] as const).map((cat) => (
                   <span
                     key={cat}
-                    className={`px-4 py-1 rounded-full text-[10px] font-bold border ${CATEGORY_STYLE[cat] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}
+                    className={`px-4 py-1 rounded-lg text-[10px] font-bold border ${CATEGORY_STYLE[cat] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}
                   >
                     {t(CATEGORY_I18N_KEY[cat] ?? cat)}
                   </span>
@@ -237,7 +237,7 @@ export default async function BlogPage({
 
                   <div className="absolute top-6 left-6 flex items-center gap-2">
                     <span
-                      className={`px-3 py-1 rounded-full text-[10px] font-bold border backdrop-blur-md ${CATEGORY_STYLE[featured.category] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}
+                      className={`px-3 py-1 rounded-lg text-[10px] font-bold border backdrop-blur-md ${CATEGORY_STYLE[featured.category] ?? "bg-slate-800 text-slate-300 border-slate-700"}`}
                     >
                       {t(
                         CATEGORY_I18N_KEY[featured.category] ??
@@ -311,7 +311,7 @@ export default async function BlogPage({
                 <div className="flex flex-col justify-between flex-1 py-1">
                   <div>
                     <span
-                      className={`inline-block px-2.5 py-0.5 rounded-full text-[10px] font-bold mb-3 border ${
+                      className={`inline-block px-2.5 py-0.5 rounded-lg text-[10px] font-bold mb-3 border ${
                         CATEGORY_STYLE[post.category] ??
                         "bg-slate-100 text-slate-600 border-slate-200"
                       }`}

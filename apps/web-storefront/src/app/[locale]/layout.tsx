@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { Navbar, Footer } from "@welqo/ui";
+import { NewsletterForm } from "../../components/NewsletterForm";
 import { CookieBanner } from "../../components/CookieBanner";
 import { CustomCursor } from "../../components/CustomCursor";
 import { StickyMobileCTA } from "../../components/StickyMobileCTA";
@@ -227,7 +228,7 @@ export default async function LocaleLayout({
           <div className="pt-16">
             <PageTransition>{children}</PageTransition>
           </div>
-          <Footer locale={locale} />
+          <Footer locale={locale} newsletterSlot={<NewsletterForm />} />
           <CustomCursor />
           <StickyMobileCTA locale={locale} />
           <CookieBanner locale={locale} />

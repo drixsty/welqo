@@ -1,10 +1,12 @@
 import { BrandLogo } from "./BrandLogo";
+import React from "react";
 
 interface FooterProps {
   locale?: string;
+  newsletterSlot?: React.ReactNode;
 }
 
-export const Footer = ({ locale = "fr" }: FooterProps) => {
+export const Footer = ({ locale = "fr", newsletterSlot }: FooterProps) => {
   const isFr = locale !== "en";
   const base = isFr ? "" : "/en";
   const homePath = isFr ? "/" : "/en";
@@ -128,6 +130,20 @@ export const Footer = ({ locale = "fr" }: FooterProps) => {
                 ? "Gestion locative et conciergerie de confiance pour vos biens d'exception dans le Hauts-de-France."
                 : "Trusted rental management and concierge services for your exceptional properties in Hauts-de-France."}
             </p>
+
+            {newsletterSlot && (
+              <div className="pt-2 space-y-2">
+                <p className="text-xs font-bold tracking-widest text-slate-900 dark:text-white uppercase">
+                  {isFr ? "Newsletter" : "Newsletter"}
+                </p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  {isFr
+                    ? "Conseils Airbnb & actualités locatives."
+                    : "Airbnb tips & rental news."}
+                </p>
+                {newsletterSlot}
+              </div>
+            )}
           </div>
 
           {/* Column 1 */}

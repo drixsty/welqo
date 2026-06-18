@@ -1,11 +1,47 @@
 import React from "react";
 import Link from "next/link";
-import { CheckCircle2, Calendar, MapPin, Mail, ArrowRight } from "lucide-react";
+import { CheckCircle2, Calendar, Mail, ArrowRight } from "lucide-react";
 import { getTranslations } from "next-intl/server";
+import { addOrUpdateContact } from "@/lib/email";
 
 interface ConfirmationPageProps {
   params: { locale: string };
   searchParams: { session_id?: string };
+}
+
+async function syncGuestToBrevo(sessionId: string) {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  if (!apiUrl) return;
+
+  try {
+    const res = await fetch(
+      `${apiUrl}/bookings/confirmation?session_id=${sessionId}`,
+      { cache: "no-store" },
+    );
+    if (!res.ok) return;
+
+    const booking = await res.json();
+    if (!booking?.guestEmail || booking.status !== "CONFIRMED") return;
+
+    const listId = parseInt(process.env.BREVO_LIST_GUESTS ?? "3");
+
+    await addOrUpdateContact({
+      email: booking.guestEmail,
+      firstName: booking.guestFirstName,
+      phone: booking.guestPhone,
+      listIds: [listId],
+      attributes: {
+        NOM: booking.guestLastName,
+        PROPERTY_ID: booking.propertyId,
+        LAST_CHECKIN: new Date(booking.checkIn).toISOString().split("T")[0],
+        LAST_CHECKOUT: new Date(booking.checkOut).toISOString().split("T")[0],
+        BOOKING_ID: booking.id,
+        SOURCE: "confirmation_page",
+      },
+    });
+  } catch {
+    // Filet silencieux — le webhook NestJS est la source principale
+  }
 }
 
 export default async function ConfirmationPage({
@@ -14,6 +50,11 @@ export default async function ConfirmationPage({
 }: ConfirmationPageProps) {
   const t = await getTranslations({ locale, namespace: "Confirmation" });
   const base = `/${locale}`;
+
+  // Filet de sécurité : sync Brevo si le webhook NestJS a échoué
+  if (searchParams.session_id) {
+    await syncGuestToBrevo(searchParams.session_id).catch(() => {});
+  }
 
   return (
     <main className="min-h-screen bg-white dark:bg-slate-950 flex items-center justify-center py-20 px-6">

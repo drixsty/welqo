@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getTranslations } from "next-intl/server";
@@ -137,7 +137,7 @@ export default async function MentionsLegalesPage({
           </h1>
 
           <div className="flex items-center gap-4 text-slate-500">
-            <span className="text-[10px] font-bold tracking-widest px-3 py-1 bg-white/5 border border-white/10 rounded-full">
+            <span className="text-[10px] font-bold tracking-widest px-3 py-1 bg-white/5 border border-white/10 rounded-lg">
               {t("transparency")}
             </span>
             <span className="text-[10px] font-bold tracking-widest">

@@ -232,7 +232,9 @@
     "message": "We use cookies to optimise your experience. By continuing, you accept our",
     "policy": "privacy policy",
     "accept": "Accept",
-    "decline": "Decline"
+    "decline": "Decline",
+    "emailPlaceholder": "Your email for the newsletter (optional)",
+    "consentHint": "By accepting, you also consent to receive our newsletter. Revocable via contact@welqo.fr."
   },
   "FilterSidebar": {
     "filters": "Filters",

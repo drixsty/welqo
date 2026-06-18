@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
+import { submitCookieConsentEmail } from "@/app/actions/cookie-consent";
 
 const STORAGE_KEY = "welqo_cookie_consent";
 
@@ -12,18 +13,23 @@ interface CookieBannerProps {
   locale?: string;
 }
 
+function isValidEmail(value: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+}
+
 export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
   const t = useTranslations("CookieBanner");
   const [consent, setConsent] = useState<Consent>(null);
   const [visible, setVisible] = useState(false);
+  const [email, setEmail] = useState("");
   const base = locale === "fr" ? "" : "/en";
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     const stored = localStorage.getItem(STORAGE_KEY) as Consent;
     if (!stored) {
-      const t = setTimeout(() => setVisible(true), 800);
-      return () => clearTimeout(t);
+      const timer = setTimeout(() => setVisible(true), 800);
+      return () => clearTimeout(timer);
     }
     setConsent(stored);
   }, []);
@@ -34,6 +40,10 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
     }
     setConsent("accepted");
     setVisible(false);
+
+    if (email && isValidEmail(email)) {
+      submitCookieConsentEmail({ email, locale }).catch(() => {});
+    }
   };
 
   const decline = () => {
@@ -62,7 +72,7 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
           </h2>
         </div>
 
-        <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-6">
+        <p className="text-slate-600 dark:text-slate-400 text-xs leading-relaxed mb-5">
           {t("message")}{" "}
           <Link
             href={`${base}/politique-de-confidentialite`}
@@ -72,6 +82,21 @@ export function CookieBanner({ locale = "fr" }: CookieBannerProps) {
           </Link>
           .
         </p>
+
+        {/* Section opt-in email — facultatif, séparée du consentement cookies */}
+        <div className="border-t border-slate-100 dark:border-slate-800 pt-4 mb-5">
+          <input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder={t("emailPlaceholder")}
+            aria-label={t("emailPlaceholder")}
+            className="w-full px-3 py-2 mb-2 text-xs border border-slate-200 dark:border-slate-700 rounded-lg bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-welqo-terracotta"
+          />
+          <p className="text-[10px] text-slate-400 leading-snug">
+            {t("consentHint")}
+          </p>
+        </div>
 
         <div className="flex flex-col sm:flex-row gap-2">
           <button

@@ -59,7 +59,8 @@ export function OwnerPropertyShowcaseSidebar({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const handlePhoneChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => setPhone(formatPhone(e.target.value)),
+    (e: React.ChangeEvent<HTMLInputElement>) =>
+      setPhone(formatPhone(e.target.value)),
     [],
   );
 

@@ -15,7 +15,12 @@ import { submitContactForm } from "./contact";
 describe("submitContactForm", () => {
   beforeEach(() => vi.clearAllMocks());
 
-  const validBase = { name: "Kevin T", email: "kevin@test.fr", phone: "0600000000", city: "Lille" };
+  const validBase = {
+    name: "Jean D",
+    email: "jean@test.fr",
+    phone: "0600000000",
+    city: "Lille",
+  };
 
   it("retourne success:true pour un payload valide", async () => {
     const result = await submitContactForm(validBase);
@@ -38,20 +43,23 @@ describe("submitContactForm", () => {
   });
 
   it("inclut l'email dans le template HTML de la notification admin", async () => {
-    await submitContactForm({ ...validBase, email: "kevin@test.fr" });
+    await submitContactForm({ ...validBase, email: "jean@test.fr" });
     const adminCall = mockSendEmail.mock.calls.find(([p]) =>
       p.subject.includes("Lille"),
     );
-    expect(adminCall?.[0].html).toContain("kevin@test.fr");
+    expect(adminCall?.[0].html).toContain("jean@test.fr");
   });
 
   it("ajoute le contact dans Brevo liste Prospects si email fourni", async () => {
-    await submitContactForm({ ...validBase, email: "kevin@test.fr" });
+    await submitContactForm({ ...validBase, email: "jean@test.fr" });
     expect(mockAddOrUpdateContact).toHaveBeenCalledWith(
       expect.objectContaining({
-        email: "kevin@test.fr",
+        email: "jean@test.fr",
         listIds: [1],
-        attributes: expect.objectContaining({ VILLE: "Lille", SOURCE: "contact_form" }),
+        attributes: expect.objectContaining({
+          VILLE: "Lille",
+          SOURCE: "contact_form",
+        }),
       }),
     );
   });
@@ -68,12 +76,21 @@ describe("submitContactForm", () => {
   });
 
   it("retourne success:false si le payload est invalide (email manquant)", async () => {
-    const result = await submitContactForm({ name: "Kevin T", phone: "0600000000", city: "Lille" });
+    const result = await submitContactForm({
+      name: "Jean D",
+      phone: "0600000000",
+      city: "Lille",
+    });
     expect(result.success).toBe(false);
   });
 
   it("retourne success:false si le payload est invalide (phone trop court)", async () => {
-    const result = await submitContactForm({ name: "Kevin T", email: "k@test.fr", phone: "06", city: "" });
+    const result = await submitContactForm({
+      name: "Jean D",
+      email: "k@test.fr",
+      phone: "06",
+      city: "",
+    });
     expect(result.success).toBe(false);
   });
 });

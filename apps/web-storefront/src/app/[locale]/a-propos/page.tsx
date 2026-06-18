@@ -173,7 +173,14 @@ export default async function AboutPage({
       <section className="relative min-h-[calc(100dvh-4rem)] flex flex-col items-center justify-center bg-slate-950 overflow-hidden border-b border-white/5">
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(212,85,55,0.25),transparent)]" />
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)", backgroundSize: "48px 48px" }} />
+          <div
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage:
+                "linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px)",
+              backgroundSize: "48px 48px",
+            }}
+          />
         </div>
         <div className="relative z-10 max-w-4xl mx-auto text-center px-6 py-10">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-5 bg-welqo-terracotta/10 border border-welqo-terracotta/20 rounded-lg">

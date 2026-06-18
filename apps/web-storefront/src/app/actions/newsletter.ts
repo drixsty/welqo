@@ -9,9 +9,12 @@ const schema = z.object({
   locale: z.enum(["fr", "en"]).default("fr"),
 });
 
-const useCase = new SubscribeNewsletterUseCase(new BrevoSubscriberRepository(), {
-  listId: parseInt(process.env.BREVO_LIST_NEWSLETTER ?? "4"),
-});
+const useCase = new SubscribeNewsletterUseCase(
+  new BrevoSubscriberRepository(),
+  {
+    listId: parseInt(process.env.BREVO_LIST_NEWSLETTER ?? "4"),
+  },
+);
 
 export async function subscribeToNewsletter(
   _prevState: unknown,

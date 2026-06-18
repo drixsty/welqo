@@ -26,7 +26,7 @@ export async function generateStaticParams() {
     posts.map((slug) => ({
       slug,
       locale,
-    }))
+    })),
   );
 }
 

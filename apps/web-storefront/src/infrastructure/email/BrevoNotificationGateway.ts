@@ -33,7 +33,8 @@ export class BrevoNotificationGateway implements INotificationGateway {
       html: clientConfirmHtml({
         firstName: contact.name.split(" ")[0],
         calendlyUrl,
-        context: contact.source === "revenue_simulator" ? "simulator" : "contact",
+        context:
+          contact.source === "revenue_simulator" ? "simulator" : "contact",
       }),
     });
   }

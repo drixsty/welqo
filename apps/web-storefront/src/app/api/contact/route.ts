@@ -17,7 +17,8 @@ const useCase = new SubmitContactUseCase(
   new BrevoNotificationGateway(),
   {
     adminEmail: process.env.BREVO_ADMIN_EMAIL ?? "contact@welqo.fr",
-    calendlyUrl: process.env.NEXT_PUBLIC_CALENDLY_URL ?? "https://calendly.com/welqo",
+    calendlyUrl:
+      process.env.NEXT_PUBLIC_CALENDLY_URL ?? "https://calendly.com/welqo",
     listId: parseInt(process.env.BREVO_LIST_PROSPECTS ?? "3"),
   },
 );

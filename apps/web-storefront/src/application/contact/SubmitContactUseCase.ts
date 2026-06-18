@@ -33,7 +33,10 @@ export class SubmitContactUseCase {
 
       const results = await Promise.allSettled([
         this.notifications.sendAdminAlert(contact, this.config.adminEmail),
-        this.notifications.sendClientConfirmation(contact, this.config.calendlyUrl),
+        this.notifications.sendClientConfirmation(
+          contact,
+          this.config.calendlyUrl,
+        ),
         this.leads.save(contact, this.config.listId),
       ]);
 

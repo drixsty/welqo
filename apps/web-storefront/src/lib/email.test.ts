@@ -28,13 +28,16 @@ describe("addOrUpdateContact", () => {
   it("mappe firstName vers PRENOM et phone vers TELEPHONE", async () => {
     await addOrUpdateContact({
       email: "test@welqo.fr",
-      firstName: "Kevin",
+      firstName: "Jean",
       phone: "0600000000",
       listIds: [1],
     });
     expect(mockCreateContact).toHaveBeenCalledWith(
       expect.objectContaining({
-        attributes: expect.objectContaining({ PRENOM: "Kevin", TELEPHONE: "0600000000" }),
+        attributes: expect.objectContaining({
+          PRENOM: "Jean",
+          TELEPHONE: "0600000000",
+        }),
       }),
     );
   });
